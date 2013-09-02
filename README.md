@@ -1,0 +1,66 @@
+# GoodGuyRy's dotfiles
+
+My dotfiles. Very exciting.
+
+## Installation
+
+You can clone the repository wherever you want. To do so, ```cd``` into the desired directory and run the following:
+
+```bash
+git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
+```
+
+From here, you'll want to run ```./setup```. The following options are available when running the setup file:
+
+<table>
+    <tr>
+        <td><code>-h</code>, <code>--help</code></td>
+        <td>Print this help text</td>
+    </tr>
+    <tr>
+        <td><code>--dev-mode</code></td>
+        <td>Link the files in place instead of copying (gitconfig is always copied)<br>"Dev Mode" also initiallizes a Git repo and pulls updates from Github</td>
+    </tr>
+    <tr>
+        <td><code>--no-packages</code></td>
+        <td>Suppress package installations and updates (including casks)</td>
+    </tr>
+    <tr>
+        <td><code>--no-casks</code></td>
+        <td>Supresses installing casks (all other packages are updated/installed)</td>
+    </tr>
+</table>
+
+## Package managers
+
+- Homebrew
+
+- Homebrew Cask (native applications)
+
+- RVM
+
+The full list of installed software is available [here](http://github.com/goodguyry/dotfiles/blob/master/lib/software_list.md).
+
+## OS X defaults
+
+During the 'setup' process you will be asked if you'd like to apply the OS X defaults. You can also apply them independently, if you'd rather, by running the following command:
+
+```bash
+$ osx
+```
+
+I encourage you to take the time to read through the [osx](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) file so you know what settings and applications will be impacted before executing the file.
+
+## Acknowledgements
+
+[Necolas Gallagher](http://github.com/necolas/dotfiles)
+
+[Mathias Bynens](http://github.com/mathiasbynens/dotfiles)
+
+[Shawn Pearce](https://github.com/spearce/)
+
+---
+
+Copyright (C) Ryan Domingue
+
+Offered as-is with no guarantee or warranty, offered nor implied.

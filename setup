@@ -1,0 +1,171 @@
+#!/bin/bash
+
+DOTFILES_DIRECTORY=$(pwd)
+DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
+
+source ./lib/help
+source ./lib/utils
+source ./lib/create_extras
+source ./lib/packages
+
+# Help text
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  run_help
+  exit
+fi
+
+# Test for known flags
+for opt in $@
+do
+  case $opt in
+    --no-packages) no_packages=true ;;  # Supresses installing packages
+    --no-casks) no_casks=true ;;        # Supresses installing casks (during testing)
+    --dev-mode) dev_mode=true ;;        # Link files so they can be maintained easier
+    -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
+  esac
+done
+
+# Before relying on Homebrew, check that packages can be compiled
+if ! type_exists 'gcc'; then
+  e_error "The XCode Command Line Tools must be installed first."
+  printf "  Download them from: https://developer.apple.com/downloads\n"
+  printf "  Then run: bash ~/Projects/dotfiles/bin/setup\n"
+  sleep 3
+  open https://developer.apple.com/downloads
+  exit 1
+fi
+
+# Check for Homebrew
+if ! type_exists 'brew'; then
+  e_header "Installing Homebrew..."
+  ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+  brew doctor
+fi
+
+# Check for git
+if ! type_exists 'git'; then
+  e_header "Updating Homebrew..."
+  brew update
+  e_header "Installing Git..."
+  brew install git
+fi
+
+# Files to copy/link
+INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx functions lib/exports lib/utils)
+
+[ ! -d "$HOME/.bin" ] && mkdir "$HOME/.bin"
+[ ! -d "$HOME/.lib" ] && mkdir "$HOME/.lib"
+
+function copyFiles() {
+
+  # Add gitconfig to list of files to copy
+  INCLUDES_LIST+=(gitconfig)
+  
+  e_header "Copying files over..."
+  
+  for i in ${INCLUDES_LIST[@]} ; do
+    # If the file already exists, remove it
+    [ -h "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
+    # Add a trailing slash to directories
+    [ -d "$i" ] && i="${i}/"
+    cp -fR "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"
+  done
+
+}
+
+function symlinkFiles() {
+
+  e_header "Linking files..."
+
+  for i in ${INCLUDES_LIST[@]} ; do
+    [ -e "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
+    ln -vfFs "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"  
+  done
+  
+  cp -i "${DOTFILES_DIRECTORY}/gitconfig" "${HOME}/.gitconfig"
+  
+}
+
+# Ask before potentially overwriting files
+seek_confirmation "Warning: This step may overwrite your existing dotfiles."
+
+if is_confirmed; then
+  if [[ $dev_mode ]] ; then
+    symlinkFiles
+  else
+    copyFiles
+  fi
+  source ${HOME}/.bash_profile
+else
+  printf "Aborting...\n"
+  exit 1
+fi
+
+# Prompt to create the extras file if it doesn't already exists
+if [[ ! -r "$HOME/.extras" ]] ; then
+  seek_confirmation "The '.extras' file needs to be created and edited."
+  
+  if is_confirmed; then
+    create_extras
+    open ~/.extras
+    sleep 3
+    # Bring attention back to Terminal
+    tput bel
+  else
+    e_warning "You will need to create the extras file manually."
+  fi 
+else
+  e_header "Confirm your Git credentials."
+  open ~/.extras
+  sleep 3
+  # Bring attention back to Terminal
+  tput bel    
+fi
+
+# conditionally init and pull the Git repo
+if [[ $dev_mode ]] ; then
+  cd "${DOTFILES_DIRECTORY}"
+  # Initialize the git repository if it's missing
+  if ! is_git_repo; then
+    e_header "Initializing git repository..."
+    git init
+    git remote add origin ${DOTFILES_GIT_REMOTE}
+    git fetch origin master
+    # Reset the index and working tree to the fetched HEAD
+    git reset --hard FETCH_HEAD
+    # Remove any untracked files
+    git clean -fd
+    e_header "Syncing dotfiles..."
+    # Pull down the latest changes
+    git pull --rebase origin master
+  else
+    e_header "Skipping 'git init'"
+  fi
+fi
+
+# Conditionally install and update packages
+if [[ $no_packages ]]; then
+    printf "Skipped package installations.\n"
+else
+    printf "Updating packages...\n"
+    # Install Homebrew formulae
+    run_brew
+    # Installing native applications
+    if [[ ! $no_casks ]] ; then run_cask; fi
+    # Install Gems
+    run_gem
+    # Download additional applications
+    run_wget
+fi
+
+# Ask before potentially overwriting OS X defaults
+seek_confirmation "Warning: This step may modify your OS X system defaults."
+
+if is_confirmed; then
+    bash ./osx
+    e_success "OS X settings updated! You may need to log out or restart."
+else
+    printf "Skipped OS X settings update.\n"
+fi
+
+unset dev_mode

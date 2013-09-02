@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function run_help() {
+
+cat <<EOT
+Dotfiles - Ryan Domingue - http://ryandomingue.com/
+
+Usage: $(basename "$0") [options]
+
+Options:
+    -h, --help      Print this help text
+    --dev-mode      Link the files in place instead of copying
+                    (gitconfig is always copied)
+                    ** "Dev Mode" also initiallizes a Git repo and pulls updates from Github **
+    --no-packages   Suppress package installations and updates (including casks)
+    --no-casks      Supresses installing casks (all other packages are updated/installed) 
+
+Documentation can be found at https://github.com/goodguyry/dotfiles
+
+Copyright (c) Ryan Domingue
+Licensed under the MIT license.
+EOT
+
+}

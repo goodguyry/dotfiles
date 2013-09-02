@@ -1,0 +1,207 @@
+#!/bin/bash
+
+function check_for_homebrew() {
+  if ! type_exists 'brew'; then
+    e_header "Installing Homebrew..."
+    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    brew doctor
+    [[ $? ]] && e_success "Homebrew installed."
+  fi
+}
+
+function run_brew() {
+  # Check for Homebrew
+  check_for_homebrew
+
+  e_header "Updating Homebrew..."
+  brew update
+
+  e_header "Upgrading installed formulae..."
+  brew upgrade
+
+  # Install GNU core utilities (those that come with OS X are outdated)
+  brew install coreutils
+  
+  # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+  brew install findutils
+  
+  # Install Bash 4
+  brew install bash
+  
+  # Install wget with IRI support
+  brew install wget --enable-iri
+  
+  # Install more recent versions of some OS X tools
+  brew tap homebrew/dupes
+  brew install homebrew/dupes/grep
+  brew tap josegonzalez/homebrew-php
+  brew install php55
+  
+  # Install other useful binaries
+  brew install mysql
+  brew install node
+  brew install rename
+  brew install tree
+  brew install webkit2png
+
+  brew install phantomjs
+  brew install casperjs
+
+  [[ $? ]] && e_success "Homebrew packages installed."  
+  e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+  
+  # Remove outdated versions from the Cellar
+  brew cleanup
+}
+
+function run_cask() {  
+  # Check for Homebrew
+  check_for_homebrew
+
+  e_header "Updating Homebrew..."
+  brew update
+
+  # Install native apps
+  brew tap phinze/homebrew-cask
+  brew install brew-cask
+  
+  [[ $? ]] && e_success "Homebrew Cask installed"
+
+  function installcask() {
+    e_header "Installing ${@}..."
+  	brew cask install "${@}" 2> /dev/null
+  }
+  
+  installcask dropbox
+  installcask firefox
+  installcask firefox-aurora
+  installcask gitbox
+  installcask google-chrome
+  installcask google-chrome-canary
+  installcask handbrake
+  installcask imageoptim
+  installcask nv-alt
+  installcask one-password
+  installcask onyx
+  installcask opera
+  installcask sequel-pro
+  installcask skype
+  installcask sublime-text
+  installcask things
+  installcask tower
+  installcask transmission
+  installcask transmit
+  installcask vlc
+  
+  [[ $? ]] && e_success "Casks installed"
+
+  # Remove outdated versions from the cellar
+  brew cleanup
+}
+
+function run_gem() {
+  # Check for rvm
+  if ! type_exists 'rvm' ; then
+    e_header "Installing RVM..."
+    \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3 --autolibs=enabled
+    [[ $? ]] && e_success "RVM installed."
+  fi
+  
+  rvm --default use 1.9.3
+
+  e_header "Updating gem..."
+  gem update --system
+
+  if ! type_exists 'sass' ; then
+    e_header "Installing Sass..."
+    gem install sass
+  fi
+
+  if ! type_exists 'jekyll' ; then  
+    e_header "Installing Github Pages..."
+    gem install github-pages
+  fi
+  
+  gem update
+
+  [[ $? ]] && e_success "Gems installed"
+}
+
+function run_npm() {
+  # Check for npm
+  if type_exists 'npm'; then
+    e_header "Installing Node.js packages..."
+
+    # List of npm packages
+    local packages="bower grunt-cli jshint"
+
+    # Install packages globally and quietly
+    npm install $packages --g --quiet
+
+    [[ $? ]] && e_success "Done"
+  else
+    printf "\n"
+    e_error "Error: npm not found."
+    e_warning "Run 'brew install node' to install npm."
+    printf "Aborting...\n"
+    exit
+  fi
+}
+
+function run_wget() {
+
+  old_pwd=$(pwd)
+  cd ~/Downloads
+
+  function getdownload() {
+    e_header "Downloading from $@"
+    wget -nv --progress=bar "$@"
+  }
+  
+  # Application versions
+  coda_v="2.0.9"
+  gawker_v="0.8.4"
+  grandperspective_v="1_5_1"
+  totalfinder_v="1.4.18"
+
+  ChronoSync="http://downloads.econtechnologies.com/CS4_Download.dmg"
+  
+  ChronoAgent="http://downloads.econtechnologies.com/CA_Mac_Download.dmg"
+
+  Coda2="https://panic.com/coda/d/Coda%20$coda_v.zip"
+  
+  Gawker="http://downloads.sourceforge.net/sourceforge/gawker/Gawker_$gawker_v.zip"
+  
+  GrandPerspective="http://sourceforge.net/projects/grandperspectiv/files/grandperspective/1.5.1/GrandPerspective-$grandperspective_v.dmg"
+  
+  ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
+
+  Structurer="http://nettuts.s3.amazonaws.com/892_structurer/Structurer.zip"
+
+  TotalFinder="http://downloads.binaryage.com/TotalFinder-$totalfinder_v.dmg"
+  
+  Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
+
+  getdownload "$Coda2"
+  getdownload "$ChronoSync"
+  getdownload "$ChronoAgent"
+  getdownload "$Gawker"
+  getdownload "$GrandPerspective"
+  getdownload "$ServicesManager"
+  getdownload "$Structurer"
+  getdownload "$TotalFinder"
+  getdownload "$Webbla"
+
+  cd "$old_pwd"
+  
+  e_header "System Preferences panes..."
+  
+  prefpanes=(Hazel PastebotSync Clusters TVShows)
+  
+  for a in ${prefpanes[@]} ; do
+    echo "${a}"
+  done
+
+  [[ $? ]] && e_success "Done"
+  open ~/Downloads
+}
