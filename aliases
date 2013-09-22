@@ -64,6 +64,9 @@ alias macaddr="ipconfig getpacket en1 | grep chaddr"
 # Enhanced WHOIS lookups
 alias whois="whois -h whois-servers.net"
 
+# Restart Apache
+alias apache="sudo apachectl restart"
+
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
