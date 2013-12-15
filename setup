@@ -51,7 +51,7 @@ if ! type_exists 'git'; then
 fi
 
 # Files to copy/link
-INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx functions lib/exports lib/utils)
+INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx functions lib/exports lib/utils lib/GoodGuyRy.terminal)
 
 [ ! -d "$HOME/.bin" ] && mkdir "$HOME/.bin"
 [ ! -d "$HOME/.lib" ] && mkdir "$HOME/.lib"
