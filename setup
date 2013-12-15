@@ -29,6 +29,7 @@ done
 if ! type_exists 'gcc'; then
   e_error "The XCode Command Line Tools must be installed first."
   printf "  Download them from: https://developer.apple.com/downloads\n"
+  printf "  or by running `xcode-select --install`"
   printf "  Then run: bash ~/Projects/dotfiles/bin/setup\n"
   sleep 3
   open https://developer.apple.com/downloads
@@ -38,7 +39,7 @@ fi
 # Check for Homebrew
 if ! type_exists 'brew'; then
   e_header "Installing Homebrew..."
-  ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
   brew doctor
 fi
 
