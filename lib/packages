@@ -3,7 +3,7 @@
 function check_for_homebrew() {
   if ! type_exists 'brew'; then
     e_header "Installing Homebrew..."
-    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     brew doctor
     [[ $? ]] && e_success "Homebrew installed."
   fi
