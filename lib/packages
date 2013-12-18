@@ -107,7 +107,7 @@ function run_gem() {
     [[ $? ]] && e_success "RVM installed."
   fi
   
-  rvm --default use 1.9.3
+  rvm --default use 2.0.0-p353
 
   e_header "Updating gem..."
   gem update --system
