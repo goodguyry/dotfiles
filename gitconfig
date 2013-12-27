@@ -39,6 +39,7 @@
   type = cat-file -t
   dump = cat-file -p
   unstage = reset HEAD --
+  last = log -1 HEAD
   
 [apply]
   # Detect whitespace errors when applying a patch
