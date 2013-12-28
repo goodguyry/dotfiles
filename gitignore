@@ -27,6 +27,7 @@
 *.sql
 *.sqlite
 *.sass-cache
+node_modules/
 
 # OS generated files #
 ######################
