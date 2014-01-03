@@ -151,27 +151,27 @@ fi
 
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
-    printf "Skipped package installations.\n"
+  printf "Skipped package installations.\n"
 else
-    printf "Updating packages...\n"
-    # Install Homebrew formulae
-    run_brew
-    # Install Gems
-    run_gem
-    # Installing native applications
-    run_cask
-    # Download additional applications
-    run_wget
+  printf "Updating packages...\n"
+  # Install Homebrew formulae
+  run_brew
+  # Install Gems
+  run_gem
+  # Installing native applications
+  run_cask
+  # Download additional applications
+  run_wget
 fi
 
 # Ask before potentially overwriting OS X defaults
 seek_confirmation "Warning: This step may modify your OS X system defaults."
 
 if is_confirmed; then
-    bash ./osx
-    e_success "OS X settings updated! You may need to log out or restart."
+  bash ./osx
+  e_success "OS X settings updated! You may need to log out or restart."
 else
-    printf "Skipped OS X settings update.\n"
+  printf "Skipped OS X settings update.\n"
 fi
 
 unset copy_files
