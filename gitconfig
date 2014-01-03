@@ -14,8 +14,8 @@
   # View abbreviated SHA, description, and history graph of the latest 20 commits
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
   
-  # `git ls $n` log stats for a given number of commits
-  ls = !"l() { git log --stat -$1; }; l"
+  # `git stats $n` log stats for a given number of commits
+  stats = !"l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l"
   
   # View the current working tree status
   st = status
