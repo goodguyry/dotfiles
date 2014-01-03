@@ -34,7 +34,10 @@
 
   # list files from the last commit
   ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
-  
+
+  # list all tracked files
+  lsa = !"git log --pretty=format: --name-only --diff-filter=A | sort -"
+    
   # Pull in remote changes for the current repository and all its submodules
   p = !"git pull; git submodule foreach git pull origin master"
   
