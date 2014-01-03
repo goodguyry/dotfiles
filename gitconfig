@@ -70,9 +70,6 @@
   # Interactive rebase with the given number of latest commits
   reb = "!r() { git rebase -i HEAD~$1; }; r"
 
-  type = cat-file -t
-  dump = cat-file -p
-  
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
