@@ -20,8 +20,6 @@ do
   case $opt in
     --no-packages) no_packages=true ;;  # Supresses installing packages
     --no-casks) no_casks=true ;;        # Supresses installing casks (during testing)
-    --dev-mode) dev_mode=true ;;        # Link files so they can be maintained easier
-
     --copy) copy_files=true;;           # Copy files instead of linking
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
@@ -99,10 +97,10 @@ function symlinkFiles() {
 seek_confirmation "Warning: This step may overwrite your existing dotfiles."
 
 if is_confirmed; then
-  if [[ $dev_mode ]] ; then
-    symlinkFiles
-  else
+  if [[ $copy_files ]] ; then
     copyFiles
+  else
+    symlinkFiles
   fi
   source ${HOME}/.bash_profile
 else
@@ -132,7 +130,7 @@ else
 fi
 
 # conditionally init and pull the Git repo
-if [[ $dev_mode ]] ; then
+if [[ !$copy_files ]] ; then
   cd "${DOTFILES_DIRECTORY}"
   # Initialize the git repository if it's missing
   if ! is_git_repo; then
@@ -177,4 +175,4 @@ else
     printf "Skipped OS X settings update.\n"
 fi
 
-unset dev_mode
+unset copy_files
