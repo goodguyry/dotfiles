@@ -11,11 +11,17 @@
   trustctime = false
   
 [alias]
-  # View abbreviated SHA, description, and history graph of the latest 20 commits
-  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  # Clone a repository including all submodules
+  c = clone --recursive
   
-  # `git stats $n` log stats for a given number of commits
-  stats = !"l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l"
+  # Pull in remote changes for the current repository and all its submodules
+  p = !"git pull; git submodule foreach git pull origin master"
+  
+  # Switch to a branch, creating it if necessary
+  new = checkout -B
+  
+  # Checkout a branch
+  co = checkout
   
   # View the current working tree status
   st = status
@@ -26,24 +32,9 @@
   # Show the diff between the latest commit and the current state
   d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
   
-  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-  
   # diff staged file(s)
   ds = !"clear; git diff --patch-with-stat --staged"
 
-  # list files from the last commit
-  ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
-
-  # list all tracked files
-  lsa = !"git log --pretty=format: --name-only --diff-filter=A | sort -"
-    
-  # Pull in remote changes for the current repository and all its submodules
-  p = !"git pull; git submodule foreach git pull origin master"
-  
-  # Clone a repository including all submodules
-  c = clone --recursive
-  
   # `git unstage [file]` Unstages a file or the entire index
   unstage = reset HEAD --
   
@@ -53,23 +44,32 @@
   # Display the details of the last commit
   last = log -1 HEAD
 
-  # Checkout a branch
-  co = checkout
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
   
-  # Switch to a branch, creating it if necessary
-  new = checkout -B
+  # View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
   
+  # `git stats $n` log stats for a given number of commits
+  stats = !"l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l"
+  
+  # list files from the last commit
+  ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
+
+  # list all tracked files
+  lsa = !"git log --pretty=format: --name-only --diff-filter=A | sort -"
+    
   # Show verbose output about tags, branches or remotes
   tags = tag -l
   branches = branch -a
   remotes = remote -v
   
-  # Credit an author on the latest commit
-  credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-  
   # Interactive rebase with the given number of latest commits
   reb = "!r() { git rebase -i HEAD~$1; }; r"
 
+  # Credit an author on the latest commit
+  credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+  
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
