@@ -44,9 +44,12 @@
   # Clone a repository including all submodules
   c = clone --recursive
   
+  # `git unstage [file]` Unstages a file or the entire index
+  unstage = reset HEAD --
+  
   # Commit all changes
   ca = !git add -A && git commit -av
-  
+
   # Checkout a branch
   co = checkout
   
@@ -63,9 +66,9 @@
   
   # Interactive rebase with the given number of latest commits
   reb = "!r() { git rebase -i HEAD~$1; }; r"
+
   type = cat-file -t
   dump = cat-file -p
-  unstage = reset HEAD --
   last = log -1 HEAD
   
 [apply]
