@@ -19,7 +19,6 @@ for opt in $@
 do
   case $opt in
     --no-packages) no_packages=true ;;  # Supresses installing packages
-    --no-casks) no_casks=true ;;        # Supresses installing casks (during testing)
     --copy) copy_files=true;;           # Copy files instead of linking
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
@@ -157,10 +156,10 @@ else
     printf "Updating packages...\n"
     # Install Homebrew formulae
     run_brew
-    # Installing native applications
-    if [[ ! $no_casks ]] ; then run_cask; fi
     # Install Gems
     run_gem
+    # Installing native applications
+    run_cask
     # Download additional applications
     run_wget
 fi
