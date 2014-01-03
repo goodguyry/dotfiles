@@ -31,6 +31,9 @@
   
   # diff staged file(s)
   ds = !"clear; git diff --patch-with-stat --staged"
+
+  # list files from the last commit
+  ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
   
   # Pull in remote changes for the current repository and all its submodules
   p = !"git pull; git submodule foreach git pull origin master"
