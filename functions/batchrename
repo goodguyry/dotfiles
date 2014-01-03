@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 # ----------------------------------------------
 # Renames all files with an appended number; directories are skipped by defult

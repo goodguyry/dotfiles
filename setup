@@ -53,8 +53,19 @@ if ! type_exists 'git'; then
   brew install git
 fi
 
+# Concatenate function files into bash_functions
+CAT_LIST="";
+
+for i in functions/* ; do 
+  if [[ -r "$i" && "$i" != "functions/core" ]] ; then
+    CAT_LIST+="$i "
+  fi
+done
+
+cat functions/core $CAT_LIST > bash_functions
+
 # Files to copy/link
-INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx functions lib/exports lib/utils lib/GoodGuyRy.terminal)
+INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx bash_functions lib/exports lib/utils lib/GoodGuyRy.terminal)
 
 [ ! -d "$HOME/.bin" ] && mkdir "$HOME/.bin"
 [ ! -d "$HOME/.lib" ] && mkdir "$HOME/.lib"

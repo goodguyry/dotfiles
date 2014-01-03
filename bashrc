@@ -11,4 +11,4 @@ EDITOR=vim; export EDITOR
 GUI_EDITOR=/Applications/Smultron\ 4.app/Contents/MacOS/Smultron\ 4; export GUI_EDITOR
 
 [ -r "$HOME/.aliases" ] && source "$HOME/.aliases"
-[ -r "$HOME/.functions/core" ] && source "$HOME/.functions/core"
+[ -r "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
