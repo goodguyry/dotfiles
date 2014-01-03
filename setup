@@ -176,3 +176,5 @@ else
 fi
 
 unset copy_files
+
+exec $SHELL -l
