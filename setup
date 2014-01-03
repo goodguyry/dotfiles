@@ -21,6 +21,8 @@ do
     --no-packages) no_packages=true ;;  # Supresses installing packages
     --no-casks) no_casks=true ;;        # Supresses installing casks (during testing)
     --dev-mode) dev_mode=true ;;        # Link files so they can be maintained easier
+
+    --copy) copy_files=true;;           # Copy files instead of linking
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
 done
