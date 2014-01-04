@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 function check_for_homebrew() {
   if ! type_exists 'brew'; then

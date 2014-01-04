@@ -6,7 +6,6 @@ DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 source ./lib/help
 source ./lib/utils
 source ./lib/create_extras
-source ./lib/packages
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
