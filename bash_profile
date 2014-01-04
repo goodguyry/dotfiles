@@ -9,12 +9,13 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/usr/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.bin"
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
 
 # Load the shell dotfiles, and then some:
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bashrc,bash_prompt,lib/exports,extras,lib/utils}; do
+for file in ~/.{bashrc,bash_prompt,local/exports,extras,local/utils}; do
 	[ -r "$file" ] && source "$file"
 done
 unset file

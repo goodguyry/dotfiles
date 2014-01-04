@@ -4,8 +4,8 @@ DOTFILES_DIRECTORY=$(pwd)
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 source ./lib/help
-source ./lib/utils
 source ./lib/create_extras
+source ./local/utils
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -61,10 +61,9 @@ done
 cat functions/core $CAT_LIST > bash_functions
 
 # Files to copy/link
-INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bin/osx bash_functions lib/exports lib/utils lib/GoodGuyRy.terminal)
+INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin local/bin/osx bash_functions local/exports local/utils local/GoodGuyRy.terminal)
 
-[ ! -d "$HOME/.bin" ] && mkdir "$HOME/.bin"
-[ ! -d "$HOME/.lib" ] && mkdir "$HOME/.lib"
+[ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
 
 function copyFiles() {
 
