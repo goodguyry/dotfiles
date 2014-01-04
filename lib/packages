@@ -119,7 +119,7 @@ function run_gem() {
 
   if ! type_exists 'jekyll' ; then  
     e_header "Installing Github Pages..."
-    gem install github-pages
+    gem install jekyll
   fi
   
   gem update
