@@ -30,16 +30,12 @@ Once you've navigated to the cloned or downloaded directory, you'll want to run 
         <td>Print this help text</td>
     </tr>
     <tr>
-        <td><code>--dev-mode</code></td>
-        <td>Link the files in place instead of copying (gitconfig is always copied)<br>"Dev Mode" also initiallizes a Git repo and pulls updates from Github</td>
+        <td><code>--copy</code></td>
+        <td>Copy the files in place instead of linking (gitconfig is always copied)<br>"Copy mode" also suppresses initiallizing a Git repo and pulling updates from Github</td>
     </tr>
     <tr>
         <td><code>--no-packages</code></td>
         <td>Suppress package installations and updates (including casks)</td>
-    </tr>
-    <tr>
-        <td><code>--no-casks</code></td>
-        <td>Supresses installing casks (all other packages are updated/installed)</td>
     </tr>
 </table>
 
