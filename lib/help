@@ -9,11 +9,10 @@ Usage: $(basename "$0") [options]
 
 Options:
     -h, --help      Print this help text
-    --dev-mode      Link the files in place instead of copying
+    --copy          Copy the files in place instead of linking
                     (gitconfig is always copied)
-                    ** "Dev Mode" also initiallizes a Git repo and pulls updates from Github **
+                    ** "Copy mode" also suppresses initiallizing a Git repo and pulling updates from Github **
     --no-packages   Suppress package installations and updates (including casks)
-    --no-casks      Supresses installing casks (all other packages are updated/installed) 
 
 Documentation can be found at https://github.com/goodguyry/dotfiles
 
