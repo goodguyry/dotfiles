@@ -26,7 +26,7 @@ done
 
 # Conditionally install Command Line Tools, Homebrew and Git
 if [[ $no_packages ]]; then
-  e_header "Skipped Homebrew and Git installations.\n"
+  e_header "Skipped Homebrew and Git installations."
 else
   # Before relying on Homebrew, check that packages can be compiled
   if ! type_exists 'gcc'; then
@@ -150,13 +150,13 @@ if [[ !$copy_files ]] ; then
     # Pull down the latest changes
     git pull --rebase origin master
   else
-    e_header "Skipping 'git init'\n"
+    e_header "Skipping 'git init'"
   fi
 fi
 
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
-  e_header "Skipped package installations.\n"
+  e_header "Skipped package installations."
 else
   e_header "Updating packages...\n"
   # Install Homebrew formulae
@@ -176,7 +176,7 @@ if is_confirmed; then
   bash ./osx
   e_success "OS X settings updated! You may need to log out or restart."
 else
-  e_header "Skipped OS X settings update.\n"
+  e_header "Skipped OS X settings update."
 fi
 
 unset copy_files
