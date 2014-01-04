@@ -1,16 +1,5 @@
 #!/bin/bash
 
-cd "$HOME/.functions/"
-
-for i in * ; do
-	if [[ -r "$i" && "$i" != "core" ]] ; then
-		source "$i"
-	fi
-done
-
-cd - &> /dev/null
-
-
 # Switch to projects folder; optionally add a project directory
 function p() {
   cd ~/Projects/"$@"
