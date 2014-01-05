@@ -45,7 +45,7 @@ alias lsd='ls -l ${colorflag} | grep "^d"'
 alias sudo='sudo '
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
+alias reload="clear && exec $SHELL -l"
  
 # Gzip-enabled `curl`
 alias gurl='curl --compressed'
