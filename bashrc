@@ -10,6 +10,14 @@ VISUAL=vim; export VISUAL
 EDITOR=vim; export EDITOR
 GUI_EDITOR=/Applications/Smultron\ 4.app/Contents/MacOS/Smultron\ 4; export GUI_EDITOR
 
+
+# Switch to projects folder; optionally add a project directory
+function p() {
+  cd ~/Projects/"$@"
+}
+
+
+# Create a temporary plain text file
 function temp() {
   prefix="temp"
   suffix=$(date +%Y%m%d%H%M%S)

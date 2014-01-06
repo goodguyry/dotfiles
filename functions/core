@@ -15,11 +15,6 @@ function catfunctions() {
   cat functions/core $CAT_LIST > bash_functions
 }
 
-# Switch to projects folder; optionally add a project directory
-function p() {
-  cd ~/Projects/"$@"
-}
-
 
 # Change working directory to the top-most Finder window location
 function cdf() { # short for `cdfinder`
