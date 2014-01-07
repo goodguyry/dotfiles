@@ -16,6 +16,21 @@ function catfunctions() {
 }
 
 
+# Switch to projects folder; optionally add a project directory
+function p() {
+  cd ~/Projects/"$@"
+}
+
+
+# Create a temporary plain text file
+function temp() {
+  prefix="temp"
+  suffix=$(date +%Y%m%d%H%M%S)
+  filename="$prefix.$suffix.txt"
+  touch $filename
+}
+
+
 # Change working directory to the top-most Finder window location
 function cdf() { # short for `cdfinder`
 	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
@@ -26,6 +41,15 @@ function cdf() { # short for `cdfinder`
 function mkd() {
 	mkdir -p "$@" && cd "$@"
 }
+
+
+# Use Git’s colored diff when available
+hash git &>/dev/null
+if [ $? -eq 0 ]; then
+	function diff() {
+		git diff --no-index --color-words "$@"
+	}
+fi
 
 
 # Recursively delete files that match a certain pattern
@@ -60,15 +84,6 @@ function datauri() {
 	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy
 	e_header "The data URI is on the clipboard."
 }
-
-
-# Use Git’s colored diff when available
-hash git &>/dev/null
-if [ $? -eq 0 ]; then
-	function diff() {
-		git diff --no-index --color-words "$@"
-	}
-fi
 
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
