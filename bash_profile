@@ -46,6 +46,18 @@ complete -W "NSGlobalDomain" defaults
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal" killall
 
+# Add `p` tab completion for switching to Project directories
+for item in ~/Projects/*; do
+  if [ -d "$item" ] ; then
+    # This could probably be more elegantly done
+    name=$(echo ${item} | cut -d '/' -f 5)
+    COMPLETE_LIST+="$name "
+  fi
+done
+unset item
+complete -o "nospace" -W "$COMPLETE_LIST" p
+unset COMPLETE_LIST
+
 # Autocomplete Grunt commands
 # which grunt &> /dev/null && eval "$(grunt --completion=bash)"
 
