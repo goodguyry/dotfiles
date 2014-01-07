@@ -23,10 +23,13 @@ function p() {
 
 
 # Create a temporary plain text file
+# Usage: `temp ext` (creates file: temp.[date string].ext)
+# If no extension is passed, defaults to "md"
 function temp() {
   prefix="temp"
   suffix=$(date +%Y%m%d%H%M%S)
-  filename="$prefix.$suffix.txt"
+  ext="${1:-md}"
+  filename="$prefix.$suffix.$ext"
   touch $filename
 }
 
@@ -46,17 +49,17 @@ function mkd() {
 # Use Git’s colored diff when available
 hash git &>/dev/null
 if [ $? -eq 0 ]; then
-	function diff() {
-		git diff --no-index --color-words "$@"
-	}
+  function diff() {
+    git diff --no-index --color-words "$@"
+}
 fi
 
 
 # Recursively delete files that match a certain pattern
 # (by default delete all `.DS_Store` files)
 cleanup() {
-    local q="${1:-*.DS_Store}"
-    find . -type f -name "$q" -ls -delete
+  local q="${1:-*.DS_Store}"
+  find . -type f -name "$q" -ls -delete
 }
 
 

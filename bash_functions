@@ -15,9 +15,22 @@ function catfunctions() {
   cat functions/core $CAT_LIST > bash_functions
 }
 
+
 # Switch to projects folder; optionally add a project directory
 function p() {
   cd ~/Projects/"$@"
+}
+
+
+# Create a temporary plain text file
+# Usage: `temp ext` (creates file: temp.[date string].ext)
+# If no extension is passed, defaults to "md"
+function temp() {
+  prefix="temp"
+  suffix=$(date +%Y%m%d%H%M%S)
+  ext="${1:-md}"
+  filename="$prefix.$suffix.$ext"
+  touch $filename
 }
 
 
@@ -33,11 +46,20 @@ function mkd() {
 }
 
 
+# Use Git’s colored diff when available
+hash git &>/dev/null
+if [ $? -eq 0 ]; then
+  function diff() {
+    git diff --no-index --color-words "$@"
+}
+fi
+
+
 # Recursively delete files that match a certain pattern
 # (by default delete all `.DS_Store` files)
 cleanup() {
-    local q="${1:-*.DS_Store}"
-    find . -type f -name "$q" -ls -delete
+  local q="${1:-*.DS_Store}"
+  find . -type f -name "$q" -ls -delete
 }
 
 
@@ -65,15 +87,6 @@ function datauri() {
 	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy
 	e_header "The data URI is on the clipboard."
 }
-
-
-# Use Git’s colored diff when available
-hash git &>/dev/null
-if [ $? -eq 0 ]; then
-	function diff() {
-		git diff --no-index --color-words "$@"
-	}
-fi
 
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
@@ -277,62 +290,6 @@ function rn() {
 	unset renameSpecificExtension
 	unset fileExtension
 	unset flag
-}
-
-
-# ----------------------------------------------
-# Create a new file and open it in a text editor
-#
-# 	Uses GUI_EDITOR defined in .bashrc
-#     Change to $VISUAL if you'd prefer using vim
-#
-# 	Usage: nf string1 [string2]
-#
-#		string1 : A string representing the new file's name. Can be entered
-#							with or without the file extension, or as the extension
-#							(with the preceeding '.'). When the name or extension are
-#							not provided, the default name and extension is used.
-#
-#							Examples: nf name			 ->  name.[$ext]
-#												nf name.ext	 ->	 name.ext
-#												nf .ext			 ->	 [$name].ext
-#
-#		string2 : The new file's extension, separated from the name by a space.
-#
-#							Example:  nf name ext	 ->	 name.ext
-#
-#		To change the default filename, change $defaultpre
-#		To change the default filetype, change $ext
-# ----------------------------------------------
-
-function nf() {
-	# declared in this manner so it only has to be
-	# updated in one place if I want to change it
-	defaultpre=$(date +%y%j%H%M%S)
-
-	# default name & ext
-	name=$defaultpre
-	ext="md"
-
-	# there are args... 
-	if [ $# -gt 0 ]; then
-
-		# entire filename.ext was entered
-		if [[ "$1" == .* ]]; then
-			ext="$1"
-			filename="$name$ext"
-    else
-  		filename="$1"
-		fi
-  else
-    filename="$name.$ext"
-	fi	
-
-	echo "$filename"
-  touch $filename
-  open -a "$GUI_EDITOR" $filename
-  
-  unset filename
 }
 
 
