@@ -155,6 +155,7 @@ fi
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
   e_header "Skipped package installations."
+  e_warning "You can run \`run_brew\`, \`run_gem\`, \`run_cask\` and \`run_wget\` to install these later."
 else
   e_header "Updating packages...\n"
   # Install Homebrew formulae
