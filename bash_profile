@@ -49,8 +49,9 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # Add `p` tab completion for switching to Project directories
 for item in ~/Projects/*; do
   if [ -d "$item" ] ; then
-    # This could probably be more elegantly done
-    name=$(echo ${item} | cut -d '/' -f 5)
+    # Extract the folder name
+    # could also be name=${item##*/}
+    name=$(basename $item)
     COMPLETE_LIST+="$name "
   fi
 done
