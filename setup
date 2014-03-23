@@ -17,7 +17,7 @@ fi
 for opt in $@
 do
   case $opt in
-    --no-packages) no_packages=true ;;  # Supresses installing packages
+    --no-packages) no_packages=true ;;  # Suppresses installing packages
     --copy) copy_files=true;;           # Copy files instead of linking
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
