@@ -28,6 +28,7 @@
 *.sqlite
 *.sass-cache
 node_modules/
+*.sublime-*
 
 # OS generated files #
 ######################
