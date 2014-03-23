@@ -13,6 +13,9 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
 
+# Colon-separated list of directories in which the shell looks for destination directories specified by the cd command.
+CDPATH=".:~:/private"
+
 # Load the shell dotfiles, and then some:
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{bashrc,bash_prompt,local/exports,extras,local/utils}; do
