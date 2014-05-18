@@ -185,6 +185,8 @@ function run_wget() {
 
   Clusters="http://latenitesoft.com/clusters/download/Clusters_$clusters_v.dmg"
 
+  PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
+
   getdownload "$Coda2"
   getdownload "$ChronoSync"
   getdownload "$ChronoAgent"
@@ -195,12 +197,13 @@ function run_wget() {
   getdownload "$Webbla"
   getdownload "TVShows"
   getdownload "Clusters"
+  getdownload "PastebotSync"
 
   cd "$old_pwd"
   
   e_header "System Preferences panes..."
   
-  prefpanes=(Hazel PastebotSync)
+  prefpanes=(Hazel)
   
   for a in ${prefpanes[@]} ; do
     echo "${a}"
