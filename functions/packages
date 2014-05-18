@@ -182,6 +182,8 @@ function run_wget() {
   
   Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
 
+  TVShows="http://tvshowsapp.com/TVShows.zip"
+
   getdownload "$Coda2"
   getdownload "$ChronoSync"
   getdownload "$ChronoAgent"
@@ -191,12 +193,13 @@ function run_wget() {
   getdownload "$Structurer"
   getdownload "$TotalFinder"
   getdownload "$Webbla"
+  getdownload "TVShows"
 
   cd "$old_pwd"
   
   e_header "System Preferences panes..."
   
-  prefpanes=(Hazel PastebotSync Clusters TVShows)
+  prefpanes=(Hazel PastebotSync Clusters)
   
   for a in ${prefpanes[@]} ; do
     echo "${a}"
