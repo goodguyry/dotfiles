@@ -176,8 +176,6 @@ function run_wget() {
   
   ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
 
-  Structurer="http://nettuts.s3.amazonaws.com/892_structurer/Structurer.zip"
-
   TotalFinder="http://downloads.binaryage.com/TotalFinder-$totalfinder_v.dmg"
   
   Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
@@ -190,7 +188,6 @@ function run_wget() {
   getdownload "$Gawker"
   getdownload "$GrandPerspective"
   getdownload "$ServicesManager"
-  getdownload "$Structurer"
   getdownload "$TotalFinder"
   getdownload "$Webbla"
   getdownload "TVShows"
