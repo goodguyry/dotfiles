@@ -173,7 +173,6 @@ seek_confirmation "Warning: This step may modify your OS X system defaults."
 
 if is_confirmed; then
   bash ./osx
-  e_success "OS X settings updated! You may need to log out or restart."
 else
   e_header "Skipped OS X settings update."
 fi
