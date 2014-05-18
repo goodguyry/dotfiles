@@ -159,10 +159,10 @@ function run_wget() {
   }
   
   # Application versions
-  coda_v="2.0.9"
+  coda_v="2.0.14"
   gawker_v="0.8.4"
   grandperspective_v="1_5_1"
-  totalfinder_v="1.4.18"
+  totalfinder_v="1.6"
 
   ChronoSync="http://downloads.econtechnologies.com/CS4_Download.dmg"
   
