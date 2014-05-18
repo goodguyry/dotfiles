@@ -164,6 +164,7 @@ function run_wget() {
   grandperspective_v="1_5_1"
   totalfinder_v="1.6"
   clusters_v="1.7"
+  hazel_v="3.2.7"
 
   ChronoSync="http://downloads.econtechnologies.com/CS4_Download.dmg"
   
@@ -187,6 +188,8 @@ function run_wget() {
 
   PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
 
+  Hazel="https://s3.amazonaws.com/Noodlesoft/Hazel-$hazel_v.dmg"
+
   getdownload "$Coda2"
   getdownload "$ChronoSync"
   getdownload "$ChronoAgent"
@@ -198,16 +201,9 @@ function run_wget() {
   getdownload "TVShows"
   getdownload "Clusters"
   getdownload "PastebotSync"
+  getdownload "Hazel"
 
   cd "$old_pwd"
-  
-  e_header "System Preferences panes..."
-  
-  prefpanes=(Hazel)
-  
-  for a in ${prefpanes[@]} ; do
-    echo "${a}"
-  done
 
   [[ $? ]] && e_success "Done"
   open ~/Downloads
