@@ -172,7 +172,7 @@ fi
 seek_confirmation "Warning: This step may modify your OS X system defaults."
 
 if is_confirmed; then
-  bash ./osx
+  bash ./local/bin/osx
 else
   e_header "Skipped OS X settings update."
 fi
