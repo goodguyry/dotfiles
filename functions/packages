@@ -163,6 +163,7 @@ function run_wget() {
   gawker_v="0.8.4"
   grandperspective_v="1_5_1"
   totalfinder_v="1.6"
+  clusters_v="1.7"
 
   ChronoSync="http://downloads.econtechnologies.com/CS4_Download.dmg"
   
@@ -182,6 +183,8 @@ function run_wget() {
 
   TVShows="http://tvshowsapp.com/TVShows.zip"
 
+  Clusters="http://latenitesoft.com/clusters/download/Clusters_$clusters_v.dmg"
+
   getdownload "$Coda2"
   getdownload "$ChronoSync"
   getdownload "$ChronoAgent"
@@ -191,12 +194,13 @@ function run_wget() {
   getdownload "$TotalFinder"
   getdownload "$Webbla"
   getdownload "TVShows"
+  getdownload "Clusters"
 
   cd "$old_pwd"
   
   e_header "System Preferences panes..."
   
-  prefpanes=(Hazel PastebotSync Clusters)
+  prefpanes=(Hazel PastebotSync)
   
   for a in ${prefpanes[@]} ; do
     echo "${a}"
