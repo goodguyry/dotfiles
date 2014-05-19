@@ -4,7 +4,7 @@ DOTFILES_DIRECTORY=$(pwd)
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 source $DOTFILES_DIRECTORY/lib/help
-source $DOTFILES_DIRECTORY/local/create_extras
+source $DOTFILES_DIRECTORY/create_extras
 source $DOTFILES_DIRECTORY/local/utils
 
 # Help text
