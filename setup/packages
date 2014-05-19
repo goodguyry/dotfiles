@@ -208,3 +208,12 @@ function run_wget() {
   [[ $? ]] && e_success "Done"
   open ~/Downloads
 }
+
+# Install Homebrew formulae
+run_brew
+# Install Gems
+run_gem
+# Installing native applications
+run_cask
+# Download additional applications
+run_wget
