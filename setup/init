@@ -39,6 +39,12 @@ else
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     brew doctor
   fi
+
+  # Check for npm
+  if ! type_exists 'npm'; then
+    e_header "Installing Node..."
+    brew install node
+  fi
   
   # Check for git
   if ! type_exists 'git'; then
