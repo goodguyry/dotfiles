@@ -116,7 +116,7 @@ fi
 
 # Prompt to create the extras file if it doesn't already exists
 if [[ ! -r "$HOME/.extras" ]] ; then
-  seek_confirmation "The '.extras' file needs to be created and edited."
+  seek_confirmation "Would you like to create the '.extras' file now?"
   
   if is_confirmed; then
     create_extras
