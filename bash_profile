@@ -9,8 +9,6 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/usr/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
 
 # Colon-separated list of directories in which the shell looks for destination directories specified by the cd command.
