@@ -10,10 +10,10 @@ function create_extras() {
   printf "# Git credentials\n\n" > "$EXTRAS_FILE"
   
   printf "# Add your name below\n" >> "$EXTRAS_FILE"
-  printf "GIT_AUTHOR_NAME=\"\"\n\n" >> "$EXTRAS_FILE"
+  printf "GIT_AUTHOR_NAME=\"${1}\"\n\n" >> "$EXTRAS_FILE"
   
   printf "# Add your email below\n" >> "$EXTRAS_FILE"
-  printf "GIT_AUTHOR_EMAIL=\"\"\n\n" >> "$EXTRAS_FILE"
+  printf "GIT_AUTHOR_EMAIL=\"${2}\"\n\n" >> "$EXTRAS_FILE"
   
   printf "GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"\n" >> "$EXTRAS_FILE"
   printf "GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"\n\n" >> "$EXTRAS_FILE"

@@ -110,7 +110,7 @@ if is_confirmed; then
   fi
   source ${HOME}/.bash_profile
 else
-  e_header "Aborting...\n"
+  e_header "Aborting..."
   exit 1
 fi
 
@@ -119,11 +119,13 @@ if [[ ! -r "$HOME/.extras" ]] ; then
   seek_confirmation "Would you like to create the '.extras' file now?"
   
   if is_confirmed; then
-    create_extras
-    open ~/.extras
-    sleep 3
-    # Bring attention back to Terminal
-    tput bel
+    printf "Your Git author name: -> "
+    read NAME
+    printf "Your Git author email: -> "
+    read EMAIL
+    if [[ $NAME != '' && $EMAIL != '' ]] ; then
+      create_extras "$NAME" $EMAIL
+    fi
   else
     e_warning "You will need to create the extras file manually."
   fi 
@@ -159,7 +161,7 @@ fi
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
   e_header "Skipped package installations."
-  e_warning "You can run `./setup/packages` to install these later."
+  e_warning "You can run './setup/packages' to install these later."
 else
   e_header "Updating packages...\n"
   # Install Homebrew formulae
