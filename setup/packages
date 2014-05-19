@@ -74,22 +74,31 @@ function run_cask() {
   	brew cask install "${@}" 2> /dev/null
   }
   
+  installcask bittorrent-sync
+  installcask chronosync
+  installcask chronoagent
+  installcask coda
   installcask dropbox
+  installcask evernote
   installcask firefox
-  installcask firefox-aurora
+  installcask flux
   installcask gitbox
   installcask google-chrome
-  installcask google-chrome-canary
   installcask handbrake
+  installcask hazel
   installcask imageoptim
-  installcask nv-alt
-  installcask one-password
+  installcask nvalt
   installcask onyx
   installcask opera
+  installcask opera-next
+  installcask qlmarkdown
   installcask sequel-pro
   installcask skype
+  installcask spotify
   installcask sublime-text
   installcask things
+  installcask totalfinder
+  installcask tvshows
   installcask tower
   installcask transmission
   installcask transmit
@@ -161,49 +170,28 @@ function run_wget() {
   }
   
   # Application versions
-  coda_v="2.0.14"
   gawker_v="0.8.4"
   grandperspective_v="1_5_1"
-  totalfinder_v="1.6"
   clusters_v="1.7"
-  hazel_v="3.2.7"
 
-  ChronoSync="http://downloads.econtechnologies.com/CS4_Download.dmg"
-  
-  ChronoAgent="http://downloads.econtechnologies.com/CA_Mac_Download.dmg"
-
-  Coda2="https://panic.com/coda/d/Coda%20$coda_v.zip"
-  
   Gawker="http://downloads.sourceforge.net/sourceforge/gawker/Gawker_$gawker_v.zip"
   
   GrandPerspective="http://sourceforge.net/projects/grandperspectiv/files/grandperspective/1.5.1/GrandPerspective-$grandperspective_v.dmg"
   
   ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
-
-  TotalFinder="http://downloads.binaryage.com/TotalFinder-$totalfinder_v.dmg"
   
   Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
-
-  TVShows="http://tvshowsapp.com/TVShows.zip"
 
   Clusters="http://latenitesoft.com/clusters/download/Clusters_$clusters_v.dmg"
 
   PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
 
-  Hazel="https://s3.amazonaws.com/Noodlesoft/Hazel-$hazel_v.dmg"
-
-  getdownload "$Coda2"
-  getdownload "$ChronoSync"
-  getdownload "$ChronoAgent"
   getdownload "$Gawker"
   getdownload "$GrandPerspective"
   getdownload "$ServicesManager"
-  getdownload "$TotalFinder"
   getdownload "$Webbla"
-  getdownload "TVShows"
-  getdownload "Clusters"
-  getdownload "PastebotSync"
-  getdownload "Hazel"
+  getdownload "$Clusters"
+  getdownload "$PastebotSync"
 
   cd "$old_pwd"
 
