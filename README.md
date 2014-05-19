@@ -22,7 +22,7 @@ curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclu
 
 #### Setup Options
 
-Once you've navigated to the cloned or downloaded directory, you'll want to run ```./setup```. The following options are available when running the setup file:
+Once you've navigated to the cloned or downloaded directory, you'll want to run ```./setup/init```. The following options are available when running the setup file:
 
 <table>
     <tr>
@@ -31,17 +31,17 @@ Once you've navigated to the cloned or downloaded directory, you'll want to run 
     </tr>
     <tr>
         <td><code>--copy</code></td>
-        <td>Copy the files in place instead of linking (gitconfig is always copied)<br>"Copy mode" also suppresses initiallizing a Git repo and pulling updates from Github</td>
+        <td>Copy the files in place instead of linking (gitconfig is always copied)<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
     </tr>
     <tr>
         <td><code>--no-packages</code></td>
-        <td>Suppress package installations and updates (including casks)</td>
+        <td>Suppress package installations and updates (including casks). These can be run independently with <code>./setup/packages</code></td>
     </tr>
 </table>
 
 #### Extras file
 
-During the first run of the setup process, a file called 'extras' will be created at ~/.extras. You'll be prompted to enter your Git credentials and save the file. This is to prevent certain information from being commited to a public repository. The '.extras' file is also a great place to store functions and aliases that you don't want overwritten by future installations.
+During the first run of the setup process, a file called 'extras' will be created at ~/.extras. You'll be prompted to enter your Git author name and email, and the file will be saved. This is to prevent certain information from being committed to a public repository. The '.extras' file is also a great place to store functions and aliases that you don't want overwritten by future installations.
 
 ```bash
 # Git credentials
@@ -72,6 +72,8 @@ Also, during setup, if a .gitconfig file already exists in your home folder you 
 
 - RVM
 
+- NPM
+
 The full list of installed software is available [here](http://github.com/goodguyry/dotfiles/blob/master/lib/software_list.md).
 
 ## OS X defaults
@@ -79,7 +81,7 @@ The full list of installed software is available [here](http://github.com/goodgu
 During the setup process you will be asked if you'd like to apply the OS X defaults. You can also apply them independently, if you'd rather, by running the following command:
 
 ```bash
-$ osx
+$ ./setup/osx
 ```
 
 I encourage you to take the time to read through the [osx](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) file so you know what settings and applications will be impacted before executing the file.
