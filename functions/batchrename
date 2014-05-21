@@ -1,13 +1,13 @@
 
 
 # ----------------------------------------------
-# Renames all files with an appended number; directories are skipped by defult
+# Renames all files with an appended number; directories are skipped by default
 #
 #		Usage: rn string [-[1-999]] [1-999] [-d] [-a] [.ext]
 #
 #		string : A string representing the new filename
 #
-#				-n : (optional) A number, with a preceeding dash, representing the total
+#				-n : (optional) A number, with a preceding dash, representing the total
 #						 number of digit places for the count. Default is 2 (01) unless reset
 #						 Example: -5 -> 00001
 #
@@ -21,7 +21,7 @@
 #
 #		TODO:
 #			Remove item's number on rename
-#			Count folders and files seperately
+#			Count folders and files separately
 #			Remove strict argument order (name being first)
 #			Check if file already exists; increment counter if so
 # ----------------------------------------------
