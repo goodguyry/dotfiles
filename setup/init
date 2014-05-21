@@ -164,14 +164,7 @@ if [[ $no_packages ]]; then
   e_warning "You can run './setup/packages' to install these later."
 else
   e_header "Updating packages...\n"
-  # Install Homebrew formulae
-  run_brew
-  # Install Gems
-  run_gem
-  # Installing native applications
-  run_cask
-  # Download additional applications
-  run_wget
+  ./setup/packages
 fi
 
 # Ask before potentially overwriting OS X defaults
