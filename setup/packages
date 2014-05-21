@@ -104,7 +104,7 @@ brew cleanup
 # Check for rvm
 if ! type_exists 'rvm' ; then
   e_header "Installing RVM..."
-  \curl -L https://get.rvm.io | bash -s stable --ruby=1.9.3 --autolibs=enabled
+  \curl -L https://get.rvm.io | bash -s stable --ruby=2.0.0-p353 --autolibs=enabled
   [[ $? ]] && e_success "RVM installed."
 fi
 
