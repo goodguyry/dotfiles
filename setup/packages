@@ -54,7 +54,7 @@ e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PA
 
 
 # Install native apps
-brew tap phinze/homebrew-cask
+brew tap caskroom/cask
 brew install brew-cask
 
 [[ $? ]] && e_success "Homebrew Cask installed"
