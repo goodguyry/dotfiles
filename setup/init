@@ -59,7 +59,7 @@ fi
 CAT_LIST="";
 
 for i in functions/* ; do 
-  if [[ -r "$i" && "$i" != "functions/core" ]] ; then
+  if [[ -r "$i" && "$i" != "../functions/core" ]] ; then
     CAT_LIST+="$i "
   fi
 done
