@@ -55,6 +55,7 @@ e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PA
 
 # Install native apps
 brew tap caskroom/cask
+brew tap caskroom/versions
 brew install brew-cask
 
 [[ $? ]] && e_success "Homebrew Cask installed"
@@ -71,9 +72,11 @@ installcask coda
 installcask dropbox
 installcask evernote
 installcask firefox
+installcask firefox-aurora
 installcask flux
 installcask gitbox
 installcask google-chrome
+installcask google-chrome-canary
 installcask handbrake
 installcask hazel
 installcask imageoptim
