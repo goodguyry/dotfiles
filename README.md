@@ -76,6 +76,8 @@ Also, during setup, if a .gitconfig file already exists in your home folder you 
 
 The full list of installed software is available [here](http://github.com/goodguyry/dotfiles/blob/master/lib/software_list.md).
 
+If you decided to skip package installation during setup, you can run it independently from inside the dotfiles directory with ```./setup/packages```.
+
 ## OS X defaults
 
 During the setup process you will be asked if you'd like to apply the OS X defaults. You can also apply them independently, if you'd rather, by running the following command:
