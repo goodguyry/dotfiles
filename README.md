@@ -26,15 +26,15 @@ Once you've navigated to the cloned or downloaded directory, you'll want to run 
 
 <table>
     <tr>
-        <td><code>-h</code>, <code>--help</code></td>
+        <td width="20%"><code>-h</code>, <code>--help</code></td>
         <td>Print this help text</td>
     </tr>
     <tr>
-        <td><code>--copy</code></td>
+        <td width="20%"><code>--copy</code></td>
         <td>Copy the files in place instead of linking (gitconfig is always copied)<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
     </tr>
     <tr>
-        <td><code>--no-packages</code></td>
+        <td width="20%"><code>--no-packages</code></td>
         <td>Suppress package installations and updates (including casks). These can be run independently with <code>./setup/packages</code></td>
     </tr>
 </table>
