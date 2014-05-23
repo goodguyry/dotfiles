@@ -18,22 +18,33 @@
 
 ### Homebrew Cask (native applications)
   
+- Bittorrent Sync
+- ChronoSync
+- ChronoAgent
+- Coda
 - Dropbox
+- Evernote
 - Firefox
 - Firefox Aurora
+- Flux
 - Gitbox
 - Google Chrome
 - Google Chrome Canary
 - Handbrake
+- Hazel
 - ImageOptim
-- nvAlt
-- 1Password
+- nvALT
 - Onyx
 - Opera
+- Opera Next
+- QLMarkdown
 - Sequel Pro
 - Skype
+- Spotify
 - Sublime Text
 - Things
+- TotalFinder
+- TVShows
 - Tower
 - Transmission
 - Transmit
@@ -41,29 +52,24 @@
 
 ### RVM
 
-- Ruby 1.9.3
+- Ruby 2.0.0-p353
 
 ### Gems
   
 - Sass
-- Github Pages (includes Jekyll)
+- Jekyll
+
+## NPM
+
+- Bower
+- Grunt CLI
+- JSHint
 
 ### Additional software downloaded (but not installed)
 
-- Coda 2
-- ChronoSync
-- ChronoAgent
+- Clusters
 - Gawker
 - Grand Perspective
-- ServicesManager
-- Structurer
-- TotalFinder
-- Webbla
-
-### Additional software to be downloaded and installed after setup
-
-- Hazel
 - Pastebot Sync
-- Clusters
-- TVShows
-
+- ServicesManager
+- Webbla
