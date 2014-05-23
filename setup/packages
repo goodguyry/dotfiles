@@ -122,7 +122,7 @@ if ! type_exists 'sass' ; then
 fi
 
 if ! type_exists 'jekyll' ; then  
-  e_header "Installing Github Pages..."
+  e_header "Installing Jekyll..."
   gem install jekyll
 fi
 
