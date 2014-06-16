@@ -22,6 +22,18 @@ function p() {
 }
 
 
+# Hide individual file(s)
+function hide() {
+	chflags hidden "$@"
+}
+
+
+# Unhide individual file(s)
+function unhide() {
+	chflags nohidden "$@"
+}
+
+
 # Create a temporary plain text file
 # Usage: `temp ext` (creates file: temp.[date string].ext)
 # If no extension is passed, defaults to "md"
