@@ -74,7 +74,7 @@ done
 cat functions/core $CAT_LIST > bash_functions
 
 # Files to copy/link
-INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin bash_functions local/exports local/utils)
+INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin inputrc bash_functions local/exports local/utils)
 
 function copyFiles() {
 
