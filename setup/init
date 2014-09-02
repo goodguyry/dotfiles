@@ -23,6 +23,13 @@ do
   esac
 done
 
+# Create the Projects directory if it doesn't exist
+if [[ -r "~/Projects" && ! -d "~/Projects" ]]; then
+  mkdir Projects
+else
+  e_header "Projects directory already exists in ~/"
+fi
+
 # Conditionally install Command Line Tools, Homebrew and Git
 if [[ $no_packages ]]; then
   e_header "Skipped Homebrew and Git installations."
@@ -32,7 +39,7 @@ else
     e_error "The XCode Command Line Tools must be installed first."
     xcode-select --install
   fi
-  
+
   # Check for Homebrew
   if ! type_exists 'brew'; then
     e_header "Installing Homebrew..."
@@ -45,7 +52,7 @@ else
     e_header "Installing Node..."
     brew install node
   fi
-  
+
   # Check for git
   if ! type_exists 'git'; then
     e_header "Updating Homebrew..."
@@ -58,7 +65,7 @@ fi
 # Concatenate function files into bash_functions
 CAT_LIST="";
 
-for i in functions/* ; do 
+for i in functions/* ; do
   if [[ -r "$i" && "$i" != "../functions/core" ]] ; then
     CAT_LIST+="$i "
   fi
@@ -73,9 +80,9 @@ function copyFiles() {
 
   # Add gitconfig to list of files to copy
   INCLUDES_LIST+=(gitconfig)
-  
+
   e_header "Copying files over..."
-  
+
   for i in ${INCLUDES_LIST[@]} ; do
     # If the file already exists, remove it
     [ -h "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
@@ -92,11 +99,11 @@ function symlinkFiles() {
 
   for i in ${INCLUDES_LIST[@]} ; do
     [ -e "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
-    ln -vfFs "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"  
+    ln -vfFs "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"
   done
-  
+
   cp -i "${DOTFILES_DIRECTORY}/gitconfig" "${HOME}/.gitconfig"
-  
+
 }
 
 # Ask before potentially overwriting files
@@ -117,7 +124,7 @@ fi
 # Prompt to create the extras file if it doesn't already exists
 if [[ ! -r "$HOME/.extras" ]] ; then
   seek_confirmation "Would you like to create the '.extras' file now?"
-  
+
   if is_confirmed; then
     printf "Your Git author name: -> "
     read NAME
@@ -128,13 +135,13 @@ if [[ ! -r "$HOME/.extras" ]] ; then
     fi
   else
     e_warning "You will need to create the extras file manually."
-  fi 
+  fi
 else
   e_header "Confirm your Git credentials."
   open ~/.extras
   sleep 3
   # Bring attention back to Terminal
-  tput bel    
+  tput bel
 fi
 
 # conditionally init and pull the Git repo
