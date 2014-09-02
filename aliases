@@ -44,7 +44,7 @@ alias sudo='sudo '
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="clear && exec $SHELL -l"
- 
+
 # Restart Apache
 alias apache="sudo apachectl restart"
 
@@ -53,9 +53,6 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
 alias macaddr="ipconfig getpacket en1 | grep chaddr"
-
-# Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
