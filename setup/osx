@@ -24,7 +24,7 @@ if is_confirmed ; then
   sudo scutil --set LocalHostName "$CNAME"
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$CNAME"
   echo "$CNAME set."
-fi  
+fi
 
 #==================================================
 # Dock
@@ -376,7 +376,8 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Browsers
 
 # Remove Chrome's two-finger swipe
-defaults write com.google.Chrome.plist AppleEnableSwipeNavigateWithScrolls -bool false
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
 
 # Allow installing user scripts via GitHub or Userscripts.org
 defaults write com.google.Chrome ExtensionInstallSources -array "https://*.github.com/*" "http://userscripts.org/*"
