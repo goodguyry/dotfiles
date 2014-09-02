@@ -17,7 +17,7 @@ CDPATH=".:~:/private"
 # Load the shell dotfiles, and then some:
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{bashrc,bash_prompt,local/exports,extras,local/utils}; do
-  [ -r "$file" ] && source "$file"
+  [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
 
