@@ -80,7 +80,7 @@ defaults write com.apple.dock itunes-notifications -bool true
 defaults write com.apple.dock springboard-blur-radius -int 0
 
 # Add iOS Simulator to Launchpad
-ln -s /Applications/Xcode.app/Contents/Applications/iPhone\ Simulator.app /Applications/iOS\ Simulator.app
+sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone Simulator.app" "/Applications/iOS Simulator.app"
 
 # Hot corners
 # Possible values:
