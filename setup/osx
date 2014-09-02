@@ -197,10 +197,12 @@ defaults write com.apple.finder SidebarZoneOrder -array "media_browser" "favorit
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
 # Set Expanded Print Menu as Default
-defaults write -g PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # Set Expanded Save Menus as Default
-defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Change the default save location from iCloud to On My Mac
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
