@@ -39,7 +39,8 @@ defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock minimize-to-application -bool true
 
 # Single Application Mode
-defaults write com.apple.dock single-app -bool true
+# After years of enjoying this feature, I know find it annoying all of the sudden
+# defaults write com.apple.dock single-app -bool true
 
 # Translucent Hidden Applications
 defaults write com.apple.Dock showhidden -bool true
