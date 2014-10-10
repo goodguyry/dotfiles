@@ -48,7 +48,7 @@ brew install webkit2png
 brew install phantomjs
 brew install casperjs
 
-[[ $? ]] && e_success "Homebrew packages installed."  
+[[ $? ]] && e_success "Homebrew packages installed."
 e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
 
 
@@ -96,6 +96,7 @@ installcask tower
 installcask transmission
 installcask transmit
 installcask vlc
+installcask web-sharing
 
 [[ $? ]] && e_success "Casks installed"
 
@@ -121,7 +122,7 @@ if ! type_exists 'sass' ; then
   gem install sass
 fi
 
-if ! type_exists 'jekyll' ; then  
+if ! type_exists 'jekyll' ; then
   e_header "Installing Jekyll..."
   gem install jekyll
 fi
