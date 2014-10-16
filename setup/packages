@@ -74,9 +74,11 @@ installcask evernote
 installcask firefox
 installcask firefox-aurora
 installcask flux
+installcask gawker
 installcask gitbox
 installcask google-chrome
 installcask google-chrome-canary
+installcask grandperspective
 installcask handbrake
 installcask hazel
 installcask imageoptim
@@ -160,25 +162,14 @@ function getdownload() {
   wget -nv --progress=bar "$@"
 }
 
-# Application versions
-gawker_v="0.8.4"
-grandperspective_v="1_5_1"
-clusters_v="1.7"
-
-Gawker="http://downloads.sourceforge.net/sourceforge/gawker/Gawker_$gawker_v.zip"
-
-GrandPerspective="http://sourceforge.net/projects/grandperspectiv/files/grandperspective/1.5.1/GrandPerspective-$grandperspective_v.dmg"
-
 ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
 
 Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
 
-Clusters="http://latenitesoft.com/clusters/download/Clusters_$clusters_v.dmg"
+Clusters="http://latenitesoft.com/clusters/download/Clusters_1.7.dmg"
 
 PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
 
-getdownload "$Gawker"
-getdownload "$GrandPerspective"
 getdownload "$ServicesManager"
 getdownload "$Webbla"
 getdownload "$Clusters"
