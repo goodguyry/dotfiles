@@ -219,7 +219,7 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-open "local/GoodGuyRy.terminal"
+open "../local/GoodGuyRy.terminal"
 sleep 2 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
 defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
