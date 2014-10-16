@@ -3,15 +3,18 @@
 DOTFILES_DIRECTORY=$(pwd)
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
-source $DOTFILES_DIRECTORY/lib/help
-source $DOTFILES_DIRECTORY/setup/create_extras
+
+source $DOTFILES_DIRECTORY/local/help
+source $DOTFILES_DIRECTORY/local/create_extras
 source $DOTFILES_DIRECTORY/local/utils
+
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
   run_help
   exit
 fi
+
 
 # Test for known flags
 for opt in $@
@@ -23,12 +26,14 @@ do
   esac
 done
 
+
 # Create the Projects directory if it doesn't exist
 if [[ -r "~/Projects" && ! -d "~/Projects" ]]; then
   mkdir Projects
 else
   e_header "Projects directory already exists in ~/"
 fi
+
 
 # Conditionally install Command Line Tools, Homebrew and Git
 if [[ $no_packages ]]; then
@@ -62,64 +67,69 @@ else
   fi
 fi
 
-# Concatenate function files into bash_functions
-CAT_LIST="";
 
-for i in functions/* ; do
-  if [[ -r "$i" && "$i" != "../functions/core" ]] ; then
-    CAT_LIST+="$i "
+# Create the .bin/ directory if it doesn't exist
+if [[ -r "~/.bin" && ! -d "~/.bin" ]]; then
+  mkdir .bin
+else
+  e_header ".bin directory already exists in ~/"
+fi
+
+
+# Conditionally sym link or copy the files
+function setFile() {
+  if [[ $copy_files ]] ; then
+    rsync -avz --quiet "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
+  else
+    # Force create/replace the symlink.
+    ln -fs "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
   fi
-done
-
-cat functions/core $CAT_LIST > bash_functions
-
-# Files to copy/link
-INCLUDES_LIST=(aliases bash_profile bash_prompt bashrc git_completion gitignore hushlogin inputrc bash_functions local/exports local/utils)
-
-function copyFiles() {
-
-  # Add gitconfig to list of files to copy
-  INCLUDES_LIST+=(gitconfig)
-
-  e_header "Copying files over..."
-
-  for i in ${INCLUDES_LIST[@]} ; do
-    # If the file already exists, remove it
-    [ -h "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
-    # Add a trailing slash to directories
-    [ -d "$i" ] && i="${i}/"
-    cp -fR "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"
-  done
-
 }
 
-function symlinkFiles() {
 
+# Create symbolic links between the dotfiles repo and `HOME` directory.
+function setFiles() {
   e_header "Linking files..."
 
-  for i in ${INCLUDES_LIST[@]} ; do
-    [ -e "${HOME}/.${i}" ] && rm -r "${HOME}/.${i}"
-    ln -vfFs "${DOTFILES_DIRECTORY}/$i" "${HOME}/.${i}"
-  done
+  # Copy `.gitconfig`.
+  rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
 
-  cp -i "${DOTFILES_DIRECTORY}/gitconfig" "${HOME}/.gitconfig"
+  setFile "bash/aliases"                  ".aliases"
+  setFile "bash/bash_config"              ".bash_config"
+  setFile "bash/bash_paths"               ".bash_paths"
+  setFile "bash/bash_profile"             ".bash_profile"
+  setFile "bash/bash_prompt"              ".bash_prompt"
+  setFile "bash/bashrc"                   ".bashrc"
+  setFile "bash/functions"                ".bash_functions"
+  setFile "bash/functions/batchrename"    ".bash_functions/batchrename"
+  setFile "bash/functions/common"         ".bash_functions/common"
+  setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
+  setFile "bash/inputrc"                  ".inputrc"
+  setFile "bin/brew"                      ".bin/brew"
+  setFile "bin/cask"                      ".bin/cask"
+  setFile "bin/downloads"                 ".bin/downloads"
+  setFile "bin/npm"                       ".bin/npm"
+  setFile "bin/osx"                       ".bin/osx"
+  setFile "bin/rpm"                       ".bin/rpm"
+  setFile "git/git_completion"            ".git_completion"
+  setFile "git/gitignore"                 ".gitignore"
+  setFile "hushlogin"                     ".hushlogin"
 
+  e_success "Dotfiles update complete!"
 }
+
 
 # Ask before potentially overwriting files
 seek_confirmation "Warning: This step may overwrite your existing dotfiles."
 
 if is_confirmed; then
-  if [[ $copy_files ]] ; then
-    copyFiles
-  else
-    symlinkFiles
-  fi
+  setFiles
   source ${HOME}/.bash_profile
 else
   e_header "Aborting..."
   exit 1
 fi
+
 
 # Prompt to create the extras file if it doesn't already exists
 if [[ ! -r "$HOME/.extras" ]] ; then
@@ -144,6 +154,7 @@ else
   tput bel
 fi
 
+
 # conditionally init and pull the Git repo
 if [[ !$copy_files ]] ; then
   cd "${DOTFILES_DIRECTORY}"
@@ -165,23 +176,26 @@ if [[ !$copy_files ]] ; then
   fi
 fi
 
+
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
   e_header "Skipped package installations."
-  e_warning "You can run './setup/packages' to install these later."
+  e_warning "You can install these later."
 else
   e_header "Updating packages...\n"
-  ./setup/packages
+  ./bin/packages
 fi
+
 
 # Ask before potentially overwriting OS X defaults
 seek_confirmation "Warning: This step may modify your OS X system defaults."
 
 if is_confirmed; then
-  bash ./local/bin/osx
+  bash ./bin/osx
 else
   e_header "Skipped OS X settings update."
 fi
+
 
 unset copy_files
 
