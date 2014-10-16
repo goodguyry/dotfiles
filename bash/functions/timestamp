@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 # ----------------------------------------------
 # Add a timestamp to a file or folder
@@ -27,7 +27,7 @@ function ts() {
   name="${item%.*}"
   ext="${item##*.}"
 
-	# no args were given 
+	# no args were given
 	if [ $# -lt 1 ]; then echo "$errormsg"; return; fi
 
 	if [ -d "$item" ]; then

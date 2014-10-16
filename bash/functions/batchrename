@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 # ----------------------------------------------
 # Renames all files with an appended number; directories are skipped by default
@@ -44,7 +44,7 @@ function rn() {
 		regFlagAlpha="\-[a|d|0-999]"
 		regNum="[0-999]"
 		regExt="\.[a-z|0-9]"
-		
+
 		if [[ "$currentArg" =~ $regFlagAlpha ]]; then
 			flag=$(echo ${arg} | cut -d '-' -f 2)
 
@@ -86,7 +86,7 @@ function rn() {
 	elif [[ $(( $fileCount + $startingPoint )) -gt 99 ]]; then
 		zeroPadding=3
 	fi
-	
+
 	# function to rename files
 	renameFile() {
     fileName="${1%.*}"
@@ -105,7 +105,7 @@ function rn() {
 	# function to rename folders
 	renameDirectory() {
     folderName="$1"
-		mv "$i" "${newName}_${2}"	
+		mv "$i" "${newName}_${2}"
 	}
 
 	for i in *; do
@@ -133,7 +133,7 @@ function rn() {
 
     startingPoint=$(($startingPoint+1))
 	done
-		
+
 	# cleanup
 	unset zeroPadding
 	unset startingPoint

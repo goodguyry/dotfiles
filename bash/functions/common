@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Switch to projects folder; optionally add a project directory
 function p() {
   cd ~/Projects/"$@"
