@@ -1,13 +1,3 @@
 #!/bin/bash
 
-# Personal aliases and functions.
-
-# Personal environment variables and startup programs should go in ~/.bash_profile.
-# System wide environment variables and startup programs are in /etc/profile.
-# System wide aliases and functions are in /etc/bashrc.
-
-[[ -f /etc/profile ]] && . /etc/profile
-
-# Source aliases and functions
-[ -r "$HOME/.aliases" ] && source "$HOME/.aliases"
-[ -r "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
+[ -n "$PS1" ] && source ~/.bash_profile;

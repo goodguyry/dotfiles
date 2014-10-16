@@ -124,7 +124,7 @@ seek_confirmation "Warning: This step may overwrite your existing dotfiles."
 
 if is_confirmed; then
   setFiles
-  source ${HOME}/.bash_profile
+  source ${HOME}/.bashrc
 else
   e_header "Aborting..."
   exit 1
