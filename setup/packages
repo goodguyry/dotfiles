@@ -103,6 +103,8 @@ installcask web-sharing
 # Remove outdated versions from the cellar
 brew cleanup
 
+# Link Sublime Text CLI
+ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/sublime
 
 
 # Check for rvm
