@@ -1,20 +1,5 @@
 #!/bin/bash
 
-# Concatenate function files into bash_functions
-# For use in updating and testing dotfiles
-# Should only be run from the dotfiles root
-function catfunctions() {
-  CAT_LIST="";
-  
-  for i in functions/* ; do 
-    if [[ -r "$i" && "$i" != "functions/core" ]] ; then
-      CAT_LIST+="$i "
-    fi
-  done
-  
-  cat functions/core $CAT_LIST > bash_functions
-}
-
 
 # Switch to projects folder; optionally add a project directory
 function p() {
