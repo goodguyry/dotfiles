@@ -1,16 +1,5 @@
 #!/bin/bash
 
-source ~/.local/utils
-
-function check_for_homebrew() {
-  if ! type_exists 'brew'; then
-    e_header "Installing Homebrew..."
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    brew doctor
-    [[ $? ]] && e_success "Homebrew installed."
-  fi
-}
-
 # Install native apps
 brew install caskroom/cask/brew-cask
 brew tap caskroom/versions

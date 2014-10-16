@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/.local/utils
-
 # download additional software
 old_pwd=$(pwd)
 cd ~/Downloads

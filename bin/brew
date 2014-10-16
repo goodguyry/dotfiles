@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/.local/utils
-
 function check_for_homebrew() {
   if ! type_exists 'brew'; then
     e_header "Installing Homebrew..."

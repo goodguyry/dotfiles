@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/.local/utils
-
 # Check for npm
 if ! type_exists 'npm'; then
   brew install node
