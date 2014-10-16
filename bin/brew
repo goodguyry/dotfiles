@@ -1,0 +1,52 @@
+#!/bin/bash
+
+source ~/.local/utils
+
+function check_for_homebrew() {
+  if ! type_exists 'brew'; then
+    e_header "Installing Homebrew..."
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    brew doctor
+    [[ $? ]] && e_success "Homebrew installed."
+  fi
+}
+
+# Check for Homebrew
+check_for_homebrew
+
+e_header "Updating Homebrew..."
+brew update
+
+e_header "Upgrading installed formulae..."
+brew upgrade
+
+# Install GNU core utilities (those that come with OS X are outdated)
+brew install coreutils
+
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+brew install findutils
+
+# Install Bash 4
+brew install bash
+
+# Install wget with IRI support
+brew install wget --enable-iri
+
+# Install more recent versions of some OS X tools
+brew tap homebrew/dupes
+brew install homebrew/dupes/grep
+brew tap josegonzalez/homebrew-php
+brew install php55
+
+# Install other useful binaries
+brew install mysql
+brew install node
+brew install rename
+brew install tree
+brew install webkit2png
+
+brew install phantomjs
+brew install casperjs
+
+[[ $? ]] && e_success "Homebrew packages installed."
+e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."

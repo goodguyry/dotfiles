@@ -1,0 +1,30 @@
+#!/bin/bash
+
+source ~/.local/utils
+
+# download additional software
+old_pwd=$(pwd)
+cd ~/Downloads
+
+function getdownload() {
+  e_header "Downloading from $@"
+  wget -nv --progress=bar "$@"
+}
+
+ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
+
+Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
+
+Clusters="http://latenitesoft.com/clusters/download/Clusters_1.7.dmg"
+
+PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
+
+getdownload "$ServicesManager"
+getdownload "$Webbla"
+getdownload "$Clusters"
+getdownload "$PastebotSync"
+
+cd "$old_pwd"
+
+[[ $? ]] && e_success "Done"
+open ~/Downloads

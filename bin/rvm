@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source ~/.local/utils
+
+# Check for rvm
+if ! type_exists 'rvm' ; then
+  e_header "Installing RVM..."
+  \curl -L https://get.rvm.io | bash -s stable --ruby=2.0.0-p353 --autolibs=enabled
+  [[ $? ]] && e_success "RVM installed."
+fi
+
+rvm --default use 2.0.0-p353
+
+e_header "Updating gem..."
+gem update --system
+
+if ! type_exists 'sass' ; then
+  e_header "Installing Sass..."
+  gem install sass
+fi
+
+if ! type_exists 'jekyll' ; then
+  e_header "Installing Jekyll..."
+  gem install jekyll
+fi
+
+gem update
+
+[[ $? ]] && e_success "Gems installed"

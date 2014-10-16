@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source ~/.local/utils
+
+# Check for npm
+if ! type_exists 'npm'; then
+  brew install node
+fi
+
+e_header "Installing Node.js packages..."
+
+# List of npm packages
+local packages="bower grunt-cli jshint"
+
+# Install packages globally and quietly
+npm install $packages --g --quiet
+
+[[ $? ]] && e_success "Done"

@@ -106,11 +106,11 @@ function setFiles() {
   setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
   setFile "bash/inputrc"                  ".inputrc"
   setFile "bin/brew"                      ".bin/brew"
-  setFile "bin/cask"                      ".bin/cask"
+  setFile "bin/casks"                     ".bin/casks"
   setFile "bin/downloads"                 ".bin/downloads"
   setFile "bin/npm"                       ".bin/npm"
   setFile "bin/osx"                       ".bin/osx"
-  setFile "bin/rpm"                       ".bin/rpm"
+  setFile "bin/rvm"                       ".bin/rvm"
   setFile "git/git_completion"            ".git_completion"
   setFile "git/gitignore"                 ".gitignore"
   setFile "hushlogin"                     ".hushlogin"
@@ -183,7 +183,11 @@ if [[ $no_packages ]]; then
   e_warning "You can install these later."
 else
   e_header "Updating packages...\n"
-  ./bin/packages
+  ./bin/brew
+  ./bin/casks
+  ./bin/rvm
+  ./bin/npm
+  ./bin/downloads
 fi
 
 
