@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Personal aliases and functions.
 
 # Personal environment variables and startup programs should go in ~/.bash_profile.
@@ -6,10 +8,6 @@
 
 [[ -f /etc/profile ]] && . /etc/profile
 
-VISUAL=vim; export VISUAL
-EDITOR=vim; export EDITOR
-GUI_EDITOR=/Applications/Smultron\ 4.app/Contents/MacOS/Smultron\ 4; export GUI_EDITOR
-
-
+# Source aliases and functions
 [ -r "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -r "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
