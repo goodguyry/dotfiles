@@ -13,7 +13,7 @@ declare -a files=(
     $HOME/.rvm/scripts/rvm # Load RVM into a shell session *as a function*
     $HOME/.bash_config # Configuration
     $HOME/.aliases # Aliases
-    $HOME/.functions/* # Functions
+    $HOME/.bash_functions/* # Functions
     $HOME/.bash_prompt # Custom bash prompt
     $HOME/.extras # Local and private settings not under version control (e.g. git credentials)
     $HOME/.bash_paths # Path modifications
