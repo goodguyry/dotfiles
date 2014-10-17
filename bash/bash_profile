@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Personal environment variables, startup programs, aliases and functions.
-
-# Personal aliases and functions should go in ~/.bashrc.
-# If you're scared, put 'em there. I do what I want.
-# System wide environment variables and startup programs are in /etc/profile.
-# System wide aliases and functions are in /etc/bashrc.
-
 # Load the shell dotfiles, and then some:
 # Shamelessly stolen from @wilto
 declare -a files=(
