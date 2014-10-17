@@ -28,8 +28,8 @@ done
 
 
 # Create the Projects directory if it doesn't exist
-if [[ -r "~/Projects" && ! -d "~/Projects" ]]; then
-  mkdir Projects
+if [[ ! -d "~/Projects" ]]; then
+  mkdir ~/Projects
 else
   e_header "Projects directory already exists in ~/"
 fi
