@@ -309,10 +309,13 @@ defaults write -g NSScrollViewRubberbanding -bool false
 loginmessage=$(sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)
 # Present current login message and ask if it should be changed
 seek_confirmation "Login message: '$loginmessage' - Would you like to change it?"
-# Read the input and set the message
-printf "Login message: -> "
-read LOGINMESSAGE
-sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "$LOGINMESSAGE"
+
+if is_confirmed ; then
+  # Read the input and set the message
+  printf "Login message: -> "
+  read LOGINMESSAGE
+  sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "$LOGINMESSAGE"
+fi
 
 # Disable Resume system-wide
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
