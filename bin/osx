@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "../local/utils"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "${DIR}/../local/utils"
 
 # A lot of these were borrowed from http://mths.be/osx
 
@@ -219,8 +220,8 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
-# Use a modified version of the Pro theme by default in Terminal.app
-open "../local/GoodGuyRy.terminal"
+# Use my theme by default in Terminal.app
+open "${DIR}/../local/GoodGuyRy.terminal"
 sleep 2 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
 defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
