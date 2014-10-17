@@ -39,7 +39,7 @@ defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock minimize-to-application -bool true
 
 # Single Application Mode
-# After years of enjoying this feature, I know find it annoying all of the sudden
+# After years of enjoying this feature, I now find it annoying all of the sudden
 # defaults write com.apple.dock single-app -bool true
 
 # Translucent Hidden Applications
@@ -55,7 +55,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 
 # Add recent applications stack
-# Check before runnin so we don't get more than one
+# Check before running so we don't get more than one
 stack="$(defaults read com.apple.dock persistent-others | grep "\"tile-type\" = \"recents-tile\"")"
 if [$stack == ""]; then
   defaults write com.apple.dock persistent-others -array-add '{ "tile-data" = { "list-type" = 1; }; "tile-type" = "recents-tile"; }'
