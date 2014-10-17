@@ -7,6 +7,7 @@ DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 source $DOTFILES_DIRECTORY/local/help
 source $DOTFILES_DIRECTORY/local/create_extras
 source $DOTFILES_DIRECTORY/local/utils
+source $DOTFILES_DIRECTORY/local/packages
 
 
 # Help text
@@ -169,11 +170,7 @@ if [[ $no_packages ]]; then
   e_warning "You can install these later."
 else
   e_header "Updating packages...\n"
-  ./bin/brew
-  ./bin/casks
-  ./bin/rvm
-  ./bin/npm
-  ./bin/downloads
+  run_packages
 fi
 
 

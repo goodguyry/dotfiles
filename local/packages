@@ -1,0 +1,224 @@
+#!/bin/bash
+
+source utils
+
+# Check for Homebrew
+function check_for_homebrew() {
+  if ! type_exists 'brew'; then
+    e_header "Installing Homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew doctor
+    [[ $? ]] && e_success "Homebrew installed."
+  fi
+}
+
+# Install Brews
+function init_brew() {
+
+  # Check for Homebrew
+  check_for_homebrew
+
+  e_header "Updating Homebrew..."
+  brew update
+
+  e_header "Upgrading installed formulae..."
+  brew upgrade
+
+  # Install GNU core utilities (those that come with OS X are outdated)
+  brew install coreutils
+
+  # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+  brew install findutils
+
+  # Install Bash 4
+  brew install bash
+
+  # Install wget with IRI support
+  brew install wget --enable-iri
+
+  # Install more recent versions of some OS X tools
+  brew tap homebrew/dupes
+  brew install homebrew/dupes/grep
+  brew tap josegonzalez/homebrew-php
+  brew install php55
+
+  # Install other useful binaries
+  brew install mysql
+  brew install node
+  brew install rename
+  brew install tree
+  brew install webkit2png
+
+  brew install phantomjs
+  brew install casperjs
+
+  [[ $? ]] && e_success "Homebrew packages installed."
+  e_warning "Don't forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
+
+}
+
+# Install native apps with Homebrew
+function init_casks() {
+
+  # Check for Homebrew
+  check_for_homebrew
+
+  # Install native apps
+  brew install caskroom/cask/brew-cask
+  brew tap caskroom/versions
+  brew install brew-cask
+
+  [[ $? ]] && e_success "Homebrew Cask installed"
+
+  function installcask() {
+    e_header "Installing ${@}..."
+    brew cask install "${@}" 2> /dev/null
+  }
+
+  installcask bittorrent-sync
+  installcask chronosync
+  installcask chronoagent
+  installcask coda
+  installcask dropbox
+  installcask evernote
+  installcask firefox
+  installcask firefox-aurora
+  installcask flux
+  installcask gawker
+  installcask gitbox
+  installcask google-chrome
+  installcask google-chrome-canary
+  installcask grandperspective
+  installcask handbrake
+  installcask hazel
+  installcask imageoptim
+  installcask nvalt
+  installcask onyx
+  installcask opera
+  installcask opera-next
+  installcask qlmarkdown
+  installcask sequel-pro
+  installcask skype
+  installcask spotify
+  installcask sublime-text3
+  installcask things
+  installcask torbrowser
+  installcask totalfinder
+  installcask tvshows
+  installcask tower1
+  installcask transmission
+  installcask transmit
+  installcask vlc
+  installcask web-sharing
+
+  [[ $? ]] && e_success "Casks installed"
+
+  # Remove outdated versions from the cellar
+  brew cleanup
+
+  # Link Sublime Text CLI
+  ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/sublime
+
+}
+
+# Install node and packages
+function init_npm() {
+
+  # Check for Homebrew
+  check_for_homebrew
+
+  # Check for npm
+  if ! type_exists 'npm'; then
+    e_header "Installing Node..."
+    brew install node
+  fi
+
+  e_header "Installing Node.js packages..."
+
+  # List of npm packages
+  local packages="bower grunt-cli jshint"
+
+  # Install packages globally and quietly
+  npm install $packages --g --quiet
+
+  [[ $? ]] && e_success "Done"
+
+}
+
+# Install rvm and gems
+function init_rvm() {
+
+  # Check for rvm
+  if ! type_exists 'rvm' ; then
+    e_header "Installing RVM..."
+    \curl -L https://get.rvm.io | bash -s stable --ruby=2.0.0-p353 --autolibs=enabled
+    [[ $? ]] && e_success "RVM installed."
+  fi
+
+  rvm --default use 2.0.0-p353
+
+  e_header "Updating gem..."
+  gem update --system
+
+  if ! type_exists 'sass' ; then
+    e_header "Installing Sass..."
+    gem install sass
+  fi
+
+  if ! type_exists 'jekyll' ; then
+    e_header "Installing Jekyll..."
+    gem install jekyll
+  fi
+
+  gem update
+
+  [[ $? ]] && e_success "Gems installed"
+
+}
+
+# wget additional software
+function init_downloads() {
+
+  # download additional software
+  old_pwd=$(pwd)
+  cd ~/Downloads
+
+  function getdownload() {
+    e_header "Downloading from $@"
+    wget -nv --progress=bar "$@"
+  }
+
+  ServicesManager="http://www.macosxautomation.com/services/servicesmanager/pkg/ServicesManagerInstaller.zip"
+
+  Webbla="http://www.celmaro.com/files/webbla/Webbla.zip"
+
+  Clusters="http://latenitesoft.com/clusters/download/Clusters_1.7.dmg"
+
+  PastebotSync="http://tapbots.net/pastebot/PastebotSync.dmg"
+
+  getdownload "$ServicesManager"
+  getdownload "$Webbla"
+  getdownload "$Clusters"
+  getdownload "$PastebotSync"
+
+  cd "$old_pwd"
+
+  [[ $? ]] && e_success "Done"
+  open ~/Downloads
+
+}
+
+# Run all install functions
+function run_packages() {
+
+  e_header "Running all package installs"
+
+  init_brew
+  init_casks
+  init_npm
+  init_rvm
+  init_downloads
+
+  [[ $? ]] && e_success "All packages - done"
+
+}
