@@ -90,8 +90,9 @@ function setFiles() {
     e_header ".bash_functions directory already exists in ~/"
   fi
 
-  # Copy `.gitconfig`.
+  # Copy `.gitconfig` and `.git_completion`
   rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
+  rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/git_completion  ${HOME}/.git_completion
 
   setFile "bash/aliases"                  ".aliases"
   setFile "bash/bash_config"              ".bash_config"
@@ -103,7 +104,6 @@ function setFiles() {
   setFile "bash/functions/common"         ".bash_functions/common"
   setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
   setFile "bash/inputrc"                  ".inputrc"
-  setFile "git/git_completion"            ".git_completion"
   setFile "git/gitignore"                 ".gitignore"
   setFile "bash/hushlogin"                ".hushlogin"
 
