@@ -68,14 +68,6 @@ else
 fi
 
 
-# Create the .bin/ directory if it doesn't exist
-if [[ -r "~/.bin" && ! -d "~/.bin" ]]; then
-  mkdir .bin
-else
-  e_header ".bin directory already exists in ~/"
-fi
-
-
 # Conditionally sym link or copy the files
 function setFile() {
   if [[ $copy_files ]] ; then
@@ -91,6 +83,13 @@ function setFile() {
 function setFiles() {
   e_header "Linking files..."
 
+  # Create the .bash_functions/ directory if it doesn't exist
+  if [[ ! -d "~/.bash_functions" ]]; then
+    mkdir ~/.bash_functions
+  else
+    e_header ".bash_functions directory already exists in ~/"
+  fi
+
   # Copy `.gitconfig`.
   rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
 
@@ -100,7 +99,6 @@ function setFiles() {
   setFile "bash/bash_profile"             ".bash_profile"
   setFile "bash/bash_prompt"              ".bash_prompt"
   setFile "bash/bashrc"                   ".bashrc"
-  setFile "bash/functions"                ".bash_functions"
   setFile "bash/functions/batchrename"    ".bash_functions/batchrename"
   setFile "bash/functions/common"         ".bash_functions/common"
   setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
