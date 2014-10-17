@@ -107,7 +107,7 @@ function setFiles() {
   setFile "bash/inputrc"                  ".inputrc"
   setFile "git/git_completion"            ".git_completion"
   setFile "git/gitignore"                 ".gitignore"
-  setFile "hushlogin"                     ".hushlogin"
+  setFile "bash/hushlogin"                ".hushlogin"
 
   e_success "Dotfiles update complete!"
 }
