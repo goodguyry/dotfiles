@@ -71,10 +71,6 @@ defaults write com.apple.dock mru-spaces -bool false
 # Don’t show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
-# Jump back to previous space (4-finger double-tap)
-# This doesn't appear to work in Mavericks
-# defaults write com.apple.dock double-tap-jump-back -bool true
-
 # iTunes Dock Notifications
 defaults write com.apple.dock itunes-notifications -bool true
 
@@ -225,12 +221,6 @@ open "${DIR}/../local/GoodGuyRy.terminal"
 sleep 2 # Wait a bit to make sure the theme is loaded
 defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
 defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
-
-# Set the default shell command - not needed with .hushlogin
-# defaults write com.apple.terminal CommandString -string "login -fpql Ryan /bin/bash"
-
-# Run default command in background
-# defaults write com.apple.terminal RunCommandAsShell -bool true
 
 
 #==================================================
