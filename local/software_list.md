@@ -9,6 +9,7 @@
 - GNU findutils
 - Grep
 - MySQL
+- Node
 - Phantomjs
 - PHP 5.5
 - Rename
@@ -17,47 +18,51 @@
 - Wget
 
 ### Homebrew Cask (native applications)
-  
+
 - Bittorrent Sync
-- ChronoSync
 - ChronoAgent
+- ChronoSync
 - Coda
 - Dropbox
 - Evernote
 - Firefox
 - Firefox Aurora
 - Flux
+- Gawker
 - Gitbox
 - Google Chrome
 - Google Chrome Canary
+- GrandPerspective
 - Handbrake
 - Hazel
 - ImageOptim
-- nvALT
+- Nvalt
 - Onyx
 - Opera
 - Opera Next
-- QLMarkdown
+- QL Markdown
 - Sequel Pro
 - Skype
 - Spotify
-- Sublime Text
+- Sublime Text 3
 - Things
+- Tor Browser
 - TotalFinder
-- TVShows
-- Tower
+- Tower 1
 - Transmission
 - Transmit
+- TVShows
 - VLC
+- Web Sharing
 
 ### RVM
 
 - Ruby 2.0.0-p353
 
 ### Gems
-  
-- Sass
+
 - Jekyll
+- Sass
 
 ## NPM
 
@@ -68,8 +73,6 @@
 ### Additional software downloaded (but not installed)
 
 - Clusters
-- Gawker
-- Grand Perspective
 - Pastebot Sync
 - ServicesManager
 - Webbla
