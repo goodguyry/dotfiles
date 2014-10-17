@@ -71,7 +71,8 @@ defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Jump back to previous space (4-finger double-tap)
-defaults write com.apple.dock double-tap-jump-back -bool true
+# This doesn't appear to work in Mavericks
+# defaults write com.apple.dock double-tap-jump-back -bool true
 
 # iTunes Dock Notifications
 defaults write com.apple.dock itunes-notifications -bool true
