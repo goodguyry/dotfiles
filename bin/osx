@@ -241,8 +241,8 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Trackpad: Set up dragging without draglock ** doesn't currently work**
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock -bool false
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true
 
 # Trackpad: Set up swipe gestures
 defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
