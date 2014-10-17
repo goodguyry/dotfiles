@@ -58,7 +58,7 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 # Add recent applications stack
 # Check before running so we don't get more than one
 stack="$(defaults read com.apple.dock persistent-others | grep "\"tile-type\" = \"recents-tile\"")"
-if [$stack == ""]; then
+if [ -z "$stack" ]; then
   defaults write com.apple.dock persistent-others -array-add '{ "tile-data" = { "list-type" = 1; }; "tile-type" = "recents-tile"; }'
 fi
 
