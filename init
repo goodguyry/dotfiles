@@ -29,10 +29,10 @@ done
 
 
 # Create the Projects directory if it doesn't exist
-if [[ ! -d "~/Projects" ]]; then
-  mkdir ~/Projects
+if [[ ! -d "${HOME}/Projects" ]]; then
+  mkdir "${HOME}/Projects"
 else
-  e_header "Projects directory already exists in ~/"
+  e_header "Projects directory already exists in ${HOME}"
 fi
 
 
@@ -79,10 +79,10 @@ function setFiles() {
   e_header "Linking files..."
 
   # Create the .bash_functions/ directory if it doesn't exist
-  if [[ ! -d "~/.bash_functions" ]]; then
-    mkdir ~/.bash_functions
+  if [[ ! -d "${HOME}/.bash_functions" ]]; then
+    mkdir "${HOME}/.bash_functions"
   else
-    e_header ".bash_functions directory already exists in ~/"
+    e_header ".bash_functions directory already exists in ${HOME}"
   fi
 
   # Copy `.gitconfig` and `.git_completion`
