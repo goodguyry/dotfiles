@@ -6,7 +6,7 @@ My dotfiles. Very exciting.
 
 #### Using Git
 
-You can clone the repository wherever you want. To do so, ```cd``` into the desired directory and run the following:
+Clone the repository wherever convenient by ```cd```ing into the desired directory and running the following:
 
 ```bash
 git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
@@ -14,7 +14,7 @@ git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
 
 #### Git-free
 
-Download the files into the directory of your chosing, then ```cd``` into the downloaded directory.
+Download the files, ```cd``` into the downloaded directory and run the following:
 
 ```bash
 curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclude={README.md,LICENSE}
@@ -22,7 +22,7 @@ curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclu
 
 #### Setup Options
 
-Once you've navigated to the cloned or downloaded directory, you'll want to run ```./setup/init```. The following options are available when running the setup file:
+Run ```./init``` from inside the cloned or downloaded directory. The following options are available when running the init file:
 
 <table>
     <tr>
@@ -31,17 +31,21 @@ Once you've navigated to the cloned or downloaded directory, you'll want to run 
     </tr>
     <tr>
         <td width="20%"><code>--copy</code></td>
-        <td>Copy the files in place instead of linking (gitconfig is always copied)<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
+        <td>Copy the files in place instead of linking<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
     </tr>
     <tr>
         <td width="20%"><code>--no-packages</code></td>
-        <td>Suppress package installations and updates (including casks). These can be run independently with <code>./setup/packages</code></td>
+        <td>Suppress package installations and updates (including casks). These can be run independently if need be.</td>
     </tr>
 </table>
 
+ Note: gitconfig and git_completion are always copied, regardless of the options passed.
+
 #### Extras file
 
-During the first run of the setup process, a file called 'extras' will be created at ~/.extras. You'll be prompted to enter your Git author name and email, and the file will be saved. This is to prevent certain information from being committed to a public repository. The '.extras' file is also a great place to store functions and aliases that you don't want overwritten by future installations.
+The first run of the setup process will prompt for Git author name and email, and a file called 'extras' will be created at ~/.extras. This is to prevent certain information from being committed to a public repository. The '.extras' file is also a great place to store functions and aliases that shouldn't be overwritten by future installations.
+
+On subsequent runs of `init`, the 'extras' file will be presented for confirmation of the information it contains.
 
 ```bash
 # Git credentials
@@ -60,33 +64,30 @@ git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```
 
-#### gitconfig file
-
-Also, during setup, if a .gitconfig file already exists in your home folder you will be prompted to confirm that you want to overwrite it with the [gitconfig](https://github.com/goodguyry/dotfiles/edit/master/gitconfig) file from this repository. Basically what I'm saying is, pay attention to what you're doing.
-
 ## Package managers
 
 - Homebrew
-
 - Homebrew Cask (native applications)
-
 - RVM
-
 - NPM
 
-The full list of installed software is available [here](http://github.com/goodguyry/dotfiles/blob/master/lib/software_list.md).
+The [full list of installed software](http://github.com/goodguyry/dotfiles/blob/master/local/software_list.md) is available. In addition to package managers, some software is downloaded via ```wget``` to the 'Downloads' folder.
 
-If you decided to skip package installation during setup, you can run it independently from inside the dotfiles directory with ```./setup/packages```.
+The package installation can run it independently from the dotfiles directory:
+
+```
+source local/packages && run_packages
+```
 
 ## OS X defaults
 
-During the setup process you will be asked if you'd like to apply the OS X defaults. You can also apply them independently, if you'd rather, by running the following command:
+The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
 
-```bash
-$ ./setup/osx
+```
+./bin/osx
 ```
 
-I encourage you to take the time to read through the [osx](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) file so you know what settings and applications will be impacted before executing the file.
+Take time to read through the [osx file](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) to know what settings and applications will be impacted before executing the file.
 
 ## Acknowledgements
 
@@ -94,7 +95,7 @@ I encourage you to take the time to read through the [osx](http://github.com/goo
 
 [Mathias Bynens](http://github.com/mathiasbynens/dotfiles)
 
-[Shawn Pearce](https://github.com/spearce/)
+[Mat Marquis](https://github.com/wilto/)
 
 ---
 
