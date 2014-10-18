@@ -76,8 +76,9 @@ function init_casks() {
   }
 
   installcask bittorrent-sync
-  installcask chronosync
   installcask chronoagent
+  installcask chronosync
+  installcask clipmenu
   installcask coda
   installcask dropbox
   installcask evernote
@@ -104,10 +105,10 @@ function init_casks() {
   installcask things
   installcask torbrowser
   installcask totalfinder
-  installcask tvshows
   installcask tower1
   installcask transmission
   installcask transmit
+  installcask tvshows
   installcask vlc
   installcask web-sharing
 
