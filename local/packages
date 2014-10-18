@@ -75,6 +75,7 @@ function init_casks() {
     brew cask install "${@}" 2> /dev/null
   }
 
+  installcask bartender
   installcask bittorrent-sync
   installcask chronoagent
   installcask chronosync
