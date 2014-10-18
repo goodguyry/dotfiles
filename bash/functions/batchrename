@@ -24,9 +24,12 @@
 #			Count folders and files separately
 #			Remove strict argument order (name being first)
 #			Check if file already exists; increment counter if so
+#     Or maybe just get rid of this hulking mess altogether...
 # ----------------------------------------------
 
 function rn() {
+
+	if [[ $1 == "-h" || $1 == "--help" ]]; then rn_help; return; fi
 
 	if [ $# -lt 1 ]; then echo "Error: New filename required."; return; fi
 
@@ -143,4 +146,30 @@ function rn() {
 	unset renameSpecificExtension
 	unset fileExtension
 	unset flag
+}
+
+function rn_help() {
+
+cat <<EOT
+
+Renames all files with an appended number; directories are skipped by default
+
+Usage: rn string [-[1-999]] [1-999] [-d] [-a] [.ext]
+
+	string : A string representing the new filename
+
+			-n : (optional) A number, with a preceding dash, representing the total
+					 number of digit places for the count. Default is 2 (01) unless reset
+					 Example: -5 -> 00001
+
+	     n : (optional) A number representing the starting point for the count
+
+	    -d : (optional) Flag to rename only directories
+
+	    -a : (optional) Flag to rename both files and directories
+
+	  .ext : (optional) File extension (including the .) of the file type to rename
+
+EOT
+
 }
