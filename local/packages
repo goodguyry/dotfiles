@@ -96,6 +96,7 @@ function init_casks() {
   installcask nvalt
   installcask onyx
   installcask opera
+  installcask opera-mobile-emulator
   installcask opera-next
   installcask qlmarkdown
   installcask sequel-pro
