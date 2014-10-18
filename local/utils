@@ -70,8 +70,8 @@ function counter() {
 
   c=0
   while [[ c -lt $n ]] ; do
-  	printf "."
-  	c=$((c+1))
-  	sleep 1
-	done
+    printf "."
+    c=$((c+1))
+    sleep 1
+  done
 }
