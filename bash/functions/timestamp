@@ -30,7 +30,7 @@ function ts() {
 	# no args were given
 	if [ $# -lt 1 ]; then echo "$errormsg"; return; fi
 
-	if [ -d "$item" ]; then
+	if [ -d "$item" -o "$name" == "$ext" ]; then
 		# split off the trailing slash (if it's there)
 		name="${item%/*}"
 		itemname="${name}_${stamp}"
