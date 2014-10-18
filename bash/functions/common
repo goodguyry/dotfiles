@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Switch to projects folder; optionally add a project directory
+# Switch to projects folder
+# Project directories are autocompleted via .git_config
+# When a project directory is passed, open it in Sublime Text and print git status
 function p() {
   cd ~/Projects/"$@"
+  if [ $# -gt 0 ]; then
+    subl .
+    clear
+    git status
+  fi
 }
 
 
