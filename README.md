@@ -14,11 +14,13 @@ git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
 
 #### Git-free
 
-Download the files, ```cd``` into the downloaded directory and run the following:
+Download the files with the following:
 
 ```bash
 curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclude={README.md,LICENSE}
 ```
+
+Then ```cd``` into the downloaded directory.
 
 #### Setup Options
 
@@ -39,13 +41,17 @@ Run ```./init``` from inside the cloned or downloaded directory. The following o
     </tr>
 </table>
 
- Note: gitconfig and git_completion are always copied, regardless of the options passed.
+ Note: gitconfig and git_completion are always copied, regardless of the option passed.
 
 #### Extras file
 
-The first run of the setup process will prompt for Git author name and email, and a file called 'extras' will be created at ~/.extras. This is to prevent certain information from being committed to a public repository. The '.extras' file is also a great place to store functions and aliases that shouldn't be overwritten by future installations.
+The '.extras' file prevents certain information from being committed to a public repository, and is also a great place to store functions and aliases that shouldn't be overwritten by future installations.
 
-On subsequent runs of `init`, the 'extras' file will be presented for confirmation of the information it contains.
+If the '.extras' file doesn't exist in the home directory, the script will prompt for Git author name and email, and an '.extras' file will be created in the home directory.
+
+If the file exists, it will be presented for confirmation of the information it contains.
+
+_Example .extras file:_
 
 ```bash
 # Git credentials
