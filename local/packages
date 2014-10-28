@@ -120,6 +120,9 @@ function init_casks() {
   # Remove outdated versions from the cellar
   brew cleanup
 
+  # Restart Quick Look
+  qlmanage -r
+
   # Link Sublime Text CLI
   ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/sublime
 
