@@ -335,6 +335,14 @@ sudo systemsetup -setharddisksleep 15 > /dev/null
 # Set wake on network access to either <on> or <off>.
 sudo systemsetup -setwakeonnetworkaccess on > /dev/null
 
+# Create the Screenshots directory if it doesn't exist
+# SystemUIServer won't create it for us
+if [[ ! -d "${HOME}/Pictures/Screenshots" ]]; then
+  mkdir "${HOME}/Pictures/Screenshots"
+else
+  e_header "Screenshots directory already exists in ${HOME}/Pictures"
+fi
+
 # Change screen shot location
 defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
 
