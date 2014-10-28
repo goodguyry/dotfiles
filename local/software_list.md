@@ -40,8 +40,6 @@
 - Onyx
 - Opera
 - Opera Next
-- QL Markdown
-- QLStephen
 - Sequel Pro
 - Skype
 - Spotify
