@@ -76,6 +76,7 @@ function init_casks() {
   }
 
   installcask bartender
+  installcask betterzipql
   installcask bittorrent-sync
   installcask chronoagent
   installcask chronosync

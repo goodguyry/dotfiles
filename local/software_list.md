@@ -58,6 +58,7 @@
 
 #### Quick Look plugins
 
+- BetterZipQL
 - QLColorCode
 - QLMarkdown
 - QLStephen
