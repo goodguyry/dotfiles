@@ -1,6 +1,6 @@
 # Software list
 
-### Homebrew
+## Homebrew
 
 - Bash 4
 - Casper
@@ -64,7 +64,7 @@
 - QLMarkdown
 - QLStephen
 
-### RVM
+## RVM
 
 - Ruby 2.0.0-p353
 
@@ -79,7 +79,7 @@
 - Grunt CLI
 - JSHint
 
-### Additional software downloaded (but not installed)
+## Additional software downloaded (but not installed)
 
 - Clusters
 - Pastebot Sync
