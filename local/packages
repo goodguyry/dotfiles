@@ -99,6 +99,7 @@ function init_casks() {
   installcask opera
   installcask opera-mobile-emulator
   installcask opera-next
+  installcask qlcolorcode
   installcask qlmarkdown
   installcask qlstephen
   installcask sequel-pro

@@ -56,6 +56,12 @@
 - VLC
 - Web Sharing
 
+#### Quick Look plugins
+
+- QLColorCode
+- QLMarkdown
+- QLStephen
+
 ### RVM
 
 - Ruby 2.0.0-p353
