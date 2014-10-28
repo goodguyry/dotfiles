@@ -9,3 +9,5 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 # Add brew-installed GNU core utilities bin
 export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
+# Add MySQL
+export PATH="$PATH:/usr/local/mysql/bin"
