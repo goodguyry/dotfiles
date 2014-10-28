@@ -34,7 +34,6 @@
 - Google Chrome Canary
 - GrandPerspective
 - Handbrake
-- Hazel
 - ImageOptim
 - Nvalt
 - Onyx
@@ -50,8 +49,12 @@
 - Tower 1
 - Transmission
 - Transmit
-- TVShows
 - VLC
+
+#### System Preferences panes
+
+- Hazel
+- TVShows
 - Web Sharing
 
 #### Quick Look plugins
