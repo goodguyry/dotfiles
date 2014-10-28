@@ -100,6 +100,7 @@ function init_casks() {
   installcask opera-mobile-emulator
   installcask opera-next
   installcask qlmarkdown
+  installcask qlstephen
   installcask sequel-pro
   installcask skype
   installcask spotify
