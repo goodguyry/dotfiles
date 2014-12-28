@@ -9,6 +9,7 @@ function p() {
     subl .
     clear
     git status
+    osascript -e 'tell app "Terminal" to activate'
   fi
 }
 
