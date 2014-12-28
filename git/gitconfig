@@ -78,6 +78,12 @@
   # Credit an author on the latest commit
   credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
+  # Custom graph log (append any tree-ish)
+  graph = log --pretty=nice --date-order --graph
+
+  # Custom graph log for all branches
+  grapha = log --pretty=nice --date-order --graph --all
+
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
@@ -133,3 +139,9 @@
 
 [help]
   autocorrect = 1
+
+[pretty]
+  # tut: http://gitimmersion.com/lab_10.html
+  # ref: http://linux.die.net/man/1/git-log
+  # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+  nice = "%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar"
