@@ -98,9 +98,10 @@ function setFiles() {
   setFile "bash/functions/batchrename"    ".bash_functions/batchrename"
   setFile "bash/functions/common"         ".bash_functions/common"
   setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
+  setFile "bash/hushlogin"                ".hushlogin"
   setFile "bash/inputrc"                  ".inputrc"
   setFile "git/gitignore"                 ".gitignore"
-  setFile "bash/hushlogin"                ".hushlogin"
+  setFile "jshintrc"                      ".jshintrc"
 
   e_success "Dotfiles update complete!"
 }
