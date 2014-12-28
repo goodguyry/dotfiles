@@ -145,7 +145,7 @@ function init_npm() {
   e_header "Installing Node.js packages..."
 
   # List of npm packages
-  local packages="bower grunt-cli jshint"
+  local packages="bower grunt-cli grunt-init browser-sync jshint"
 
   # Install packages globally and quietly
   npm install $packages --g --quiet
