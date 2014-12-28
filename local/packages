@@ -179,6 +179,8 @@ function init_rvm() {
     gem install jekyll
   fi
 
+  gem install rouge
+
   gem update
 
   [[ $? ]] && e_success "Gems installed"
