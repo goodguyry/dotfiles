@@ -3,6 +3,7 @@
 # extend `$PATH`
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/usr/bin"
+export PATH="$PATH:$HOME/usr/local/bin"
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$HOME/bin"
 # Add RVM to PATH for scripting
