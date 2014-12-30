@@ -9,7 +9,6 @@
 - GNU findutils
 - Grep
 - MySQL
-- Node
 - Phantomjs
 - PHP 5.5
 - Rename
@@ -19,9 +18,11 @@
 
 ### Homebrew Cask (native applications)
 
-- Bittorrent Sync
+- Bartender
+- BitTorrent Sync
 - ChronoAgent
 - ChronoSync
+- Clipmenu
 - Coda
 - Dropbox
 - Evernote
@@ -35,9 +36,10 @@
 - GrandPerspective
 - Handbrake
 - ImageOptim
-- Nvalt
+- nvALT
 - Onyx
 - Opera
+- Opera Mobile Emulator
 - Opera Next
 - Sequel Pro
 - Skype
@@ -71,12 +73,19 @@
 ### Gems
 
 - Jekyll
+- Rouge
 - Sass
 
-## NPM
+## NVM
+
+- Latest stable Node
+
+### NPM
 
 - Bower
+- BrowserSync
 - Grunt CLI
+- Grunt-init
 - JSHint
 
 ## Additional software downloaded (but not installed)

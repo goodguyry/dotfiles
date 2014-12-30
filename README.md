@@ -28,16 +28,16 @@ Run ```./init``` from inside the cloned or downloaded directory. The following o
 
 <table>
     <tr>
-        <td width="20%"><code>-h</code>, <code>--help</code></td>
+        <td width="25%"><code>-h</code>, <code>--help</code></td>
         <td>Print this help text</td>
     </tr>
     <tr>
-        <td width="20%"><code>--copy</code></td>
-        <td>Copy the files in place instead of linking<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
+        <td width="25%"><code>--copy</code></td>
+        <td>Copy the files instead of symlinking<br>"Copy mode" also suppresses initializing a Git repo and pulling updates from Github</td>
     </tr>
     <tr>
-        <td width="20%"><code>--no-packages</code></td>
-        <td>Suppress package installations and updates (including casks). These can be run independently if need be.</td>
+        <td width="25%"><code>--no-packages</code></td>
+        <td>Suppress package installations and updates (including casks). These can be <a href="#package-managers">run independently</a> if need be.</td>
     </tr>
 </table>
 
@@ -72,17 +72,50 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 
 ## Package managers
 
-- Homebrew
-- Homebrew Cask (native applications)
-- RVM
-- NPM
+- [Homebrew](http://brew.sh/)
+- [Homebrew Cask](https://github.com/caskroom/homebrew-cask) (native applications)
+- [Ruby Version Manager](https://rvm.io/)
+- [Node Version Manager](https://github.com/creationix/nvm) and [Node Package Manager](https://www.npmjs.com/)
 
 The [full list of installed software](http://github.com/goodguyry/dotfiles/blob/master/local/software_list.md) is available. In addition to package managers, some software is downloaded via ```wget``` to the 'Downloads' folder.
 
-The package installation can run it independently from the dotfiles directory:
+The package installation can be run at any time from the dotfiles directory:
 
-```
+All at once...
+
+
+```bash
+# All at once
 source local/packages && run_packages
+```
+
+Or independently...
+
+```bash
+# Homebrew packages only
+source local/packages && init_brew
+```
+
+```bash
+# Homebrew casks
+# Installs Homebrew if it's missing
+source local/packages && init_casks
+```
+
+```bash
+# Node Version Manager
+source local/packages && init_nvm
+```
+
+```bash
+# Node packages
+# Installs Node if it's missing
+source local/packages && init_npm
+```
+
+```bash
+# Ruby Version Manager and gems
+source local/packages && init_rvm
 ```
 
 ## OS X defaults

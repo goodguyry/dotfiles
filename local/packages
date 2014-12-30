@@ -44,7 +44,6 @@ function init_brew() {
 
   # Install other useful binaries
   brew install mysql
-  brew install node
   brew install rename
   brew install tree
   brew install webkit2png
