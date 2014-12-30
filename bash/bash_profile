@@ -10,6 +10,7 @@ declare -a files=(
     $HOME/.bash_prompt # Custom bash prompt
     $HOME/.extras # Local and private settings not under version control (e.g. git credentials)
     $HOME/.bash_paths # Path modifications
+    $HOME/.nvm/nvm.sh # Load NVM
 )
 
 # If these files are readable, source them
@@ -22,6 +23,8 @@ done
 
 unset files
 
+## Use the installed stable version of Node
+nvm use stable > /dev/null
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion

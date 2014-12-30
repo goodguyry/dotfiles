@@ -130,28 +130,47 @@ function init_casks() {
 
 }
 
-# Install node and packages
+# Install Node packages
 function init_npm() {
 
-  # Check for Homebrew
-  check_for_homebrew
-
   # Check for npm
-  if ! type_exists 'npm'; then
-    e_header "Installing Node..."
-    brew install node
+  if type_exists 'npm'; then
+    e_header "Installing Node.js packages..."
+
+    # List of npm packages
+    local packages="bower grunt-cli grunt-init browser-sync jshint"
+
+    # Install packages globally and quietly
+    npm install $packages --g --quiet
+
+    [[ $? ]] && e_success "Done"
+  else
+    e_header "NPM not yet installed..."
+    init_nvm
   fi
 
-  e_header "Installing Node.js packages..."
+}
 
-  # List of npm packages
-  local packages="bower grunt-cli grunt-init browser-sync jshint"
+# Install/Update Node (via NVM)
+function init_nvm() {
+  old_pwd=$(pwd)
 
-  # Install packages globally and quietly
-  npm install $packages --g --quiet
+  if [[ ! -d "${HOME}/.nvm" ]]; then
+    e_header "Installing NVM..."
+    git clone https://github.com/creationix/nvm.git ~/.nvm
+  fi
+
+  e_header "Updating NVM..."
+  cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+
+  cd "$old_pwd"
+
+  source ~/.nvm/nvm.sh
+
+  nvm install stable
+  nvm use stable
 
   [[ $? ]] && e_success "Done"
-
 }
 
 # Install rvm and gems
@@ -226,6 +245,7 @@ function run_packages() {
 
   init_brew
   init_casks
+  init_nvm
   init_npm
   init_rvm
   init_downloads
