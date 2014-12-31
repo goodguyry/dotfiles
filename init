@@ -63,6 +63,28 @@ else
 fi
 
 
+# Conditionally init and pull the Git repo
+if [[ !$copy_files ]] ; then
+  cd "${DOTFILES_DIRECTORY}"
+  # Initialize the git repository if it's missing
+  if ! is_git_repo; then
+    e_header "Initializing git repository..."
+    git init
+    git remote add origin ${DOTFILES_GIT_REMOTE}
+    git fetch origin master
+    # Reset the index and working tree to the fetched HEAD
+    git reset --hard FETCH_HEAD
+    # Remove any untracked files
+    git clean -fd
+    e_header "Syncing dotfiles..."
+    # Pull down the latest changes
+    git pull --rebase origin master
+  else
+    e_header "Skipping 'git init'"
+  fi
+fi
+
+
 # Conditionally sym link or copy the files
 function setFile() {
   if [[ $copy_files ]] ; then
@@ -140,28 +162,6 @@ else
   sleep 3
   # Bring attention back to Terminal
   tput bel
-fi
-
-
-# conditionally init and pull the Git repo
-if [[ !$copy_files ]] ; then
-  cd "${DOTFILES_DIRECTORY}"
-  # Initialize the git repository if it's missing
-  if ! is_git_repo; then
-    e_header "Initializing git repository..."
-    git init
-    git remote add origin ${DOTFILES_GIT_REMOTE}
-    git fetch origin master
-    # Reset the index and working tree to the fetched HEAD
-    git reset --hard FETCH_HEAD
-    # Remove any untracked files
-    git clean -fd
-    e_header "Syncing dotfiles..."
-    # Pull down the latest changes
-    git pull --rebase origin master
-  else
-    e_header "Skipping 'git init'"
-  fi
 fi
 
 
