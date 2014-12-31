@@ -2,6 +2,14 @@
 
 source $(pwd)/local/utils
 
+# Before relying on Homebrew, check that packages can be compiled
+function check_for_xcodeCLT() {
+  if ! type_exists 'gcc'; then
+    e_error "The XCode Command Line Tools must be installed first."
+    xcode-select --install
+  fi
+}
+
 # Check for Homebrew
 function check_for_homebrew() {
   if ! type_exists 'brew'; then
@@ -14,6 +22,9 @@ function check_for_homebrew() {
 
 # Install Brews
 function init_brew() {
+
+  # Check for XCode Command Line Tools
+  check_for_xcodeCLT
 
   # Check for Homebrew
   check_for_homebrew
@@ -58,6 +69,9 @@ function init_brew() {
 
 # Install native apps with Homebrew
 function init_casks() {
+
+  # Check for XCode Command Line Tools
+  check_for_xcodeCLT
 
   # Check for Homebrew
   check_for_homebrew
