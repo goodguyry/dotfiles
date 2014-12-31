@@ -181,7 +181,7 @@ function init_nvm() {
   source ~/.nvm/nvm.sh
 
   nvm install stable
-  nvm use stable
+  nvm alias default stable
 
   [[ $? ]] && e_success "Done"
 }

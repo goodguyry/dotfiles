@@ -23,8 +23,5 @@ done
 
 unset files
 
-## Use the installed stable version of Node
-nvm use stable > /dev/null
-
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
