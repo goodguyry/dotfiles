@@ -23,22 +23,25 @@ do
   case $opt in
     --no-packages) no_packages=true ;;  # Suppresses installing packages
     --copy) copy_files=true;;           # Copy files instead of linking
+    --server) server=true;;             # Skip OS X-related packages/settings
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
 done
 
 
-# Create the Projects directory if it doesn't exist
-if [[ ! -d "${HOME}/Projects" ]]; then
-  mkdir "${HOME}/Projects"
-else
-  e_header "Projects directory already exists in ${HOME}"
+# Conditionally create the Projects directory if it doesn't exist
+if [[ ! $server ]]; then
+  if [[ ! -d "${HOME}/Projects" ]]; then
+    mkdir "${HOME}/Projects"
+  else
+    e_header "Projects directory already exists in ${HOME}"
+  fi
 fi
 
 
 # Conditionally install Command Line Tools, Homebrew and Git
-if [[ $no_packages ]]; then
-  e_header "Skipped Homebrew and Git installations."
+if [[ $no_packages || $server ]]; then
+  e_header "Skipping Homebrew and Git installations..."
 else
   # Before relying on Homebrew, check that packages can be compiled
   if ! type_exists 'gcc'; then
@@ -64,7 +67,7 @@ fi
 
 
 # Conditionally init and pull the Git repo
-if [[ !$copy_files ]] ; then
+if [[ ! $copy_files ]] && type_exists 'git' ; then
   cd "${DOTFILES_DIRECTORY}"
   # Initialize the git repository if it's missing
   if ! is_git_repo; then
@@ -79,13 +82,13 @@ if [[ !$copy_files ]] ; then
     e_header "Syncing dotfiles..."
     # Pull down the latest changes
     git pull --rebase origin master
-  else
-    e_header "Skipping 'git init'"
   fi
+else
+  e_header "Skipping 'git init'"
 fi
 
 
-# Conditionally sym link or copy the files
+# Conditionally symlink or copy the files
 function setFile() {
   if [[ $copy_files ]] ; then
     rsync -avz --quiet "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
@@ -167,23 +170,26 @@ fi
 
 # Conditionally install and update packages
 if [[ $no_packages ]]; then
-  e_header "Skipped package installations."
+  e_header "Skipping package installations."
   e_warning "You can install these later."
+elif [[ $server ]]; then
+  run_server_help
 else
   e_header "Updating packages...\n"
   run_packages
 fi
 
 
-# Ask before potentially overwriting OS X defaults
-seek_confirmation "Warning: This step may modify your OS X system defaults."
+if [[ ! $server ]]; then
+  # Ask before potentially overwriting OS X defaults
+  seek_confirmation "Warning: This step may modify your OS X system defaults."
 
-if is_confirmed; then
-  bash ./bin/osx
-else
-  e_header "Skipped OS X settings update."
+  if is_confirmed; then
+    bash ./bin/osx
+  else
+    e_header "Skipped OS X settings update."
+  fi
 fi
-
 
 unset copy_files
 

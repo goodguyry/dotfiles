@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $DOTFILES_DIRECTORY/local/utils
+
 function run_help() {
 
 cat <<EOT
@@ -13,6 +15,7 @@ Options:
                     (gitconfig is always copied)
                     ** "Copy mode" also suppresses initiallizing a Git repo and pulling updates from Github **
     --no-packages   Suppress package installations and updates (including casks)
+    --server        Skip OS X-related packages/settings
 
 Documentation can be found at https://github.com/goodguyry/dotfiles
 
@@ -20,4 +23,41 @@ Copyright (c) Ryan Domingue
 Licensed under the MIT license.
 EOT
 
+}
+
+function run_server_help() {
+
+e_header "Server configuration; tested on Dreamhost shared, 12/2014"
+
+e_warning "The following is unsupported by Dreamhost and may break at any time, including during intallation."
+e_warning "It is provided as-is with no guarantee or warranty, offered nor implied."
+e_warning "You agree to release me from all liability for anything that happens, good or bad, as the result of following these instructions."
+
+## Install NVM
+
+e_header "NVM (Node Version Manager)"
+e_warning "See https://github.com/creationix/nvm for more information."
+echo -e "\nInstall NVM:\n"
+echo "  git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout \`git describe --abbrev=0 --tags\`"
+
+echo -e "\nUpdate Node to latest stable:\n"
+echo -e "  source ~/.nvm/nvm.sh && nvm install stable && nvm alias default stable\n"
+
+e_success "Install Node packages with 'npm install {package-name}'"
+
+# Install RVM and update Ruby
+
+e_header "RVM (Ruby Version Manager)"
+e_warning "See https://rvm.io for more information"
+echo -e "\nInstall RVM:\n"
+echo "  \curl -L https://get.rvm.io | bash -s -- --autolibs=read-fail"
+
+e_header "Update Ruby (2.0.0-p598)"
+e_warning "Replace 'ubuntu' and '12.04' with your OS and version:"
+
+lsb_release -irc
+
+echo -e "\n  rvm mount -r https://rvm.io/binaries/ubuntu/12.04/x86_64/ruby-2.0.0-p598.tar.bz2 --verify-downloads 1\n"
+
+e_success "Install Ruby gems with 'gem install {gem-name}'"
 }
