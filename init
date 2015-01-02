@@ -33,12 +33,14 @@ done
 function mkdirs() {
   if [[ ! -d $@ ]]; then
     mkdir $@
+    e_success "$@ created"
   else
     e_warning "$@ already exists"
   fi
 }
 
 
+# Create a Projects folder
 mkdirs "${HOME}/Projects"
 
 
@@ -106,11 +108,17 @@ function setFile() {
 function setFiles() {
   e_header "Linking files..."
 
+  # Create necessary folders
   mkdirs "${HOME}/.bash_functions"
+  mkdirs "${HOME}/.vim"
+  mkdirs "${HOME}/.vim/backups"
+  mkdirs "${HOME}/.vim/colors"
+  mkdirs "${HOME}/.vim/swaps"
 
-  # Copy `.gitconfig` and `.git_completion`
+  # Copy `.gitconfig`, `.git_completion` and `solarized.vim`
   rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
   rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/git_completion  ${HOME}/.git_completion
+  rsync -avz --quiet ${DOTFILES_DIRECTORY}/vim/colors/solarized.vim  ${HOME}/.vim/colors/solarized.vim
 
   setFile "bash/aliases"                  ".aliases"
   setFile "bash/bash_config"              ".bash_config"
@@ -125,6 +133,7 @@ function setFiles() {
   setFile "bash/inputrc"                  ".inputrc"
   setFile "git/gitignore"                 ".gitignore"
   setFile "jshintrc"                      ".jshintrc"
+  setFile "vim/vimrc"                     ".vimrc"
 
   e_success "Dotfiles update complete!"
 }
