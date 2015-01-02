@@ -41,7 +41,9 @@ function mkdirs() {
 
 
 # Create a Projects folder
-mkdirs "${HOME}/Projects"
+if [[ ! $server ]]; then
+  mkdirs "${HOME}/Projects"
+fi
 
 
 # Conditionally install Command Line Tools, Homebrew and Git
