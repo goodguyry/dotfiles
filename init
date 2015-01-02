@@ -29,14 +29,17 @@ do
 done
 
 
-# Conditionally create the Projects directory if it doesn't exist
-if [[ ! $server ]]; then
-  if [[ ! -d "${HOME}/Projects" ]]; then
-    mkdir "${HOME}/Projects"
+# Create directories if they don't exist
+function mkdirs() {
+  if [[ ! -d $@ ]]; then
+    mkdir $@
   else
-    e_header "Projects directory already exists in ${HOME}"
+    e_warning "$@ already exists"
   fi
-fi
+}
+
+
+mkdirs "${HOME}/Projects"
 
 
 # Conditionally install Command Line Tools, Homebrew and Git
@@ -103,12 +106,7 @@ function setFile() {
 function setFiles() {
   e_header "Linking files..."
 
-  # Create the .bash_functions/ directory if it doesn't exist
-  if [[ ! -d "${HOME}/.bash_functions" ]]; then
-    mkdir "${HOME}/.bash_functions"
-  else
-    e_header ".bash_functions directory already exists in ${HOME}"
-  fi
+  mkdirs "${HOME}/.bash_functions"
 
   # Copy `.gitconfig` and `.git_completion`
   rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
