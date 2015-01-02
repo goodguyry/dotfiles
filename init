@@ -33,7 +33,6 @@ done
 function mkdirs() {
   if [[ ! -d $@ ]]; then
     mkdir $@
-    e_success "$@ created"
   else
     e_warning "$@ already exists"
   fi
