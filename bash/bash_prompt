@@ -12,13 +12,16 @@ fi
 
 BLACK="\033[30m"
 RED="\033[31m"
-GREEN="\033[32m"
+GREEN="\e[38;5;86m"
 YELLOW="\033[33m"
-BLUE="\033[34m"
+BLUE="\e[38;5;25m"
 PURPLE="\033[35m"
 CYAN="\033[36m"
-WHITE="\033[37m"
-RESET="\033[m"
+WHITE="\e[38;5;15m"
+RESET="\e[38;5;249m"
+GRAY="\e[38;5;240m"
+LTGRAY="\e[38;5;246m"
+ORANGE="\e[38;5;208m"
 
 export BLACK
 export RED
@@ -29,6 +32,7 @@ export PURPLE
 export CYAN
 export WHITE
 export RESET
+export GRAY
 
 function parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo " ∆"
@@ -38,5 +42,5 @@ function parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
-export PS1="\n\[$RED\]\W/ \[$WHITE\][\T - \[$YELLOW\]\u@\h\[$WHITE\]]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$CYAN\]\$(parse_git_branch)\[$RED\]\n\$ \[$RESET\]"
-export PS2="\[$RED\]: \[$RESET\]"
+export PS1="\n\[$GRAY\]\T - \u@\h\n\[$BLUE\]\$PWD\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)\[$BLUE\]\n\$ \[$RESET\]"
+export PS2="\[$BLUE\]: \[$RESET\]"
