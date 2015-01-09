@@ -76,6 +76,9 @@ function init_casks() {
   # Check for Homebrew
   check_for_homebrew
 
+  # Link Homebrew casks in `/Applications` rather than `~/Applications`
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
   # Install native apps
   brew install caskroom/cask/brew-cask
   brew tap caskroom/versions
