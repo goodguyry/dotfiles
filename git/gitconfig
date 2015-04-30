@@ -37,6 +37,9 @@
   # diff staged file(s)
   ds = !"clear; git diff --patch-with-stat --staged"
 
+  # `git db $branch` shows a histogram of the diff between the current branch and `$branch`
+  db = !"db() { git diff $1 | diffstat; }; db"
+
   # Custom graph log (append any tree-ish)
   graph = log --pretty --date-order --graph
 
