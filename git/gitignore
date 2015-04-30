@@ -29,6 +29,7 @@
 *.sass-cache
 node_modules/
 *.sublime-*
+bower_components
 
 # OS generated files #
 ######################
