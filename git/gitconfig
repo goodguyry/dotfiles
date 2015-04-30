@@ -40,6 +40,9 @@
   # `git db $branch` shows a histogram of the diff between the current branch and `$branch`
   db = !"db() { git diff $1 | diffstat; }; db"
 
+  # `git m $branch` performs a no fast forward merge
+  m = !"m() { git merge --no-ff $1; }; m"
+
   # Custom graph log (append any tree-ish)
   graph = log --pretty --date-order --graph
 
