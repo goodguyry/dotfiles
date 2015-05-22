@@ -1,12 +1,22 @@
 #!/bin/bash
 
 # Switch to projects folder
-# Project directories are autocompleted via .git_config
-# When a project directory is passed, open it in Sublime Text and print git status
+# Usage: p [project-name] [subdirectory]
+#
+# Project directories are autocompleted via .bash_config
+# When a project directory is passed, open it in Sublime Text
+# When a project directory and a subdirectory are passed, open the subdirectory in Sublime Text
+# Print git status
 function p() {
-  cd ~/Projects/"$@"
   if [ $# -gt 0 ]; then
-    subl .
+    if [ $# -eq 1 ]; then
+      cd ~/Projects/$@
+      subl .
+    else
+      cd ~/Projects/$1
+      subl $2
+    fi
+
     clear
     git status
     osascript -e 'tell app "Terminal" to activate'
