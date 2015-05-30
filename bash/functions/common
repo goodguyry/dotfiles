@@ -9,17 +9,19 @@
 # Print git status
 function p() {
   if [ $# -gt 0 ]; then
-    if [ $# -eq 1 ]; then
-      cd ~/Projects/$@
-      subl .
-    else
-      cd ~/Projects/$1
+    cd $HOME/Projects/$1
+    if [ $# -gt 1 ]; then
       subl $2
+    else
+      subl .
     fi
-
-    clear
-    git status
-    osascript -e 'tell app "Terminal" to activate'
+    if [ -d .git ]; then
+      clear
+      git status
+      osascript -e 'tell app "Terminal" to activate'
+    fi
+  else
+    cd $HOME/Projects
   fi
 }
 
