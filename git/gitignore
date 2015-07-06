@@ -27,7 +27,7 @@
 *.sql
 *.sqlite
 *.sass-cache
-node_modules/
+node_modules
 *.sublime-*
 bower_components
 
