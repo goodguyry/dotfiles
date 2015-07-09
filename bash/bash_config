@@ -47,6 +47,11 @@ unset COMPLETE_LIST
 # Autocomplete Grunt commands
 which grunt &> /dev/null && eval "$(grunt --completion=bash)"
 
+# If possible, add tab completion for many more commands
+if [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+fi;
+
 # Colon-separated list of directories in which the shell looks for destination directories specified by the cd command.
 CDPATH=".:~:/private"
 
