@@ -44,7 +44,7 @@ alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade; brew cleanup; sudo gem update --system; sudo gem update'
+alias update='brew update; brew upgrade --all; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
 
 # Flush Directory Service cache
 alias flush="sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;"
