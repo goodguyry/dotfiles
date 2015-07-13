@@ -48,5 +48,25 @@ function parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
-export PS1="\n\[$GRAY\]\T - \u@\h\n\[$BLUE\]\$PWD\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)\[$BLUE\]\n\$ \[$RESET\]";
+# New line to create space
+PS1="\n"
+# Current time
+PS1+="\[$GRAY\]\T";
+# Separator
+PS1+=" - ";
+# User@Host
+PS1+="\u@\h";
+# New line
+PS1+="\n";
+# Current directory
+PS1+="\[$BLUE\]\$(PWD)";
+# "on" if a Git repo
+PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")";
+# Branch if a Git repo
+PS1+="\[$ORANGE\]\$(parse_git_branch)";
+# Prompt on a new line
+PS1+="\n\[$BLUE\]\$ \[$RESET\]";
+
+export PS1;
+
 export PS2="\[$BLUE\]: \[$RESET\]";
