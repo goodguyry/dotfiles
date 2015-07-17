@@ -101,7 +101,8 @@ function init_casks() {
   installcask dropbox
   installcask evernote
   installcask firefox
-  installcask firefox-aurora
+  installcask firefox-beta
+  installcask firefoxdeveloperedition
   installcask flux
   installcask gawker
   installcask gitbox
@@ -114,8 +115,9 @@ function init_casks() {
   installcask nvalt
   installcask onyx
   installcask opera
+  installcask opera-beta
+  installcask opera-developer
   installcask opera-mobile-emulator
-  installcask opera-next
   installcask qlcolorcode
   installcask qlmarkdown
   installcask qlstephen
