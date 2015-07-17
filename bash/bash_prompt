@@ -19,9 +19,9 @@ PURPLE="\e[38;5;55m"
 MAGENTA="\e[38;5;95m"
 CYAN="\e[38;5;45m"
 WHITE="\e[38;5;15m"
-RESET="\e[38;5;249m"
+RESET="\\e[0m"
 GRAY="\e[38;5;240m"
-LTGRAY="\e[38;5;246m"
+LTGRAY="\e[38;5;249m"
 VIOLET="\e[38;5;60m"
 ORANGE="\e[38;5;202m"
 
@@ -65,8 +65,8 @@ PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")";
 # Branch if a Git repo
 PS1+="\[$ORANGE\]\$(parse_git_branch)";
 # Prompt on a new line
-PS1+="\n\[$BLUE\]\$ \[$RESET\]";
+PS1+="\n\[$BLUE\]\$ \[$LTGRAY\]";
 
 export PS1;
 
-export PS2="\[$BLUE\]: \[$RESET\]";
+export PS2="\[$BLUE\]: \[$LTGRAY\]";
