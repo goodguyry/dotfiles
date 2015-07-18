@@ -1,17 +1,19 @@
-#!/bin/bash
-
-# extend `$PATH`
-PATH="/usr/local/bin:$PATH";
-PATH="$PATH:/usr/local/sbin";
-PATH="$PATH:/usr/bin";
-PATH="$PATH:$HOME/usr/local/bin";
-PATH="$PATH:$HOME/.bin";
-PATH="$PATH:$HOME/bin";
-# Add RVM to PATH for scripting
+# Brew paths
+PATH="/usr/local/bin:/usr/local/sbin";
+# $HOME/.nvm/versions/node/v0.12.0/bin
+PATH="$PATH:$NVM_BIN";
+# # Add RVM to PATH for scripting
 PATH="$PATH:$HOME/.rvm/bin";
+# Home bin
+PATH="$PATH:$HOME/.bin";
+# Default bins
+PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin";
 # Add brew-installed GNU core utilities bin
 if [ $(type -P brew) ]; then
   PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin";
+else
+  # Fall back to OS default
+  PATH="$PATH:/libexec/gnubin";
 fi;
 # Add MySQL
 PATH="$PATH:/usr/local/mysql/bin";
