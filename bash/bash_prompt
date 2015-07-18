@@ -38,32 +38,24 @@ export RESET
 export GRAY
 export LTGRAY
 export BLUEGRAY
-export ORANGE
+export ORANGEs
 
 function parse_git_dirty() {
+  # Show "∆" if the stage isn't clean
   [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo " ∆"
 }
 
 function parse_git_branch() {
+  # Get the Git branch if inside a repo
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
-# New line to create space
-PS1="\n"
-# Current time
-PS1+="\[$GRAY\]\T";
-# Separator
-PS1+=" - ";
-# User@Host
-PS1+="\u@\h";
-# New line
-PS1+="\n";
-# Current directory
-PS1+="\[$BLUE\]\$(PWD)";
-# "on" if a Git repo
-PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")";
-# Branch if a Git repo
-PS1+="\[$ORANGE\]\$(parse_git_branch)";
+# HH:MM:SS - User@Host
+PS1="\n\[$GRAY\]\T - \u@\h";
+# New line; Current directory
+PS1+="\n\[$BLUE\]\$(PWD)";
+# If inside a Git repo, print "on <branch>" at the end of the line
+PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)";
 # Prompt on a new line
 PS1+="\n\[$BLUE\]\$ \[$LTGRAY\]";
 
