@@ -1,72 +1,96 @@
 #!/bin/bash
 
 # Make vim the default editor
-export EDITOR="vim"
+export EDITOR="vim";
 
 # Don't clear the screen after quitting a manual page
-export MANPAGER="less -X"
+export MANPAGER="less -X";
 
 # Larger bash history (allow 32³ entries; default is 500)
-export HISTSIZE=32768
-export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignoredups
+export HISTSIZE=32768;
+export HISTFILESIZE=$HISTSIZE;
+export HISTCONTROL=ignoredups;
 
 # Make some commands not show up in history
-export HISTIGNORE="cd*:cd -:pwd;exit:date:* --help:ssh *"
+export HISTIGNORE="cd*:cd -:pwd;exit:date:* --help:ssh *";
 
-# timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
-HISTTIMEFORMAT='%F %T '
-export HISTTIMEFORMAT
+# Timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
+HISTTIMEFORMAT='%F %T ';
+export HISTTIMEFORMAT;
 
 # Prefer US English and use UTF-8
-export LANG="en_US"
-export LC_ALL="en_US.UTF-8"
+export LANG="en_US";
+export LC_ALL="en_US.UTF-8";
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-# Add `killall` tab completion for common apps
-complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal" killall
+export HOMEBREW_CASK_OPTS="--appdir=/Applications";
 
 # Add `p` tab completion for switching to Project directories
-for item in ~/Projects/*; do
+for item in "$HOME/Projects"/*; do
   if [ -d "$item" ] ; then
     # Extract the folder name
     # could also be name=${item##*/}
-    name=$(basename $item)
-    COMPLETE_LIST+="$name "
-  fi
-done
-unset item
-complete -o "nospace" -W "$COMPLETE_LIST" p
-unset COMPLETE_LIST
+    name=$(basename $item);
+    COMPLETE_LIST+="$name ";
+  fi;
+done;
+unset item;
+complete -o "nospace" -W "$COMPLETE_LIST" p;
+unset COMPLETE_LIST;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh;
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal" killall;
 
 # Autocomplete Grunt commands
-which grunt &> /dev/null && eval "$(grunt --completion=bash)"
+which grunt &> /dev/null && eval "$(grunt --completion=bash)";
 
 # If possible, add tab completion for many more commands
-if [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion;
+# Homebrew's own bash completion script has been linked into
+#   /usr/local/share/bash-completion/completions
+# bash-completion will automatically source it when you invoke `brew`.
+
+# Any completion scripts in /usr/local/etc/bash_completion.d
+# will continue to be sourced as well.
+if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+  source $(brew --prefix)/share/bash-completion/bash_completion
 fi;
 
+#**
+# Commented out until further testing is complete
+#
+# Git tab completion
+# if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
+#   source $(brew --prefix)/etc/bash_completion.d/git-completion.bash;
+# fi;
+
+# Git-flow tab completion
+# if [ -f $(brew --prefix)/etc/bash_completion.d/git-flow-completion.bash ]; then
+#   source $(brew --prefix)/etc/bash_completion.d/git-flow-completion.bash;
+# fi;
+
+# If possible, add tab completion for Homebrew
+# if [ -r $(brew --repository)/Library/Contributions/brew_bash_completion.sh ]; then
+#   source $(brew --repository)/Library/Contributions/brew_bash_completion.sh;
+# fi;
+
 # Colon-separated list of directories in which the shell looks for destination directories specified by the cd command.
-CDPATH=".:~:/private"
+CDPATH=".:~:/private";
 
 # Enable some Bash 4 features when possible:
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-  shopt -s "$option" 2> /dev/null
-done
+  shopt -s "$option" 2> /dev/null;
+done;
 
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+shopt -s nocaseglob;
 
 # Append to the Bash history file, rather than overwriting it
-shopt -s histappend
+shopt -s histappend;
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell
+shopt -s cdspell;
