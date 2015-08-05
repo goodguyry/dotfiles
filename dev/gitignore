@@ -26,13 +26,30 @@
 *.log
 *.sql
 *.sqlite
-*.sass-cache
+
+# Dependencies  #
+######################
 node_modules
-*.sublime-*
 bower_components
+vendor
+*.sass-cache
+
+# Application files #
+######################
+*.sublime-*
+.project
+.settings
 
 # OS generated files #
 ######################
 .DS_Store*
 ehthumbs.db
 Thumbs.db
+ehthumbs.db
+._*
+.Spotlight-V100
+.Trashes
+
+# Misc #
+######################
+_site

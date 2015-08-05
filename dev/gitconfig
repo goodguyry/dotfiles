@@ -31,6 +31,11 @@
   # View the current working tree status using the short format
   s = status -s
 
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+
   # Show the diff between the latest commit and the current state
   d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
 
@@ -40,26 +45,26 @@
   # `git db $branch` shows a histogram of the diff between the current branch and `$branch`
   db = !"db() { git diff $1 | diffstat; }; db"
 
-  # `git m $branch` performs a no fast forward merge
-  m = !"m() { git merge --no-ff $1; }; m"
-
-  # Custom graph log (append any tree-ish)
-  graph = log --pretty --date-order --graph
-
-  # Custom graph log for all branches
-  grapha = log --pretty --date-order --graph --all
-
-  # `git unstage [file]` Unstages a file or the entire index
-  unstage = reset HEAD --
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
   # Commit all changes
   ca = !git add -A && git commit -av
 
-  # Display the details of the last commit
-  last = log -1 HEAD
+  # list files from the last commit
+  ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
 
-  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  # `git m $branch` performs a no fast forward merge
+  m = !"m() { git merge --no-ff $1; }; m"
+
+  # `git unstage [file]` Unstages a file or the entire index
+  unstage = reset HEAD --
+
+  # list all tracked files
+  lsa = !"git log --pretty=format: --name-only --diff-filter=A | sort -"
+
+  # Interactive rebase with the given number of latest commits
+  reb = "!r() { git rebase -i HEAD~$1; }; r"
 
   # View abbreviated SHA, description, and history graph of the latest 20 commits
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
@@ -67,19 +72,14 @@
   # `git stats $n` log stats for a given number of commits
   stats = !"l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l"
 
-  # list files from the last commit
-  ls = !"git diff-tree --no-commit-id --name-only -r -1 HEAD"
+  # Display the details of the last commit
+  last = log -1 HEAD
 
-  # list all tracked files
-  lsa = !"git log --pretty=format: --name-only --diff-filter=A | sort -"
+  # Custom graph log (append any tree-ish)
+  graph = log --pretty --date-order --graph
 
-  # Show verbose output about tags, branches or remotes
-  tags = tag -l
-  branches = branch -a
-  remotes = remote -v
-
-  # Interactive rebase with the given number of latest commits
-  reb = "!r() { git rebase -i HEAD~$1; }; r"
+  # Custom graph log for all branches
+  grapha = log --pretty --date-order --graph --all
 
   # Credit an author on the latest commit
   credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
