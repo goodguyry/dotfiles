@@ -1,21 +1,36 @@
+#!/bin/bash
+
 # Brew paths
-PATH="/usr/local/bin:/usr/local/sbin";
-# $HOME/.nvm/versions/node/v0.12.0/bin
-PATH="$PATH:$NVM_BIN";
-# # Add RVM to PATH for scripting
-PATH="$PATH:$HOME/.rvm/bin";
+PATH=/usr/local/bin:/usr/local/sbin;
+
+# $HOME/.nvm/versions/node/{version}/bin
+PATH=$PATH:$NVM_BIN;
+
+# Add RVM to PATH for scripting
+PATH=$PATH:$HOME/.rvm/bin;
+
 # Home bin
-PATH="$PATH:$HOME/.bin";
-# Default bins
-PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin";
+PATH=$PATH:$HOME/.bin;
+
+# Add back default bins
+PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin;
+
 # Add brew-installed GNU core utilities bin
-if [ $(type -P brew) ]; then
-  PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin";
+if [[ $(brew --prefix coreutils) ]]; then
+  PATH=$PATH:$(brew --prefix coreutils)/libexec/gnubin;
 else
-  # Fall back to OS default
-  PATH="$PATH:/libexec/gnubin";
+  # Fall back to OS X default
+  PATH=$PATH:/libexec/gnubin;
 fi;
+
 # Add MySQL
-PATH="$PATH:/usr/local/mysql/bin";
+PATH=$PATH:/usr/local/mysql/bin;
 
 export PATH;
+
+# Add coreutils man pages
+if [[ $(brew --prefix coreutils) ]]; then
+  MANPATH=$(brew --prefix coreutils)/libexec/gnuman:$MANPATH
+fi;
+
+export MANPATH;
