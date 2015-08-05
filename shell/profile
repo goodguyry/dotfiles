@@ -5,18 +5,18 @@ export INPUTRC="$HOME/.inputrc";
 # Load the shell dotfiles, and then some:
 # Shamelessly stolen from @wilto
 declare -a files=(
-    $HOME/.nvm/nvm.sh # Load NVM
-    $HOME/.bash_config # Configuration
-    $HOME/.aliases # Aliases
-    $HOME/.bash_functions/* # Functions
-    $HOME/.bash_prompt # Custom bash prompt
-    $HOME/.bash_paths # Path modifications
-    $HOME/.extras # Local and private settings not under version control (e.g. git credentials)
-    $HOME/.rvm/scripts/rvm # Load RVM into a shell session *as a function*
+  $HOME/.nvm/nvm.sh # Load NVM
+  $HOME/.bash_config # Configuration
+  $HOME/.aliases # Aliases
+  $HOME/.functions/* # Functions
+  $HOME/.prompt # Custom bash prompt
+  $HOME/.paths # Path modifications
+  $HOME/.profile.local # Local and private settings not under version control (e.g. git name/email, package lists)
+  $HOME/.rvm/scripts/rvm # Load RVM into a shell session *as a function*
 );
 
 # If these files are readable, source them
-for index in ${!files[*]};do
+for index in ${!files[*]}; do
   if [[ -r ${files[$index]} ]]; then
     source ${files[$index]};
   fi;
