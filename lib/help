@@ -1,10 +1,13 @@
 #!/bin/bash
 
-source $DOTFILES_DIRECTORY/local/utils
 
+# ***
+# Help text
+# ***
 function run_help() {
 
 cat <<EOT
+
 Dotfiles - Ryan Domingue - http://ryandomingue.com/
 
 Usage: $(basename "$0") [options]
@@ -12,10 +15,13 @@ Usage: $(basename "$0") [options]
 Options:
     -h, --help      Print this help text
     --copy          Copy the files in place instead of linking
-                    (gitconfig is always copied)
-                    ** "Copy mode" also suppresses initiallizing a Git repo and pulling updates from Github **
     --no-packages   Suppress package installations and updates (including casks)
     --server        Skip OS X-related packages/settings
+
+ Notes:
+
+ 1. `gitconfig` is always copied, regardless of the option passed.
+ 2. `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
 
 Documentation can be found at https://github.com/goodguyry/dotfiles
 
@@ -25,39 +31,27 @@ EOT
 
 }
 
-function run_server_help() {
 
-e_header "Server configuration; tested on Dreamhost shared, 12/2014"
+# ***
+# Creates the .gitconfig.local file with Git credentials
+# Used to add custom Git aliases and configuration without the need to fork this entire repository
+# ***
+function local_git_config() {
+  LOCAL_GIT_CONFIG="$HOME/.gitconfig.local";
+  touch "$LOCAL_GIT_CONFIG";
 
-e_warning "The following is unsupported by Dreamhost and may break at any time, including during intallation."
-e_warning "It is provided as-is with no guarantee or warranty, offered nor implied."
-e_warning "You agree to release me from all liability for anything that happens, good or bad, as the result of following these instructions."
+  printf "\n# Git author info\n\n" >> "$LOCAL_GIT_CONFIG";
 
-## Install NVM
+  printf "# Your name\n" >> "$LOCAL_GIT_CONFIG";
+  printf "GIT_AUTHOR_NAME=\"${1}\"\n\n" >> "$LOCAL_GIT_CONFIG";
 
-e_header "NVM (Node Version Manager)"
-e_warning "See https://github.com/creationix/nvm for more information."
-echo -e "\nInstall NVM:\n"
-echo "  git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout \`git describe --abbrev=0 --tags\`"
+  printf "# Your email\n" >> "$LOCAL_GIT_CONFIG";
+  printf "GIT_AUTHOR_EMAIL=\"${2}\"\n\n" >> "$LOCAL_GIT_CONFIG";
 
-echo -e "\nUpdate Node to latest stable:\n"
-echo -e "  source ~/.nvm/nvm.sh && nvm install stable && nvm alias default stable\n"
+  printf "GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"\n" >> "$LOCAL_GIT_CONFIG";
+  printf "GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"\n\n" >> "$LOCAL_GIT_CONFIG";
 
-e_success "Install Node packages with 'npm install {package-name}'"
-
-# Install RVM and update Ruby
-
-e_header "RVM (Ruby Version Manager)"
-e_warning "See https://rvm.io for more information"
-echo -e "\nInstall RVM:\n"
-echo "  \curl -L https://get.rvm.io | bash -s -- --autolibs=read-fail"
-
-e_header "Update Ruby (2.0.0-p598)"
-e_warning "Replace 'ubuntu' and '12.04' with your OS and version:"
-
-lsb_release -irc
-
-echo -e "\n  rvm mount -r https://rvm.io/binaries/ubuntu/12.04/x86_64/ruby-2.0.0-p598.tar.bz2 --verify-downloads 1\n"
-
-e_success "Install Ruby gems with 'gem install {gem-name}'"
+  printf "# Set the user info (modifies ~/.gitconfig)\n" >> "$LOCAL_GIT_CONFIG";
+  printf "git config --global user.name \"\$GIT_AUTHOR_NAME\"\n" >> "$LOCAL_GIT_CONFIG";
+  printf "git config --global user.email \"\$GIT_AUTHOR_EMAIL\"\n" >> "$LOCAL_GIT_CONFIG";
 }
