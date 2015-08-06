@@ -1,0 +1,140 @@
+#!/bin/bash
+
+# Before relying on Homebrew, check that packages can be compiled
+if [ ! $(type -P gcc) ]; then
+  e_header "The XCode Command Line Tools must be installed first.";
+  xcode-select --install;
+fi;
+
+# Check for Homebrew
+if [ ! $(type -P brew) ]; then
+  e_header "Installing Homebrew...";
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+  brew doctor;
+  [[ $? ]] && e_success "Homebrew installed.";
+fi;
+
+e_header "Updating Homebrew...";
+brew update;
+
+e_header "Upgrading installed formulae...";
+brew upgrade;
+
+e_header "Installing new formulae...";
+
+# ***
+# Install CLI packages
+# ***
+
+# GNU File, Shell, and Text utilities
+brew install coreutils;
+
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+brew install findutils --with-default-names;
+
+# Install wget with IRI support
+brew install wget --enable-iri;
+
+# Install more recent versions of some OS X tools
+# See https://github.com/Homebrew/homebrew-dupes for more
+brew tap homebrew/dupes;
+brew install homebrew/dupes/grep --with-default-names;
+brew install homebrew/dupes/openssh;
+
+# Install PHP5.5
+# See https://github.com/Homebrew/homebrew-php/tree/master/Formula for more
+brew tap homebrew/homebrew-php;
+brew install php55;
+
+brew tap homebrew/versions;
+
+# Install Bash 4
+brew install bash;
+brew install bash-completion2;
+
+# Install zsh 5
+brew install zsh;
+
+# Install other useful binaries
+brew install dark-mode;
+brew install gist;
+brew install git-flow;
+brew install imagemagick --with-webp;
+brew install mysql;
+brew install phantomjs;
+brew install tree;
+brew install webkit2png;
+
+if [[ -n $DOTFILES_BREW_LIST ]]; then
+  brew install $DOTFILES_BREW_LIST;
+fi;
+
+brew cleanup;
+
+[[ $? ]] && e_success "Homebrew packages installed.";
+
+# ***
+# Install native applications
+# ***
+
+e_header "Installing casks (native apps)...";
+
+# Install native apps
+brew install caskroom/cask/brew-cask;
+brew tap caskroom/versions;
+
+# Link Homebrew casks in `/Applications` rather than `~/Applications`
+export HOMEBREW_CASK_OPTS="--appdir=/Applications";
+
+# Native apps
+brew cask install bartender;
+brew cask install chronoagent;
+brew cask install chronosync;
+brew cask install clipmenu;
+brew cask install dropbox;
+brew cask install evernote;
+brew cask install firefox-beta;
+brew cask install firefox;
+brew cask install firefoxdeveloperedition;
+brew cask install flux;
+brew cask install gawker;
+brew cask install google-chrome-canary;
+brew cask install google-chrome;
+brew cask install hazel;
+brew cask install imageoptim;
+brew cask install nvalt;
+brew cask install onyx;
+brew cask install opera-beta;
+brew cask install opera-developer;
+brew cask install opera-mobile-emulator;
+brew cask install opera;
+brew cask install sequel-pro;
+brew cask install skype;
+brew cask install spotify;
+brew cask install sublime-text3;
+brew cask install things;
+brew cask install torbrowser;
+brew cask install totalfinder;
+brew cask install transmission;
+brew cask install transmit;
+brew cask install tvshows;
+brew cask install virtualbox;
+brew cask install vlc;
+brew cask install web-sharing;
+brew cask install webkit-nightly;
+
+# QuickLook Plugins
+brew cask install betterzipql;
+brew cask install qlcolorcode;
+brew cask install qlimagesize;
+brew cask install qlmarkdown;
+brew cask install qlstephen;
+brew cask install quicklook-csv;
+brew cask install suspicious-package;
+brew cask install webpquicklook;
+
+if [[ -n $DOTFILES_CASK_LIST ]]; then
+  brew cask install $DOTFILES_CASK_LIST;
+fi;
+
+[[ $? ]] && e_success "Homebrew Casks installed";
