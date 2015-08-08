@@ -1,28 +1,42 @@
 #!/bin/bash
 
-# Switch to projects folder
-# Usage: p [project-name] [subdirectory]
-#
-# Project directories are autocompleted via .bash_config
-# When a project directory is passed, open it in Sublime Text
-# When a project directory and a subdirectory are passed, open the subdirectory in Sublime Text
-# Print git status
+# **
+# Switch to projects folder; open it in Sublime Text
+#   Usage: p [project-name] [subdirectory]
+# **
 function p() {
+  # If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
+  TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
+
+  # Check for passed argument(s)
   if [ $# -gt 0 ]; then
-    cd $HOME/Projects/$1
-    if [ $# -gt 1 ]; then
-      subl $2
-    else
-      subl .
-    fi
-    if [ -d .git ]; then
-      clear
-      git status
-      osascript -e 'tell app "Terminal" to activate'
-    fi
+    # Change to the project root
+    cd "$TARGET_DIR/$1";
+
+    # Check for Sublime Text
+    if [[ $(type -P subl) ]]; then
+      # Check for a passed subdirectory
+      if [[ $# -gt 1 ]]; then
+        # Open the passed subdirectory in Sublime Text
+        subl $2;
+      else
+        # Open the project root in Sublime Text
+        subl .;
+      fi;
+    fi;
+
+    # Check for a .git repo
+    if $(git rev-parse --is-inside-work-tree &> /dev/null); then
+      clear;
+      git status;
+      # Bring Terminal forward
+      osascript -e 'tell app "Terminal" to activate';
+    fi;
   else
-    cd $HOME/Projects
-  fi
+    # No arguments; change to $TARGET_DIR
+    cd "$TARGET_DIR";
+  fi;
+  unset TARGET_DIR;
 }
 
 

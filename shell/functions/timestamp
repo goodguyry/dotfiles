@@ -11,38 +11,43 @@
 # ----------------------------------------------
 
 function ts() {
-  errormsg="Error: A file or folder is required for timestamping"
-  stamp=$(date +%Y%m%d_%H%M%S)
-  if [[ $# -gt 0 && "$1" == "-d" ]]; then
-    dup=true
-    item="$2"
-    # only "-d" was entered
-    if [ -z "$item" ]; then echo "$errormsg"; return; fi
-  else
-    dup=false
-    item="$1"
-  fi
+  ERRORMSG="Error: A file or folder is required for timestamping";
+  STAMP=$(date +%Y%m%d_%H%M%S);
+  DUP=false;
+
+  # No args were given
+  if [ $# -lt 1 ]; then echo "$ERRORMSG"; return; fi;
+
+  # Test for flags
+  for opt in $@; do
+    case $opt in
+      -d) DUP=true ;;   # Duplicate the file before appending the timestamp
+      *) ITEM=$opt ;;   # Set ITEM to the other argument
+    esac
+  done;
+
+  # Make sure ITEM is set before proceeding
+  if [ -z "$ITEM" ]; then echo "$ERRORMSG"; return; fi;
 
   # Split the name from the extension
-  name="${item%.*}"
-  ext="${item##*.}"
+  NAME="${ITEM%.*}";
+  EXT="${ITEM##*.}";
 
-  # no args were given
-  if [ $# -lt 1 ]; then echo "$errormsg"; return; fi
-
-  if [ -d "$item" -o "$name" == "$ext" ]; then
-    # split off the trailing slash (if it's there)
-    name="${item%/*}"
-    itemname="${name}_${stamp}"
+  # Test for item type
+  if [ -d "$ITEM" -o "$NAME" == "$EXT" ]; then
+    # Split off the trailing slash (if it's there)
+    NAME="${ITEM%/*}";
+    ITEMNAME="${NAME}_${STAMP}";
   else
-    itemname="${name}_${stamp}.${ext}"
+    # Rebuild the filename
+    ITEMNAME="${NAME}_${STAMP}.${EXT}";
   fi
 
-  if [ $dup == true ]; then
-    # duplicate the item with timestamp
-    cp -r "$item" "$itemname"
+  if [ $DUP == true ]; then
+    # Duplicate the item with timestamp
+    cp -r "$ITEM" "$ITEMNAME";
   else
-    # timestamp the item without duplication
-    mv "$item" "$itemname"
-  fi
+    # Timestamp the item without duplication
+    mv "$ITEM" "$ITEMNAME";
+  fi;
 }
