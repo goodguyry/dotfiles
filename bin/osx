@@ -36,8 +36,11 @@ defaults write com.apple.dock persistent-apps -array
 # Put the dock on the right edge of the screen
 defaults write com.apple.dock orientation -string "right"
 
-# Minimize applications to their dock icon
+# Minimize applications to their Dock icon
 defaults write com.apple.dock minimize-to-application -bool true
+
+# Swipe up over Dock icons to show an app's window(s)
+defaults write com.apple.dock scroll-to-open -bool TRUE; killall Dock
 
 # Single Application Mode
 # After years of enjoying this feature, I now find it annoying all of the sudden
