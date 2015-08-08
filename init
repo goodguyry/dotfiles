@@ -4,201 +4,272 @@ DOTFILES_DIRECTORY=$(pwd)
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 
-source $DOTFILES_DIRECTORY/local/help
-source $DOTFILES_DIRECTORY/local/create_extras
-source $DOTFILES_DIRECTORY/local/utils
-source $DOTFILES_DIRECTORY/local/packages
+# Helper functions
+source "$DOTFILES_DIRECTORY/lib/help";
+source "$DOTFILES_DIRECTORY/lib/utils";
 
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-  run_help
-  exit
-fi
+  run_help;
+  exit;
+fi;
 
 
 # Test for known flags
-for opt in $@
+for opt in $@;
 do
   case $opt in
-    --no-packages) no_packages=true ;;  # Suppresses installing packages
-    --copy) copy_files=true;;           # Copy files instead of linking
-    --server) server=true;;             # Skip OS X-related packages/settings
+    --no-packages) NO_PACKAGES=true ;;            # Suppresses installing packages
+    --copy) COPY_FILES=true ;;                    # Copy files instead of linking
+    --server) SERVER=true; NO_PACKAGES=true ;;    # Skip OS X-related packages/settings
     -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
-done
-
-
-# Create directories if they don't exist
-function mkdirs() {
-  if [[ ! -d $@ ]]; then
-    mkdir $@
-  else
-    e_warning "$@ already exists"
-  fi
-}
+done;
 
 
 # Create a Projects folder
-if [[ ! $server ]]; then
-  mkdirs "${HOME}/Projects"
-fi
+if [[ ! $SERVER ]]; then
+  # If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
+  TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
+  mkdirs "$TARGET_DIR";
+fi;
+unset TARGET_DIR;
 
 
 # Conditionally install Command Line Tools, Homebrew and Git
-if [[ $no_packages || $server ]]; then
-  e_header "Skipping Homebrew and Git installations..."
+if [[ $NO_PACKAGES ]]; then
+  e_header "Skipping Homebrew and Git installations.";
 else
   # Before relying on Homebrew, check that packages can be compiled
   if ! type_exists 'gcc'; then
-    e_error "The XCode Command Line Tools must be installed first."
-    xcode-select --install
-  fi
+    e_error "The XCode Command Line Tools must be installed first.";
+    xcode-select --install;
+  fi;
 
   # Check for Homebrew
   if ! type_exists 'brew'; then
-    e_header "Installing Homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew doctor
-  fi
+    e_header "Installing Homebrew...";
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+    brew doctor;
+    [[ $? ]] && e_success "Homebrew installed.";
+  fi;
 
   # Check for git
   if ! type_exists 'git'; then
-    e_header "Updating Homebrew..."
-    brew update
-    e_header "Installing Git..."
-    brew install git
-  fi
-fi
+    e_header "Updating Homebrew...";
+    brew update;
+    e_header "Installing Git...";
+    brew install git;
+  fi;
+fi;
 
 
 # Conditionally init and pull the Git repo
-if [[ ! $copy_files ]] && type_exists 'git' ; then
-  cd "${DOTFILES_DIRECTORY}"
+if [[ ! $COPY || ! $SERVER ]] && type_exists 'git' ; then
+  cd "$DOTFILES_DIRECTORY";
   # Initialize the git repository if it's missing
   if ! is_git_repo; then
-    e_header "Initializing git repository..."
-    git init
-    git remote add origin ${DOTFILES_GIT_REMOTE}
-    git fetch origin master
+    e_header "Initializing git repository...";
+    git init;
+    git remote add origin $DOTFILES_GIT_REMOTE;
+    git fetch origin master;
     # Reset the index and working tree to the fetched HEAD
-    git reset --hard FETCH_HEAD
+    git reset --hard FETCH_HEAD;
     # Remove any untracked files
-    git clean -fd
-    e_header "Syncing dotfiles..."
+    git clean -fd;
+    e_header "Syncing dotfiles...";
     # Pull down the latest changes
-    git pull --rebase origin master
-  fi
-else
-  e_header "Skipping 'git init'"
-fi
-
-
-# Conditionally symlink or copy the files
-function setFile() {
-  if [[ $copy_files ]] ; then
-    rsync -avz --quiet "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
+    git pull --rebase origin master;
   else
-    # Force create/replace the symlink.
-    ln -fs "${DOTFILES_DIRECTORY}/${1}" "${HOME}/${2}"
-  fi
-}
+    e_header "Already a Git repo.";
+  fi;
+else
+  e_header "Skipping 'git init'";
+fi;
 
 
-# Create symbolic links between the dotfiles repo and `HOME` directory.
-function setFiles() {
-  e_header "Linking files..."
+# Sets the dotfiles in place in the `HOME` directory.
+function set_files() {
+  e_header "Setting files...";
 
-  # Create necessary folders
-  mkdirs "${HOME}/.bash_functions"
-  mkdirs "${HOME}/.vim"
-  mkdirs "${HOME}/.vim/backups"
-  mkdirs "${HOME}/.vim/colors"
-  mkdirs "${HOME}/.vim/swaps"
+  # Shell (bash) files
 
-  # Copy `.gitconfig`, `.git_completion` and `solarized.vim`
-  rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
-  rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/git_completion  ${HOME}/.git_completion
-  rsync -avz --quiet ${DOTFILES_DIRECTORY}/vim/colors/solarized.vim  ${HOME}/.vim/colors/solarized.vim
+  # Create functions folder
+  mkdirs "$HOME/.functions";
 
-  setFile "bash/aliases"                  ".aliases"
-  setFile "bash/bash_config"              ".bash_config"
-  setFile "bash/bash_paths"               ".bash_paths"
-  setFile "bash/bash_profile"             ".bash_profile"
-  setFile "bash/bash_prompt"              ".bash_prompt"
-  setFile "bash/bashrc"                   ".bashrc"
-  setFile "bash/functions/batchrename"    ".bash_functions/batchrename"
-  setFile "bash/functions/common"         ".bash_functions/common"
-  setFile "bash/functions/timestamp"      ".bash_functions/timestamp"
-  setFile "bash/hushlogin"                ".hushlogin"
-  setFile "bash/inputrc"                  ".inputrc"
-  setFile "git/gitignore"                 ".gitignore"
-  setFile "jshintrc"                      ".jshintrc"
-  setFile "vim/vimrc"                     ".vimrc"
+  set_file "shell/aliases"                  ".aliases";
+  set_file "shell/bash_config"              ".bash_config";
+  set_file "shell/paths"                    ".paths";
+  set_file "shell/profile"                  ".profile";
+  set_file "shell/prompt"                   ".prompt";
+  set_file "shell/bashrc"                   ".bashrc";
+  set_file "shell/functions/common"         ".functions/common";
+  set_file "shell/functions/timestamp"      ".functions/timestamp";
+  set_file "shell/hushlogin"                ".hushlogin";
+  set_file "shell/inputrc"                  ".inputrc";
 
-  e_success "Dotfiles update complete!"
+  # Git, JSHint, Editorconfig, Vim
+
+  # Copy `.gitconfig`
+  rsync -avz --quiet                        "dev/gitconfig"                 "$HOME/.gitconfig";
+  set_file "dev/gitignore"                  ".gitignore";
+
+  set_file "dev/jshintrc"                   ".jshintrc";
+  set_file "dev/editorconfig"               ".editorconfig";
+
+  # Create necessary vim folders
+  mkdirs "$HOME/.vim";
+  mkdirs "$HOME/.vim/backups";
+  mkdirs "$HOME/.vim/swaps";
+
+  # Vim
+  set_file "dev/vimrc"                      ".vimrc";
+
+  # Download the Solarized Vim theme
+  # But check for it first
+  if [[ ! -r "$HOME/.vim/colors/solarized.vim" ]]; then
+    if [[ -d "$HOME/.vim/colors" ]]; then
+      # Extract solarized.vim straight into .vim/colors
+      e_header "Downloading Solarized Vim theme...";
+      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master  | tar -xzv -C "$HOME/.vim" --strip-components 2 --exclude="togglebg.vim" --include="*.vim";
+    else
+      # Extract colors/solarized.vim into .vim
+      e_header "Downloading Solarized Vim theme...";
+      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | tar -xzv -C "$HOME/.vim" --strip-components 1 --include="**/solarized.vim";
+    fi;
+    [[ $? ]] && e_success "Solarized theme installed";
+  else
+    e_header "Solarized theme already installed.";
+  fi;
+
+  # Create the ~/.bin folder
+  mkdirs "$HOME/.bin";
+
+  e_success "Dotfiles update complete!";
 }
 
 
 # Ask before potentially overwriting files
-seek_confirmation "Warning: This step may overwrite your existing dotfiles."
+seek_confirmation "Warning: This step may overwrite your existing dotfiles.";
 
+# Conditionally set the dotfiles in place
 if is_confirmed; then
-  setFiles
-  source ${HOME}/.bashrc
+  set_files;
+  # Create the goodguyrc file if it doesn't exist
+  if [[ ! -r "$HOME/.goodguyrc" ]]; then
+    touch "$HOME/.goodguyrc";
+  fi;
 else
-  e_header "Aborting..."
-  exit 1
-fi
+  e_header "Aborting...";
+  exit 1;
+fi;
 
 
-# Prompt to create the extras file if it doesn't already exists
-if [[ ! -r "$HOME/.extras" ]] ; then
-  seek_confirmation "Would you like to create the '.extras' file now?"
-
-  if is_confirmed; then
-    printf "Your Git author name: -> "
-    read NAME
-    printf "Your Git author email: -> "
-    read EMAIL
-    if [[ $NAME != '' && $EMAIL != '' ]] ; then
-      create_extras "$NAME" $EMAIL
-    fi
+# Prompt to create the gitconfig.local file if it doesn't exist
+if [[ ! -r "$HOME/.gitconfig.local" ]] ; then
+  printf "\n";
+  e_warning "Enter your Git author information";
+  collect_git_info;
+else
+  # Source the file to capture the variables
+  source "$HOME/.gitconfig.local";
+  # If the file exists, but the author info isn't
+  if [[ -z "$GIT_AUTHOR_NAME" || -z "$GIT_AUTHOR_EMAIL" ]]; then
+    printf "\n";
+    e_warning "Enter your Git author information";
+    collect_git_info;
   else
-    e_warning "You will need to create the extras file manually."
-  fi
+    # Print Git author info for confirmation
+    printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
+    echo " Name:" $GIT_AUTHOR_NAME;
+    echo "Email:" $GIT_AUTHOR_EMAIL;
+
+    # Seek confirmation that the Git information above is correct.
+    printf "\n";
+    e_warning "Confirm the Git information above is correct.";
+    read -p "Is this correct? (y/n) " -n 1;
+    printf "\n";
+
+    if ! is_confirmed; then
+      # Prompt for Git author info re-entry
+      collect_git_info;
+    fi;
+  fi;
+fi;
+
+
+# Source bashrc to make sure the environment is set before moving on
+source "$HOME/.bashrc";
+
+
+# Conditionally install packages
+if [[ $NO_PACKAGES ]]; then
+  e_header "Skipping package installation...";
 else
-  e_header "Confirm your Git credentials."
-  open ~/.extras
-  sleep 3
-  # Bring attention back to Terminal
-  tput bel
-fi
+  # Install Homebrew packages
+  source bin/brews;
+
+  # Check for a previous install location
+  NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
+
+  # Install NVM
+  e_header "Installing NVM...";
+  if [[ ! -d "$NVM_LOC" ]]; then
+    git clone https://github.com/creationix/nvm.git "$NVM_LOC";
+  fi;
+
+  # Source nvm
+  source "$NVM_LOC/nvm.sh";
+
+  cd "$NVM_LOC" && git checkout `git describe --abbrev=0 --tags`;
+
+  # Install NPM
+  e_header "Installing NPM...";
+  npm install -g npm@latest;
+  # Install and use latest stable version of Node
+  nvm install stable;
+  nvm alias default stable;
+
+  # Install packages globally and quietly
+  e_header "Installing Node packages...";
+  NPM_LIST="bower browser-sync git-open grunt-cli grunt-init jshint $DOTFILES_NPM_LIST";
+  npm install $NPM_LIST --global --quiet;
+
+  [[ $? ]] && e_success "NPM packages installed.";
+
+  # Install RVM
+  e_header "Installing RVM...";
+  curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable --ruby;
+
+  source "$HOME/.rvm/scripts/rvm";
+  rvm cleanup all;
+
+  # Install Gems
+  e_header "Installing Gems...";
+  GEM_LIST="bundler jekyll sass $DOTFILES_GEM_LIST";
+  gem install $GEM_LIST --no-document;
+
+  gem cleanup;
+
+  [[ $? ]] && e_success "Gems installed.";
+
+fi;
 
 
-# Conditionally install and update packages
-if [[ $no_packages ]]; then
-  e_header "Skipping package installations."
-  e_warning "You can install these later."
-elif [[ $server ]]; then
-  run_server_help
-else
-  e_header "Updating packages...\n"
-  run_packages
-fi
-
-
-if [[ ! $server ]]; then
+if [[ ! $SERVER ]]; then
   # Ask before potentially overwriting OS X defaults
-  seek_confirmation "Warning: This step may modify your OS X system defaults."
+  seek_confirmation "Warning: This step may modify your OS X system defaults.";
 
   if is_confirmed; then
-    bash ./bin/osx
+    source bin/osx;
   else
-    e_header "Skipped OS X settings update."
-  fi
-fi
+    e_header "Skipped OS X settings update.";
+  fi;
+fi;
 
-unset copy_files
 
-exec $SHELL -l
+unset COPY_FILES;
+
+
+[[ $? ]] && e_success "Restart your shell for changes to take effect";

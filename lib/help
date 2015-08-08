@@ -32,6 +32,39 @@ EOT
 }
 
 
+# Create a directory if it doesn't already exist
+function mkdirs() {
+  if [[ ! -d $@ ]]; then
+    mkdir $@;
+  fi;
+}
+
+
+# Conditionally symlink or copy the passed file
+function set_file() {
+  local SRC="$DOTFILES_DIRECTORY/$1";
+  local DEST="$HOME/$2";
+  if [[ $COPY_FILES || $COPY ]]; then
+    rsync -avz --quiet $SRC $DEST;
+  else
+    # Force create/replace the symlink.
+    ln -fs $SRC $DEST;
+  fi;
+}
+
+
+# Collect Git author info and add it to gitconfig.local
+function collect_git_info() {
+  printf "Your Git author name: -> ";
+  read NAME;
+  printf "Your Git author email: -> ";
+  read EMAIL;
+  if [[ $NAME != '' && $EMAIL != '' ]] ; then
+    local_git_config "$NAME" $EMAIL;
+  fi;
+}
+
+
 # ***
 # Creates the .gitconfig.local file with Git credentials
 # Used to add custom Git aliases and configuration without the need to fork this entire repository
