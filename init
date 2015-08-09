@@ -93,50 +93,19 @@ fi;
 function set_files() {
   e_header "Setting files...";
 
-  # Shell (bash) files
-
   # Create functions folder
   mkdirs "$HOME/.functions";
-
-  set_file "shell/aliases"                  ".aliases";
-  set_file "shell/bash_config"              ".bash_config";
-  set_file "shell/paths"                    ".paths";
-  set_file "shell/profile"                  ".profile";
-  set_file "shell/prompt"                   ".prompt";
-  set_file "shell/bashrc"                   ".bashrc";
-  set_file "shell/functions/cdf"            ".functions/cdf"
-  set_file "shell/functions/cleanup"        ".functions/cleanup"
-  set_file "shell/functions/datauri"        ".functions/datauri"
-  set_file "shell/functions/diff"           ".functions/diff"
-  set_file "shell/functions/fs"             ".functions/fs"
-  set_file "shell/functions/gcheck"         ".functions/gcheck"
-  set_file "shell/functions/gz"             ".functions/gz"
-  set_file "shell/functions/mkd"            ".functions/mkd"
-  set_file "shell/functions/p"              ".functions/p";
-  set_file "shell/functions/phpserver"      ".functions/phpserver"
-  set_file "shell/functions/server"         ".functions/server"
-  set_file "shell/functions/targz"          ".functions/targz"
-  set_file "shell/functions/tmp"            ".functions/tmp"
-  set_file "shell/functions/timestamp"      ".functions/timestamp";
-  set_file "shell/hushlogin"                ".hushlogin";
-  set_file "shell/inputrc"                  ".inputrc";
-
-  # Git, JSHint, Editorconfig, Vim
-
-  # Copy `.gitconfig`
-  rsync -avz --quiet                        "dev/gitconfig"                 "$HOME/.gitconfig";
-  set_file "dev/gitignore"                  ".gitignore";
-
-  set_file "dev/jshintrc"                   ".jshintrc";
-  set_file "dev/editorconfig"               ".editorconfig";
-
+  # Create the bin folder
+  mkdirs "$HOME/.bin";
+  # Create the lib folder
+  mkdirs "$HOME/.lib";
   # Create necessary vim folders
   mkdirs "$HOME/.vim";
   mkdirs "$HOME/.vim/backups";
   mkdirs "$HOME/.vim/swaps";
 
-  # Vim
-  set_file "dev/vimrc"                      ".vimrc";
+  # Copy `.gitconfig`
+  rsync -avz --quiet "dev/gitconfig" "$HOME/.gitconfig";
 
   # Download the Solarized Vim theme
   # But check for it first
@@ -155,10 +124,20 @@ function set_files() {
     e_header "Solarized theme already installed.";
   fi;
 
-  # Create the ~/.bin folder
-  mkdirs "$HOME/.bin";
+  # Files and folders not to be linked/copied
+  declare -a EXCLUDED_FILES=(
+    dev/gitconfig # Already copied
+    lib/GoodGuyRy.terminal
+    lib/help
+    shell/
+  );
 
-  e_success "Dotfiles update complete!";
+  # Set the bin and lib directories' files as they are
+  dotfiles bin/* lib/*;
+  # Strip the shell and dev directories from the path before setting these files
+  dotfiles dev/* shell/**/* --strip-dir;
+
+  [[ $? ]] && e_success "Dotfiles update complete!";
 }
 
 
