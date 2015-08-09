@@ -93,16 +93,20 @@ fi;
 function set_files() {
   e_header "Setting files...";
 
-  # Create functions folder
-  mkdirs "$HOME/.functions";
-  # Create the bin folder
-  mkdirs "$HOME/.bin";
-  # Create the lib folder
-  mkdirs "$HOME/.lib";
-  # Create necessary vim folders
-  mkdirs "$HOME/.vim";
-  mkdirs "$HOME/.vim/backups";
-  mkdirs "$HOME/.vim/swaps";
+  # A list of needed directories
+  declare -a DIRECTORIES=(
+    $HOME/.functions
+    $HOME/.bin
+    $HOME/.lib
+    $HOME/.vim
+    $HOME/.vim/backups
+    $HOME/.vim/swaps
+  );
+
+  # Create directories if they don't exist
+  for DIRECTORY in ${DIRECTORIES[*]}; do
+    mkdirs ${DIRECTORY};
+  done;
 
   # Copy `.gitconfig`
   rsync -avz --quiet "dev/gitconfig" "$HOME/.gitconfig";
