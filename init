@@ -104,7 +104,19 @@ function set_files() {
   set_file "shell/profile"                  ".profile";
   set_file "shell/prompt"                   ".prompt";
   set_file "shell/bashrc"                   ".bashrc";
-  set_file "shell/functions/common"         ".functions/common";
+  set_file "shell/functions/cdf"            ".functions/cdf"
+  set_file "shell/functions/cleanup"        ".functions/cleanup"
+  set_file "shell/functions/datauri"        ".functions/datauri"
+  set_file "shell/functions/diff"           ".functions/diff"
+  set_file "shell/functions/fs"             ".functions/fs"
+  set_file "shell/functions/gcheck"         ".functions/gcheck"
+  set_file "shell/functions/gz"             ".functions/gz"
+  set_file "shell/functions/mkd"            ".functions/mkd"
+  set_file "shell/functions/p"              ".functions/p";
+  set_file "shell/functions/phpserver"      ".functions/phpserver"
+  set_file "shell/functions/server"         ".functions/server"
+  set_file "shell/functions/targz"          ".functions/targz"
+  set_file "shell/functions/tmp"            ".functions/tmp"
   set_file "shell/functions/timestamp"      ".functions/timestamp";
   set_file "shell/hushlogin"                ".hushlogin";
   set_file "shell/inputrc"                  ".inputrc";

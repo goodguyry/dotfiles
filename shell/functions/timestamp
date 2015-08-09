@@ -16,7 +16,10 @@ function ts() {
   DUP=false;
 
   # No args were given
-  if [ $# -lt 1 ]; then echo "$ERRORMSG"; return; fi;
+  if [ $# -lt 1 ]; then
+    echo "$ERRORMSG";
+    return;
+  fi;
 
   # Test for flags
   for opt in $@; do
@@ -27,7 +30,10 @@ function ts() {
   done;
 
   # Make sure ITEM is set before proceeding
-  if [ -z "$ITEM" ]; then echo "$ERRORMSG"; return; fi;
+  if [ -z "$ITEM" ]; then
+    echo "$ERRORMSG";
+    return;
+  fi;
 
   # Split the name from the extension
   NAME="${ITEM%.*}";
@@ -41,7 +47,7 @@ function ts() {
   else
     # Rebuild the filename
     ITEMNAME="${NAME}_${STAMP}.${EXT}";
-  fi
+  fi;
 
   if [ $DUP == true ]; then
     # Duplicate the item with timestamp
