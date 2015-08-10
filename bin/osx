@@ -220,11 +220,12 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use my theme by default in Terminal.app
-open "${DIR}/../lib/GoodGuyRy.terminal"
-sleep 2 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
-defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
-
+if [[ -r "${DIR}/../lib/GoodGuyRy.terminal" ]]; then
+  open "${DIR}/../lib/GoodGuyRy.terminal"
+  sleep 2 # Wait a bit to make sure the theme is loaded
+  defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
+  defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
+fi;
 
 #==================================================
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
