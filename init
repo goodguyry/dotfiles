@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES_DIRECTORY=$(pwd)
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 
