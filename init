@@ -96,8 +96,6 @@ function set_files() {
   # A list of needed directories
   declare -a DIRECTORIES=(
     $HOME/.functions
-    $HOME/.bin
-    $HOME/.lib
     $HOME/.vim
     $HOME/.vim/backups
     $HOME/.vim/swaps
@@ -131,13 +129,9 @@ function set_files() {
   # Files and folders not to be linked/copied
   declare -a EXCLUDED_FILES=(
     dev/gitconfig # Already copied
-    lib/GoodGuyRy.terminal
-    lib/help
     shell/
   );
 
-  # Set the bin and lib directories' files as they are
-  dotfiles bin/* lib/*;
   # Strip the shell and dev directories from the path before setting these files
   dotfiles dev/* shell/**/* --strip-dir;
 
