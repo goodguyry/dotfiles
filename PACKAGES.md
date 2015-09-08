@@ -78,6 +78,7 @@
 - [TotalFinder](http://totalfinder.binaryage.com/)
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
+- [Vagrant](https://www.vagrantup.com/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 - [Webkit Nightly](http://www.webkit.org/)
 

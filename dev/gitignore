@@ -39,6 +39,7 @@ vendor
 *.sublime-*
 .project
 .settings
+.vagrant
 
 # OS generated files #
 ######################
