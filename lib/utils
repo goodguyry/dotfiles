@@ -1,4 +1,7 @@
 #!/bin/bash
+# Script utility functions
+# By Necolas Gallagher
+# https://github.com/necolas/dotfiles/blob/master/lib/utils
 
 # Header logging
 e_header() {

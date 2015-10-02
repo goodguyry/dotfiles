@@ -1,19 +1,19 @@
-#!/bin/bash
-
-# Easier navigation: .., ..., ...., ~ and -
+# Navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
+alias ~="cd ~"
 alias -- -="cd -"
 
 # Shortcuts
 alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dk="cd ~/Desktop"
+alias s="cd ~/Sites"
 alias g="git"
 alias j="jekyll"
 alias js="jekyll serve --watch"
+alias v="vagrant"
 alias o="open"
 alias oo="open ."
 
@@ -30,24 +30,24 @@ alias sudo='sudo '
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="clear && exec $SHELL -l"
 
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "$method"="lwp-request -m '$method'"
+done
+
 # Restart Apache
 alias apache="sudo apachectl restart"
 
-# IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
-alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
-alias mac="ifconfig en1 | grep ether"
+# Flush Directory Service cache
+alias flush="sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;"
 
-# View HTTP traffic
-alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
-alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade; brew cleanup; sudo gem update --system; sudo gem update'
-
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias update='brew update; brew upgrade --all; brew cleanup; brew upgrade brew-cask; brew cask cleanup; npm install npm -g; npm update -g; rvm cleanup all; sudo gem update --system; sudo gem update'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
@@ -61,6 +61,8 @@ alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from ap
 
 # Rebuild Launchpad
 alias lpreset="rm ~/Library/Application\ Support/Dock/*.db; killall Dock"
+
+
 
 # Show/hide hidden files in Finder
 # Admittedly easier with TotalFinder's shortcut, but keeping regardless
@@ -79,26 +81,19 @@ alias spoton="sudo mdutil -a -i on"
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 alias plistbuddy="/usr/libexec/PlistBuddy"
 
-# Canonical hex dump; some systems have this symlinked
-command -v hd > /dev/null || alias hd="hexdump -C"
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# OS X has no `md5sum`, so use `md5` as a fallback
-command -v md5sum > /dev/null || alias md5sum="md5"
 
-# OS X has no `sha1sum`, so use `shasum` as a fallback
-command -v sha1sum > /dev/null || alias sha1sum="shasum"
-
-# Trim new lines and copy to clipboard
-alias c="tr -d '\n' | pbcopy"
-
-# URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)
 alias badge="tput bel"
 
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="lwp-request -m '$method'"
-done
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+
+# Mac address
+alias mac="ifconfig en1 | grep ether"

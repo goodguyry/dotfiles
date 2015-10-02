@@ -1,21 +1,11 @@
-#!/bin/bash
-
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 
+# Make TAB cycle through possible completions
+"\t": menu-complete
+
 # List all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
-
-# Immediately add a trailing slash when autocompleting symlinks to directories
-set mark-symlinked-directories on
-
-# Use the text that has already been typed as the prefix for searching through
-# commands (i.e. more intelligent Up/Down behavior)
-"\e[B": history-search-forward
-"\e[A": history-search-backward
-
-# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
-set match-hidden-files off
 
 # Show all autocomplete results at once
 set page-completions off
@@ -23,8 +13,8 @@ set page-completions off
 # If there are more than 200 possible completions for a word, ask to show them all
 set completion-query-items 200
 
-# Make TAB cycle through possible completions
-"\t": menu-complete
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
 
 # Show extra file information when completing, like `ls -F` does
 set visible-stats on
@@ -35,6 +25,14 @@ set visible-stats on
 # ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
 # Readline used by Bash 4.)
 set skip-completed-text on
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Use the text that has already been typed as the prefix for searching through
+# commands (i.e. more intelligent Up/Down behavior)
+"\e[B": history-search-forward
+"\e[A": history-search-backward
 
 # Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
 set input-meta on
