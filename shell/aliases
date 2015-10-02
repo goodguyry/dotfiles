@@ -13,6 +13,7 @@ alias s="cd ~/Sites"
 alias g="git"
 alias j="jekyll"
 alias js="jekyll serve --watch"
+alias v="vagrant"
 alias o="open"
 alias oo="open ."
 
