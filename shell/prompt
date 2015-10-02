@@ -1,0 +1,60 @@
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM=gnome-256color;
+elif infocmp xterm-256color >/dev/null 2>&1; then
+  export TERM=xterm-256color;
+fi;
+
+BLACK="\e[38;5;0m";
+RED="\e[38;5;196m";
+GREEN="\e[38;5;2m";
+YELLOW="\e[38;5;3m";
+BLUE="\e[38;5;67m";
+PURPLE="\e[38;5;55m";
+MAGENTA="\e[38;5;95m";
+CYAN="\e[38;5;45m";
+WHITE="\e[38;5;15m";
+RESET="\e[0m";
+GRAY="\e[38;5;240m";
+LTGRAY="\e[38;5;246m";
+VIOLET="\e[38;5;60m";
+ORANGE="\e[38;5;202m";
+
+function parse_git_dirty() {
+  # Show "∆" if the stage isn't clean
+  [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo " ∆";
+}
+
+function parse_git_branch() {
+  # Get the Git branch if inside a repo
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/";
+}
+
+# Clear prompt variables
+# Get them clean from goodguyrc or the statements below
+unset PS1;
+unset PS2;
+
+# Check for local prompt file
+if [[ -r "$HOME/.goodguyrc" ]]; then
+  source "$HOME/.goodguyrc";
+fi;
+
+# If a the prompt variables aren't set, use the default
+if [[ ! -n $PS1 ]]; then
+  # Main prompt
+  # HH:MM:SS - User@Host
+  PS1="\n\[$GRAY\]\T - \u@\h";
+  # New line; Current directory
+  PS1+="\n\[$BLUE\]\$(PWD)";
+  # If inside a Git repo, print "on <branch>" at the end of the line
+  PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)";
+  # Prompt on a new line
+  PS1+="\n\[$BLUE\]\$ \[$LTGRAY\]";
+
+  # Continuation prompt
+  PS2="\[$BLUE\]: \[$LTGRAY\]";
+
+fi;
+
+export PS1;
+export PS2;

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# ----------------------------------------------
+# Add a timestamp to a file or folder
+#
+#   Usage: ts [-d] string
+#
+#     -d (optional) : duplicate item before appending the timestamp
+#
+#   Change date format in $stamp to alter output
+# ----------------------------------------------
+
+function ts() {
+  ERRORMSG="Error: A file or folder is required for timestamping";
+  STAMP=$(date +%Y%m%d_%H%M%S);
+  DUP=false;
+
+  # No args were given
+  if [ $# -lt 1 ]; then
+    echo "$ERRORMSG";
+    return;
+  fi;
+
+  # Test for flags
+  for opt in $@; do
+    case $opt in
+      -d) DUP=true ;;   # Duplicate the file before appending the timestamp
+      *) ITEM=$opt ;;   # Set ITEM to the other argument
+    esac
+  done;
+
+  # Make sure ITEM is set before proceeding
+  if [ -z "$ITEM" ]; then
+    echo "$ERRORMSG";
+    return;
+  fi;
+
+  # Split the name from the extension
+  NAME="${ITEM%.*}";
+  EXT="${ITEM##*.}";
+
+  # Test for item type
+  if [ -d "$ITEM" -o "$NAME" == "$EXT" ]; then
+    # Split off the trailing slash (if it's there)
+    NAME="${ITEM%/*}";
+    ITEMNAME="${NAME}_${STAMP}";
+  else
+    # Rebuild the filename
+    ITEMNAME="${NAME}_${STAMP}.${EXT}";
+  fi;
+
+  if [ $DUP == true ]; then
+    # Duplicate the item with timestamp
+    cp -r "$ITEM" "$ITEMNAME";
+  else
+    # Timestamp the item without duplication
+    mv "$ITEM" "$ITEMNAME";
+  fi;
+}

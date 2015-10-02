@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "${DIR}/../local/utils"
+source "${DIR}/../lib/utils"
 
 # A lot of these were borrowed from http://mths.be/osx
 
@@ -36,8 +36,11 @@ defaults write com.apple.dock persistent-apps -array
 # Put the dock on the right edge of the screen
 defaults write com.apple.dock orientation -string "right"
 
-# Minimize applications to their dock icon
+# Minimize applications to their Dock icon
 defaults write com.apple.dock minimize-to-application -bool true
+
+# Swipe up over Dock icons to show an app's window(s)
+defaults write com.apple.dock scroll-to-open -bool TRUE; killall Dock
 
 # Single Application Mode
 # After years of enjoying this feature, I now find it annoying all of the sudden
@@ -217,11 +220,12 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use my theme by default in Terminal.app
-open "${DIR}/../local/GoodGuyRy.terminal"
-sleep 2 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
-defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
-
+if [[ -r "${DIR}/../lib/GoodGuyRy.terminal" ]]; then
+  open "${DIR}/../lib/GoodGuyRy.terminal"
+  sleep 2 # Wait a bit to make sure the theme is loaded
+  defaults write com.apple.terminal "Default Window Settings" -string "GoodGuyRy"
+  defaults write com.apple.terminal "Startup Window Settings" -string "GoodGuyRy"
+fi;
 
 #==================================================
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
@@ -277,7 +281,7 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo SystemVersion
 
 # Set menu extras
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Script Menu.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/Applications/Utilities/Keychain Access.app/Contents/Resources/Keychain.menu"
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Script Menu.menu" "/System/Library/CoreServices/Menu Extras/Battery.menu" "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Clock.menu" "/Applications/Utilities/Keychain Access.app/Contents/Resources/Keychain.menu"
 
 # Blacklist some menu extras
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
@@ -339,8 +343,6 @@ sudo systemsetup -setwakeonnetworkaccess on > /dev/null
 # SystemUIServer won't create it for us
 if [[ ! -d "${HOME}/Pictures/Screenshots" ]]; then
   mkdir "${HOME}/Pictures/Screenshots"
-else
-  e_header "Screenshots directory already exists in ${HOME}/Pictures"
 fi
 
 # Change screen shot location

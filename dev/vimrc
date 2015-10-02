@@ -1,0 +1,105 @@
+" Solarized options
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+
+" Use the Solarized theme
+
+set background=dark
+colorscheme solarized
+
+syntax on                                 " Enable syntax highlighting
+set nocompatible                          " Make Vim more useful
+
+" ============== General Config
+
+let mapleader=","                         " Change mapleader
+set autoread                              " Reload files changed outside vim
+set clipboard=unnamed                     " Use the OS clipboard by default
+set cursorline                            " Highlight current line
+set encoding=utf-8 nobomb                 " Use UTF-8 without BOM
+set esckeys                               " Allow cursor keys in insert mode
+set gdefault                              " Add the g flag to search/replace by default
+set history=1000                          " Keep more history
+set hlsearch                              " Highlight searches
+set incsearch                             " Highlight dynamically as pattern is typed
+set laststatus=2                          " Always show status line
+set noerrorbells                          " Disable error bells
+set number                                " Enable line numbers
+set ruler                                 " Show the cursor position
+set scrolloff=3                           " Start scrolling three lines before the horizontal window border
+set shortmess=atI                         " Don’t show the intro message when starting Vim
+set showcmd                               " Show the (partial) command as it’s being typed
+set showmode                              " Show the current mode
+set title                                 " Show the filename in the window titlebar
+set ttyfast                               " Optimize for fast terminal connections
+set visualbell                            " No sounds
+set wildmenu                              " Enhance command-line completion
+set wildmode=list:longest                 " Tab complete like shell
+
+" Centralize backups, swapfiles and undo history
+
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+  set undodir=~/.vim/undo
+endif
+
+" Don’t create backups when editing files in certain directories
+
+set backupskip=/tmp/*,/private/tmp/*
+
+" Respect modeline in files
+
+set modeline
+set modelines=4
+
+" Enable per-directory .vimrc files and disable unsafe commands in them
+
+set exrc
+set secure
+
+" Save a file as root (,W)
+
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" ============== Input Config
+
+set backspace=indent,eol,start            " Allow backspace in insert mode
+set expandtab                             " Always uses spaces instead of tab characters
+set mouse=a                               " Enable mouse in all modes
+set nostartofline                         " Don’t reset cursor to start of line when moving around.
+set shiftwidth=4                          " Indents will have a width of 4
+set softtabstop=4                         " Sets the number of columns for a TAB
+set tabstop=4                             " TAB width to 4.
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+
+set hidden
+
+" Automatic commands
+
+if has("autocmd")
+  filetype on                                                             " Enable file type detection
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript    " Treat .json files as .js
+  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown              " Treat .md files as Markdown
+  autocmd BufWritePre * :%s/\s\+$//e                                      " Remove trailing whitespace
+endif
+
+" Ignore case of searches
+" Case-sensitive searches if there is a capital letter
+
+set ignorecase
+set smartcase
+
+" Don’t add empty newlines at the end of files
+
+set binary
+set noeol
+
+" ============== Custom Settings
+if filereadable(expand("~/.vim/settings.vim"))
+  so ~/.vim/settings.vim
+endif
