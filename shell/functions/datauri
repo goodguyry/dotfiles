@@ -7,5 +7,5 @@ function datauri() {
     mimeType="${mimeType};charset=utf-8";
   fi;
   echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy;
-  e_header "The data URI is on the clipboard.";
+  echo "The data URI is on the clipboard.";
 }
