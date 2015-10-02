@@ -37,6 +37,10 @@ fi;
 unset TARGET_DIR;
 
 
+# Create a ~/.bin directory, if it doesn't exist
+mkdirs "$HOME/.bin";
+
+
 # Conditionally install Command Line Tools, Homebrew and Git
 if [[ $NO_PACKAGES ]]; then
   e_header "Skipping Homebrew and Git installations.";
@@ -61,6 +65,7 @@ else
     brew update;
     e_header "Installing Git...";
     brew install git;
+    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "$HOME/.bin/diff-highlight";
   fi;
 fi;
 
