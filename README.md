@@ -3,6 +3,20 @@
 Dev-related packages and shell configuration. Very exciting.
 
 
+- [Local configuration](#local-configuration)
+  - [Git](#git)
+  - [.storyrc](#storyrc)
+    - [Extending installed package lists](#extending-installed-package-lists)
+    - [Setting the projects directory](#setting-the-projects-directory)
+- [Installation](#installation)
+- [Additional customizations](#additional-customizations)
+  - [Custom $PATH, exports, aliases and functions](#custom-path-exports-aliases-and-functions)
+  - [Customize the shell prompt](#customize-the-shell-prompt)
+  - [Vim settings](#vim-settings)
+- [Switching Shells](#switching-shells)
+- [OS X defaults](#os-x-defaults)
+- [Known Issues](#known-issues)
+
 ## Local configuration
 
 These dotfiles and packages are configured to my liking, which may mean packages, applications and settings _you_ prefer were left out. As a means of allowing customization, without altering the repo, several additional files may be added to extend or override these dotfiles.
