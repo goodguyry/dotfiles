@@ -16,7 +16,7 @@ PATH=$PATH:$HOME/.bin;
 PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin;
 
 # Add brew-installed GNU core utilities bin
-if [[ $(brew --prefix coreutils) ]]; then
+if [ $(type -P brew) ] && [[ $(brew --prefix coreutils) ]]; then
   PATH=$PATH:$(brew --prefix coreutils)/libexec/gnubin;
 else
   # Fall back to OS X default
@@ -29,7 +29,7 @@ PATH=$PATH:/usr/local/mysql/bin;
 export PATH;
 
 # Add coreutils man pages
-if [[ $(brew --prefix coreutils) ]]; then
+if [ $(type -P brew) ] && [[ $(brew --prefix coreutils) ]]; then
   MANPATH=$(brew --prefix coreutils)/libexec/gnuman:$MANPATH
 fi;
 

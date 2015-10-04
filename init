@@ -117,12 +117,12 @@ function set_files() {
   # Download the Solarized Vim theme
   # But check for it first
   if [[ ! -r "$HOME/.vim/colors/solarized.vim" ]]; then
-    if [[ -d "$HOME/.vim/colors" ]]; then
-      # Extract solarized.vim straight into .vim/colors
+    if [[ $SERVER ]]; then
+      # Extract colors/solarized.vim into .vim (Linux-friendly)
       e_header "Downloading Solarized Vim theme...";
-      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master  | tar -xzv -C "$HOME/.vim" --strip-components 2 --exclude="togglebg.vim" --include="*.vim";
+      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | tar -xzv -C "$HOME/.vim" --strip-components 1 --wildcards **/solarized.vim;
     else
-      # Extract colors/solarized.vim into .vim
+      # Extract colors/solarized.vim into .vim (OS X-Friendly)
       e_header "Downloading Solarized Vim theme...";
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | tar -xzv -C "$HOME/.vim" --strip-components 1 --include="**/solarized.vim";
     fi;
