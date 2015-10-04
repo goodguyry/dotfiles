@@ -56,7 +56,7 @@ which grunt &> /dev/null && eval "$(grunt --completion=bash)";
 
 # Any completion scripts in /usr/local/etc/bash_completion.d
 # will continue to be sourced as well.
-if [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
+if [ $(type -P brew) ] && [ -f $(brew --prefix)/share/bash-completion/bash_completion ]; then
   source $(brew --prefix)/share/bash-completion/bash_completion
 fi;
 
