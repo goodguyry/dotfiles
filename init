@@ -135,10 +135,11 @@ function set_files() {
   declare -a EXCLUDED_FILES=(
     dev/gitconfig # Already copied
     shell/
+    shell/functions
   );
 
   # Strip the shell and dev directories from the path before setting these files
-  dotfiles dev/* shell/**/* --strip-dir;
+  dotfiles dev/* shell/* shell/**/* --strip-dir;
 
   [[ $? ]] && e_success "Dotfiles update complete!";
 }
