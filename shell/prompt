@@ -45,7 +45,7 @@ if [[ ! -n $PS1 ]]; then
   # HH:MM:SS - User@Host
   PS1="\n\[$GRAY\]\T - \u@\h";
   # New line; Current directory
-  PS1+="\n\[$BLUE\]\$(PWD)";
+  PS1+="\n\[$BLUE\]\$(pwd)";
   # If inside a Git repo, print "on <branch>" at the end of the line
   PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)";
   # Prompt on a new line
