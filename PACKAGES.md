@@ -17,6 +17,7 @@
   - php5
 - [homebrew/versions](https://github.com/Homebrew/homebrew-versions)
 - [ImageMagick](http://www.imagemagick.org/script/index.php)
+- [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
 - [MySQL](https://dev.mysql.com/doc/refman/5.6/en/)
 - [PhantomJS](http://phantomjs.org/)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
