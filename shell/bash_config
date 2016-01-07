@@ -12,7 +12,7 @@ export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
 
 # Make some commands not show up in history
-export HISTIGNORE="cd*:cd -:pwd;exit:date:* --help:ssh *";
+export HISTIGNORE="cd*:cd -:pwd;exit:date:* --help:ssh *:open*:oo*";
 
 # Timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
 HISTTIMEFORMAT='%F %T ';
