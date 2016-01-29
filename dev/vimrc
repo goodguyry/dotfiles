@@ -26,6 +26,7 @@ set incsearch                             " Highlight dynamically as pattern is 
 set laststatus=2                          " Always show status line
 set noerrorbells                          " Disable error bells
 set number                                " Enable line numbers
+set relativenumber                        " Enable relative line numbers
 set ruler                                 " Show the cursor position
 set scrolloff=3                           " Start scrolling three lines before the horizontal window border
 set shortmess=atI                         " Don’t show the intro message when starting Vim
