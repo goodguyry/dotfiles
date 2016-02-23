@@ -35,25 +35,23 @@ function ts() {
     return;
   fi;
 
-  # Split the name from the extension
-  NAME="${ITEM%.*}";
-  EXT="${ITEM##*.}";
-
-  # Test for item type
-  if [ -d "$ITEM" -o "$NAME" == "$EXT" ]; then
+  if [ -d "$ITEM" ]; then
     # Split off the trailing slash (if it's there)
     NAME="${ITEM%/*}";
-    ITEMNAME="${NAME}_${STAMP}";
+    # Clear the extension
+    EXT="";
   else
-    # Rebuild the filename
-    ITEMNAME="${NAME}_${STAMP}.${EXT}";
-  fi;
+    # Split the name from the extension
+    NAME="${ITEM%.*}";
+    # Include the dot in the extension to make things easier in the next step
+    EXT=".${ITEM##*.}";
+  fi
 
   if [ $DUP == true ]; then
     # Duplicate the item with timestamp
-    cp -r "$ITEM" "$ITEMNAME";
+    cp -r "$NAME"{,"_$STAMP"}"$EXT";
   else
     # Timestamp the item without duplication
-    mv "$ITEM" "$ITEMNAME";
+    mv "$NAME"{,"_$STAMP"}"$EXT";
   fi;
 }
