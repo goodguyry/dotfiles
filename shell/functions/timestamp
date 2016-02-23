@@ -3,17 +3,19 @@
 # ----------------------------------------------
 # Add a timestamp to a file or folder
 #
-#   Usage: ts [-d] string
+#   Usage: stamp [-d] string
 #
 #     -d (optional) : duplicate item before appending the timestamp
+#     -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
 #
 #   Change date format in $stamp to alter output
 # ----------------------------------------------
 
-function ts() {
+function stamp() {
   ERRORMSG="Error: A file or folder is required for timestamping";
   STAMP=$(date +%Y%m%d_%H%M%S);
   DUP=false;
+  SEP=${STAMP_SEPARATOR:="."}; # Default separator
 
   # No args were given
   if [ $# -lt 1 ]; then
@@ -24,7 +26,8 @@ function ts() {
   # Test for flags
   for opt in $@; do
     case $opt in
-      -d) DUP=true ;;   # Duplicate the file before appending the timestamp
+      -d) DUP=true ;;   # Duplicate the item before appending the timestamp
+      -s*) SEP="${opt##*-s=}" ;; # Set the separator between the itme name and the timestamp
       *) ITEM=$opt ;;   # Set ITEM to the other argument
     esac
   done;
@@ -35,25 +38,25 @@ function ts() {
     return;
   fi;
 
-  # Split the name from the extension
-  NAME="${ITEM%.*}";
-  EXT="${ITEM##*.}";
-
-  # Test for item type
-  if [ -d "$ITEM" -o "$NAME" == "$EXT" ]; then
+  if [ -d "$ITEM" ]; then
     # Split off the trailing slash (if it's there)
     NAME="${ITEM%/*}";
-    ITEMNAME="${NAME}_${STAMP}";
+    # Clear the extension
+    EXT="";
   else
-    # Rebuild the filename
-    ITEMNAME="${NAME}_${STAMP}.${EXT}";
-  fi;
+    # Split the name from the extension
+    NAME="${ITEM%.*}";
+    # Include the dot in the extension to make things easier in the next step
+    EXT=".${ITEM##*.}";
+  fi
 
   if [ $DUP == true ]; then
     # Duplicate the item with timestamp
-    cp -r "$ITEM" "$ITEMNAME";
+    cp -r "$NAME"{,"$SEP$STAMP"}"$EXT";
   else
     # Timestamp the item without duplication
-    mv "$ITEM" "$ITEMNAME";
+    mv "$NAME"{,"$SEP$STAMP"}"$EXT";
   fi;
+
+  unset SEP;
 }
