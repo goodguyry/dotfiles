@@ -15,7 +15,7 @@ function stamp() {
   ERRORMSG="Error: A file or folder is required for timestamping";
   STAMP=$(date +%Y%m%d_%H%M%S);
   DUP=false;
-  SEP="_"; # Default separator
+  SEP=${STAMP_SEPARATOR:="_"}; # Default separator
 
   # No args were given
   if [ $# -lt 1 ]; then
