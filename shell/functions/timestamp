@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # ----------------------------------------------
-# Add a timestamp to a file or folder
+# Add a timestamp to a file or folder; optionally copy the timestamp to the clipboard
 #
 #   Usage: stamp [-d] string
 #
 #     -d (optional) : duplicate item before appending the timestamp
+#     -c (optional) : copy the timestamp to the clipboard
 #     -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
 #
 #   Change date format in $stamp to alter output
@@ -19,6 +20,7 @@ Usage: stamp [-d] [-c] [-s=SEPARATOR]
 Options:
     -h, --help        Print this help text
     -d                Duplicate the item before appending the timestamp
+    -c                Copy the timestamp to the clipboard
     -s=SEPARATOR      Define the separator between the itme name and the timestamp
 EOT
 }
@@ -45,10 +47,21 @@ function stamp() {
   for opt in $@; do
     case $opt in
       -d) DUP=true ;;   # Duplicate the item before appending the timestamp
+      -c) CLIPBOARD=true ;;   # Copy the timestamp to the clipboard
       -s*) SEP="${opt##*-s=}" ;; # Set the separator between the itme name and the timestamp
       *) ITEM=$opt ;;   # Set ITEM to the other argument
     esac
   done;
+
+  # Copy the timestamp to the clipboard and exit
+  if $CLIPBOARD; then
+    $(echo "$STAMP" | pbcopy);
+    echo "$STAMP copied to the clipboard.";
+    # Exit if there's no file/directory passed
+    if [[ -z "$ITEM" ]]; then
+      return;
+    fi;
+  fi;
 
   # Make sure ITEM is set before proceeding
   if [[ -z "$ITEM" ]]; then
