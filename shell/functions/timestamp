@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Add a timestamp to a file or folder
 #
-#   Usage: ts [-d] string
+#   Usage: stamp [-d] string
 #
 #     -d (optional) : duplicate item before appending the timestamp
 #     -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
@@ -11,7 +11,7 @@
 #   Change date format in $stamp to alter output
 # ----------------------------------------------
 
-function ts() {
+function stamp() {
   ERRORMSG="Error: A file or folder is required for timestamping";
   STAMP=$(date +%Y%m%d_%H%M%S);
   DUP=false;
