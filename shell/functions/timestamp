@@ -6,6 +6,7 @@
 #   Usage: ts [-d] string
 #
 #     -d (optional) : duplicate item before appending the timestamp
+#     -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
 #
 #   Change date format in $stamp to alter output
 # ----------------------------------------------
@@ -14,6 +15,7 @@ function ts() {
   ERRORMSG="Error: A file or folder is required for timestamping";
   STAMP=$(date +%Y%m%d_%H%M%S);
   DUP=false;
+  SEP="_"; # Default separator
 
   # No args were given
   if [ $# -lt 1 ]; then
@@ -24,7 +26,8 @@ function ts() {
   # Test for flags
   for opt in $@; do
     case $opt in
-      -d) DUP=true ;;   # Duplicate the file before appending the timestamp
+      -d) DUP=true ;;   # Duplicate the item before appending the timestamp
+      -s*) SEP="${opt##*-s=}" ;; # Set the separator between the itme name and the timestamp
       *) ITEM=$opt ;;   # Set ITEM to the other argument
     esac
   done;
@@ -49,9 +52,11 @@ function ts() {
 
   if [ $DUP == true ]; then
     # Duplicate the item with timestamp
-    cp -r "$NAME"{,"_$STAMP"}"$EXT";
+    cp -r "$NAME"{,"$SEP$STAMP"}"$EXT";
   else
     # Timestamp the item without duplication
-    mv "$NAME"{,"_$STAMP"}"$EXT";
+    mv "$NAME"{,"$SEP$STAMP"}"$EXT";
   fi;
+
+  unset SEP;
 }
