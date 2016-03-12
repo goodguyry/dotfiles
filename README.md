@@ -7,7 +7,6 @@ Dev-related packages and shell configuration. Very exciting.
   - [Git](#git)
   - [.storyrc](#storyrc)
     - [Extending installed package lists](#extending-installed-package-lists)
-    - [Setting the projects directory](#setting-the-projects-directory)
 - [Installation](#installation)
 - [Additional customizations](#additional-customizations)
   - [Custom $PATH, exports, aliases and functions](#custom-path-exports-aliases-and-functions)
@@ -75,20 +74,6 @@ brew install $DOTFILES_BREW_LIST
 ```
 
 
-#### Setting the projects directory
-
-`DOTFILES_PROJECTS_DIR`  
-- The directory in which you keep your projects.  
-- Default: `~/Projects`
-
-This directory will be created for you during `init` (in the event it doesn't already exist); it is also where autocomplete (`shell/config`) will look for project names. You can change it to whatever suits you by setting a new value in `~/.goodguyrc`.
-
-```shell
-  # Customize the projects directory
-  export DOTFILES_PROJECTS_DIR="$HOME/Sites";
-```
-
-
 ## Installation
 
 
@@ -150,7 +135,7 @@ Notes:
 
 ### Additional customizations
 
-In addition to setting the project directory and extending the lists of installed packages, `~/.goodguyrc` is used for any other customizations.
+In addition to extending the lists of installed packages, `~/.goodguyrc` is used for any other customizations.
 
 
 #### Custom $PATH, exports, aliases and functions

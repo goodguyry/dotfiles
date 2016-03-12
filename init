@@ -30,11 +30,8 @@ done;
 
 # Create a Projects folder
 if [[ ! $SERVER ]]; then
-  # If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
-  TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
-  mkdirs "$TARGET_DIR";
+  mkdirs "$HOME/Projects";
 fi;
-unset TARGET_DIR;
 
 
 # Create a ~/.bin directory, if it doesn't exist
