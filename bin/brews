@@ -79,7 +79,7 @@ brew cleanup;
 e_header "Installing casks (native apps)...";
 
 # Install native apps
-brew install caskroom/cask/brew-cask;
+brew tap caskroom/cask;
 brew tap caskroom/versions;
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
