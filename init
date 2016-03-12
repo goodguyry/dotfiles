@@ -231,10 +231,21 @@ else
   [[ $? ]] && e_success "NPM packages installed.";
 
   # Install RVM
-  e_header "Installing RVM...";
-  curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable --ruby;
+  if [ ! $(type -P rvm) ]; then
+    e_header "Installing RVM...";
+    curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable --ruby=2.3.0;
+  fi;
 
-  source "$HOME/.rvm/scripts/rvm";
+  # Check for the RVM install location
+  RVM_LOC=${rvm_path:="$HOME/.rvm"};
+
+  # Source rvm
+  source "$RVM_LOC/scripts/rvm";
+
+  rvm use 2.3.0 --default;
+
+  export PATH=$GEM_HOME/bin:$GEM_HOME@global/bin:$MY_RUBY_HOME/bin:$PATH;
+
   rvm cleanup all;
 
   # Install Gems
