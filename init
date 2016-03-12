@@ -141,6 +141,12 @@ function set_files() {
   # Strip the shell and dev directories from the path before setting these files
   dotfiles dev/* shell/* shell/**/* --strip-dir;
 
+  # Set Sublime Text settings
+  SUBLIME_TEXT_USER="$HOME/Library/Application Support/Sublime Text 3/Packages/User";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Markdown.sublime-settings"     "$SUBLIME_TEXT_USER/Markdown.sublime-settings";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Preferences.sublime-settings"  "$SUBLIME_TEXT_USER/Preferences.sublime-settings";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Ruby.sublime-settings"         "$SUBLIME_TEXT_USER/Ruby.sublime-settings";
+
   [[ $? ]] && e_success "Dotfiles update complete!";
 }
 
