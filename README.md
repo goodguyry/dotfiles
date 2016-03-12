@@ -6,7 +6,7 @@ Dev-related packages and shell configuration. Very exciting.
 
 
 
-## Installation
+## Download
 
 
 #### Using Git
@@ -29,11 +29,11 @@ curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclu
 Then ```cd``` into the downloaded directory.
 
 
-### Install
+## Install
 
-**IT IS IMPERATIVE THAT THE INSTALL SCRIPT ONLY BE RUN FROM WITHIN THE SCRIPT'S DIRECTORY.**
-
-Run `./init` from inside the dotfiles directory.
+```shell
+./init
+```
 
 
 #### Setup Options
@@ -69,9 +69,9 @@ Notes:
 
 **Filename:** `~/.dotfiles.local`
 
-`.dotfiles.local` is used to add Git author information, as well as any other extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
+`.dotfiles.local` is used to add Git author information without committing that information to the repo.
 
-`init`, will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
+`init` will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
 
 Add [Git aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by placing them in `.dotfiles.local` in the following format to ensure settings are not overwritten by future updates.
 
@@ -79,6 +79,8 @@ Add [Git aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by plac
 # git config --global alias.[alias] [command]
 git config --global alias.co checkout
 ```
+
+In addition, `.dotfiles.local` can hold any other extraneous functionality (aliases, functions, prompts, etc.).
 
 
 ## Switching Shells
@@ -109,13 +111,6 @@ The setup process will prompt to apply the OS X defaults. They can also be appli
 ```
 
 Take time to read through the [osx file](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) to know what settings and applications will be impacted before executing the file.
-
-
-## Known Issues
-
-1. These dotfiles have not been tested with Zsh
-2. A couple of the included functions use `osascript` to run an AppleScript snippet. If you get an error when running `cdf` or `p`, installing the file from the link below should resolve the error messages.  
-http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
 
 
 ## Acknowledgements
