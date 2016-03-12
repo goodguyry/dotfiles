@@ -13,10 +13,10 @@ Dotfiles - Ryan Domingue - http://ryandomingue.com/
 Usage: $(basename "$0") [options]
 
 Options:
-    -h, --help      Print this help text
-    --copy          Copy the files in place instead of linking
-    --no-packages   Suppress package installations and updates (including casks)
-    --server        Skip OS X-related packages/settings
+    -h, --help            Print this help text
+    -c, --copy            Copy the files in place instead of linking
+    -n, --no-packages     Suppress package installations and updates (including casks)
+    -s, --server          Skip OS X-related packages/settings
 
  Notes:
 
@@ -83,7 +83,7 @@ function dotfiles() {
 }
 
 
-# Collect Git author info and add it to gitconfig.local
+# Collect Git author info and add it to .dotfiles.local
 function collect_git_info() {
   printf "Your Git author name: -> ";
   read NAME;
@@ -96,11 +96,11 @@ function collect_git_info() {
 
 
 # ***
-# Creates the .gitconfig.local file with Git credentials
+# Creates the .dotfiles.local file with Git credentials
 # Used to add custom Git aliases and configuration without the need to fork this entire repository
 # ***
 function local_git_config() {
-  LOCAL_GIT_CONFIG="$HOME/.gitconfig.local";
+  LOCAL_GIT_CONFIG="$HOME/.dotfiles.local";
   touch "$LOCAL_GIT_CONFIG";
 
   printf "\n# Git author info\n\n" >> "$LOCAL_GIT_CONFIG";

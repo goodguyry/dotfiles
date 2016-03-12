@@ -25,10 +25,8 @@ export LC_ALL="en_US.UTF-8";
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications";
 
-# Add `p` tab completion for switching to Project directories
-# If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
-TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
-for item in "$TARGET_DIR"/*; do
+# Add `p` tab completion for switching to ~/Project directories
+for item in "$HOME/Projects"/*; do
   if [ -d "$item" ] ; then
     # Extract the folder name
     # could also be name=${item##*/}

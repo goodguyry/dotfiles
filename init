@@ -20,21 +20,21 @@ fi;
 for opt in $@;
 do
   case $opt in
-    --no-packages) NO_PACKAGES=true ;;            # Suppresses installing packages
-    --copy) COPY_FILES=true ;;                    # Copy files instead of linking
-    --server) SERVER=true; NO_PACKAGES=true ;;    # Skip OS X-related packages/settings
-    -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
+    --no-packages)  NO_PACKAGES=true ;;               # Suppresses installing packages
+               -n)  NO_PACKAGES=true ;;
+           --copy)  COPY_FILES=true ;;                # Copy files instead of linking
+               -c)  COPY_FILES=true ;;
+         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings
+               -s)  SERVER=true; NO_PACKAGES=true ;;
+           -*|--*)  e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
 done;
 
 
 # Create a Projects folder
 if [[ ! $SERVER ]]; then
-  # If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
-  TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
-  mkdirs "$TARGET_DIR";
+  mkdirs "$HOME/Projects";
 fi;
-unset TARGET_DIR;
 
 
 # Create a ~/.bin directory, if it doesn't exist
@@ -141,34 +141,41 @@ function set_files() {
   # Strip the shell and dev directories from the path before setting these files
   dotfiles dev/* shell/* shell/**/* --strip-dir;
 
+  # Set Sublime Text settings
+  SUBLIME_TEXT_USER="$HOME/Library/Application Support/Sublime Text 3/Packages/User";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Markdown.sublime-settings"     "$SUBLIME_TEXT_USER/Markdown.sublime-settings";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Preferences.sublime-settings"  "$SUBLIME_TEXT_USER/Preferences.sublime-settings";
+  ln -fs "$DOTFILES_DIRECTORY/etc/Ruby.sublime-settings"         "$SUBLIME_TEXT_USER/Ruby.sublime-settings";
+
   [[ $? ]] && e_success "Dotfiles update complete!";
 }
 
 
 # Ask before potentially overwriting files
-seek_confirmation "Warning: This step may overwrite your existing dotfiles.";
+printf "\n";
+e_warning "Warning: This step may overwrite your existing dotfiles.";
+printf "Continue? [Y/n]";
+read CONTINUE;
+printf "\n";
+
 
 # Conditionally set the dotfiles in place
-if is_confirmed; then
-  set_files;
-  # Create the goodguyrc file if it doesn't exist
-  if [[ ! -r "$HOME/.goodguyrc" ]]; then
-    touch "$HOME/.goodguyrc";
-  fi;
-else
+if [[ "$CONTINUE" == "n" ]]; then
   e_header "Aborting...";
   exit 1;
+else
+  set_files;
 fi;
 
 
-# Prompt to create the gitconfig.local file if it doesn't exist
-if [[ ! -r "$HOME/.gitconfig.local" ]] ; then
+# Prompt to create the dotfiles.local file if it doesn't exist
+if [[ ! -r "$HOME/.dotfiles.local" ]] ; then
   printf "\n";
   e_warning "Enter your Git author information";
   collect_git_info;
 else
   # Source the file to capture the variables
-  source "$HOME/.gitconfig.local";
+  source "$HOME/.dotfiles.local";
   # If the file exists, but the author info isn't
   if [[ -z "$GIT_AUTHOR_NAME" || -z "$GIT_AUTHOR_EMAIL" ]]; then
     printf "\n";
@@ -183,12 +190,14 @@ else
     # Seek confirmation that the Git information above is correct.
     printf "\n";
     e_warning "Confirm the Git information above is correct.";
-    read -p "Is this correct? (y/n) " -n 1;
+    printf "Is this correct? [Y/n]";
+    read GIT_AUTHOR;
     printf "\n";
 
-    if ! is_confirmed; then
-      # Prompt for Git author info re-entry
-      collect_git_info;
+    # Conditionally prompt for re-entry
+    if [[ "$GIT_AUTHOR" == "n" ]]; then
+        # Prompt for Git author info re-entry
+        collect_git_info;
     fi;
   fi;
 fi;
@@ -204,62 +213,35 @@ if [[ $NO_PACKAGES ]]; then
 else
   # Install Homebrew packages
   source bin/brews;
+  # Install Homebrew packages
+  source bin/nvm;
+  # Install Homebrew packages
+  source bin/rvm;
 
-  # Check for a previous install location
-  NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
-
-  # Install NVM
-  e_header "Installing NVM...";
-  if [[ ! -d "$NVM_LOC" ]]; then
-    git clone https://github.com/creationix/nvm.git "$NVM_LOC";
+  # Change to bash 4 installed by bin/brews
+  if [[ ! $(grep "/usr/local/bin/bash" /etc/shells) ]]; then
+    echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
+    e_success "Shell switched to Bash 4";
+  else
+    e_header "/usr/local/bin/bash already in /etc/shells";
   fi;
-
-  # Source nvm
-  source "$NVM_LOC/nvm.sh";
-
-  cd "$NVM_LOC" && git checkout `git describe --abbrev=0 --tags`;
-
-  # Install NPM
-  e_header "Installing NPM...";
-  npm install -g npm@latest;
-  # Install and use latest stable version of Node
-  nvm install stable;
-  nvm alias default stable;
-
-  # Install packages globally and quietly
-  e_header "Installing Node packages...";
-  NPM_LIST="bower browser-sync git-open grunt-cli grunt-init jshint $DOTFILES_NPM_LIST";
-  npm install $NPM_LIST --global --quiet;
-
-  [[ $? ]] && e_success "NPM packages installed.";
-
-  # Install RVM
-  e_header "Installing RVM...";
-  curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable --ruby;
-
-  source "$HOME/.rvm/scripts/rvm";
-  rvm cleanup all;
-
-  # Install Gems
-  e_header "Installing Gems...";
-  GEM_LIST="bundler jekyll sass $DOTFILES_GEM_LIST";
-  gem install $GEM_LIST --no-document;
-
-  gem cleanup;
-
-  [[ $? ]] && e_success "Gems installed.";
-
 fi;
 
 
 if [[ ! $SERVER ]]; then
-  # Ask before potentially overwriting OS X defaults
-  seek_confirmation "Warning: This step may modify your OS X system defaults.";
+  # Ask before potentially overwriting files
+  printf "\n";
+  e_warning "Warning: This step may modify your OS X system defaults.";
+  printf "Continue? [Y/n]";
+  read SET_OSX;
+  printf "\n";
 
-  if is_confirmed; then
-    source bin/osx;
-  else
+
+  # Conditionally set defaults
+  if [[ "$SET_OSX" == "n" ]]; then
     e_header "Skipped OS X settings update.";
+  else
+    source bin/osx;
   fi;
 fi;
 

@@ -11,7 +11,7 @@ declare -a files=(
   $HOME/.functions/* # Functions
   $HOME/.prompt # Custom bash prompt
   $HOME/.paths # Path modifications
-  $HOME/.goodguyrc # Local and private settings not under version control (e.g. git name/email, package lists)
+  $HOME/.dotfiles.local # Local and private settings not under version control (e.g. git name/email, package lists)
   $HOME/.rvm/scripts/rvm # Load RVM into a shell session *as a function*
 );
 
