@@ -52,9 +52,6 @@ brew tap homebrew/versions;
 brew install bash;
 brew install bash-completion2;
 
-# Install zsh 5
-brew install zsh;
-
 # Install other useful binaries
 brew install dark-mode;
 brew install gist;

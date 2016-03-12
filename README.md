@@ -85,14 +85,6 @@ Bash 4 and Zsh 5 are installed via Homebrew to replace the old versions shipped 
 echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash
 ```
 
-**Zsh** (_These dotfiles have not been tested with Zsh_):
-
-```shell
-# Add /usr/local/bin/zsh to /etc/shells
-echo /usr/local/bin/zsh|sudo tee -a /etc/shells && chsh -s /usr/local/bin/zsh
-```
-
-
 ## OS X defaults
 
 The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
