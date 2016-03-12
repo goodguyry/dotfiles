@@ -41,10 +41,10 @@ brew tap homebrew/dupes;
 brew install homebrew/dupes/grep --with-default-names;
 brew install homebrew/dupes/openssh;
 
-# Install PHP5.5
+# Install PHP5.6
 # See https://github.com/Homebrew/homebrew-php/tree/master/Formula for more
 brew tap homebrew/homebrew-php;
-brew install php55;
+brew install php56;
 
 brew tap homebrew/versions;
 
@@ -95,7 +95,6 @@ brew cask install evernote;
 brew cask install firefox-beta;
 brew cask install firefox;
 brew cask install firefoxdeveloperedition;
-brew cask install flux;
 brew cask install gawker;
 brew cask install google-chrome-canary;
 brew cask install google-chrome;
@@ -109,12 +108,8 @@ brew cask install opera-developer;
 brew cask install opera-mobile-emulator;
 brew cask install opera;
 brew cask install sequel-pro;
-brew cask install skype;
-brew cask install spotify;
 brew cask install sublime-text3;
-brew cask install things;
 brew cask install torbrowser;
-brew cask install totalfinder;
 brew cask install transmission;
 brew cask install transmit;
 brew cask install tvshows;
@@ -133,5 +128,7 @@ brew cask install qlstephen;
 brew cask install quicklook-csv;
 brew cask install suspicious-package;
 brew cask install webpquicklook;
+
+brew cask cleanup;
 
 [[ $? ]] && e_success "Homebrew Casks installed";
