@@ -201,16 +201,20 @@ else
   # Check for a previous install location
   NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
 
+  # Check for an existing NVM install location
+  # The `type` check isn't working for `nvm`
+  NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
+
   # Install NVM
-  e_header "Installing NVM...";
   if [[ ! -d "$NVM_LOC" ]]; then
+    e_header "Installing NVM...";
     git clone https://github.com/creationix/nvm.git "$NVM_LOC";
   fi;
 
+  cd "$NVM_LOC" && git checkout `git describe --abbrev=0 --tags`; cd -;
+
   # Source nvm
   source "$NVM_LOC/nvm.sh";
-
-  cd "$NVM_LOC" && git checkout `git describe --abbrev=0 --tags`;
 
   # Install NPM
   e_header "Installing NPM...";
