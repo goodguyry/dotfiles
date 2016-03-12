@@ -20,10 +20,13 @@ fi;
 for opt in $@;
 do
   case $opt in
-    --no-packages) NO_PACKAGES=true ;;            # Suppresses installing packages
-    --copy) COPY_FILES=true ;;                    # Copy files instead of linking
-    --server) SERVER=true; NO_PACKAGES=true ;;    # Skip OS X-related packages/settings
-    -*|--*) e_warning "Warning: invalid option $opt" && run_help && exit ;;
+    --no-packages)  NO_PACKAGES=true ;;               # Suppresses installing packages
+               -n)  NO_PACKAGES=true ;;
+           --copy)  COPY_FILES=true ;;                # Copy files instead of linking
+               -c)  COPY_FILES=true ;;
+         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings
+               -s)  SERVER=true; NO_PACKAGES=true ;;
+           -*|--*)  e_warning "Warning: invalid option $opt" && run_help && exit ;;
   esac
 done;
 

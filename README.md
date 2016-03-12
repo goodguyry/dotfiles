@@ -46,15 +46,15 @@ The following options are available when running the init file:
     <td>Print this help text</td>
   </tr>
   <tr>
-    <td width="25%"><code>--copy</code></td>
+    <td width="25%"><code>-c</code>, <code>--copy</code></td>
     <td>Copy the files instead of symlinking</td>
   </tr>
   <tr>
-    <td width="25%"><code>--no-packages</code></td>
+    <td width="25%"><code>-n</code>, <code>--no-packages</code></td>
     <td>Suppress package installations and updates</td>
   </tr>
   <tr>
-    <td width="25%"><code>--server</code></td>
+    <td width="25%"><code>-s</code>, <code>--server</code></td>
     <td>Skip Projects folder and OS X-related packages</td>
   </tr>
 </table>

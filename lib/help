@@ -13,10 +13,10 @@ Dotfiles - Ryan Domingue - http://ryandomingue.com/
 Usage: $(basename "$0") [options]
 
 Options:
-    -h, --help      Print this help text
-    --copy          Copy the files in place instead of linking
-    --no-packages   Suppress package installations and updates (including casks)
-    --server        Skip OS X-related packages/settings
+    -h, --help            Print this help text
+    -c, --copy            Copy the files in place instead of linking
+    -n, --no-packages     Suppress package installations and updates (including casks)
+    -s, --server          Skip OS X-related packages/settings
 
  Notes:
 
