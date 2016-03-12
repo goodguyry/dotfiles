@@ -225,7 +225,7 @@ else
 
   # Install packages globally and quietly
   e_header "Installing Node packages...";
-  NPM_LIST="bower browser-sync git-open grunt-cli grunt-init jshint $DOTFILES_NPM_LIST";
+  NPM_LIST="bower browser-sync git-open grunt-cli grunt-init jshint";
   npm install $NPM_LIST --global --quiet;
 
   [[ $? ]] && e_success "NPM packages installed.";
@@ -239,7 +239,7 @@ else
 
   # Install Gems
   e_header "Installing Gems...";
-  GEM_LIST="bundler jekyll sass $DOTFILES_GEM_LIST";
+  GEM_LIST="bundler jekyll sass";
   gem install $GEM_LIST --no-document;
 
   gem cleanup;

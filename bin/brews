@@ -68,10 +68,6 @@ brew install tree;
 brew install webkit2png;
 brew install libdvdcss;
 
-if [[ -n $DOTFILES_BREW_LIST ]]; then
-  brew install $DOTFILES_BREW_LIST;
-fi;
-
 brew cleanup;
 
 [[ $? ]] && e_success "Homebrew packages installed.";
@@ -137,9 +133,5 @@ brew cask install qlstephen;
 brew cask install quicklook-csv;
 brew cask install suspicious-package;
 brew cask install webpquicklook;
-
-if [[ -n $DOTFILES_CASK_LIST ]]; then
-  brew cask install $DOTFILES_CASK_LIST;
-fi;
 
 [[ $? ]] && e_success "Homebrew Casks installed";

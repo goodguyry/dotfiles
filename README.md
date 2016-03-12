@@ -2,11 +2,10 @@
 
 Dev-related packages and shell configuration. Very exciting.
 
+*Here is the [master list of installed packages](https://github.com/goodguyry/dotfiles/blob/master/PACKAGES.md).*
 
 - [Local configuration](#local-configuration)
   - [Git](#git)
-  - [.storyrc](#storyrc)
-    - [Extending installed package lists](#extending-installed-package-lists)
 - [Installation](#installation)
 - [Additional customizations](#additional-customizations)
   - [Custom $PATH, exports, aliases and functions](#custom-path-exports-aliases-and-functions)
@@ -38,37 +37,6 @@ You can [add aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by 
 ```shell
 # git config --global alias.[alias] [command]
 git config --global alias.co checkout
-```
-
-
-### .goodguyrc
-
-There are several environment variables you can set in `~/.goodguyrc` to alter the behavior and package listing of these dotfiles.
-
-
-#### Extending installed package lists
-
-`DOTFILES_BREW_LIST`  
-`DOTFILES_CASK_LIST`  
-`DOTFILES_NPM_LIST`  
-`DOTFILES_GEM_LIST`  
-
-*Here is the [master list of installed packages](https://github.com/goodguyry/dotfiles/blob/master/PACKAGES.md).*
-
-You can add to the list of installed packages by setting the related variable to a space-separated list in `~/.goodguyrc`.
-
-```shell
-  # List the packages as a space-separated string
-  export DOTFILES_BREW_LIST="casperjs rename webkit2png";
-  export DOTFILES_CASK_LIST="thunderbird vmware-fusion xscope";
-  export DOTFILES_NPM_LIST="coffee-script less yo";
-  export DOTFILES_GEM_LIST="capistrano mustache";
-```
-
-If you create this file and add these variables before running init, these packages will be installed during `init`. If not, you can install them later; for example, to install brews from your list, you can run
-
-```shell
-brew install $DOTFILES_BREW_LIST
 ```
 
 
