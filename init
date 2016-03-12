@@ -148,24 +148,20 @@ seek_confirmation "Warning: This step may overwrite your existing dotfiles.";
 # Conditionally set the dotfiles in place
 if is_confirmed; then
   set_files;
-  # Create the goodguyrc file if it doesn't exist
-  if [[ ! -r "$HOME/.goodguyrc" ]]; then
-    touch "$HOME/.goodguyrc";
-  fi;
 else
   e_header "Aborting...";
   exit 1;
 fi;
 
 
-# Prompt to create the gitconfig.local file if it doesn't exist
-if [[ ! -r "$HOME/.gitconfig.local" ]] ; then
+# Prompt to create the dotfiles.local file if it doesn't exist
+if [[ ! -r "$HOME/.dotfiles.local" ]] ; then
   printf "\n";
   e_warning "Enter your Git author information";
   collect_git_info;
 else
   # Source the file to capture the variables
-  source "$HOME/.gitconfig.local";
+  source "$HOME/.dotfiles.local";
   # If the file exists, but the author info isn't
   if [[ -z "$GIT_AUTHOR_NAME" || -z "$GIT_AUTHOR_EMAIL" ]]; then
     printf "\n";

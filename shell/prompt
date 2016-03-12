@@ -30,14 +30,8 @@ function parse_git_branch() {
 }
 
 # Clear prompt variables
-# Get them clean from goodguyrc or the statements below
 unset PS1;
 unset PS2;
-
-# Check for local prompt file
-if [[ -r "$HOME/.goodguyrc" ]]; then
-  source "$HOME/.goodguyrc";
-fi;
 
 # If a the prompt variables aren't set, use the default
 if [[ ! -n $PS1 ]]; then

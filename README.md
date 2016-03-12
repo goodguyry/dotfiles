@@ -4,40 +4,6 @@ Dev-related packages and shell configuration. Very exciting.
 
 *Here is the [master list of installed packages](https://github.com/goodguyry/dotfiles/blob/master/PACKAGES.md).*
 
-- [Local configuration](#local-configuration)
-  - [Git](#git)
-- [Installation](#installation)
-- [Additional customizations](#additional-customizations)
-  - [Custom $PATH, exports, aliases and functions](#custom-path-exports-aliases-and-functions)
-  - [Customize the shell prompt](#customize-the-shell-prompt)
-- [Switching Shells](#switching-shells)
-- [OS X defaults](#os-x-defaults)
-- [Known Issues](#known-issues)
-
-## Local configuration
-
-These dotfiles and packages are configured to my liking, which may mean packages, applications and settings _you_ prefer were left out. As a means of allowing customization, without altering the repo, several additional files may be added to extend or override these dotfiles.
-
-| Filename              | Purpose                                         |
-|-----------------------|-------------------------------------------------|
-| `~/.gitconfig.local`  | Your Git author information & personalization   |
-| `~/.goodguyrc`        | Additional customizations                       |
-
-Because these files aren't (and shouldn't be) included in the repo, it may be benefitial to save them in a Gist, symlink them from Dropbox or save them by some other means in case you find yourself needing to reinstall from scratch.
-
-
-### Git
-
-**Filename:** `~/.gitconfig.local`
-
-`.gitconfig.local` is used to add your Git author information to `gitconfig` without committing that information to the repo. During `init`, you will be prompted for your Git author information, or to confirm your author information if `.gitconfig.local` already exists.
-
-You can [add aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by placing them in `.gitconfig.local` as well. This will keep your settings from being overwritten by future updates.
-
-```shell
-# git config --global alias.[alias] [command]
-git config --global alias.co checkout
-```
 
 
 ## Installation
@@ -99,62 +65,20 @@ Notes:
 2. `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
 
 
-### Additional customizations
+## Local configuration
 
-In addition to extending the lists of installed packages, `~/.goodguyrc` is used for any other customizations.
+**Filename:** `~/.dotfiles.local`
 
+`.dotfiles.local` is used to add Git author information, as well as any other extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
 
-#### Custom $PATH, exports, aliases and functions
+`init`, will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
 
-This file is sourced after all others, so declarations here will override anything of the same name.
-
-```shell
-  # Extend your $PATH
-  PATH="$PATH:/additional/bin";
-  export PATH;
-
-  # Add an alias
-  alias c="clear"
-
-  # Add a function
-  function wat() {
-    sudo shutdown -r +1 "Rebooting soon...";
-  }
-```
-
-
-#### Customize the shell prompt
-
-There are many prompt generators and editors out there. I've never used one, but they seem okay. [Here is a good guide to the escape sequences](http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html).
-
-The included shell looks like this (the background color is from [GoodGuyRy.terminal](https://github.com/goodguyry/dotfiles/blob/master/lib/GoodGuyRy.terminal)):
-
-![Command prompt](http://i.imgur.com/G1ovhl2.png)
-
-And here's the code:
+Add [Git aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by placing them in `.dotfiles.local` in the following format to ensure settings are not overwritten by future updates.
 
 ```shell
-  # Main prompt
-  # HH:MM:SS - User@Host
-  PS1="\n\[$GRAY\]\T - \u@\h";
-  # New line; Current directory
-  PS1+="\n\[$BLUE\]\$(PWD)";
-  # If inside a Git repo, print "on <branch>" at the end of the line
-  PS1+="\[$GRAY\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$ORANGE\]\$(parse_git_branch)";
-  # Prompt on a new line
-  PS1+="\n\[$BLUE\]\$ \[$LTGRAY\]";
-
-  # Continuation prompt
-  PS2="\[$BLUE\]: \[$GRAY\]";
+# git config --global alias.[alias] [command]
+git config --global alias.co checkout
 ```
-
-Included colors: `BLACK`, `RED`, `GREEN`, `YELLOW`, `BLUE`, `PURPLE`, `MAGENTA`, `CYAN`, `WHITE`, `GRAY`, `LTGRAY`, `VIOLET`, `ORANGE`. To add more colors, or to change the prompt, declare them in your `~/.goodguyrc` file.
-
-```shell
-PINK="\e[38;5;219m";
-```
-
-[Here's a great guide to prompt colors](http://misc.flogisoft.com/bash/tip_colors_and_formatting).
 
 
 ## Switching Shells

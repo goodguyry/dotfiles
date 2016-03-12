@@ -83,7 +83,7 @@ function dotfiles() {
 }
 
 
-# Collect Git author info and add it to gitconfig.local
+# Collect Git author info and add it to .dotfiles.local
 function collect_git_info() {
   printf "Your Git author name: -> ";
   read NAME;
@@ -96,11 +96,11 @@ function collect_git_info() {
 
 
 # ***
-# Creates the .gitconfig.local file with Git credentials
+# Creates the .dotfiles.local file with Git credentials
 # Used to add custom Git aliases and configuration without the need to fork this entire repository
 # ***
 function local_git_config() {
-  LOCAL_GIT_CONFIG="$HOME/.gitconfig.local";
+  LOCAL_GIT_CONFIG="$HOME/.dotfiles.local";
   touch "$LOCAL_GIT_CONFIG";
 
   printf "\n# Git author info\n\n" >> "$LOCAL_GIT_CONFIG";
