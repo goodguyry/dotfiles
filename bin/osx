@@ -289,7 +289,7 @@ defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreS
 
 # Blacklist some menu extras
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
+  defaults write "$domain" dontAutoLoad -array \
     "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
     "/System/Library/CoreServices/Menu Extras/Volume.menu" \
     "/System/Library/CoreServices/Menu Extras/User.menu"
@@ -349,12 +349,12 @@ sudo systemsetup -setwakeonnetworkaccess on > /dev/null
 
 # Create the Screenshots directory if it doesn't exist
 # SystemUIServer won't create it for us
-if [[ ! -d "${HOME}/Pictures/Screenshots" ]]; then
-  mkdir "${HOME}/Pictures/Screenshots"
+if [[ ! -d "$HOME/Pictures/Screenshots" ]]; then
+  mkdir "$HOME/Pictures/Screenshots"
 fi
 
 # Change screen shot location
-defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Pictures/Screenshots"
 
 # Save screenshots in PNG format
 defaults write com.apple.screencapture type -string "png"
@@ -434,7 +434,7 @@ defaults write com.apple.appstore ShowDebugMenu -bool true
 
 # Use `~/Documents/Torrents` to store incomplete downloads
 defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Documents/Torrents"
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "$HOME/Documents/Torrents"
 
 # Don’t prompt for confirmation before downloading
 defaults write org.m0k.transmission DownloadAsk -bool false
