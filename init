@@ -217,6 +217,14 @@ else
   source bin/nvm;
   # Install Homebrew packages
   source bin/rvm;
+
+  # Change to bash 4 installed by bin/brews
+  if [[ ! $(grep "/usr/local/bin/bash" /etc/shells) ]]; then
+    echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
+    e_success "Shell switched to Bash 4";
+  else
+    e_header "/usr/local/bin/bash already in /etc/shells";
+  fi;
 fi;
 
 
