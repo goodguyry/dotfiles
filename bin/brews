@@ -86,8 +86,6 @@ brew tap caskroom/versions;
 export HOMEBREW_CASK_OPTS="--appdir=/Applications";
 
 # Native apps
-brew cask install bartender;
-brew cask install chronoagent;
 brew cask install chronosync;
 brew cask install clipmenu;
 brew cask install dropbox;
