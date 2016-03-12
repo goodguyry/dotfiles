@@ -74,17 +74,6 @@ Notes:
 `init` will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
 
 
-## Switching Shells
-
-Bash 4 and Zsh 5 are installed via Homebrew to replace the old versions shipped with OS X. To change your shell to either of the new shells, run the appropriate commands below and then restart your shell (close the current widow and open a new one).
-
-**Bash**:
-
-```shell
-# Add /usr/local/bin/bash to /etc/shells
-echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash
-```
-
 ## OS X defaults
 
 The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
@@ -95,6 +84,17 @@ The setup process will prompt to apply the OS X defaults. They can also be appli
 
 Take time to read through the [osx file](http://github.com/goodguyry/dotfiles/blob/master/bin/osx) to know what settings and applications will be impacted before executing the file.
 
+
+## Switching Shells
+
+Bash 4 and Zsh 5 are installed via Homebrew to replace the old versions shipped with OS X. To change your shell to either of the new shells, run the appropriate commands below and then restart your shell (close the current widow and open a new one).
+
+**Bash**:
+
+```shell
+# Add /usr/local/bin/bash to /etc/shells
+echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash
+```
 
 ## Acknowledgements
 
