@@ -14,10 +14,14 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Get the computer name
 computername=$(sudo systemsetup -getcomputername)
 # Present computer name and ask if it should be changed
-seek_confirmation "Current $computername. Would you like to change it?"
+printf "\n";
+e_warning "Current $computername.";
+printf "Would you like to change it? [y/N] ";
+read CONTINUE;
+printf "\n";
 
 # Set computer name (as done via System Preferences → Sharing)
-if is_confirmed ; then
+if [[ "$CONTINUE" == "y" ]]; then
   printf "Computer name: -> "
   read CNAME
   sudo scutil --set ComputerName "$CNAME"
@@ -303,9 +307,13 @@ defaults write -g NSScrollViewRubberbanding -bool false
 # Get the login message
 loginmessage=$(sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)
 # Present current login message and ask if it should be changed
-seek_confirmation "Login message: '$loginmessage' - Would you like to change it?"
+printf "\n";
+e_warning "Login message: '$loginmessage'";
+printf "Would you like to change it? [y/N] ";
+read CONTINUE;
+printf "\n";
 
-if is_confirmed ; then
+if [[ "$CONTINUE" == "y" ]]; then
   # Read the input and set the message
   printf "Login message: -> "
   read LOGINMESSAGE
