@@ -69,18 +69,9 @@ Notes:
 
 **Filename:** `~/.dotfiles.local`
 
-`.dotfiles.local` is used to add Git author information without committing that information to the repo.
+`.dotfiles.local` is used to add Git author information and any other extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
 
 `init` will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
-
-Add [Git aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) by placing them in `.dotfiles.local` in the following format to ensure settings are not overwritten by future updates.
-
-```shell
-# git config --global alias.[alias] [command]
-git config --global alias.co checkout
-```
-
-In addition, `.dotfiles.local` can hold any other extraneous functionality (aliases, functions, prompts, etc.).
 
 
 ## Switching Shells
