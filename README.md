@@ -11,7 +11,6 @@ Dev-related packages and shell configuration. Very exciting.
 - [Additional customizations](#additional-customizations)
   - [Custom $PATH, exports, aliases and functions](#custom-path-exports-aliases-and-functions)
   - [Customize the shell prompt](#customize-the-shell-prompt)
-  - [Vim settings](#vim-settings)
 - [Switching Shells](#switching-shells)
 - [OS X defaults](#os-x-defaults)
 - [Known Issues](#known-issues)
@@ -24,7 +23,6 @@ These dotfiles and packages are configured to my liking, which may mean packages
 |-----------------------|-------------------------------------------------|
 | `~/.gitconfig.local`  | Your Git author information & personalization   |
 | `~/.goodguyrc`        | Additional customizations                       |
-| `~/.vim/settings.vim` | Vim configuration/customization                 |
 
 Because these files aren't (and shouldn't be) included in the repo, it may be benefitial to save them in a Gist, symlink them from Dropbox or save them by some other means in case you find yourself needing to reinstall from scratch.
 
@@ -189,13 +187,6 @@ PINK="\e[38;5;219m";
 ```
 
 [Here's a great guide to prompt colors](http://misc.flogisoft.com/bash/tip_colors_and_formatting).
-
-
-### Vim settings
-
-**Filename**: `settings.vim`
-
-The included Vim configuration settings are very basic. If you're a Vim user who needs additional configuration or customization, you can include such settings in a file at `~/.vim/settings.vim`. If you know of anything cool to add, please do.
 
 
 ## Switching Shells

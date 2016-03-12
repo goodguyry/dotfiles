@@ -99,8 +99,3 @@ set smartcase
 
 set binary
 set noeol
-
-" ============== Custom Settings
-if filereadable(expand("~/.vim/settings.vim"))
-  so ~/.vim/settings.vim
-endif
