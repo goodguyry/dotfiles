@@ -5,13 +5,10 @@
 #   Usage: p [project-name] [subdirectory]
 # **
 function p() {
-  # If DOTFILES_PROJECTS_DIR is not set in ~/.goodguyrc, TARGET_DIR is set to ~/Projects
-  TARGET_DIR=${DOTFILES_PROJECTS_DIR:="$HOME/Projects"};
-
   # Check for passed argument(s)
   if [ $# -gt 0 ]; then
     # Change to the project root
-    cd "$TARGET_DIR/$1";
+    cd "$HOME/Projects/$1";
 
     # Check for Sublime Text
     if [[ $(type -P subl) ]]; then
@@ -33,8 +30,7 @@ function p() {
       osascript -e 'tell app "Terminal" to activate';
     fi;
   else
-    # No arguments; change to $TARGET_DIR
-    cd "$TARGET_DIR";
+    # No arguments; change to $HOME/Projects
+    cd "$HOME/Projects";
   fi;
-  unset TARGET_DIR;
 }
