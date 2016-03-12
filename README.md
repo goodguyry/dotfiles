@@ -36,8 +36,6 @@ Then ```cd``` into the downloaded directory.
 ```
 
 
-#### Setup Options
-
 The following options are available when running the init file:
 
 <table>
@@ -65,7 +63,7 @@ Notes:
 2. `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
 
 
-## Local configuration
+### Local configuration
 
 **Filename:** `~/.dotfiles.local`
 
@@ -74,7 +72,7 @@ Notes:
 `init` will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
 
 
-## OS X defaults
+### OS X defaults
 
 The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
 
