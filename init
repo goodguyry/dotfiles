@@ -143,14 +143,19 @@ function set_files() {
 
 
 # Ask before potentially overwriting files
-seek_confirmation "Warning: This step may overwrite your existing dotfiles.";
+printf "\n";
+e_warning "Warning: This step may overwrite your existing dotfiles.";
+printf "Continue? [Y/n]";
+read CONTINUE;
+printf "\n";
+
 
 # Conditionally set the dotfiles in place
-if is_confirmed; then
-  set_files;
-else
+if [[ "$CONTINUE" == "n" ]]; then
   e_header "Aborting...";
   exit 1;
+else
+  set_files;
 fi;
 
 
@@ -176,12 +181,14 @@ else
     # Seek confirmation that the Git information above is correct.
     printf "\n";
     e_warning "Confirm the Git information above is correct.";
-    read -p "Is this correct? (y/n) " -n 1;
+    printf "Is this correct? [Y/n]";
+    read GIT_AUTHOR;
     printf "\n";
 
-    if ! is_confirmed; then
-      # Prompt for Git author info re-entry
-      collect_git_info;
+    # Conditionally prompt for re-entry
+    if [[ "$GIT_AUTHOR" == "n" ]]; then
+        # Prompt for Git author info re-entry
+        collect_git_info;
     fi;
   fi;
 fi;
@@ -205,13 +212,19 @@ fi;
 
 
 if [[ ! $SERVER ]]; then
-  # Ask before potentially overwriting OS X defaults
-  seek_confirmation "Warning: This step may modify your OS X system defaults.";
+  # Ask before potentially overwriting files
+  printf "\n";
+  e_warning "Warning: This step may modify your OS X system defaults.";
+  printf "Continue? [Y/n]";
+  read SET_OSX;
+  printf "\n";
 
-  if is_confirmed; then
-    source bin/osx;
-  else
+
+  # Conditionally set defaults
+  if [[ "$SET_OSX" == "n" ]]; then
     e_header "Skipped OS X settings update.";
+  else
+    source bin/osx;
   fi;
 fi;
 
