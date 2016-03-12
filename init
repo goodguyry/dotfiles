@@ -233,7 +233,7 @@ else
   # Install RVM
   if [ ! $(type -P rvm) ]; then
     e_header "Installing RVM...";
-    curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable --ruby=2.3.0;
+    curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
   fi;
 
   # Check for the RVM install location
@@ -242,6 +242,8 @@ else
   # Source rvm
   source "$RVM_LOC/scripts/rvm";
 
+  # Install Ruby 2.3.0
+  rvm install ruby-2.3.0;
   rvm use 2.3.0 --default;
 
   export PATH=$GEM_HOME/bin:$GEM_HOME@global/bin:$MY_RUBY_HOME/bin:$PATH;
