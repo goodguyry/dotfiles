@@ -83,38 +83,74 @@ function dotfiles() {
 }
 
 
-# Collect Git author info and add it to .dotfiles.local
+# ***
+# Collect Git author info
+# ***
 function collect_git_info() {
-  printf "Your Git author name: -> ";
-  read NAME;
-  printf "Your Git author email: -> ";
-  read EMAIL;
-  if [[ $NAME != '' && $EMAIL != '' ]] ; then
-    local_git_config "$NAME" $EMAIL;
-  fi;
+  COLLECTED=0;
+  while [[ $COLLECTED -lt 1 ]]; do
+
+    printf "Your Git author name: -> ";
+    read NAME;
+    printf "Your Git author email: -> ";
+    read EMAIL;
+
+    if [[ $NAME != '' && $EMAIL != '' ]] ; then
+      # Print Git author info for confirmation
+      printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
+      echo " Name: $NAME";
+      echo "Email: $EMAIL";
+      printf "\n";
+
+      e_warning "Confirm the Git information above is correct.";
+
+      # Prompt for confirmation
+      printf "Is this correct? [Y/n] ";
+      read GIT_AUTHOR;
+      printf "\n";
+
+      if [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR = '' ]]; then
+        # Confirmed
+        COLLECTED=1;
+        local_git_config  "$NAME" $EMAIL;
+      fi;
+    fi;
+  done;
 }
 
 
 # ***
-# Creates the .dotfiles.local file with Git credentials
-# Used to add custom Git aliases and configuration without the need to fork this entire repository
+# Creates .dotfiles.local if not present
+# Adds Git author author values if not present
+# Updates author info in place if present
 # ***
 function local_git_config() {
-  LOCAL_GIT_CONFIG="$HOME/.dotfiles.local";
-  touch "$LOCAL_GIT_CONFIG";
+  DOTFILES_LOCAL="$HOME/.dotfiles.local";
 
-  printf "\n# Git author info\n\n" >> "$LOCAL_GIT_CONFIG";
+  # Create dotfiles.local if not present
+  [[ -r "$DOTFILES_LOCAL" ]] && printf "#!/bin/bash\n\n" >> "$DOTFILES_LOCAL";
 
-  printf "# Your name\n" >> "$LOCAL_GIT_CONFIG";
-  printf "GIT_AUTHOR_NAME=\"${1}\"\n\n" >> "$LOCAL_GIT_CONFIG";
+  # Check for "Begin" comment
+  if [[ ! $(grep "# --- Begin Git author values" $DOTFILES_LOCAL ) ]]; then
+    # Add values to dotfiles.local
+    printf "\n\n# --- Begin Git author values\n" >> "$DOTFILES_LOCAL";
 
-  printf "# Your email\n" >> "$LOCAL_GIT_CONFIG";
-  printf "GIT_AUTHOR_EMAIL=\"${2}\"\n\n" >> "$LOCAL_GIT_CONFIG";
+    # Collected values
+    printf "GIT_AUTHOR_NAME=\"${1}\"\n" >> "$DOTFILES_LOCAL";
+    printf "GIT_AUTHOR_EMAIL=\"${2}\"\n\n" >> "$DOTFILES_LOCAL";
 
-  printf "GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"\n" >> "$LOCAL_GIT_CONFIG";
-  printf "GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"\n\n" >> "$LOCAL_GIT_CONFIG";
+    printf "# Environment variables\n" >> "$DOTFILES_LOCAL";
+    printf "GIT_COMMITTER_NAME=\"\$GIT_AUTHOR_NAME\"\n" >> "$DOTFILES_LOCAL";
+    printf "GIT_COMMITTER_EMAIL=\"\$GIT_AUTHOR_EMAIL\"\n\n" >> "$DOTFILES_LOCAL";
 
-  printf "# Set the user info (modifies ~/.gitconfig)\n" >> "$LOCAL_GIT_CONFIG";
-  printf "git config --global user.name \"\$GIT_AUTHOR_NAME\"\n" >> "$LOCAL_GIT_CONFIG";
-  printf "git config --global user.email \"\$GIT_AUTHOR_EMAIL\"\n" >> "$LOCAL_GIT_CONFIG";
+    printf "# Set the user info (modifies ~/.gitconfig)\n" >> "$DOTFILES_LOCAL";
+    printf "git config --global user.name \"\$GIT_AUTHOR_NAME\"\n" >> "$DOTFILES_LOCAL";
+    printf "git config --global user.email \"\$GIT_AUTHOR_EMAIL\"\n" >> "$DOTFILES_LOCAL";
+
+    printf "# --- End Git author values\n" >> "$DOTFILES_LOCAL";
+  else
+    # Edit values in place
+    sed -i -e "s/\(GIT_AUTHOR_NAME\)=\"\(.*\)\"/\1=\"$1\"/" "$DOTFILES_LOCAL";
+    sed -i -e "s/\(GIT_AUTHOR_EMAIL\)=\"\(.*\)\"/\1=\"$2\"/" "$DOTFILES_LOCAL";
+  fi;
 }
