@@ -111,9 +111,6 @@ function set_files() {
     mkdirs ${DIRECTORY};
   done;
 
-  # Copy `.gitconfig`
-  rsync -avz --quiet "dev/gitconfig" "$HOME/.gitconfig";
-
   # Download the Solarized Vim theme
   # But check for it first
   if [[ ! -r "$HOME/.vim/colors/solarized.vim" ]]; then
@@ -174,6 +171,10 @@ fi;
 
 # Source dotfiles.local in case it contains Git author info
 source "$HOME/.dotfiles.local";
+
+
+# Add git config settings
+source bin/gitconfig;
 
 
 # Check for git config user.name && git config user.email

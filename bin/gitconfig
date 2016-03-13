@@ -1,0 +1,144 @@
+#!/bin/bash
+
+function git_config_add() {
+  if [[ $(git config $1) ]]; then
+    git config --global $1 "$2";
+  else
+    echo "Replacing $1...";
+    git config --global --replace-all $1 "$2";
+  fi;
+}
+
+# Aliases
+
+# Show verbose output about branches
+git_config_add alias.branches 'branch -a';
+# Clone a repository including all submodules
+git_config_add alias.c 'clone --recursive';
+# Commit all changes
+git_config_add alias.ca '!git add -A && git commit -av';
+# Checkout a branch
+git_config_add alias.co 'checkout';
+# Credit an author on the latest commit
+git_config_add alias.credit '!f() { git commit --amend --author "$1 <$2>" -C HEAD; }; f';
+# Show the diff between the latest commit and the current state
+git_config_add alias.d '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
+# `git db $branch` shows a histogram of the diff between the current branch and `$branch`
+git_config_add alias.db '!db() { git diff $1 | diffstat; }; db';
+# `git di $number` shows the diff between the state `$number` revisions ago and the current state
+git_config_add alias.di '!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d';
+# diff staged file(s)
+git_config_add alias.ds '!clear; git diff --patch-with-stat --staged --color | diff-highlight | less -r';
+# Custom graph log (append any tree-ish)
+git_config_add alias.graph 'log --pretty --date-order --graph';
+# Custom graph log for all branches
+git_config_add alias.grapha 'log --pretty --date-order --graph --all';
+# View abbreviated SHA, description, and history graph of the latest 20 commits
+git_config_add alias.l 'log --pretty=oneline -n 20 --graph --abbrev-commit';
+# Display the details of the last commit
+git_config_add alias.last 'log -1 HEAD';
+# list files from the last commit
+git_config_add alias.ls '!git diff-tree --no-commit-id --name-only -r -1 HEAD';
+# list all tracked files
+git_config_add alias.lsa '!git log --pretty=format: --name-only --diff-filter=A | sort -';
+# `git m $branch` performs a no fast forward merge
+git_config_add alias.m '!m() { git merge --no-ff $1; }; m';
+# Switch to a branch, creating it if necessary
+git_config_add alias.new 'checkout -B';
+# Pull in remote changes for the current repository and all its submodules
+git_config_add alias.p '!git pull; git submodule foreach git pull origin master';
+# Interactive rebase with the given number of latest commits
+git_config_add alias.reb '!r() { git rebase -i HEAD~$1; }; r';
+# Show verbose output about remotes
+git_config_add alias.remotes 'remote -v';
+# View the current working tree status using the short format
+git_config_add alias.s 'status -s';
+# View the current working tree status
+git_config_add alias.st 'status';
+# `git stats $n` log stats for a given number of commits
+git_config_add alias.stats '!l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l';
+# Show verbose output about tags
+git_config_add alias.tags 'tag -l';
+# `git unstage [file]` Unstages a file or the entire index
+git_config_add alias.unstage 'reset HEAD --';
+
+# Branches
+
+# Use `origin` as the default remote on the `master` branch in all cases
+git_config_add branch.develop.merge 'refs/heads/develop';
+git_config_add branch.develop.remote 'origin';
+# Use `origin` as the default remote on the `develop` branch in all cases
+git_config_add branch.master.merge 'refs/heads/master';
+git_config_add branch.master.remote 'origin';
+
+# Colors
+
+git_config_add color.branch.current 'green reverse';
+git_config_add color.branch.local 'green';
+git_config_add color.branch.remote 'yellow';
+# http://theunixtoolbox.com/git-diff-highlight/
+git_config_add color.diff-highlight.newhighlight 'green bold 22';
+git_config_add color.diff-highlight.newnormal green;
+git_config_add color.diff-highlight.oldhighlight 'red bold 52';
+git_config_add color.diff-highlight.oldnormal 'red';
+git_config_add color.diff.frag 'magenta';
+git_config_add color.diff.meta 'cyan';
+git_config_add color.diff.new 'green';
+git_config_add color.diff.old 'red';
+git_config_add color.status.added 'green';
+git_config_add color.status.changed 'yellow';
+git_config_add color.status.untracked 'red';
+# Use colors in Git commands that are capable of colored output when outputting to the terminal
+git_config_add color.ui auto;
+
+# Core
+
+git_config_add core.autocrlf 'input';
+git_config_add core.bare false;
+git_config_add core.editor 'vim';
+# Use custom '.gitignore'
+git_config_add core.excludesfile '~/.gitignore';
+git_config_add core.filemode true;
+git_config_add core.ignorecase true;
+git_config_add core.logallrefupdates true;
+# http://theunixtoolbox.com/git-diff-highlight/
+git_config_add core.pager 'diff-highlight | less -r';
+git_config_add core.precomposeunicode true;
+git_config_add core.repositoryformatversion 0;
+git_config_add core.safecrlf true;
+# Make `git rebase` safer on OS X
+# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+git_config_add core.trustctime false;
+# Spaces before tabs, lines indented with 8 or more spaces, and all kinds of trailing whitespace are errors
+git_config_add core.whitespace 'space-before-tab,indent-with-non-tab,trailing-space';
+
+# Misc
+
+# Detect whitespace errors when applying a patch
+git_config_add apply.whitespace 'fix';
+git_config_add credential.helper 'osxkeychain';
+git_config_add help.autocorrect 1;
+# Include summaries of merged commits in newly created merge commit messages
+git_config_add merge.log true;
+git_config_add mergetool.keepbackup true;
+# tut: http://gitimmersion.com/lab_10.html
+# ref: http://linux.die.net/man/1/git-log
+# Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
+git_config_add pretty.nice '%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar';
+git_config_add push.default 'matching';
+
+# Remotes
+
+git_config_add remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*';
+git_config_add remote.origin.url 'https://github.com/goodguyry/dotfiles';
+
+# URL Shorthands
+
+git_config_add url.git://gist.github.com/.insteadof 'gist:';
+git_config_add url.git://github.com/.insteadof 'github:';
+git_config_add url.git@gist.github.com:.insteadof 'gst:';
+git_config_add url.git@gist.github.com:.pushinsteadof 'gist:';
+git_config_add url.git@gist.github.com:.pushinsteadof 'git://gist.github.com/';
+git_config_add url.git@github.com:.insteadof 'gh:';
+git_config_add url.git@github.com:.pushinsteadof 'git://github.com/';
+git_config_add url.git@github.com:.pushinsteadof 'github:';
