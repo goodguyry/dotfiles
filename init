@@ -169,37 +169,8 @@ fi;
 [[ -r "$HOME/.dotfiles.local" ]] && printf "#!/bin/bash\n\n" >> "$HOME/.dotfiles.local";
 
 
-# Source dotfiles.local in case it contains Git author info
-source "$HOME/.dotfiles.local";
-
-
 # Add git config settings
 source bin/gitconfig;
-
-
-# Check for git config user.name && git config user.email
-if [[ ! $(git config user.name) || ! $(git config user.email) ]]; then
-    collect_git_info;
-else
-  # Print Git author info for confirmation
-  printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
-  echo " Name: $(git config user.name)";
-  echo "Email: $(git config user.email)";
-  printf "\n";
-
-  e_warning "Confirm the Git information above is correct.";
-
-  # Seek confirmation that the Git information above is correct.
-  printf "Is this correct? [Y/n] ";
-  read GIT_AUTHOR;
-  printf "\n";
-
-  if [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR == '' ]]; then
-    local_git_config  "$(git config user.name)" "$(git config user.email)";
-  else
-    collect_git_info;
-  fi;
-fi;
 
 
 # Source bashrc to make sure the environment is set before moving on

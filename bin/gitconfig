@@ -1,13 +1,75 @@
 #!/bin/bash
 
+
+# Collect Git author info
+function collect_git_info() {
+  COLLECTED=0;
+  while [[ $COLLECTED -lt 1 ]]; do
+
+    printf "Your Git author name: -> ";
+    read NAME;
+    printf "Your Git author email: -> ";
+    read EMAIL;
+
+    if [[ $NAME != '' && $EMAIL != '' ]] ; then
+      # Print Git author info for confirmation
+      printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
+      echo " Name: $NAME";
+      echo "Email: $EMAIL";
+      printf "\n";
+
+      e_warning "Confirm the Git information above is correct.";
+
+      # Prompt for confirmation
+      printf "Is this correct? [Y/n] ";
+      read GIT_AUTHOR;
+      printf "\n";
+
+      if [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR == '' ]]; then
+        # Confirmed
+        COLLECTED=1;
+      fi;
+    fi;
+  done;
+}
+
+
+# Check for git config user.name && git config user.email
+if [[ ! $(git config user.name) || ! $(git config user.email) ]]; then
+    collect_git_info;
+else
+  NAME="$(git config user.name)";
+  EMAIL="$(git config user.email)";
+  # Print Git author info for confirmation
+  printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
+  echo " Name: $NAME";
+  echo "Email: $EMAIL";
+  printf "\n";
+
+  e_warning "Confirm the Git information above is correct.";
+
+  # Seek confirmation that the Git information above is correct.
+  printf "Is this correct? [Y/n] ";
+  read GIT_AUTHOR;
+  printf "\n";
+
+  if ! [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR == '' ]]; then
+    collect_git_info;
+  fi;
+fi;
+
+
+# Add config values
 function git_config_add() {
   if [[ $(git config $1) ]]; then
     git config --global $1 "$2";
   else
-    echo "Replacing $1...";
+    e_warning "Replacing $1...";
     git config --global --replace-all $1 "$2";
   fi;
 }
+
+e_header "Adding Git config settings...";
 
 # Aliases
 
@@ -142,3 +204,10 @@ git_config_add url.git@gist.github.com:.pushinsteadof 'git://gist.github.com/';
 git_config_add url.git@github.com:.insteadof 'gh:';
 git_config_add url.git@github.com:.pushinsteadof 'git://github.com/';
 git_config_add url.git@github.com:.pushinsteadof 'github:';
+
+# User
+
+git_config_add user.name "$NAME";
+git_config_add user.email "$EMAIL";
+
+[[ $? ]] && e_success "Done adding Git config values.";
