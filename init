@@ -104,10 +104,10 @@ function set_files() {
     local SRC="$DOTFILES_DIRECTORY/$1";
     local DEST="$2";
     if [[ $COPY_FILES ]]; then
-      rsync -avz --quiet $SRC $DEST;
+      rsync -avz --quiet $SRC "$DEST";
     else
       # Force create/replace the symlink.
-      ln -fs $SRC $DEST;
+      ln -fs $SRC "$DEST";
     fi
   }
 
@@ -145,7 +145,7 @@ function set_files() {
   # Set Sublime Text settings directory
   SUBLIME_TEXT_USER="$HOME/Library/Application Support/Sublime Text 3/Packages/User";
   # Create the directory path if it doesn't exist
-  mkdir -p "$SUBLIME_TEXT_USER";
+  [[ ! -d "$SUBLIME_TEXT_USER" ]] && mkdir -p "$SUBLIME_TEXT_USER";
 
   # Sublime Text settings
   set_file "etc/Markdown.sublime-settings"        "$SUBLIME_TEXT_USER/Markdown.sublime-settings";
