@@ -23,3 +23,7 @@ for index in ${!files[*]}; do
 done;
 
 unset files;
+
+# Environment variables
+GIT_COMMITTER_NAME="$(git config user.name)"
+GIT_COMMITTER_EMAIL="$(git config user.email)"

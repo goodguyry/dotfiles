@@ -57,19 +57,14 @@ The following options are available when running the init file:
   </tr>
 </table>
 
-Notes:
-
-1. `gitconfig` is always copied, regardless of the option passed.
-2. `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
+Notes: `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
 
 
 ### Local configuration
 
 **Filename:** `~/.dotfiles.local`
 
-`.dotfiles.local` is used to add Git author information and any other extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
-
-`init` will prompt for Git author information and create `.dotfiles.local` if it doesn't already exist.
+Used to add extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
 
 
 ### OS X defaults
