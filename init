@@ -244,4 +244,6 @@ fi;
 unset COPY_FILES;
 
 
-[[ $? ]] && e_success "Restart your shell for changes to take effect";
+[[ $? ]] && e_success "Restarting the shell to apply changes";
+
+exec $SHELL -l;
