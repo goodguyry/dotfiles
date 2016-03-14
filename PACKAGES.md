@@ -1,7 +1,7 @@
 ## Homebrew
 
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
-- [Bash](http://www.gnu.org/software/bash/)
+- [Bash 4](http://www.gnu.org/software/bash/)
 - [caskroom/cask/brew-cask](https://github.com/caskroom/homebrew-cask)
 - [caskroom/versions](https://github.com/caskroom/homebrew-versions)
 - [Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
@@ -14,7 +14,7 @@
   - [GNU Grep](https://www.gnu.org/software/grep/)
   - [OpenSSH](http://www.openssh.com/)
 - [homebrew/homebrew-php](https://github.com/Homebrew/homebrew-php)
-  - php5
+  - php56
 - [homebrew/versions](https://github.com/Homebrew/homebrew-versions)
 - [ImageMagick](http://www.imagemagick.org/script/index.php)
 - [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
@@ -24,7 +24,6 @@
 - [rar](http://www.rarlab.com/)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Webkit2png](http://www.paulhammond.org/webkit2png/)
-- [Zsh](http://www.zsh.org/)
 
 ## NPM
 
@@ -52,8 +51,6 @@
 
 ## Native applications
 
-- [Bartender](http://www.macbartender.com/)
-- [ChronoAgent](http://www.econtechnologies.com/chronoagent/overview.html)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
 - [Clipmenu](http://www.clipmenu.com/)
 - [Dropbox](http://www.dropbox.com)
@@ -61,7 +58,6 @@
 - [Firefox Beta](https://www.mozilla.org/en-US/firefox/channel/)
 - [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
 - [Firefox](https://www.mozilla.org/en-US/firefox/products/)
-- [Flux](https://justgetflux.com/)
 - [Gawker](http://gawker.sourceforge.net/Gawker.html)
 - [Google Chrome Canary](https://www.google.com/chrome/browser/canary.html)
 - [Google Chrome](http://www.google.com/chrome/)
@@ -74,15 +70,13 @@
 - [Opera Mobile Emulator](http://www.opera.com/developer/mobile-emulator)
 - [Opera](http://www.opera.com/)
 - [SequelPro](http://www.sequelpro.com/)
-- [Skype](http://www.skype.com/)
-- [Spotify](https://www.spotify.com/)
 - [Sublime Text 3](http://www.sublimetext.com/3)
-- [Things](https://culturedcode.com/things/)
+- [Suspicious Package](http://www.mothersruin.com/software/SuspiciousPackage/)
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
-- [TotalFinder](http://totalfinder.binaryage.com/)
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
 - [Vagrant](https://www.vagrantup.com/)
+- [VirtualBox](https://www.virtualbox.org/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 - [Webkit Nightly](http://www.webkit.org/)
 
@@ -100,5 +94,4 @@
 - [QLMarkdown](https://github.com/toland/qlmarkdown)
 - [QLStephen](https://github.com/whomwah/qlstephen)
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
-- [Suspicious Package](http://www.mothersruin.com/software/SuspiciousPackage/)
 - [WebP](https://github.com/dchest/webp-quicklook)
