@@ -199,11 +199,11 @@ function set_files() {
     [[ ! -d "$SUBLIME_PACKAGES/User" ]] && mkdir -p "$SUBLIME_PACKAGES/User";
 
     # Sublime Text settings
-    set_file "etc/Default (OSX).sublime-keymap"         "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
-    set_file "etc/Markdown.sublime-settings"            "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
-    set_file "etc/Preferences.sublime-settings"         "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
-    set_file "etc/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
-    set_file "etc/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
+    set_file "sublime/Default (OSX).sublime-keymap"         "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
+    set_file "sublime/Markdown.sublime-settings"            "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
+    set_file "sublime/Preferences.sublime-settings"         "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
+    set_file "sublime/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
+    set_file "sublime/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
     if [[ ! -d "$SUBLIME_PACKAGES/specialsboard" ]]; then
       log_header "Cloning the Specials Board Sublime Text theme..."
