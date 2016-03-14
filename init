@@ -204,6 +204,13 @@ function set_files() {
   set_file "etc/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
   set_file "etc/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
+  if [[ ! -d "$SUBLIME_PACKAGES/specialsboard" ]]; then
+    log_header "Cloning the Specials Board Sublime Text theme..."
+    git clone https://github.com/lamotta/specialsboard.git "$SUBLIME_PACKAGES";
+  else
+    log_header "Specials Board Sublime Text theme already installed.";
+  fi;
+
   # Download the Solarized Vim theme
   # But check for it first
   if [[ ! -r "$HOME/.vim/colors/solarized.vim" ]]; then
@@ -216,9 +223,9 @@ function set_files() {
       log_header "Downloading Solarized Vim theme...";
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | tar -xzv -C "$HOME/.vim" --strip-components 1 --include="**/solarized.vim";
     fi;
-    [[ $? ]] && log_success "Solarized theme installed";
+    [[ $? ]] && log_success "Solarized Vim theme installed";
   else
-    log_header "Solarized theme already installed.";
+    log_header "Solarized Vim theme already installed.";
   fi;
 
   log_success "Dotfiles update complete!";
