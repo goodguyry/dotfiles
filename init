@@ -154,10 +154,10 @@ function set_files() {
     local SRC="$DOTFILES_DIRECTORY/$1";
     local DEST="$2";
     if [[ $COPY_FILES ]]; then
-      rsync -avz --quiet $SRC "$DEST";
+      rsync -avz --quiet "$SRC" "$DEST";
     else
       # Force create/replace the symlink.
-      ln -fs $SRC "$DEST";
+      ln -fs "$SRC" "$DEST";
     fi
   }
 
@@ -198,9 +198,11 @@ function set_files() {
   [[ ! -d "$SUBLIME_TEXT_USER" ]] && mkdir -p "$SUBLIME_TEXT_USER";
 
   # Sublime Text settings
-  set_file "etc/Markdown.sublime-settings"        "$SUBLIME_TEXT_USER/Markdown.sublime-settings";
-  set_file "etc/Preferences.sublime-settings"     "$SUBLIME_TEXT_USER/Preferences.sublime-settings";
-  set_file "etc/Ruby.sublime-settings"            "$SUBLIME_TEXT_USER/Ruby.sublime-settings";
+  set_file "etc/Default (OSX).sublime-keymap"         "$SUBLIME_TEXT_USER/Default (OSX).sublime-keymap";
+  set_file "etc/Markdown.sublime-settings"            "$SUBLIME_TEXT_USER/Markdown.sublime-settings";
+  set_file "etc/Preferences.sublime-settings"         "$SUBLIME_TEXT_USER/Preferences.sublime-settings";
+  set_file "etc/Ruby.sublime-settings"                "$SUBLIME_TEXT_USER/Ruby.sublime-settings";
+  set_file "etc/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_TEXT_USER/Shell-Unix-Generic.sublime-settings";
 
   # Download the Solarized Vim theme
   # But check for it first
