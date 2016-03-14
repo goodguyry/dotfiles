@@ -38,24 +38,12 @@ Then ```cd``` into the downloaded directory.
 
 The following options are available when running the init file:
 
-<table>
-  <tr>
-    <td width="25%"><code>-h</code>, <code>--help</code></td>
-    <td>Print this help text</td>
-  </tr>
-  <tr>
-    <td width="25%"><code>-c</code>, <code>--copy</code></td>
-    <td>Copy the files instead of symlinking</td>
-  </tr>
-  <tr>
-    <td width="25%"><code>-n</code>, <code>--no-packages</code></td>
-    <td>Suppress package installations and updates</td>
-  </tr>
-  <tr>
-    <td width="25%"><code>-s</code>, <code>--server</code></td>
-    <td>Skip Projects folder and OS X-related packages</td>
-  </tr>
-</table>
+| Option                | Description                                    |
+|-----------------------|------------------------------------------------|
+| `-h`, `--help`        | Print this help text                           |
+| `-c`, `--copy`        | Copy the files instead of symlinking           |
+| `-n`, `--no-packages` | Suppress package installations and updates     |
+| `-s`, `--server`      | Skip Projects folder and OS X-related packages |
 
 Notes: `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
 
