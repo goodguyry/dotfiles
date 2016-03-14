@@ -277,7 +277,7 @@ if [[ ! $SERVER ]]; then
   # Ask before potentially overwriting files
   printf "\n";
   log_warning "Warning: This step may modify your OS X system defaults.";
-  printf "Continue? [Y/n]";
+  printf "Continue? [Y/n] ";
   read SET_OSX;
   printf "\n";
 

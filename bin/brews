@@ -57,13 +57,13 @@ brew install dark-mode;
 brew install gist;
 brew install git-flow;
 brew install imagemagick --with-webp;
+brew install libdvdcss;
 brew install mysql;
 brew install packer;
 brew install phantomjs;
 brew install rar;
 brew install tree;
 brew install webkit2png;
-brew install libdvdcss;
 
 brew cleanup;
 
@@ -93,7 +93,6 @@ brew cask install firefoxdeveloperedition;
 brew cask install gawker;
 brew cask install google-chrome-canary;
 brew cask install google-chrome;
-brew cask install hazel;
 brew cask install imageoptim;
 brew cask install macdown;
 brew cask install nvalt;
@@ -104,15 +103,19 @@ brew cask install opera-mobile-emulator;
 brew cask install opera;
 brew cask install sequel-pro;
 brew cask install sublime-text3;
+brew cask install suspicious-package;
 brew cask install torbrowser;
 brew cask install transmission;
 brew cask install transmit;
-brew cask install tvshows;
 brew cask install vagrant;
 brew cask install virtualbox;
 brew cask install vlc;
-brew cask install web-sharing;
 brew cask install webkit-nightly;
+
+# System Preferences panes
+brew cask install hazel;
+brew cask install tvshows;
+brew cask install web-sharing;
 
 # QuickLook Plugins
 brew cask install betterzipql;
@@ -121,7 +124,6 @@ brew cask install qlimagesize;
 brew cask install qlmarkdown;
 brew cask install qlstephen;
 brew cask install quicklook-csv;
-brew cask install suspicious-package;
 brew cask install webpquicklook;
 
 brew cask cleanup;
