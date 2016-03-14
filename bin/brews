@@ -2,25 +2,25 @@
 
 # Before relying on Homebrew, check that packages can be compiled
 if [ ! $(type -P gcc) ]; then
-  e_header "The XCode Command Line Tools must be installed first.";
+  log_header "The XCode Command Line Tools must be installed first.";
   xcode-select --install;
 fi;
 
 # Check for Homebrew
 if [ ! $(type -P brew) ]; then
-  e_header "Installing Homebrew...";
+  log_header "Installing Homebrew...";
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
   brew doctor;
-  [[ $? ]] && e_success "Homebrew installed.";
+  [[ $? ]] && log_success "Homebrew installed.";
 fi;
 
-e_header "Updating Homebrew...";
+log_header "Updating Homebrew...";
 brew update;
 
-e_header "Upgrading installed formulae...";
+log_header "Upgrading installed formulae...";
 brew upgrade;
 
-e_header "Installing new formulae...";
+log_header "Installing new formulae...";
 
 # ***
 # Install CLI packages
@@ -67,13 +67,13 @@ brew install libdvdcss;
 
 brew cleanup;
 
-[[ $? ]] && e_success "Homebrew packages installed.";
+[[ $? ]] && log_success "Homebrew packages installed.";
 
 # ***
 # Install native applications
 # ***
 
-e_header "Installing casks (native apps)...";
+log_header "Installing casks (native apps)...";
 
 # Install native apps
 brew tap caskroom/cask;
@@ -126,4 +126,4 @@ brew cask install webpquicklook;
 
 brew cask cleanup;
 
-[[ $? ]] && e_success "Homebrew Casks installed";
+[[ $? ]] && log_success "Homebrew Casks installed";

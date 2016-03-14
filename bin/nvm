@@ -9,7 +9,7 @@ NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
 
 # Install NVM
 if [[ ! -d "$NVM_LOC" ]]; then
-  e_header "Installing NVM...";
+  log_header "Installing NVM...";
   git clone https://github.com/creationix/nvm.git "$NVM_LOC";
 fi;
 
@@ -19,15 +19,15 @@ cd "$NVM_LOC" && git checkout `git describe --abbrev=0 --tags`; cd -;
 source "$NVM_LOC/nvm.sh";
 
 # Install NPM
-e_header "Installing NPM...";
+log_header "Installing NPM...";
 npm install -g npm@latest;
 # Install and use latest stable version of Node
 nvm install stable;
 nvm alias default stable;
 
 # Install packages globally and quietly
-e_header "Installing Node packages...";
+log_header "Installing Node packages...";
 NPM_LIST="bower browser-sync git-open grunt-cli grunt-init jshint";
 npm install $NPM_LIST --global --quiet;
 
-[[ $? ]] && e_success "NPM packages installed.";
+[[ $? ]] && log_success "NPM packages installed.";

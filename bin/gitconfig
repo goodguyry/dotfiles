@@ -18,7 +18,7 @@ function collect_git_info() {
       echo "Email: $EMAIL";
       printf "\n";
 
-      e_warning "Confirm the Git information above is correct.";
+      log_warning "Confirm the Git information above is correct.";
 
       # Prompt for confirmation
       printf "Is this correct? [Y/n] ";
@@ -46,7 +46,7 @@ else
   echo "Email: $EMAIL";
   printf "\n";
 
-  e_warning "Confirm the Git information above is correct.";
+  log_warning "Confirm the Git information above is correct.";
 
   # Seek confirmation that the Git information above is correct.
   printf "Is this correct? [Y/n] ";
@@ -64,12 +64,12 @@ function git_config_add() {
   if [[ $(git config $1) ]]; then
     git config --global $1 "$2";
   else
-    e_warning "Replacing $1...";
+    log_warning "Replacing $1...";
     git config --global --replace-all $1 "$2";
   fi;
 }
 
-e_header "Adding Git config settings...";
+log_header "Adding Git config settings...";
 
 # Aliases
 
@@ -210,4 +210,4 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 git_config_add user.name "$NAME";
 git_config_add user.email "$EMAIL";
 
-[[ $? ]] && e_success "Done adding Git config values.";
+[[ $? ]] && log_success "Done adding Git config values.";
