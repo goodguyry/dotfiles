@@ -192,23 +192,25 @@ function set_files() {
   set_file "shell/profile"                        "$HOME/.profile";
   set_file "shell/prompt"                         "$HOME/.prompt";
 
-  # Set Sublime Text settings directory
-  SUBLIME_PACKAGES="$HOME/Library/Application Support/Sublime Text 3/Packages";
-  # Create the directory path if it doesn't exist
-  [[ ! -d "$SUBLIME_PACKAGES/User" ]] && mkdir -p "$SUBLIME_PACKAGES/User";
+  if [[ ! $SERVER ]]; then
+    # Set Sublime Text settings directory
+    SUBLIME_PACKAGES="$HOME/Library/Application Support/Sublime Text 3/Packages";
+    # Create the directory path if it doesn't exist
+    [[ ! -d "$SUBLIME_PACKAGES/User" ]] && mkdir -p "$SUBLIME_PACKAGES/User";
 
-  # Sublime Text settings
-  set_file "etc/Default (OSX).sublime-keymap"         "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
-  set_file "etc/Markdown.sublime-settings"            "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
-  set_file "etc/Preferences.sublime-settings"         "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
-  set_file "etc/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
-  set_file "etc/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
+    # Sublime Text settings
+    set_file "etc/Default (OSX).sublime-keymap"         "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
+    set_file "etc/Markdown.sublime-settings"            "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
+    set_file "etc/Preferences.sublime-settings"         "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
+    set_file "etc/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
+    set_file "etc/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
-  if [[ ! -d "$SUBLIME_PACKAGES/specialsboard" ]]; then
-    log_header "Cloning the Specials Board Sublime Text theme..."
-    git clone https://github.com/lamotta/specialsboard.git "$SUBLIME_PACKAGES";
-  else
-    log_header "Specials Board Sublime Text theme already installed.";
+    if [[ ! -d "$SUBLIME_PACKAGES/specialsboard" ]]; then
+      log_header "Cloning the Specials Board Sublime Text theme..."
+      git clone https://github.com/lamotta/specialsboard.git "$SUBLIME_PACKAGES";
+    else
+      log_header "Specials Board Sublime Text theme already installed.";
+    fi;
   fi;
 
   # Download the Solarized Vim theme
