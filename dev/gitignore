@@ -29,13 +29,13 @@
 
 # Dependencies  #
 ######################
-node_modules
 bower_components
+node_modules
 vendor
-*.sass-cache
 
 # Application files #
 ######################
+*.sass-cache
 *.sublime-*
 .project
 .settings
@@ -43,13 +43,13 @@ vendor
 
 # OS generated files #
 ######################
-.DS_Store*
-ehthumbs.db
-Thumbs.db
-ehthumbs.db
 ._*
+.DS_Store*
 .Spotlight-V100
 .Trashes
+ehthumbs.db
+ehthumbs.db
+Thumbs.db
 
 # Misc #
 ######################
