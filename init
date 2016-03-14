@@ -5,13 +5,47 @@ DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 
 # Helper functions
-source "$DOTFILES_DIRECTORY/lib/help";
 source "$DOTFILES_DIRECTORY/lib/utils";
 
 
 # Help text
+function show_help() {
+
+cat <<EOT
+
+Dotfiles - Ryan Domingue - http://ryandomingue.com/
+
+Usage: $(basename "$0") [options]
+
+Options:
+    -h, --help            Print this help text
+    -c, --copy            Copy the files in place instead of linking
+    -n, --no-packages     Suppress package installations and updates (including casks)
+    -s, --server          Skip OS X-related packages/settings
+
+ Notes: '--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github
+
+Documentation can be found at https://github.com/goodguyry/dotfiles
+
+Copyright (c) Ryan Domingue
+Licensed under the MIT license.
+EOT
+
+}
+
+
+# Create a directory if it doesn't already exist
+function mkdirs() {
+  if [[ ! -d $@ ]]; then
+    mkdir $@;
+    echo "Created $@";
+  fi;
+}
+
+
+# Show help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-  run_help;
+  show_help;
   exit;
 fi;
 
@@ -26,7 +60,7 @@ do
                -c)  COPY_FILES=true ;;
          --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings
                -s)  SERVER=true; NO_PACKAGES=true ;;
-           -*|--*)  e_warning "Warning: invalid option $opt" && run_help && exit ;;
+           -*|--*)  e_warning "Warning: invalid option $opt" && show_help && exit ;;
   esac
 done;
 
