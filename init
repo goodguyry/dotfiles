@@ -191,7 +191,7 @@ fi;
 
 
 # Create dotfiles.local if not present
-[[ -r "$HOME/.dotfiles.local" ]] && printf "#!/bin/bash\n\n" >> "$HOME/.dotfiles.local";
+[[ ! -r "$HOME/.dotfiles.local" ]] && printf "#!/bin/bash\n\n" >> "$HOME/.dotfiles.local";
 
 
 # Add git config settings
