@@ -113,7 +113,6 @@ function set_files() {
 
   # List of directories
   declare -a DIRECTORIES=(
-    .functions
     .vim/backups
     .vim/swaps
   );
@@ -136,27 +135,12 @@ function set_files() {
   set_file "shell/aliases"                        "$HOME/.aliases";
   set_file "shell/bash_config"                    "$HOME/.bash_config";
   set_file "shell/bashrc"                         "$HOME/.bashrc";
+  set_file "shell/functions"                      "$HOME/.functions";
   set_file "shell/hushlogin"                      "$HOME/.hushlogin";
   set_file "shell/inputrc"                        "$HOME/.inputrc";
   set_file "shell/paths"                          "$HOME/.paths";
   set_file "shell/profile"                        "$HOME/.profile";
   set_file "shell/prompt"                         "$HOME/.prompt";
-
-  # Functions
-  set_file "shell/functions/cdf"                  "$HOME/.functions/cdf";
-  set_file "shell/functions/cleanup"              "$HOME/.functions/cleanup";
-  set_file "shell/functions/datauri"              "$HOME/.functions/datauri";
-  set_file "shell/functions/diff"                 "$HOME/.functions/diff";
-  set_file "shell/functions/fs"                   "$HOME/.functions/fs";
-  set_file "shell/functions/gcheck"               "$HOME/.functions/gcheck";
-  set_file "shell/functions/gz"                   "$HOME/.functions/gz";
-  set_file "shell/functions/mkd"                  "$HOME/.functions/mkd";
-  set_file "shell/functions/p"                    "$HOME/.functions/p";
-  set_file "shell/functions/phpserver"            "$HOME/.functions/phpserver";
-  set_file "shell/functions/server"               "$HOME/.functions/server";
-  set_file "shell/functions/stamp"                "$HOME/.functions/stamp";
-  set_file "shell/functions/targz"                "$HOME/.functions/targz";
-  set_file "shell/functions/tmp"                  "$HOME/.functions/tmp";
 
   # Set Sublime Text settings directory
   SUBLIME_TEXT_USER="$HOME/Library/Application Support/Sublime Text 3/Packages/User";
