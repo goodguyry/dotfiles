@@ -1,5 +1,8 @@
 #!/bin/bash
 
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+
+
 log_header "Adding Sublime Text packages...";
 
 # Clone a Sublime Text 3 package repo to Packages directory
@@ -15,6 +18,7 @@ function add_sublime_package() {
   fi;
 }
 
+# Clone packages
 add_sublime_package 'git@github.com:daylerees/colour-schemes.git'                   'ColourSchemes';
 add_sublime_package 'git@github.com:y0ssar1an/CSS3.git'                             'CSS3';
 add_sublime_package 'git@github.com:spadgos/sublime-jsdocs.git'                     'DocBlockr';
@@ -28,4 +32,35 @@ add_sublime_package 'git@github.com:titoBouzout/SideBarEnhancements.git'        
 add_sublime_package 'https://github.com/lamotta/specialsboard.git'                  'SpecialsBoard';
 add_sublime_package 'git@github.com:P233/Syntax-highlighting-for-Sass.git'          'SyntaxHighlightingForSass';
 
-[[ $? ]] && log_success "Sublime packages installed."
+log_success "Sublime Text packages installed."
+log_warning "Install Package Control: https://packagecontrol.io/installation"
+log_warning "Install Markdown Preview with Package Control"
+
+# Set Sublime Text settings directory
+SUBLIME_PACKAGES="$HOME/Library/Application Support/Sublime Text 3/Packages";
+
+# Create the directory path if it doesn't exist
+[[ ! -d "$SUBLIME_PACKAGES/User" ]] && mkdir -p "$SUBLIME_PACKAGES/User";
+
+# Sublime Text settings
+set_file \
+  "$DOTFILES_DIRECTORY/sublime/Default (OSX).sublime-keymap" \
+  "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
+
+set_file \
+  "$DOTFILES_DIRECTORY/sublime/Markdown.sublime-settings" \
+  "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
+
+set_file \
+  "$DOTFILES_DIRECTORY/sublime/Preferences.sublime-settings" \
+  "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
+
+set_file \
+  "$DOTFILES_DIRECTORY/sublime/Ruby.sublime-settings" \
+  "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
+
+set_file \
+  "$DOTFILES_DIRECTORY/sublime/Shell-Unix-Generic.sublime-settings" \
+  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
+
+[[ $? ]] && log_success "Sublime settings done."
