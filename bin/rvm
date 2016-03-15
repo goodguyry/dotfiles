@@ -1,30 +1,37 @@
 #!/bin/bash
+# Install Ruby via NVM; install Gems
+# https://rvm.io/
+
 
 # Install RVM
-if [ ! $(type -P rvm) ]; then
-  log_header "Installing RVM...";
+if [ ! "$(type -P rvm)" ]; then
+  log_header 'Installing RVM...';
   curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
 fi;
 
+
 # Check for the RVM install location
 RVM_LOC=${rvm_path:="$HOME/.rvm"};
-
 # Source rvm
-source "$RVM_LOC/scripts/rvm";
+source "${RVM_LOC}/scripts/rvm";
+
 
 # Install Ruby 2.3.0
 rvm install ruby-2.3.0;
 rvm use 2.3.0 --default;
 
-export PATH=$GEM_HOME/bin:$GEM_HOME@global/bin:$MY_RUBY_HOME/bin:$PATH;
+# Update PATH before installing Gems so they end up where intended
+export PATH=${GEM_HOME}/bin:${GEM_HOME}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
 
 rvm cleanup all;
 
+
 # Install Gems
-log_header "Installing Gems...";
-GEM_LIST="bundler jekyll rouge sass";
-gem install $GEM_LIST --no-document;
+log_header 'Installing Gems...';
+GEM_LIST='bundler jekyll rouge sass';
+gem install "${GEM_LIST}" --no-document;
 
 gem cleanup;
 
-[[ $? ]] && log_success "Gems installed.";
+
+[[ $? ]] && log_success 'Gems installed.";

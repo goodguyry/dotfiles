@@ -1,30 +1,33 @@
 #!/bin/bash
+#
+# Check for, install and update Homebrew and Homebrew packages,
+#   including native applications with Homebrew Cask
+
 
 # Before relying on Homebrew, check that packages can be compiled
-if [ ! $(type -P gcc) ]; then
-  log_header "The XCode Command Line Tools must be installed first.";
+if [ ! "$(type -P gcc)" ]; then
+  log_header 'The XCode Command Line Tools must be installed first.';
   xcode-select --install;
 fi;
 
 # Check for Homebrew
-if [ ! $(type -P brew) ]; then
-  log_header "Installing Homebrew...";
+if [ ! "$(type -P brew)" ]; then
+  log_header 'Installing Homebrew...';
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
   brew doctor;
-  [[ $? ]] && log_success "Homebrew installed.";
+  [[ $? ]] && log_success 'Homebrew installed.';
 fi;
 
-log_header "Updating Homebrew...";
+log_header 'Updating Homebrew...';
 brew update;
 
-log_header "Upgrading installed formulae...";
+log_header 'Upgrading installed formulae...';
 brew upgrade;
 
-log_header "Installing new formulae...";
+log_header 'Installing new formulae...';
 
-# ***
+
 # Install CLI packages
-# ***
 
 # GNU File, Shell, and Text utilities
 brew install coreutils;
@@ -67,20 +70,18 @@ brew install webkit2png;
 
 brew cleanup;
 
-[[ $? ]] && log_success "Homebrew packages installed.";
+[[ $? ]] && log_success 'Homebrew packages installed.';
 
-# ***
+
 # Install native applications
-# ***
+log_header 'Installing casks (native apps)...';
 
-log_header "Installing casks (native apps)...";
-
-# Install native apps
+# Install brew-cask
 brew tap caskroom/cask;
 brew tap caskroom/versions;
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export HOMEBREW_CASK_OPTS="--appdir=/Applications";
+export HOMEBREW_CASK_OPTS='--appdir=/Applications';
 
 # Native apps
 brew cask install chronosync;
@@ -128,4 +129,5 @@ brew cask install webpquicklook;
 
 brew cask cleanup;
 
-[[ $? ]] && log_success "Homebrew Casks installed";
+
+[[ $? ]] && log_success 'Homebrew Casks installed';

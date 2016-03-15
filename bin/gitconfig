@@ -1,32 +1,36 @@
 #!/bin/bash
+#
+# Collect Git user info and build .gitconfig
 
 
 # Collect Git author info
 function collect_git_info() {
+  # Track status; ends while loop when incremented
   COLLECTED=0;
   while [[ $COLLECTED -lt 1 ]]; do
 
-    printf "Your Git author name: -> ";
+    # Prompt for Git user name and email
+    printf 'Your Git author name: -> ';
     read NAME;
-    printf "Your Git author email: -> ";
+    printf 'Your Git author email: -> ';
     read EMAIL;
 
-    if [[ $NAME != '' && $EMAIL != '' ]] ; then
+    if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation
-      printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
-      echo " Name: $NAME";
-      echo "Email: $EMAIL";
+      printf '\n###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting
+      echo " Name: ${NAME}";
+      echo "Email: ${EMAIL}";
       printf "\n";
 
-      log_warning "Confirm the Git information above is correct.";
+      log_warning 'Confirm the Git information above is correct.';
 
       # Prompt for confirmation
-      printf "Is this correct? [Y/n] ";
+      printf 'Is this correct? [Y/n] ';
       read GIT_AUTHOR;
-      printf "\n";
+      printf '\n';
 
-      if [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR == '' ]]; then
-        # Confirmed
+      if [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
+        # Confirmed; increment status variable
         COLLECTED=1;
       fi;
     fi;
@@ -35,25 +39,25 @@ function collect_git_info() {
 
 
 # Check for git config user.name && git config user.email
-if [[ ! $(git config user.name) || ! $(git config user.email) ]]; then
+if [[ ! "$(git config user.name)" || ! "$(git config user.email)" ]]; then
     collect_git_info;
 else
   NAME="$(git config user.name)";
   EMAIL="$(git config user.email)";
   # Print Git author info for confirmation
-  printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting
-  echo " Name: $NAME";
-  echo "Email: $EMAIL";
-  printf "\n";
+  printf '\n###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting
+  echo " Name: ${NAME}";
+  echo "Email: ${EMAIL}";
+  printf '\n';
 
-  log_warning "Confirm the Git information above is correct.";
+  log_warning 'Confirm the Git information above is correct.';
 
   # Seek confirmation that the Git information above is correct.
-  printf "Is this correct? [Y/n] ";
+  printf 'Is this correct? [Y/n] ';
   read GIT_AUTHOR;
-  printf "\n";
+  printf '\n';
 
-  if ! [[ $GIT_AUTHOR =~ ^[Yy]$ || $GIT_AUTHOR == '' ]]; then
+  if ! [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
     collect_git_info;
   fi;
 fi;
@@ -61,15 +65,15 @@ fi;
 
 # Add config values
 function git_config_add() {
-  if [[ $(git config $1) ]]; then
-    log_warning "Replacing $1...";
-    git config --global --replace-all $1 "$2";
+  if [[ $(git config "${1}") ]]; then
+    log_warning "Replacing "${1}"...";
+    git config --global --replace-all "${1}" "${2}";
   else
-    git config --global $1 "$2";
+    git config --global "${1}" "${2}";
   fi;
 }
 
-log_header "Adding Git config settings...";
+log_header 'Adding Git config settings...';
 
 # Aliases
 
@@ -82,13 +86,14 @@ git_config_add alias.ca '!git add -A && git commit -av';
 # Checkout a branch
 git_config_add alias.co 'checkout';
 # Credit an author on the latest commit
-git_config_add alias.credit '!f() { git commit --amend --author "$1 <$2>" -C HEAD; }; f';
+git_config_add alias.credit '!f() { git commit --amend --author "${1} <${2}>" -C HEAD; }; f';
 # Show the diff between the latest commit and the current state
-git_config_add alias.d '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
+git_config_add alias.d \
+  '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
 # `git db $branch` shows a histogram of the diff between the current branch and `$branch`
-git_config_add alias.db '!db() { git diff $1 | diffstat; }; db';
+git_config_add alias.db '!db() { git diff ${1} | diffstat; }; db';
 # `git di $number` shows the diff between the state `$number` revisions ago and the current state
-git_config_add alias.di '!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d';
+git_config_add alias.di '!d() { git diff --patch-with-stat HEAD~${1}; }; git diff-index --quiet HEAD -- || clear; d';
 # diff staged file(s)
 git_config_add alias.ds '!clear; git diff --patch-with-stat --staged --color | diff-highlight | less -r';
 # Custom graph log (append any tree-ish)
@@ -104,13 +109,13 @@ git_config_add alias.ls '!git diff-tree --no-commit-id --name-only -r -1 HEAD';
 # list all tracked files
 git_config_add alias.lsa '!git log --pretty=format: --name-only --diff-filter=A | sort -';
 # `git m $branch` performs a no fast forward merge
-git_config_add alias.m '!m() { git merge --no-ff $1; }; m';
+git_config_add alias.m '!m() { git merge --no-ff ${1}; }; m';
 # Switch to a branch, creating it if necessary
 git_config_add alias.new 'checkout -B';
 # Pull in remote changes for the current repository and all its submodules
 git_config_add alias.p '!git pull; git submodule foreach git pull origin master';
 # Interactive rebase with the given number of latest commits
-git_config_add alias.reb '!r() { git rebase -i HEAD~$1; }; r';
+git_config_add alias.reb '!r() { git rebase -i HEAD~${1}; }; r';
 # Show verbose output about remotes
 git_config_add alias.remotes 'remote -v';
 # View the current working tree status using the short format
@@ -118,7 +123,7 @@ git_config_add alias.s 'status -s';
 # View the current working tree status
 git_config_add alias.st 'status';
 # `git stats $n` log stats for a given number of commits
-git_config_add alias.stats '!l() { git log --stat -$1 --pretty=oneline --abbrev-commit; }; l';
+git_config_add alias.stats '!l() { git log --stat -${1} --pretty=oneline --abbrev-commit; }; l';
 # Show verbose output about tags
 git_config_add alias.tags 'tag -l';
 # `git unstage [file]` Unstages a file or the entire index
@@ -202,7 +207,7 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 
 # User
 
-git_config_add user.name "$NAME";
-git_config_add user.email "$EMAIL";
+git_config_add user.name "${NAME}";
+git_config_add user.email "${EMAIL}";
 
-[[ $? ]] && log_success "Done adding Git config values.";
+[[ $? ]] && log_success 'Done adding Git config values.';
