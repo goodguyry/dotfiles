@@ -189,11 +189,6 @@ git_config_add mergetool.keepbackup true;
 git_config_add pretty.nice '%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar';
 git_config_add push.default 'matching';
 
-# Remotes
-
-git_config_add remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*';
-git_config_add remote.origin.url 'https://github.com/goodguyry/dotfiles';
-
 # URL Shorthands
 
 git_config_add url.git://gist.github.com/.insteadof 'gist:';
