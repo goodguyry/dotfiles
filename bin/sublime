@@ -44,23 +44,23 @@ SUBLIME_PACKAGES="$HOME/Library/Application Support/Sublime Text 3/Packages";
 
 # Sublime Text settings
 set_file \
-  "$DOTFILES_DIRECTORY/sublime/Default (OSX).sublime-keymap" \
+  "sublime/Default (OSX).sublime-keymap" \
   "$SUBLIME_PACKAGES/User/Default (OSX).sublime-keymap";
 
 set_file \
-  "$DOTFILES_DIRECTORY/sublime/Markdown.sublime-settings" \
+  "sublime/Markdown.sublime-settings" \
   "$SUBLIME_PACKAGES/User/Markdown.sublime-settings";
 
 set_file \
-  "$DOTFILES_DIRECTORY/sublime/Preferences.sublime-settings" \
+  "sublime/Preferences.sublime-settings" \
   "$SUBLIME_PACKAGES/User/Preferences.sublime-settings";
 
 set_file \
-  "$DOTFILES_DIRECTORY/sublime/Ruby.sublime-settings" \
+  "sublime/Ruby.sublime-settings" \
   "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
 
 set_file \
-  "$DOTFILES_DIRECTORY/sublime/Shell-Unix-Generic.sublime-settings" \
+  "sublime/Shell-Unix-Generic.sublime-settings" \
   "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
 [[ $? ]] && log_success "Sublime settings done."
