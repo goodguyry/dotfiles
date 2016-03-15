@@ -1,69 +1,69 @@
 {
-	"always_show_minimap_viewport": true,
+  "always_show_minimap_viewport": true,
   "auto_complete_commit_on_tab": true,
-	"auto_complete_with_fields": true,
-	"bold_folder_labels": true,
-	"caret_style": "phase",
-	"color_scheme": "Packages/SpecialsBoard/Special Boards - Special Edition.tmtheme",
-	"draw_minimap_border": true,
+  "auto_complete_with_fields": true,
+  "bold_folder_labels": true,
+  "caret_style": "phase",
+  "color_scheme": "Packages/SpecialsBoard/Special Boards - Special Edition.tmtheme",
+  "draw_minimap_border": true,
   "drag_text": false,
-	"ensure_newline_at_eof_on_save": true,
-	"file_exclude_patterns":
-	[
-		"*.a",
-		"*.class",
-		"*.db",
-		"*.dll",
-		"*.dylib",
-		"*.exe",
-		"*.git",
-		"*.idb",
-		"*.lib",
-		"*.ncb",
-		"*.o",
-		"*.obj",
-		"*.pdb",
-		"*.psd",
-		"*.pyc",
-		"*.pyo",
-		"*.sdf",
-		"*.so",
-		"*.sublime-project",
-		"*.sublime-workspace",
-		"*.suo",
-		".DS_Store"
-	],
-	"folder_exclude_patterns":
-	[
-		".bundle",
-		".git",
-		".hg",
-		".sass-cache",
-		".svn",
-		"CVS",
-		"node_modules",
-		"tmp",
-		".vagrant",
-		"packer_cache"
-	],
-	"font_face": "Hack",
-	"font_size": 12.0,
-	"highlight_line": true,
-	"highlight_modified_tabs": true,
-	"ignored_packages":
-	[
-		"Markdown",
-		"Vintage"
-	],
-	"line_padding_bottom": 1,
-	"line_padding_top": 1,
-	"rulers":
-	[
-		120
-	],
-	"tab_size": 2,
-	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-	"word_wrap": true,
-	"wrap_width": 120
+  "ensure_newline_at_eof_on_save": true,
+  "file_exclude_patterns":
+  [
+    "*.a",
+    "*.class",
+    "*.db",
+    "*.dll",
+    "*.dylib",
+    "*.exe",
+    "*.git",
+    "*.idb",
+    "*.lib",
+    "*.ncb",
+    "*.o",
+    "*.obj",
+    "*.pdb",
+    "*.psd",
+    "*.pyc",
+    "*.pyo",
+    "*.sdf",
+    "*.so",
+    "*.sublime-project",
+    "*.sublime-workspace",
+    "*.suo",
+    ".DS_Store"
+  ],
+  "folder_exclude_patterns":
+  [
+    ".bundle",
+    ".git",
+    ".hg",
+    ".sass-cache",
+    ".svn",
+    "CVS",
+    "node_modules",
+    "tmp",
+    ".vagrant",
+    "packer_cache"
+  ],
+  "font_face": "Hack",
+  "font_size": 12.0,
+  "highlight_line": true,
+  "highlight_modified_tabs": true,
+  "ignored_packages":
+  [
+    "Markdown",
+    "Vintage"
+  ],
+  "line_padding_bottom": 1,
+  "line_padding_top": 1,
+  "rulers":
+  [
+    120
+  ],
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "trim_trailing_white_space_on_save": true,
+  "word_wrap": true,
+  "wrap_width": 120
 }

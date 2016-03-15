@@ -1,10 +1,10 @@
 {
-	"extensions":
-	[
+  "extensions":
+  [
     "gitconfig",
     "gitignore",
     "git_completion",
     "editorconfig",
     "inputrc"
-	]
+  ]
 }
