@@ -1,85 +1,88 @@
 # Navigation
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias ~="cd ~"
-alias -- -="cd -"
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias -- -='cd -'
 
 # Shortcuts
-alias db="cd ~/Dropbox"
-alias dl="cd ~/Downloads"
-alias dk="cd ~/Desktop"
-alias s="cd ~/Sites"
-alias g="git"
-alias j="jekyll"
-alias js="jekyll serve --watch"
-alias v="vagrant"
-alias o="open"
-alias oo="open ."
+alias db='cd ~/Dropbox'
+alias dl='cd ~/Downloads'
+alias dk='cd ~/Desktop'
+alias s='cd ~/Sites'
+alias g='git'
+alias j='jekyll'
+alias js='jekyll serve --watch'
+alias v='vagrant'
+alias o='open'
+alias oo='open .'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
-  colorflag="--color"
+  colorflag='--color'
 else # OS X `ls`
-  colorflag="-G"
+  colorflag='-G'
 fi
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="clear && exec $SHELL -l"
+alias reload='clear && exec $SHELL -l'
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
 # One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="lwp-request -m '$method'"
+for METHOD in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "${METHOD}"="lwp-request -m '${METHOD}'"
 done
 
 # Restart Apache
-alias apache="sudo apachectl restart"
+alias apache='sudo apachectl restart'
 
 # Flush Directory Service cache
-alias flush="sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;"
+alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;'
 
 
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade --all; brew cleanup; brew upgrade brew-cask; brew cask cleanup; npm install npm -g; npm update -g; rvm cleanup all; sudo gem update --system; sudo gem update'
+alias update='brew update; brew upgrade --all; brew cleanup; \
+  brew upgrade brew-cask; brew cask cleanup; \
+  npm install npm -g; npm update -g; \
+  rvm cleanup all; sudo gem update --system; sudo gem update'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
-alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
 
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 
 # Clean out Launchpad
 alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from apps; DELETE from groups WHERE title<>''; DELETE from items WHERE rowid>2;\"; Killall Dock"
 
 # Rebuild Launchpad
-alias lpreset="rm ~/Library/Application\ Support/Dock/*.db; killall Dock"
+alias lpreset='rm ~/Library/Application\ Support/Dock/*.db; killall Dock'
 
 
 
 # Show/hide hidden files in Finder
 # Admittedly easier with TotalFinder's shortcut, but keeping regardless
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias unshow="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+alias unshow='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 
 # Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias hidedesktop='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
+alias showdesktop='defaults write com.apple.finder CreateDesktop -bool true && killall Finder'
 
 # Disable Spotlight
-alias spotoff="sudo mdutil -a -i off"
+alias spotoff='sudo mdutil -a -i off'
 # Enable Spotlight
-alias spoton="sudo mdutil -a -i on"
+alias spoton='sudo mdutil -a -i on'
 
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-alias plistbuddy="/usr/libexec/PlistBuddy"
+alias plistbuddy='/usr/libexec/PlistBuddy'
 
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
@@ -88,12 +91,14 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)
-alias badge="tput bel"
+alias badge='tput bel'
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localip='ipconfig getifaddr en0'
+alias ips="ifconfig -a \ | \
+  grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' \ | \
+  sed -e 's/inet6* //'"
 
 # Mac address
-alias mac="ifconfig en1 | grep ether"
+alias mac='ifconfig en1 | grep ether'

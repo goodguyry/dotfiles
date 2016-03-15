@@ -6,16 +6,15 @@
 # **
 function p() {
   # Check for passed argument(s)
-  if [ $# -gt 0 ]; then
+  if [[ ${#} -gt 0 ]]; then
     # Change to the project root
-    cd "$HOME/Projects/$1";
-
+    cd "${HOME}/Projects/${1}";
     # Check for Sublime Text
-    if [[ $(type -P subl) ]]; then
+    if [[ "$(type -P subl)" ]]; then
       # Check for a passed subdirectory
-      if [[ $# -gt 1 ]]; then
+      if [[ ${#} -gt 1 ]]; then
         # Open the passed subdirectory in Sublime Text
-        subl $2;
+        subl "${2}";
       else
         # Open the project root in Sublime Text
         subl .;
@@ -31,7 +30,7 @@ function p() {
     fi;
   else
     # No arguments; change to $HOME/Projects
-    cd "$HOME/Projects";
+    cd "${HOME}/Projects";
   fi;
 }
 
@@ -45,7 +44,7 @@ function cdf() { # short for `cdfinder`
 
 # Create a new directory and enter it
 function mkd() {
-  mkdir -p "$@" && cd "$@";
+  mkdir -p "${@}" && cd "${@}";
 }
 
 
@@ -53,31 +52,31 @@ function mkd() {
 # Usage: `tmp ext` (creates file: temp.[date string].ext)
 # If no extension is passed, defaults to "md"
 function tmp() {
-  prefix="temp";
-  suffix=$(date +%Y%m%d%H%M%S);
-  ext="${1:-md}";
-  filename="$prefix.$suffix.$ext";
-  touch $filename;
+  local PREFIX='temp';
+  local SUFFIX="$(date +%Y%m%d%H%M%S)";
+  local EXT="${1:-md}";
+  local FILENAME="${PREFIX}.${SUFFIX}.${EXT}";
+  touch "${FILENAME}";
 }
 
 
 # Hide individual file(s)
 function hide() {
-  chflags hidden "$@"
+  chflags hidden "${@}";
 }
 
 
 # Unhide individual file(s)
 function unhide() {
-  chflags nohidden "$@"
+  chflags nohidden "${@}";
 }
 
 
 # Recursively delete files that match a certain pattern
 # (by default delete all `.DS_Store` files)
 cleanup() {
-  local q="${1:-*.DS_Store}";
-  find . -type f -name "$q" -ls -delete;
+  local Q="${1:-*.DS_Store}";
+  find . -type f -name "${Q}" -ls -delete;
 }
 
 
@@ -88,8 +87,8 @@ function fs() {
   else
     local arg=-sh;
   fi;
-  if [[ -n "$@" ]]; then
-    du $arg -- "$@";
+  if [[ -n "${@}" ]]; then
+    du $arg -- "${@}";
   else
     du $arg .[^.]* *;
   fi;
@@ -99,23 +98,23 @@ function fs() {
 # git branch ahead/behind another
 function gcheck() {
   # use first argument or master
-  original=${1-master};
+  local ORIGINAL=${1-master};
 
   # use the second argument or current branch if not given
-  current=`git branch | grep \* | sed s/\*\ //`;
-  compare=${2-$current};
+  local CURRENT="$(git branch | grep \* | sed s/\*\ //)";
+  local COMPARE=${2-$CURRENT};
 
   # run git rev-list and capture numbers returned
-  result=`git rev-list --left-right --count $original...$compare`;
+  local RESULT="$(git rev-list --left-right --count ${ORIGINAL}...${COMPARE})";
 
-  numbers=($result);
-  printf "\n";
+  local NUMBERS=(${RESULT});
+  printf '\n';
   # print numbers in a pretty message
-  if [ ${numbers[0]} -gt 0 ]; then
-    echo -e "$(tput setaf 136)$compare is ${numbers[0]} commits behind $original$(tput sgr0)";
+  if [ ${NUMBERS[0]} -gt 0 ]; then
+    echo -e "$(tput setaf 136)${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}$(tput sgr0)";
   fi;
-  if [ ${numbers[1]} -gt 0 ]; then
-    echo -e "$(tput setaf 64)$compare is ${numbers[1]} commits ahead of $original$(tput sgr0)";
+  if [ ${NUMBERS[1]} -gt 0 ]; then
+    echo -e "$(tput setaf 64)${COMPARE} is ${NUMBERS[1]} commits ahead of ${ORIGINAL}$(tput sgr0)";
   fi;
 }
 
@@ -124,78 +123,78 @@ function gcheck() {
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
   function diff() {
-    git diff --no-index --color-words "$@";
+    git diff --no-index --color-words "${@}";
   }
 fi;
 
 
 # Create a data URI from a file
 function datauri() {
-  local mimeType=$(file -b --mime-type "$1");
-  if [[ $mimeType == text/* ]]; then
-    mimeType="${mimeType};charset=utf-8";
+  local MIMETYPE="$(file -b --mime-type "${1}")";
+  if [[ "${MIMETYPE}" == text/* ]]; then
+    MIMETYPE="${MIMETYPE};charset=utf-8";
   fi;
-  echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy;
-  echo "The data URI is on the clipboard.";
+  echo "data:${MIMETYPE};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy;
+  echo 'The data URI is on the clipboard.';
 }
 
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
-  local tmpFile="${@%/}.tar";
-  tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
+  local TMPFILE="${@%/}.tar";
+  tar -cvf "${TMPFILE}" --exclude='.DS_Store' "${@}" || return 1;
 
   size=$(
-    stat -f"%z" "${tmpFile}" 2> /dev/null; # OS X `stat`
-    stat -c"%s" "${tmpFile}" 2> /dev/null; # GNU `stat`
+    stat -f"%z" "${TMPFILE}" 2> /dev/null; # OS X `stat`
+    stat -c"%s" "${TMPFILE}" 2> /dev/null; # GNU `stat`
   )
 
-  local cmd=""
+  local CMD=""
   if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
     # the .tar file is smaller than 50 MB and Zopfli is available; use it
-    cmd="zopfli";
+    CMD='zopfli';
   else
     if hash pigz 2> /dev/null; then
-      cmd="pigz";
+      CMD='pigz';
     else
-      cmd="gzip";
+      CMD='gzip';
     fi;
   fi;
 
-  echo "Compressing .tar using \`${cmd}\`…";
-  "${cmd}" -v "${tmpFile}" || return 1;
-  [ -f "${tmpFile}" ] && rm "${tmpFile}";
-  echo "${tmpFile}.gz created successfully.";
+  echo "Compressing .tar using \`${CMD}\`…";
+  "${CMD}" -v "${TMPFILE}" || return 1;
+  [ -f "${TMPFILE}" ] && rm "${TMPFILE}";
+  echo "${TMPFILE}.gz created successfully.";
 }
 
 
 # Compare original and gzipped file size
 function gz() {
-  local origsize=$(wc -c < "$1");
-  local gzipsize=$(gzip -c "$1" | wc -c);
-  local ratio=$(echo "$gzipsize * 100/ $origsize" | bc -l);
-  printf "orig: %d bytes\n" "$origsize";
-  printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
+  local ORIGSIZE=$(wc -c < "${1}");
+  local GZIPSIZE=$(gzip -c "${1}" | wc -c);
+  local RATIO=$(echo "${GZIPSIZE} * 100/ ${ORIGSIZE}" | bc -l);
+  printf "orig: %d bytes\n" "${ORIGSIZE}";
+  printf "gzip: %d bytes (%2.2f%%)\n" "${GZIPSIZE}" "${RATIO}";
 }
 
 
 # Start a PHP server from a directory, optionally specifying the port
 # (Requires PHP 5.4.0+.)
 function phpserver() {
-  local port="${1:-4000}";
-  local ip=$(ipconfig getifaddr en1);
-  sleep 1 && open "http://${ip}:${port}/" &
-  php -S "${ip}:${port}";
+  local PORT="${1:-4000}";
+  local IP="$(ipconfig getifaddr en1)";
+  sleep 1 && open "http://${IP}:${PORT}/" &
+  php -S "${IP}:${PORT}";
 }
 
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
-  local port="${1:-8000}";
-  sleep 1 && open "http://localhost:${port}/" &
+  local PORT="${1:-8000}";
+  sleep 1 && open "http://localhost:${PORT}/" &
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
+  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "${PORT}";
 }
 
 
@@ -226,49 +225,50 @@ EOT
 
 function stamp() {
   # Help text
-  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
     run_help;
     return;
   fi;
 
-  ERRORMSG="Error: A file or folder is required for timestamping";
-  STAMP=$(date +%Y%m%d_%H%M%S);
-  DUP=false;
-  SEP=${STAMP_SEPARATOR:="."}; # Default separator
+  local ERRORMSG='Error: A file or folder is required for timestamping';
+  local STAMP="$(date +%Y%m%d_%H%M%S)";
+  local DUP=false;
+  local CLIPBOARD=false;
+  local SEP=${STAMP_SEPARATOR:="."}; # Default separator
 
   # No args were given
-  if [ $# -lt 1 ]; then
+  if [[ ${#} -lt 1 ]]; then
     run_help;
     return;
   fi;
 
   # Test for flags
-  for opt in $@; do
-    case $opt in
+  for OPT in "${@}"; do
+    case "${OPT}" in
       -d) DUP=true ;;   # Duplicate the item before appending the timestamp
       -c) CLIPBOARD=true ;;   # Copy the timestamp to the clipboard
-      -s*) SEP="${opt##*-s=}" ;; # Set the separator between the itme name and the timestamp
-      *) ITEM=$opt ;;   # Set ITEM to the other argument
+      -s*) SEP="${OPT##*-s=}" ;; # Set the separator between the itme name and the timestamp
+      *) ITEM="${OPT}" ;;   # Set ITEM to the other argument
     esac
   done;
 
   # Copy the timestamp to the clipboard and exit
   if $CLIPBOARD; then
-    $(echo "$STAMP" | pbcopy);
-    echo "$STAMP copied to the clipboard.";
+    $(echo "${STAMP}" | pbcopy);
+    echo "${STAMP} copied to the clipboard.";
     # Exit if there's no file/directory passed
-    if [[ -z "$ITEM" ]]; then
+    if [[ -z "${ITEM}" ]]; then
       return;
     fi;
   fi;
 
   # Make sure ITEM is set before proceeding
-  if [[ -z "$ITEM" ]]; then
+  if [[ -z "${ITEM}" ]]; then
     run_help;
     return;
   fi;
 
-  if [ -d "$ITEM" ]; then
+  if [[ -d "${ITEM}" ]]; then
     # Split off the trailing slash (if it's there)
     NAME="${ITEM%/*}";
     # Clear the extension
@@ -280,12 +280,12 @@ function stamp() {
     EXT=".${ITEM##*.}";
   fi
 
-  if [ $DUP == true ]; then
+  if $DUP; then
     # Duplicate the item with timestamp
-    cp -r "$NAME"{,"$SEP$STAMP"}"$EXT";
+    cp -r "${NAME}"{,"${SEP}${STAMP}"}"${EXT}";
   else
     # Timestamp the item without duplication
-    mv "$NAME"{,"$SEP$STAMP"}"$EXT";
+    mv "${NAME}"{,"${SEP}${STAMP}"}"${EXT}";
   fi;
 
   unset SEP;
