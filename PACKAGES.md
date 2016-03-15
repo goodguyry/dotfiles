@@ -95,3 +95,19 @@
 - [QLStephen](https://github.com/whomwah/qlstephen)
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
 - [WebP](https://github.com/dchest/webp-quicklook)
+
+# Sublime Text 3 packages
+
+- [CSS3](https://github.com/y0ssar1an/CSS3)
+- [Dayle Rees Colour Schemes](https://github.com/daylerees/colour-schemes)
+- [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
+- [editorconfig](https://github.com/sindresorhus/editorconfig-sublime)
+- [FileDiffs](https://github.com/colinta/SublimeFileDiffs)
+- [Git](https://github.com/kemayo/sublime-text-git)
+- [GitGutter](https://github.com/jisaacks/GitGutter)
+- [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
+- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview) (Manual)
+- [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
+- [Package Control](https://packagecontrol.io/installation) (Manual)
+- [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
+- [Syntax Highlighting for Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
