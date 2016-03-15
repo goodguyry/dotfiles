@@ -205,12 +205,7 @@ function set_files() {
     set_file "sublime/Ruby.sublime-settings"                "$SUBLIME_PACKAGES/User/Ruby.sublime-settings";
     set_file "sublime/Shell-Unix-Generic.sublime-settings"  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
-    if [[ ! -d "$SUBLIME_PACKAGES/specialsboard" ]]; then
-      log_header "Cloning the Specials Board Sublime Text theme..."
-      git clone https://github.com/lamotta/specialsboard.git "$SUBLIME_PACKAGES";
-    else
-      log_header "Specials Board Sublime Text theme already installed.";
-    fi;
+    source bin/sublime;
   fi;
 
   # Download the Solarized Vim theme
