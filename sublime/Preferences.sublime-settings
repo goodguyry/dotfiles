@@ -1,10 +1,12 @@
 {
-	"auto_complete_commit_on_tab": true,
+	"always_show_minimap_viewport": true,
+  "auto_complete_commit_on_tab": true,
 	"auto_complete_with_fields": true,
 	"bold_folder_labels": true,
 	"caret_style": "phase",
 	"color_scheme": "Packages/SpecialsBoard/Special Boards - Special Edition.tmtheme",
-	"drag_text": false,
+	"draw_minimap_border": true,
+  "drag_text": false,
 	"ensure_newline_at_eof_on_save": true,
 	"file_exclude_patterns":
 	[
