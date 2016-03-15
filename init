@@ -106,7 +106,7 @@ mkdirs "$HOME/.bin";
 
 
 # Conditionally install Command Line Tools, Homebrew and Git
-if [[ $NO_PACKAGES ]]; then
+if [[ $SERVER ]]; then
   log_header "Skipping Homebrew and Git installations.";
 else
   # Before relying on Homebrew, check that packages can be compiled
