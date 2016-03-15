@@ -8,7 +8,7 @@ declare -a files=(
   $HOME/.nvm/nvm.sh # Load NVM
   $HOME/.bash_config # Configuration
   $HOME/.aliases # Aliases
-  $HOME/.functions/* # Functions
+  $HOME/.functions # Functions
   $HOME/.prompt # Custom bash prompt
   $HOME/.paths # Path modifications
   $HOME/.dotfiles.local # Local and private settings not under version control (e.g. git name/email, package lists)
