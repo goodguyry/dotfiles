@@ -33,7 +33,7 @@ nvm alias default stable;
 # Install packages globally and quietly
 log_header 'Installing Node packages...';
 NPM_LIST='bower browser-sync git-open grunt-cli grunt-init jshint';
-npm install "${NPM_LIST}" --global --quiet;
+npm install ${NPM_LIST} --global --quiet;
 
 
 [[ $? ]] && log_success 'NPM packages installed.';

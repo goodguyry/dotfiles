@@ -29,9 +29,9 @@ rvm cleanup all;
 # Install Gems
 log_header 'Installing Gems...';
 GEM_LIST='bundler jekyll rouge sass';
-gem install "${GEM_LIST}" --no-document;
+gem install ${GEM_LIST} --no-document;
 
 gem cleanup;
 
 
-[[ $? ]] && log_success 'Gems installed.";
+[[ $? ]] && log_success 'Gems installed.';
