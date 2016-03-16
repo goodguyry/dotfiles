@@ -4,7 +4,6 @@
 
 
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/lib/utils";
 
 
 # Ask for the administrator password upfront
