@@ -241,7 +241,7 @@ fi;
 
 
 # Add git config settings
-source bin/gitconfig;
+source scripts/gitconfig;
 
 
 # Source bashrc to make sure the environment is set before moving on
@@ -253,13 +253,13 @@ if [[ $NO_PACKAGES ]]; then
   log_header 'Skipping package installation...';
 else
   # Install Homebrew packages
-  source bin/brews;
+  source scripts/brews;
   # Install Homebrew packages
-  source bin/nvm;
+  source scripts/nvm;
   # Install Homebrew packages
-  source bin/rvm;
+  source scripts/rvm;
   # Set up Sublime Text
-  source bin/sublime;
+  source scripts/sublime;
 
   # Change to bash 4 installed by bin/brews
   if [[ ! "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then
@@ -284,7 +284,7 @@ if [[ ! ${SERVER} ]]; then
   if [[ "${SET_OSX}" == 'n' ]]; then
     log_header 'Skipped OS X settings update.';
   else
-    source bin/osx;
+    source scripts/osx;
   fi;
 fi;
 
