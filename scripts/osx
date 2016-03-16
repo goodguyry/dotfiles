@@ -476,19 +476,6 @@ defaults write org.m0k.transmission WarningLegal -bool false;
 
 
 #==================================================
-# Total Finder.app
-
-# Enable the Copy Path contextual menu item
-defaults write com.apple.finder TotalFinderCopyPathMenuEnabled -bool true;
-
-# Enable the Cut/Paste contexual menu items
-defaults write com.apple.finder TotalFinderCutAndPasteShowContextMenuButtons -bool true;
-
-# Keep the default Finder icon
-defaults write com.apple.finder TotalFinderDontCustomizeDockIcon -bool true;
-
-
-#==================================================
 # Kill affected applications
 
 echo -e "\a\a\a";
