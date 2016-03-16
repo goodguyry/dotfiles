@@ -5,6 +5,13 @@
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 
 
+# Set Sublime Text settings directory
+SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
+
+# Create the directory path if it doesn't exist
+[[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
+
+
 # Clone a Sublime Text 3 package repo to Packages directory
 function add_sublime_package() {
   local REPO="${1}"
@@ -38,13 +45,6 @@ add_sublime_package 'git@github.com:P233/Syntax-highlighting-for-Sass.git'      
 log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
-
-
-# Set Sublime Text settings directory
-SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
-
-# Create the directory path if it doesn't exist
-[[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
 
 
 # Sublime Text settings
