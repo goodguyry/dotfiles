@@ -146,21 +146,34 @@ git_config_add branch.master.remote 'origin';
 
 # Colors
 
+# Branch
 git_config_add color.branch.current 'green reverse';
 git_config_add color.branch.local 'green';
+git_config_add color.branch.plain 'normal';
 git_config_add color.branch.remote 'yellow';
+git_config_add color.branch.upstream 'yellow';
+# Diff highlight
 # http://theunixtoolbox.com/git-diff-highlight/
 git_config_add color.diff-highlight.newhighlight 'green bold 22';
 git_config_add color.diff-highlight.newnormal green;
 git_config_add color.diff-highlight.oldhighlight 'red bold 52';
 git_config_add color.diff-highlight.oldnormal 'red';
-git_config_add color.diff.frag 'magenta';
-git_config_add color.diff.meta 'cyan';
+# Diff
+git_config_add color.diff.commit 'yellow';
+git_config_add color.diff.frag 'cyan';
+git_config_add color.diff.func 'normal';
+git_config_add color.diff.meta 'yellow';
 git_config_add color.diff.new 'green';
 git_config_add color.diff.old 'red';
+# Status
 git_config_add color.status.added 'green';
+git_config_add color.status.branch 'bold';
 git_config_add color.status.changed 'yellow';
+git_config_add color.status.header 'normal';
+git_config_add color.status.nobranch 'red reverse';
+git_config_add color.status.unmerged 'blue';
 git_config_add color.status.untracked 'red';
+
 # Use colors in Git commands that are capable of colored output when outputting to the terminal
 git_config_add color.ui auto;
 
