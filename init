@@ -67,6 +67,7 @@ function set_file() {
   local SRC="${DOTFILES_DIRECTORY}/${1}";
   local DEST="$2";
   if [[ $COPY_FILES ]]; then
+    # Copy with rsync
     rsync -avz --quiet "${SRC}" "${DEST}";
   else
     # Force create/replace the symlink.
@@ -114,12 +115,14 @@ else
   # Before relying on Homebrew, check that packages can be compiled
   if [[ ! "$(type -P gcc)" ]]; then
     log_error 'The XCode Command Line Tools must be installed first.';
+    # Prompt for Command Line Tools install
     xcode-select --install;
   fi;
 
   # Check for Homebrew
   if [[ ! "$(type -P brew)" ]]; then
     log_header 'Installing Homebrew...';
+    # Install Homebrew
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
     brew doctor;
     [[ $? ]] && log_success 'Homebrew installed.';
@@ -130,6 +133,7 @@ else
     log_header 'Updating Homebrew...';
     brew update;
     log_header 'Installing Git...';
+    # Install Git with Homebrew
     brew install git;
     ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
   fi;
