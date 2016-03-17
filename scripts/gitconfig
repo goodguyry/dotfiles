@@ -69,6 +69,7 @@ function git_config_add() {
     log_warning "Replacing "${1}"...";
     git config --global --replace-all "${1}" "${2}";
   else
+    log_success "Adding "${1}"...";
     git config --global "${1}" "${2}";
   fi;
 }
