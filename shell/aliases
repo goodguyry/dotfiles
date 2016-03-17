@@ -16,6 +16,7 @@ alias js='jekyll serve --watch'
 alias v='vagrant'
 alias o='open'
 alias oo='open .'
+alias list="ls -l"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
