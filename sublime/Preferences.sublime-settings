@@ -5,8 +5,8 @@
   "bold_folder_labels": true,
   "caret_style": "phase",
   "color_scheme": "Packages/SpecialsBoard/Special Boards - Special Edition.tmtheme",
-  "draw_minimap_border": true,
   "drag_text": false,
+  "draw_minimap_border": true,
   "ensure_newline_at_eof_on_save": true,
   "file_exclude_patterns":
   [
