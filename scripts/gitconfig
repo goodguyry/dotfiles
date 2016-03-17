@@ -77,19 +77,23 @@ log_header 'Adding Git config settings...';
 
 # Aliases
 
+# Quick amend last commit
+git_config_add alias.amend '!git commit --amend';
 # Show verbose output about branches
 git_config_add alias.branches 'branch -a';
 # Clone a repository including all submodules
-git_config_add alias.c 'clone --recursive';
+git_config_add alias.c '!git commit -v';
 # Commit all changes
 git_config_add alias.ca '!git add -A && git commit -av';
 # Checkout a branch
-git_config_add alias.co 'checkout';
+git_config_add alias.co checkout;
 # Credit an author on the latest commit
 git_config_add alias.credit '!f() { git commit --amend --author "${1} <${2}>" -C HEAD; }; f';
 # Show the diff between the latest commit and the current state
 git_config_add alias.d \
   '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
+# Print the status of each branch
+git_config_add alias.dashboard '!git branch -vv';
 # `git db $branch` shows a histogram of the diff between the current branch and `$branch`
 git_config_add alias.db '!db() { git diff ${1} | diffstat; }; db';
 # `git di $number` shows the diff between the state `$number` revisions ago and the current state
@@ -126,6 +130,8 @@ git_config_add alias.st 'status';
 git_config_add alias.stats '!l() { git log --stat -${1} --pretty=oneline --abbrev-commit; }; l';
 # Show verbose output about tags
 git_config_add alias.tags 'tag -l';
+# Print the tracking branch, if any
+git_config_add alias.tracking "!git for-each-ref --format='%(upstream:short)' \"$(git symbolic-ref -q HEAD)\"";
 # `git unstage [file]` Unstages a file or the entire index
 git_config_add alias.unstage 'reset HEAD --';
 
