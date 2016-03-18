@@ -16,7 +16,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 COMPUTERNAME="$(sudo systemsetup -getcomputername)";
 # Present computer name and ask if it should be changed
 printf "\n";
-log_warning "Current '${COMPUTERNAME}'";
+log_warning "Current ${COMPUTERNAME}";
 printf "Would you like to change it? [y/N] ";
 read CONTINUE;
 printf "\n";
