@@ -1,3 +1,12 @@
+## Package managers
+
+- [Homebrew](http://brew.sh)
+- [RVM](https://rvm.io)
+  - Ruby 2.3.0
+- [NVM](https://github.com/creationix/nvm)
+  - Latest stable Node
+  - Latest stable NPM
+
 ## Homebrew
 
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
@@ -25,6 +34,13 @@
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Webkit2png](http://www.paulhammond.org/webkit2png/)
 
+## Gems
+
+- [Bundler](http://bundler.io/)
+- [Jekyll](http://jekyllrb.com/)
+- [Rouge](http://rouge.jneen.net/)
+- [Sass](http://sass-lang.com/)
+
 ## NPM
 
 - [Bower](http://bower.io/)
@@ -33,21 +49,6 @@
 - [Grunt-init](http://gruntjs.com/project-scaffolding)
 - [Grunt](http://gruntjs.com/)
 - [JSHint](http://jshint.com/)
-
-## Gems
-
-- [Bundler](http://bundler.io/)
-- [Jekyll](http://jekyllrb.com/)
-- [Rouge](http://rouge.jneen.net/)
-- [Sass](http://sass-lang.com/)
-
-## RVM
-
-- Ruby 2.0.0-p353
-
-## NVM
-
-- Latest stable Node
 
 ## Native applications
 
@@ -106,8 +107,8 @@
 - [Git](https://github.com/kemayo/sublime-text-git)
 - [GitGutter](https://github.com/jisaacks/GitGutter)
 - [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
-- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview) (Manual)
+- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview) (Manual install)
 - [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
-- [Package Control](https://packagecontrol.io/installation) (Manual)
+- [Package Control](https://packagecontrol.io/installation) (Manual install)
 - [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
 - [Syntax Highlighting for Sass](https://github.com/P233/Syntax-highlighting-for-Sass)

@@ -1,0 +1,39 @@
+#!/bin/bash
+# Install Node and NPM via NVM
+# https://github.com/creationix/nvm
+
+
+# Check for an existing NVM install location
+# The `type` check isn't working for `nvm`
+NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
+
+# Install NVM
+if [[ ! -d "${NVM_LOC}" ]]; then
+  log_header 'Installing NVM...';
+  git clone https://github.com/creationix/nvm.git "${NVM_LOC}";
+fi;
+
+
+# Make sure NVM is up-to-date
+cd "${NVM_LOC}" && git checkout `git describe --abbrev=0 --tags`; cd -;
+
+# Source nvm
+source "${NVM_LOC}/nvm.sh";
+
+
+# Install NPM
+log_header 'Installing NPM...';
+npm install -g npm@latest;
+
+# Install and use latest stable version of Node
+nvm install stable;
+nvm alias default stable;
+
+
+# Install packages globally and quietly
+log_header 'Installing Node packages...';
+NPM_LIST='bower browser-sync git-open grunt-cli grunt-init jshint';
+npm install ${NPM_LIST} --global --quiet;
+
+
+[[ $? ]] && log_success 'NPM packages installed.';
