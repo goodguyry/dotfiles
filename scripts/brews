@@ -94,6 +94,7 @@ brew cask install firefoxdeveloperedition;
 brew cask install gawker;
 brew cask install google-chrome-canary;
 brew cask install google-chrome;
+brew cask install handbrake;
 brew cask install imageoptim;
 brew cask install macdown;
 brew cask install nvalt;

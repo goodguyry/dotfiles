@@ -62,6 +62,7 @@
 - [Gawker](http://gawker.sourceforge.net/Gawker.html)
 - [Google Chrome Canary](https://www.google.com/chrome/browser/canary.html)
 - [Google Chrome](http://www.google.com/chrome/)
+- [Handbrake](http://handbrake.fr)
 - [ImageOptim](https://imageoptim.com/)
 - [MacDown](http://macdown.uranusjr.com/)
 - [nvALT](http://brettterpstra.com/projects/nvalt/)
