@@ -106,6 +106,7 @@ brew cask install opera;
 brew cask install sequel-pro;
 brew cask install sublime-text3;
 brew cask install suspicious-package;
+brew cask install textexpander;
 brew cask install torbrowser;
 brew cask install transmission;
 brew cask install transmit;

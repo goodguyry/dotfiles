@@ -74,6 +74,7 @@
 - [SequelPro](http://www.sequelpro.com/)
 - [Sublime Text 3](http://www.sublimetext.com/3)
 - [Suspicious Package](http://www.mothersruin.com/software/SuspiciousPackage/)
+- [TextExpander](https://smilesoftware.com/textexpander)
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
