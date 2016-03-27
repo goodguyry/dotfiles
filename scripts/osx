@@ -256,12 +256,11 @@ fi;
 # com.apple.AppleMultitouchTrackpad.plist
 # com.apple.driver.AppleBluetoothMultitouch.trackpad
 
-# Trackpad: enable tap to click for this user and for the login screen
+# Enable tap to click and dragging without DragLock
+# (System Preferences > Accessibility > Mouse & Trackpad > Trackpad options...)
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 defaults write com.apple.AppleMultitouchTrackpad.plist Clicking -bool true;
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;
-
-# Trackpad: Set up dragging without draglock ** doesn't currently work**
 defaults write com.apple.AppleMultitouchTrackpad.plist DragLock -bool false;
 defaults write com.apple.AppleMultitouchTrackpad.plist Dragging -bool true;
 
