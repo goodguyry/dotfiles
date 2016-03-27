@@ -254,38 +254,51 @@ fi;
 #==================================================
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input
 
-# Trackpad: enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true;
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;
+# List of plist files
+declare -a TRACKPAD_PLISTS=(
+  com.apple.AppleMultitouchTrackpad.plist
+  com.apple.driver.AppleBluetoothMultitouch.trackpad
+);
 
-# Trackpad: Set up dragging without draglock ** doesn't currently work**
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad DragLock -bool false;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool true;
+# Enable tap to click and dragging without DragLock
+# (System Preferences > Accessibility > Mouse & Trackpad > Trackpad options...)
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 
-# Trackpad: Set up swipe gestures
+# Enable tap to click and dragging without DragLock for builtin and Bluetooth trackpads
+for TRACKPAD_PLIST in ${TRACKPAD_PLIST_PLISTS[*]}; do
+  defaults write "${TRACKPAD_PLIST}" Clicking -bool true;
+  defaults write "${TRACKPAD_PLIST}" DragLock -bool false;
+  defaults write "${TRACKPAD_PLIST}" Dragging -bool true;
+done;
+
+# Set up global swipe gestures
 defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true;
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad HIDScrollZoomModifierMask -int 0;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFiveFingerPinchGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerHorizSwipeGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerPinchGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadFourFingerVertSwipeGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadHandResting -bool true;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadHorizScroll -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadMomentumScroll -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadPinch -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRotate -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadScroll -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDoubleTapGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture -int 2;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerDoubleTapGesture -int 1;
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 3;
+
+# Set up swipe gestures for builtin and Bluetooth trackpads
+for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
+  defaults write "${TRACKPAD_PLIST}" HIDScrollZoomModifierMask -int 0;
+  defaults write "${TRACKPAD_PLIST}" TrackpadCornerSecondaryClick -int 0;
+  defaults write "${TRACKPAD_PLIST}" TrackpadFiveFingerPinchGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadFourFingerHorizSwipeGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadFourFingerPinchGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadFourFingerVertSwipeGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadHandResting -bool true;
+  defaults write "${TRACKPAD_PLIST}" TrackpadHorizScroll -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadMomentumScroll -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadPinch -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadRightClick -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadRotate -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadScroll -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadThreeFingerDoubleTapGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadThreeFingerDrag -bool false;
+  defaults write "${TRACKPAD_PLIST}" TrackpadThreeFingerHorizSwipeGesture -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadThreeFingerTapGesture -int 2;
+  defaults write "${TRACKPAD_PLIST}" TrackpadThreeFingerVertSwipeGesture -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadTwoFingerDoubleTapGesture -int 1;
+  defaults write "${TRACKPAD_PLIST}" TrackpadTwoFingerFromRightEdgeSwipeGesture -int 3;
+done;
 
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent 'Apple Bitpool Min (editable)' -int 40;
