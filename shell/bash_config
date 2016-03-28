@@ -10,6 +10,7 @@ export MANPAGER='less -X';
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
+export HISTCONTROL=ignorespace;
 
 # Make some commands not show up in history
 export HISTIGNORE='cd*:cd -:pwd;exit:date:* --help:ssh *:open*:oo*';
