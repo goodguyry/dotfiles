@@ -68,5 +68,9 @@ set_file \
   'sublime/Shell-Unix-Generic.sublime-settings' \
   "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
 
+set_file \
+  'sublime/Git.sublime-settings' \
+  "$SUBLIME_PACKAGES/User/Git.sublime-settings";
+
 
 [[ $? ]] && log_success 'Sublime settings done.'
