@@ -60,10 +60,10 @@ Used to add extraneous functionality (aliases, functions, prompts, etc.) without
 The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
 
 ```
-./scripts/osx
+./scripts/macos
 ```
 
-Take time to read through the [osx file](http://github.com/goodguyry/dotfiles/blob/master/scripts/osx) to know what settings and applications will be impacted before executing the file.
+Take time to read through the [macos file](http://github.com/goodguyry/dotfiles/blob/master/scripts/macos) to know what settings and applications will be impacted before executing the file.
 
 
 ## Acknowledgements

@@ -285,7 +285,7 @@ if [[ ! ${SERVER} ]]; then
   if [[ "${SET_OSX}" == 'n' ]]; then
     log_header 'Skipped OS X settings update.';
   else
-    source scripts/osx;
+    source scripts/macos;
   fi;
 fi;
 
