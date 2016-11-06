@@ -50,6 +50,8 @@
 ## Native applications
 
 - [aText](https://www.trankynam.com/atext/)
+- [Caffeine](http://lightheadsw.com/caffeine/)
+- [ClamXav](https://www.clamxav.com/)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
 - [Clipmenu](http://www.clipmenu.com/)
 - [Dropbox](http://www.dropbox.com)

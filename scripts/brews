@@ -63,6 +63,8 @@ export HOMEBREW_CASK_OPTS='--appdir=/Applications';
 
 # Native apps
 brew cask install atext;
+brew cask install caffeine;
+brew cask install clamxav;
 brew cask install chronosync;
 brew cask install clipmenu;
 brew cask install dropbox;
