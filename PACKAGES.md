@@ -31,7 +31,6 @@
 
 ## Gems
 
-- [Bundler](http://bundler.io/)
 - [Jekyll](http://jekyllrb.com/)
 - [Rouge](http://rouge.jneen.net/)
 - [Sass](http://sass-lang.com/)
