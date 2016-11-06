@@ -67,11 +67,6 @@ fi;
 #   source $(brew --prefix)/etc/bash_completion.d/git-completion.bash;
 # fi;
 
-# Git-flow tab completion
-# if [ -f $(brew --prefix)/etc/bash_completion.d/git-flow-completion.bash ]; then
-#   source $(brew --prefix)/etc/bash_completion.d/git-flow-completion.bash;
-# fi;
-
 # If possible, add tab completion for Homebrew
 # if [ -r $(brew --repository)/Library/Contributions/brew_bash_completion.sh ]; then
 #   source $(brew --repository)/Library/Contributions/brew_bash_completion.sh;
