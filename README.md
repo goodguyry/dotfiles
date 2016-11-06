@@ -2,7 +2,7 @@
 
 Dev-related packages and shell configuration. Very exciting.
 
-*Here is the [master list of installed packages](https://github.com/goodguyry/dotfiles/blob/master/PACKAGES.md).*
+*Here is the [master list of installed packages](PACKAGES.md).*
 
 
 
@@ -63,7 +63,7 @@ The setup process will prompt to apply the OS X defaults. They can also be appli
 ./scripts/macos
 ```
 
-Take time to read through the [macos file](http://github.com/goodguyry/dotfiles/blob/master/scripts/macos) to know what settings and applications will be impacted before executing the file.
+Take time to read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file.
 
 
 ## Acknowledgements
