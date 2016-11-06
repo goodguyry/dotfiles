@@ -2,6 +2,12 @@
 #
 # Install Mac App Store purchases
 
+
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+
 # Check for `mas`
 # https://github.com/mas-cli/mas
 if [[ ! "$(type -P mas)" ]]; then

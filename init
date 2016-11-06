@@ -5,25 +5,9 @@
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
-
-# Logging helpers
-# By Necolas Gallagher
-# https://github.com/necolas/dotfiles/blob/master/lib/utils
-log_header() {
-  printf "\n$(tput setaf 7)%s$(tput sgr0)\n" "${@}"
-}
-
-log_success() {
-  printf "$(tput setaf 64)✓ %s$(tput sgr0)\n" "${@}"
-}
-
-log_error() {
-  printf "$(tput setaf 1)x %s$(tput sgr0)\n" "${@}"
-}
-
-log_warning() {
-  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${@}"
-}
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
 # Help text
@@ -112,21 +96,7 @@ mkdirs "${HOME}/.bin";
 if [[ ${SERVER} ]]; then
   log_header 'Skipping Homebrew and Git installations.';
 else
-  # Before relying on Homebrew, check that packages can be compiled
-  if [[ ! "$(type -P gcc)" ]]; then
-    log_error 'The XCode Command Line Tools must be installed first.';
-    # Prompt for Command Line Tools install
-    xcode-select --install;
-  fi;
-
-  # Check for Homebrew
-  if [[ ! "$(type -P brew)" ]]; then
-    log_header 'Installing Homebrew...';
-    # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-    brew doctor;
-    [[ $? ]] && log_success 'Homebrew installed.';
-  fi;
+  source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
   # Install Git from Homebrew
   log_header 'Updating Homebrew...';

@@ -3,7 +3,9 @@
 # A lot of these were borrowed from http://mths.be/osx
 
 
+# Source utils
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
 # Ask for the administrator password upfront
