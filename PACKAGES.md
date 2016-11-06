@@ -41,9 +41,12 @@
 - [Bower](http://bower.io/)
 - [Browsersync](http://www.browsersync.io/)
 - [git-open](https://github.com/paulirish/git-open)
-- [Grunt-init](http://gruntjs.com/project-scaffolding)
 - [Grunt](http://gruntjs.com/)
+- [Grunt-init](http://gruntjs.com/project-scaffolding)
+- [Gulp](http://gulpjs.com/)
 - [JSHint](http://jshint.com/)
+- [Uglify](http://lisperator.net/uglifyjs/)
+- [Webpack](https://webpack.github.io/)
 
 ## Native applications
 
