@@ -255,6 +255,8 @@ if [[ $NO_PACKAGES ]]; then
 else
   # Install Homebrew packages
   source scripts/brews;
+  # Install App Store apps
+  source scripts/appstore;
   # Install Homebrew packages
   source scripts/nvm;
   # Install Homebrew packages
