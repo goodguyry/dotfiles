@@ -69,7 +69,6 @@ alias lpreset='rm ~/Library/Application\ Support/Dock/*.db; killall Dock'
 
 
 # Show/hide hidden files in Finder
-# Admittedly easier with TotalFinder's shortcut, but keeping regardless
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
 alias unshow='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 

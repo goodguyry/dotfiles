@@ -18,7 +18,7 @@ function add_sublime_package() {
   local PACKAGE="${2}";
   if [[ ! -d "${SUBLIME_PACKAGES}/${PACKAGE}" ]]; then
     log_header "Cloning ${PACKAGE}";
-    git clone "${REPO}" "${SUBLIME_PACKAGES}/${PACKAGE}"  &> /dev/null;
+    git clone "https://github.com/${REPO}" "${SUBLIME_PACKAGES}/${PACKAGE}"  &> /dev/null;
     [[ $? ]] && log_success "${PACKAGE} installed."
   else
     log_header "${PACKAGE} already exists...";
@@ -29,18 +29,18 @@ function add_sublime_package() {
 # Clone packages
 log_header 'Adding Sublime Text packages...';
 
-add_sublime_package 'git@github.com:daylerees/colour-schemes.git'                   'ColourSchemes';
-add_sublime_package 'git@github.com:y0ssar1an/CSS3.git'                             'CSS3';
-add_sublime_package 'git@github.com:spadgos/sublime-jsdocs.git'                     'DocBlockr';
-add_sublime_package 'git@github.com:sindresorhus/editorconfig-sublime.git'          'EditorConfig';
-add_sublime_package 'git@github.com:colinta/SublimeFileDiffs.git'                   'FileDiffs';
-add_sublime_package 'git@github.com:kemayo/sublime-text-git.git'                    'Git';
-add_sublime_package 'git@github.com:jisaacks/GitGutter.git'                         'GitGutter';
-add_sublime_package 'git@github.com:siteleaf/liquid-syntax-mode.git'                'LiquidSyntax';
-add_sublime_package 'git@github.com:braver/MarkdownHighlighting.git'                'MarkdownHighlighting';
-add_sublime_package 'git@github.com:titoBouzout/SideBarEnhancements.git'            'SideBarEnhancements';
-add_sublime_package 'https://github.com/lamotta/specialsboard.git'                  'SpecialsBoard';
-add_sublime_package 'git@github.com:P233/Syntax-highlighting-for-Sass.git'          'SyntaxHighlightingForSass';
+add_sublime_package 'daylerees/colour-schemes.git'                   'ColourSchemes';
+add_sublime_package 'y0ssar1an/CSS3.git'                             'CSS3';
+add_sublime_package 'spadgos/sublime-jsdocs.git'                     'DocBlockr';
+add_sublime_package 'sindresorhus/editorconfig-sublime.git'          'EditorConfig';
+add_sublime_package 'colinta/SublimeFileDiffs.git'                   'FileDiffs';
+add_sublime_package 'kemayo/sublime-text-git.git'                    'Git';
+add_sublime_package 'jisaacks/GitGutter.git'                         'GitGutter';
+add_sublime_package 'siteleaf/liquid-syntax-mode.git'                'LiquidSyntax';
+add_sublime_package 'braver/MarkdownHighlighting.git'                'MarkdownHighlighting';
+add_sublime_package 'titoBouzout/SideBarEnhancements.git'            'SideBarEnhancements';
+add_sublime_package 'lamotta/specialsboard.git'                      'SpecialsBoard';
+add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'          'SyntaxHighlightingForSass';
 
 log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'

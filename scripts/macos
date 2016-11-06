@@ -32,6 +32,8 @@ if [[ "${CONTINUE}" =~ ^[Yy]$ || "${CONTINUE}" != '' ]]; then
   echo "${CNAME} set.";
 fi
 
+# Switch to dark mode
+[[ "$(type -P dark-mode)" ]] && dark-mode
 
 #==================================================
 # Dock

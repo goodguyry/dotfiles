@@ -26,13 +26,13 @@ log_header 'Installing NPM...';
 npm install -g npm@latest;
 
 # Install and use latest stable version of Node
-nvm install stable;
-nvm alias default stable;
+nvm install node;
+nvm alias default node;
 
 
 # Install packages globally and quietly
 log_header 'Installing Node packages...';
-NPM_LIST='bower browser-sync git-open grunt-cli grunt-init jshint';
+NPM_LIST='bower browser-sync git-open grunt-cli grunt-init gulp-cli jshint uglify-js webpack';
 npm install ${NPM_LIST} --global --quiet;
 
 
