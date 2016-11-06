@@ -95,6 +95,22 @@
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
 - [WebP](https://github.com/dchest/webp-quicklook)
 
+# Mac App Store purchases
+
+- [1Password](https://itunes.apple.com/us/app/2do/id443987910)
+- [2Do](https://itunes.apple.com/us/app/2do/id477670270)
+- [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
+- [Byword](https://itunes.apple.com/us/app/2do/id420212497)
+- [CodeBox](https://itunes.apple.com/us/app/2do/id412536790)
+- [Duo](https://itunes.apple.com/us/app/2do/id777886035)
+- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
+- [Reeder](https://itunes.apple.com/us/app/2do/id880001334)
+- [Slack](https://itunes.apple.com/us/app/2do/id803453959)
+- [SnippetsLab](https://itunes.apple.com/us/app/2do/id1006087419)
+- [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
+- [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
+
+
 # Sublime Text 3 packages
 
 - [CSS3](https://github.com/y0ssar1an/CSS3)
