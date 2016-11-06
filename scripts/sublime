@@ -18,7 +18,7 @@ function add_sublime_package() {
   local PACKAGE="${2}";
   if [[ ! -d "${SUBLIME_PACKAGES}/${PACKAGE}" ]]; then
     log_header "Cloning ${PACKAGE}";
-    git clone "git@github.com:${REPO}" "${SUBLIME_PACKAGES}/${PACKAGE}"  &> /dev/null;
+    git clone "https://github.com/${REPO}" "${SUBLIME_PACKAGES}/${PACKAGE}"  &> /dev/null;
     [[ $? ]] && log_success "${PACKAGE} installed."
   else
     log_header "${PACKAGE} already exists...";
