@@ -128,15 +128,12 @@ else
     [[ $? ]] && log_success 'Homebrew installed.';
   fi;
 
-  # Check for git
-  if [[ ! "$(type -P git)" ]]; then
-    log_header 'Updating Homebrew...';
-    brew update;
-    log_header 'Installing Git...';
-    # Install Git with Homebrew
-    brew install git;
-    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
-  fi;
+  # Install Git from Homebrew
+  log_header 'Updating Homebrew...';
+  brew update;
+  log_header 'Installing Git...';
+  brew install git;
+  ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
 fi;
 
 
