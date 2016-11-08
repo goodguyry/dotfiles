@@ -3,6 +3,11 @@
 # https://github.com/creationix/nvm
 
 
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+
+
 # Check for an existing NVM install location
 # The `type` check isn't working for `nvm`
 NVM_LOC=${NVM_DIR:="$HOME/.nvm"};

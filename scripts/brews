@@ -4,25 +4,10 @@
 #   including native applications with Homebrew Cask
 
 
-# Before relying on Homebrew, check that packages can be compiled
-if [ ! "$(type -P gcc)" ]; then
-  log_header 'The XCode Command Line Tools must be installed first.';
-  xcode-select --install;
-fi;
-
-# Check for Homebrew
-if [ ! "$(type -P brew)" ]; then
-  log_header 'Installing Homebrew...';
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-  brew doctor;
-  [[ $? ]] && log_success 'Homebrew installed.';
-fi;
-
-log_header 'Updating Homebrew...';
-brew update;
-
-log_header 'Upgrading installed formulae...';
-brew upgrade;
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
 log_header 'Installing new formulae...';
 
@@ -54,6 +39,7 @@ brew install bash-completion2;
 brew install dark-mode;
 brew install gist;
 brew install libdvdcss;
+brew install mas;
 brew install mysql;
 brew install packer;
 brew install phantomjs;
@@ -77,6 +63,8 @@ export HOMEBREW_CASK_OPTS='--appdir=/Applications';
 
 # Native apps
 brew cask install atext;
+brew cask install caffeine;
+brew cask install clamxav;
 brew cask install chronosync;
 brew cask install clipmenu;
 brew cask install dropbox;

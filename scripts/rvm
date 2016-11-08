@@ -3,6 +3,11 @@
 # https://rvm.io/
 
 
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+
+
 # Install RVM
 if [ ! "$(type -P rvm)" ]; then
   log_header 'Installing RVM...';

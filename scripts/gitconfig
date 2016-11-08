@@ -3,6 +3,11 @@
 # Collect Git user info and build .gitconfig
 
 
+# Source utils
+DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+
+
 # Collect Git author info
 function collect_git_info() {
   # Track status; ends while loop when incremented

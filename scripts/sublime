@@ -2,7 +2,9 @@
 # Installs Sublime Text packages and settings
 
 
+# Source utils
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
+source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
 # Set Sublime Text settings directory
