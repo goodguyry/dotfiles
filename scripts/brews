@@ -85,6 +85,7 @@ brew cask install opera-mobile-emulator;
 brew cask install opera;
 brew cask install safari-technology-preview;
 brew cask install sequel-pro;
+brew cask install sketch;
 brew cask install sublime-text;
 brew cask install suspicious-package;
 brew cask install torbrowser;
