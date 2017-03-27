@@ -3,10 +3,14 @@
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_with_fields": true,
 	"bold_folder_labels": true,
+	"binary_file_patterns":[
+		"static"
+	],
 	"caret_style": "phase",
-	"color_scheme": "Packages/SpecialsBoard/Special Boards - Special Edition.tmtheme",
+	"color_scheme": "Packages/User/SublimeLinter/Special Boards - Special Edition (SL).tmTheme",
 	"drag_text": false,
 	"draw_minimap_border": true,
+	"draw_white_space": "all",
 	"ensure_newline_at_eof_on_save": true,
 	"file_exclude_patterns":
 	[
@@ -40,11 +44,11 @@
 		".hg",
 		".sass-cache",
 		".svn",
+		".vagrant",
 		"CVS",
 		"node_modules",
-		"tmp",
-		".vagrant",
-		"packer_cache"
+		"packer_cache",
+		"tmp"
 	],
 	"font_face": "Hack",
 	"font_size": 12.0,
@@ -63,7 +67,6 @@
 	],
 	"show_definitions": false,
 	"tab_size": 2,
-	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": true,
 	"wrap_width": 120
