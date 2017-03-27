@@ -42,12 +42,10 @@ done
 # Flush Directory Service cache
 alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;'
 
-
-
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade --all; brew cleanup; \
+alias update='brew update; brew upgrade; brew cleanup; \
   brew upgrade brew-cask; brew cask cleanup; \
-  npm install npm -g; npm update -g; \
+  nvm install stable --reinstall-packages-from="${NVM_CURRENT}" \
   rvm cleanup all; sudo gem update --system; sudo gem update'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
@@ -62,8 +60,6 @@ alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from ap
 
 # Rebuild Launchpad
 alias lpreset='rm ~/Library/Application\ Support/Dock/*.db; killall Dock'
-
-
 
 # Show/hide hidden files in Finder
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'

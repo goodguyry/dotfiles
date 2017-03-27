@@ -27,3 +27,6 @@ unset FILES;
 # Environment variables
 GIT_COMMITTER_NAME="$(git config user.name)"
 GIT_COMMITTER_EMAIL="$(git config user.email)"
+
+# Current Node version
+NVM_CURRENT="$(nvm current | sed 's/v//')"
