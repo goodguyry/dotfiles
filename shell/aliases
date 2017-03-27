@@ -55,6 +55,9 @@ alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 
+# Secure empty the Trash on all mounted volumes and the main HDD
+alias secempty='sudo srm -rvzf /Volumes/*/.Trashes; sudo srm -rvzf ~/.Trash'
+
 # Clean out Launchpad
 alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from apps; DELETE from groups WHERE title<>''; DELETE from items WHERE rowid>2;\"; Killall Dock"
 
