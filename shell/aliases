@@ -39,9 +39,6 @@ for METHOD in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "${METHOD}"="lwp-request -m '${METHOD}'"
 done
 
-# Restart Apache
-alias apache='sudo apachectl restart'
-
 # Flush Directory Service cache
 alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;'
 
@@ -81,17 +78,8 @@ alias spotoff='sudo mdutil -a -i off'
 # Enable Spotlight
 alias spoton='sudo mdutil -a -i on'
 
-# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-alias plistbuddy='/usr/libexec/PlistBuddy'
-
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-
-
-
-# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
-# (useful when executing time-consuming commands)
-alias badge='tput bel'
 
 # IP addresses
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
