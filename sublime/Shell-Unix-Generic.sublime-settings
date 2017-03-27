@@ -5,6 +5,7 @@
     "gitignore",
     "git_completion",
     "editorconfig",
-    "inputrc"
+    "inputrc",
+    "*.conf"
   ]
 }
