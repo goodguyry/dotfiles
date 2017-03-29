@@ -290,3 +290,21 @@ function stamp() {
 
   unset SEP;
 }
+
+function zero() {
+  [[ "${#}" -lt 1 ]] && return;
+
+  # Ask before deleting files
+  printf '\n';
+  MESSAGE="You are about to permanently remove \"${@}\"";
+  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${MESSAGE}"
+  printf 'Are you sure? [Y/n] ';
+  read CONTINUE;
+  printf '\n';
+
+  # Conditionally set defaults
+  if [[ "${CONTINUE}" != 'n' ]]; then
+    srm -rvz "${@}";
+  fi;
+
+}
