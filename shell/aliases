@@ -39,18 +39,13 @@ for METHOD in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "${METHOD}"="lwp-request -m '${METHOD}'"
 done
 
-# Restart Apache
-alias apache='sudo apachectl restart'
-
 # Flush Directory Service cache
 alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;'
 
-
-
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade --all; brew cleanup; \
+alias update='brew update; brew upgrade; brew cleanup; \
   brew upgrade brew-cask; brew cask cleanup; \
-  npm install npm -g; npm update -g; \
+  nvm install stable --reinstall-packages-from="${NVM_CURRENT}" \
   rvm cleanup all; sudo gem update --system; sudo gem update'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
@@ -60,13 +55,14 @@ alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 
+# Secure empty the Trash on all mounted volumes and the main HDD
+alias secempty='sudo srm -rvzf /Volumes/*/.Trashes; sudo srm -rvzf ~/.Trash'
+
 # Clean out Launchpad
 alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from apps; DELETE from groups WHERE title<>''; DELETE from items WHERE rowid>2;\"; Killall Dock"
 
 # Rebuild Launchpad
 alias lpreset='rm ~/Library/Application\ Support/Dock/*.db; killall Dock'
-
-
 
 # Show/hide hidden files in Finder
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
@@ -81,17 +77,8 @@ alias spotoff='sudo mdutil -a -i off'
 # Enable Spotlight
 alias spoton='sudo mdutil -a -i on'
 
-# PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
-alias plistbuddy='/usr/libexec/PlistBuddy'
-
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-
-
-
-# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
-# (useful when executing time-consuming commands)
-alias badge='tput bel'
 
 # IP addresses
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
