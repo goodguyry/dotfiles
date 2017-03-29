@@ -67,6 +67,7 @@ brew cask install caffeine;
 brew cask install clamxav;
 brew cask install chronosync;
 brew cask install clipmenu;
+brew cask install coconutbattery;
 brew cask install dropbox;
 brew cask install evernote;
 brew cask install firefox;

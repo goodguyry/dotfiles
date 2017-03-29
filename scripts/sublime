@@ -43,6 +43,10 @@ add_sublime_package 'braver/MarkdownHighlighting.git'                'MarkdownHi
 add_sublime_package 'titoBouzout/SideBarEnhancements.git'            'SideBarEnhancements';
 add_sublime_package 'lamotta/specialsboard.git'                      'SpecialsBoard';
 add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'          'SyntaxHighlightingForSass';
+add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'     'JavaScriptCompletions';
+add_sublime_package 'bgreenlee/sublime-github.git'                   'Github';
+add_sublime_package 'SublimeLinter/SublimeLinter3.git'               'SublimeLinter';
+add_sublime_package 'roadhump/SublimeLinter-eslint.git'              'SublimeLinter-eslint';
 
 log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
