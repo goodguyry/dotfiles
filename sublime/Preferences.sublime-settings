@@ -2,10 +2,11 @@
 	"always_show_minimap_viewport": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_with_fields": true,
-	"bold_folder_labels": true,
-	"binary_file_patterns":[
+	"binary_file_patterns":
+	[
 		"static"
 	],
+	"bold_folder_labels": true,
 	"caret_style": "phase",
 	"color_scheme": "Packages/User/SublimeLinter/Special Boards - Special Edition (SL).tmTheme",
 	"drag_text": false,
