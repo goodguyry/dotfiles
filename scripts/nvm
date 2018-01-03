@@ -37,8 +37,7 @@ nvm alias default node;
 
 # Install packages globally and quietly
 log_header 'Installing Node packages...';
-NPM_LIST='bower browser-sync git-open grunt-cli grunt-init gulp-cli jshint uglify-js webpack';
+NPM_LIST='browser-sync git-open';
 npm install ${NPM_LIST} --global --quiet;
-
 
 [[ $? ]] && log_success 'NPM packages installed.';

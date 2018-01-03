@@ -37,26 +37,21 @@
 
 ## NPM
 
-- [Bower](http://bower.io/)
 - [Browsersync](http://www.browsersync.io/)
 - [git-open](https://github.com/paulirish/git-open)
-- [Grunt](http://gruntjs.com/)
-- [Grunt-init](http://gruntjs.com/project-scaffolding)
-- [Gulp](http://gulpjs.com/)
-- [JSHint](http://jshint.com/)
-- [Uglify](http://lisperator.net/uglifyjs/)
-- [Webpack](https://webpack.github.io/)
 
 ## Native applications
 
+- [1Password](https://1password.com/)
 - [aText](https://www.trankynam.com/atext/)
+- [Alfred 3](https://www.alfredapp.com/)
+- [AppCleaner](https://freemacsoft.net/appcleaner/)
 - [Caffeine](http://lightheadsw.com/caffeine/)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
 - [ClamXav](https://www.clamxav.com/)
-- [Clipmenu](http://www.clipmenu.com/)
+- [Clipy](https://clipy-app.com/)
 - [Coconut Battery](http://www.coconut-flavour.com/coconutbattery/)
 - [Dropbox](http://www.dropbox.com)
-- [Evernote](https://evernote.com/)
 - [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
 - [Firefox](https://www.mozilla.org/en-US/firefox/products/)
 - [Gitify](http://gitify.io/)
@@ -101,19 +96,19 @@
 
 # Mac App Store purchases
 
-- [1Password](https://itunes.apple.com/us/app/2do/id443987910)
 - [2Do](https://itunes.apple.com/us/app/2do/id477670270)
 - [Bear](http://www.bear-writer.com)
 - [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
 - [Byword](https://itunes.apple.com/us/app/2do/id420212497)
-- [CodeBox](https://itunes.apple.com/us/app/2do/id412536790)
 - [Duo](https://itunes.apple.com/us/app/2do/id777886035)
 - [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
+- [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
 - [Pixelmator](http://www.pixelmator.com/mac/)
 - [Reeder](https://itunes.apple.com/us/app/2do/id880001334)
 - [Slack](https://itunes.apple.com/us/app/2do/id803453959)
 - [SnippetsLab](https://itunes.apple.com/us/app/2do/id1006087419)
 - [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
+- [Things](https://itunes.apple.com/us/app/things-3/id904280696)
 - [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
 
 # Sublime Text 3 packages

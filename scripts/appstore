@@ -43,8 +43,6 @@ fi;
 
 # Install apps
 
-# 1Password
-mas install 443987910;
 # 2Do
 mas install 477670270;
 # Bear
@@ -53,12 +51,12 @@ mas install 1091189122;
 mas install 414209656;
 # Byword
 mas install 420212497;
-# CodeBox
-mas install 412536790;
 # Duo
 mas install 777886035;
 # Frank DeLoupe
 mas install 530458789;
+# GIPHY Capture
+mas install 668208984;
 # Pixelmator
 mas install 407963104;
 # Reeder
@@ -69,5 +67,7 @@ mas install 803453959;
 mas install 1006087419;
 # The Unarchiver
 mas install 425424353;
+# Things
+mas install 904280696;
 # Tweetbot
 mas install 557168941;
