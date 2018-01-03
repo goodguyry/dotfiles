@@ -81,6 +81,7 @@
 - [Transmit](https://panic.com/transmit/)
 - [Vagrant](https://www.vagrantup.com/)
 - [VirtualBox](https://www.virtualbox.org/)
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 - [Webkit Nightly](http://www.webkit.org/)
 

@@ -14,10 +14,10 @@ function p() {
       # Check for a passed subdirectory
       if [[ ${#} -gt 1 ]]; then
         # Open the passed subdirectory in Sublime Text
-        subl "${2}";
+        code "${2}";
       else
         # Open the project root in Sublime Text
-        subl .;
+        code .;
       fi;
     fi;
 
