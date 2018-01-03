@@ -6,7 +6,6 @@ DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 # Source utils
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
