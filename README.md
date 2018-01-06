@@ -45,7 +45,9 @@ The following options are available when running the init file:
 | `-n`, `--no-packages` | Suppress package installations and updates     |
 | `-s`, `--server`      | Skip Projects folder and OS X-related packages |
 
-Notes: `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github
+**Notes:**
+- `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github.
+- `editorconfig` is always copied.
 
 
 ### Local configuration
