@@ -48,8 +48,10 @@ alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushca
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='brew update; brew upgrade; brew cleanup; \
   brew upgrade brew-cask; brew cask cleanup; \
-  nvm install stable --reinstall-packages-from="${NVM_CURRENT}" \
-  rvm cleanup all; sudo gem update --system; sudo gem update'
+  nvm install node --reinstall-packages-from=$(nvm current | sed "s/v//") \
+  npm update -g \
+  rvm cleanup all; \
+  sudo gem update --system; sudo gem update; sudo gem cleanup'
 
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder'
