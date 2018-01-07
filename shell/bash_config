@@ -11,8 +11,8 @@ export LESS_TERMCAP_md="${YELLOW}";
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
-export HISTCONTROL=ignoredups;
-export HISTCONTROL=ignorespace;
+# Ignore duplicates and commands that begin with a space
+export HISTCONTROL=ignoreboth;
 
 # Make some commands not show up in history
 export HISTIGNORE='cd*:cd -:pwd;exit:date:* --help:ssh *:open*:oo*';
