@@ -18,6 +18,19 @@ alias o='open'
 alias oo='open .'
 alias list="ls -l"
 
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload='clear && exec $SHELL -l'
+
+##
+# Formatting
+##
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag='--color'
@@ -42,22 +55,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload='clear && exec $SHELL -l'
-
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
-
-# URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
-
-# One of @janmoesen’s ProTip™s
-for METHOD in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "${METHOD}"="lwp-request -m '${METHOD}'"
-done
+##
+# Cleanup
+##
 
 # Flush Directory Service cache
 alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushcaches;'
@@ -85,6 +85,18 @@ alias lpclean="sqlite3 ~/Library/Application\ Support/Dock/*.db \"DELETE from ap
 
 # Rebuild Launchpad
 alias lpreset='rm ~/Library/Application\ Support/Dock/*.db; killall Dock'
+
+##
+# Helpers
+##
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# One of @janmoesen’s ProTip™s
+for METHOD in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "${METHOD}"="lwp-request -m '${METHOD}'"
+done
 
 # Show/hide hidden files in Finder
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
