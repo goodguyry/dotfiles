@@ -85,8 +85,10 @@ log_header 'Adding Git config settings...';
 git_config_add alias.amend 'commit --amend --reuse-message=HEAD';
 # Show verbose output about branches.
 git_config_add alias.branches 'branch -a';
+# Show the diff in the commit template.
+git_config_add alias.c '!git commit -v';
 # Clone a repository including all submodules.
-git_config_add alias.c 'clone --recursive';
+git_config_add alias.cr 'clone --recursive';
 # Commit all changes.
 git_config_add alias.ca '!git add -A && git commit -av';
 # Checkout a branch.
