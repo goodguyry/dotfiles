@@ -4,7 +4,7 @@
 	"auto_complete_with_fields": true,
 	"binary_file_patterns":
 	[
-		"static/*"
+		"static"
 	],
 	"bold_folder_labels": true,
 	"caret_style": "phase",
