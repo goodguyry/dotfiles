@@ -200,7 +200,7 @@ function server() {
 #   Change date format in $stamp to alter output
 # ----------------------------------------------
 
-function run_help() {
+function run_stamp_help() {
 
 cat <<EOT
 Usage: stamp [-d] [-c] [-s=SEPARATOR]
@@ -216,7 +216,7 @@ EOT
 function stamp() {
   # Help text
   if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -228,7 +228,7 @@ function stamp() {
 
   # No args were given
   if [[ ${#} -lt 1 ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -254,7 +254,7 @@ function stamp() {
 
   # Make sure ITEM is set before proceeding
   if [[ -z "${ITEM}" ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -280,6 +280,7 @@ function stamp() {
 
   unset SEP;
 }
+
 
 function zero() {
   [[ "${#}" -lt 1 ]] && return;
