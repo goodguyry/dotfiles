@@ -83,12 +83,12 @@ log_header 'Adding Git config settings...';
 
 # Aliases
 
-# Quick amend last commit
-git_config_add alias.amend '!git commit --amend';
+# Amend the currently staged files to the latest commit
+git_config_add alias.amend 'commit --amend --reuse-message=HEAD';
 # Show verbose output about branches
 git_config_add alias.branches 'branch -a';
 # Clone a repository including all submodules
-git_config_add alias.c '!git commit -v';
+git_config_add alias.c 'clone --recursive';
 # Commit all changes
 git_config_add alias.ca '!git add -A && git commit -av';
 # Checkout a branch
@@ -104,6 +104,8 @@ git_config_add alias.dashboard '!git branch -vv';
 git_config_add alias.db '!db() { git diff ${1} | diffstat; }; db';
 # `git di $number` shows the diff between the state `$number` revisions ago and the current state
 git_config_add alias.di '!d() { git diff --patch-with-stat HEAD~${1}; }; git diff-index --quiet HEAD -- || clear; d';
+# Remove branches that have already been merged with master
+git_config_add alias.dm '!git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d';
 # diff staged file(s)
 git_config_add alias.ds '!clear; git diff --patch-with-stat --staged --color | diff-highlight | less -r';
 # Custom graph log (append any tree-ish)
@@ -124,10 +126,14 @@ git_config_add alias.m '!m() { git merge --no-ff ${1}; }; m';
 git_config_add alias.new 'checkout -B';
 # Pull in remote changes for the current repository and all its submodules
 git_config_add alias.p '!git pull; git submodule foreach git pull origin master';
+# Stage files in patches
+git_config_add alias.patch "!p() { git add ${1} --patch; }; p";
 # Push and track HEAD to origin (useful for long/complicated branch names)
 git_config_add alias.ph '!git push -u origin HEAD';
 # Interactive rebase with the given number of latest commits
 git_config_add alias.reb '!r() { git rebase -i HEAD~${1}; }; r';
+# Remove the old tag with this name and tag the latest commit with it.
+git_config_add alias.retag '!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r';
 # Show verbose output about remotes
 git_config_add alias.remotes 'remote -v';
 # View the current working tree status using the short format
