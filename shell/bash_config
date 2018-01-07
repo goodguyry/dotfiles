@@ -1,35 +1,36 @@
 #!/bin/bash
 
-# Make vim the default editor
+# Make vim the default editor.
 export EDITOR='vim';
 
-# Don't clear the screen after quitting a manual page
+# Don't clear the screen after quitting a manual page.
 export MANPAGER='less -X';
-# Highlight section titles in manual pages
+# Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${YELLOW}";
 
-# Larger bash history (allow 32³ entries; default is 500)
+# Larger bash history (allow 32³ entries; default is 500).
 export HISTSIZE=32768;
-export HISTFILESIZE=$HISTSIZE;
-# Ignore duplicates and commands that begin with a space
-export HISTCONTROL=ignoreboth;
+export HISTFILESIZE="${HISTSIZE}";
+# Ignore duplicates and commands that begin with a space.
+export HISTCONTROL='ignoreboth';
 
-# Make some commands not show up in history
+# Make some commands not show up in history.
 export HISTIGNORE='cd*:cd -:pwd;exit:date:* --help:ssh *:open*:oo*';
 
-# Timestamps for bash history. www.debian-administration.org/users/rossen/weblog/1
+# Timestamps for bash history.
+# https://debian-administration.org/users/rossen/weblog/1
 HISTTIMEFORMAT='%F %T ';
 export HISTTIMEFORMAT;
 
-# Prefer US English and use UTF-8
+# Prefer US English and use UTF-8.
 export LANG='en_US';
 export LC_ALL='en_US.UTF-8';
 
-# Add `p` tab completion for switching to ~/Project directories
+# Add `p` tab completion for switching to ~/Project directories.
 for ITEM in "${HOME}/Projects"/*; do
   if [[ -d "${ITEM}" ]]; then
-    # Extract the folder name
-    # could also be NAME=${ITEM##*/}
+    # Extract the folder name.
+    # Could also be 'NAME=${ITEM##*/}'.
     NAME="$(basename ${ITEM})";
     COMPLETE_LIST+="${NAME} ";
   fi;
@@ -38,22 +39,20 @@ unset ITEM;
 complete -o "nospace" -W "${COMPLETE_LIST}" p;
 unset COMPLETE_LIST;
 
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "${HOME}/.ssh/config" ] && complete -o 'default' -o 'nospace' -W "$(grep '^Host' ~/.ssh/config | grep -v "[?*]" | cut -d ' ' -f2 | tr ' ' '\n')" scp sftp ssh;
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards.
+[[ -e "${HOME}/.ssh/config" ]] && complete -o 'default' -o 'nospace' -W "$(grep '^Host' ~/.ssh/config | grep -v "[?*]" | cut -d ' ' -f2 | tr ' ' '\n')" scp sftp ssh;
 
-# Add `killall` tab completion for common apps
+# Add `killall` tab completion for common apps.
 complete -o 'nospace' -W 'Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal' killall;
 
-# Autocomplete Grunt commands
+# Autocomplete Grunt commands.
 which grunt &> /dev/null && eval "$(grunt --completion=bash)";
 
-# If possible, add tab completion for many more commands
-# Homebrew's own bash completion script has been linked into
-#   /usr/local/share/bash-completion/completions
+# If possible, add tab completion for many more commands.
+# Homebrew's own bash completion script has been linked into /usr/local/share/bash-completion/completions
 # bash-completion will automatically source it when you invoke `brew`.
 
-# Any completion scripts in /usr/local/etc/bash_completion.d
-# will continue to be sourced as well.
+# Any completion scripts in /usr/local/etc/bash_completion.d will continue to be sourced as well.
 if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]]; then
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 fi;
@@ -81,11 +80,11 @@ for OPTION in autocd globstar; do
   shopt -s "${OPTION}" 2> /dev/null;
 done;
 
-# Case-insensitive globbing (used in pathname expansion)
+# Case-insensitive globbing (used in pathname expansion).
 shopt -s nocaseglob;
 
-# Append to the Bash history file, rather than overwriting it
+# Append to the Bash history file, rather than overwriting it.
 shopt -s histappend;
 
-# Autocorrect typos in path names when using `cd`
+# Autocorrect typos in path names when using `cd`.
 shopt -s cdspell;

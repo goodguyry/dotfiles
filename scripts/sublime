@@ -1,20 +1,20 @@
 #!/bin/bash
-# Installs Sublime Text packages and settings
+
+# Install Sublime Text packages and settings.
 
 
-# Source utils
+# Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
-# Set Sublime Text settings directory
+# Set Sublime Text settings directory.
 SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
 
-# Create the directory path if it doesn't exist
+# Create the directory path if it doesn't exist.
 [[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
 
-
-# Clone a Sublime Text 3 package repo to Packages directory
+# Clone a Sublime Text 3 package repo to Packages directory.
 function add_sublime_package() {
   local REPO="${1}"
   local PACKAGE="${2}";
@@ -27,8 +27,7 @@ function add_sublime_package() {
   fi;
 }
 
-
-# Clone packages
+# Clone packages.
 log_header 'Adding Sublime Text packages...';
 
 add_sublime_package 'daylerees/colour-schemes.git'                   'ColourSchemes';
@@ -52,8 +51,7 @@ log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
-
-# Sublime Text settings
+# Move Sublime Text settings files into place.
 set_file \
   'sublime/Default (OSX).sublime-keymap' \
   "${SUBLIME_PACKAGES}/User/Default (OSX).sublime-keymap";
@@ -77,6 +75,5 @@ set_file \
 set_file \
   'sublime/Git.sublime-settings' \
   "$SUBLIME_PACKAGES/User/Git.sublime-settings";
-
 
 [[ $? ]] && log_success 'Sublime settings done.'
