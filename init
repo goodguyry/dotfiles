@@ -1,5 +1,6 @@
 #!/bin/bash
-# Move dotfiles into place, install necessary software and setup development environment
+
+# Move dotfiles into place, install necessary software and setup development environment.
 
 
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
@@ -9,7 +10,7 @@ DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
-# Help text
+# Help text.
 function show_help() {
 
 cat <<EOT
@@ -36,8 +37,7 @@ EOT
 
 }
 
-
-# Create a directory if it doesn't already exist
+# Create a directory if it doesn't already exist.
 function mkdirs() {
   if [[ ! -d "${@}" ]]; then
     mkdir "${@}";
@@ -45,9 +45,7 @@ function mkdirs() {
   fi;
 }
 
-
-# Helper function
-# Conditionally symlink or copy the files
+# Conditionally symlink or copy the files.
 function set_file() {
   local SRC="${DOTFILES_DIRECTORY}/${1}";
   local DEST="$2";
@@ -60,46 +58,41 @@ function set_file() {
   fi
 }
 
-
-# Show help text
+# Show help text.
 if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
   show_help;
   exit;
 fi;
 
-
-# Test for known flags
+# Test for known flags.
 for OPT in "${@}";
 do
   case "${OPT}" in
-    --no-packages)  NO_PACKAGES=true ;;               # Suppresses installing packages
+    --no-packages)  NO_PACKAGES=true ;;               # Suppresses installing packages.
                -n)  NO_PACKAGES=true ;;
-           --copy)  COPY_FILES=true ;;                # Copy files instead of linking
+           --copy)  COPY_FILES=true ;;                # Copy files instead of linking.
                -c)  COPY_FILES=true ;;
-         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings
+         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings.
                -s)  SERVER=true; NO_PACKAGES=true ;;
            -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac
 done;
 
-
-# Create a Projects folder
-if [[ ! ${SERVER} ]]; then
+# Create a Projects folder.
+if ! $SERVER; then
   mkdirs "${HOME}/Projects";
 fi;
 
-
-# Create a ~/.bin directory, if it doesn't exist
+# Create a ~/.bin directory, if it doesn't exist.
 mkdirs "${HOME}/.bin";
 
-
-# Conditionally install Command Line Tools, Homebrew and Git
-if [[ ${SERVER} ]]; then
+# Conditionally install Command Line Tools, Homebrew and Git.
+if $SERVER; then
   log_header 'Skipping Homebrew and Git installations.';
 else
   source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
-  # Install Git from Homebrew
+  # Install Git from Homebrew.
   log_header 'Updating Homebrew...';
   brew update;
   log_header 'Installing Git...';
@@ -107,22 +100,21 @@ else
   ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
 fi;
 
-
-# Conditionally init and pull the Git repo
+# Conditionally init and pull the Git repo.
 if [[ ! ${COPY} || ! ${SERVER} ]] && [ "$(type -P git)" ] ; then
   cd "${DOTFILES_DIRECTORY}";
-  # Initialize the git repository if it's missing
+  # Initialize the git repository if it's missing.
   if ! $(git rev-parse --is-inside-work-tree &> /dev/null); then
     log_header 'Initializing git repository...';
     git init;
     git remote add origin "${DOTFILES_GIT_REMOTE}";
     git fetch origin master;
-    # Reset the index and working tree to the fetched HEAD
+    # Reset the index and working tree to the fetched HEAD.
     git reset --hard FETCH_HEAD;
-    # Remove any untracked files
+    # Remove any untracked files.
     git clean -fd;
     log_header 'Syncing dotfiles...';
-    # Pull down the latest changes
+    # Pull down the latest changes.
     git pull --rebase origin master;
   else
     log_header 'Already a Git repo.';
@@ -131,18 +123,17 @@ else
   log_header 'Skipping \`git init\`';
 fi;
 
-
 # Sets the dotfiles in place in the `HOME` directory.
 function set_files() {
   log_header 'Setting files...';
 
-  # List of directories
+  # List of directories.
   declare -a DIRECTORIES=(
     .vim/backups
     .vim/swaps
   );
 
-  # Create directories
+  # Create directories.
   for DIRECTORY in ${DIRECTORIES[*]}; do
     if [[ ! -d "${HOME}/${DIRECTORY}" ]]; then
       mkdir -p "${HOME}/${DIRECTORY}";
@@ -155,7 +146,7 @@ function set_files() {
   set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
   set_file 'dev/vimrc'                            "${HOME}/.vimrc";
 
-  # Always copy editorconfig
+  # Always copy editorconfig.
   rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
 
   # Shell
@@ -169,17 +160,15 @@ function set_files() {
   set_file 'shell/profile'                        "${HOME}/.profile";
   set_file 'shell/prompt'                         "${HOME}/.prompt";
 
-
-  # Download the Solarized Vim theme
-  # But check for it first
+  # Download the Solarized Vim theme.
   if [[ ! -r "${HOME}/.vim/colors/solarized.vim" ]]; then
-    if [[ ${SERVER} ]]; then
-      # Extract colors/solarized.vim into .vim (Linux-friendly)
+    if $SERVER; then
+      # Extract colors/solarized.vim into .vim (Linux-friendly).
       log_header 'Downloading Solarized Vim theme...';
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
     else
-      # Extract colors/solarized.vim into .vim (OS X-Friendly)
+      # Extract colors/solarized.vim into .vim (OS X-Friendly).
       log_header 'Downloading Solarized Vim theme...';
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
@@ -192,16 +181,14 @@ function set_files() {
   log_success 'Dotfiles update complete!';
 }
 
-
-# Ask before potentially overwriting files
+# Ask before potentially overwriting files.
 printf '\n';
 log_warning 'Warning: This step may overwrite your existing dotfiles.';
 printf 'Continue? [Y/n]';
 read CONTINUE;
 printf '\n';
 
-
-# Conditionally set the dotfiles in place
+# Conditionally set the dotfiles in place.
 if [[ "${CONTINUE}" == 'n' ]]; then
   log_header 'Aborting...';
   exit 1;
@@ -209,35 +196,31 @@ else
   set_files;
 fi;
 
-
-# Create dotfiles.local if not present
+# Create dotfiles.local if not present.
 [[ ! -r "${HOME}/.dotfiles.local" ]] && printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
 
-
-# Add git config settings
+# Add git config settings.
 source scripts/gitconfig;
 
-
-# Source bashrc to make sure the environment is set before moving on
+# Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
 
-
-# Conditionally install packages
+# Conditionally install packages.
 if [[ $NO_PACKAGES ]]; then
   log_header 'Skipping package installation...';
 else
-  # Install Homebrew packages
+  # Install Homebrew packages.
   source scripts/brews;
-  # Install App Store apps
+  # Install App Store apps.
   source scripts/appstore;
-  # Install Homebrew packages
+  # Install Homebrew packages.
   source scripts/nvm;
-  # Install Homebrew packages
+  # Install Homebrew packages.
   source scripts/rvm;
-  # Set up Sublime Text
+  # Set up Sublime Text.
   source scripts/sublime;
 
-  # Change to bash 4 installed by bin/brews
+  # Change to bash 4 installed by bin/brews.
   if [[ ! "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then
     echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
     log_success 'Shell switched to Bash 4';
@@ -246,17 +229,15 @@ else
   fi;
 fi;
 
-
-if [[ ! ${SERVER} ]]; then
-  # Ask before potentially overwriting files
+if ! $SERVER; then
+  # Ask before potentially overwriting files.
   printf '\n';
   log_warning 'Warning: This step may modify your OS X system defaults.';
   printf 'Continue? [Y/n] ';
   read SET_OSX;
   printf '\n';
 
-
-  # Conditionally set defaults
+  # Conditionally set defaults.
   if [[ "${SET_OSX}" == 'n' ]]; then
     log_header 'Skipped OS X settings update.';
   else
@@ -264,9 +245,7 @@ if [[ ! ${SERVER} ]]; then
   fi;
 fi;
 
-
 unset COPY_FILES;
-
 
 [[ $? ]] && log_success 'Restarting the shell to apply changes';
 

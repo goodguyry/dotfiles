@@ -1,32 +1,32 @@
 #!/bin/bash
-#
-# Install Mac App Store purchases
+
+# Install Mac App Store purchases.
 
 
-# Source utils
+# Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
-# Check for `mas`
-# https://github.com/mas-cli/mas
+
+# Check for `mas`.
 if [[ ! "$(type -P mas)" ]]; then
   brew install mas;
 fi;
 
-# Capture account
+# Capture account.
 ACCOUNT=$(mas account);
 
-# Sign in if not signed in
+# Sign in if not signed in.
 if [[ "${ACCOUNT}" == *"Not signed in"* ]]; then
-  # Ask for Apple ID
+  # Ask for Apple ID.
   printf '\n';
   log_warning 'You are not signed in to the App Store';
   printf 'Enter your App Store Apple ID ';
   read APPLE_ID;
   printf '\n';
 
-  # Check APPLE_ID value
+  # Check APPLE_ID value.
   if [[ "$(echo -e ${APPLE_ID} | tr -d '[:space:]')" != '' ]]; then
     if [[ $(mas signin "${APPLE_ID}") && $? -eq 0 ]]; then
       log_header "You are signed in with ${APPLE_ID}";
@@ -41,7 +41,7 @@ else
   log_header "You are signed in with ${ACCOUNT}";
 fi;
 
-# Install apps
+# Install apps.
 
 # 2Do
 mas install 477670270;

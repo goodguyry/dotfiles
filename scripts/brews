@@ -1,17 +1,15 @@
 #!/bin/bash
-#
-# Check for, install and update Homebrew and Homebrew packages,
-#   including native applications with Homebrew Cask
+
+# Install Homebrew and Homebrew packages, native applications, and fonts.
 
 
-# Source utils
+# Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
-log_header 'Installing new formulae...';
 
-# Check for existing brew before installing
+# Check for existing brew before installing.
 function brew_install() {
   if $(brew list ${1} &> /dev/null); then
     log_warning "${1} already installed";
@@ -20,38 +18,49 @@ function brew_install() {
   fi;
 }
 
-# Install CLI packages
+# Check for an existing cask or app file before installing.
+function brew_cask_install() {
+  APP=$(brew cask info ${1} | grep \\.app | sed -e 's/\ (App)//');
+  if $(brew cask list ${1} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
+    log_warning "${1} already installed";
+  else
+    brew cask install ${@};
+  fi;
+}
 
-# GNU File, Shell, and Text utilities
+# CLI packages
+
+log_header 'Installing CLI packages...';
+
+# GNU File, Shell, and Text utilities.
 brew_install coreutils;
 
-# Install GNU `find`, `locate`, `updatedb`, `xargs` and `sed`, g-prefixed
+# Install GNU `find`, `locate`, `updatedb`, `xargs` and `sed`, g-prefixed.
 brew_install findutils --with-default-names;
 brew_install gnu-sed --with-default-names;
 
-# Install wget with IRI support
+# Install wget with IRI support.
 brew_install wget --enable-iri;
 
-# Install more recent versions of some OS X tools
+# Install more recent versions of some OS X tools.
 brew_install grep;
 brew_install openssh;
 brew_install rsync;
 
-# Install latest Vim
+# Install latest Vim.
 brew_install vim --with-override-system-vi;
 
-# Install Bash 4
+# Install Bash 4.
 brew_install bash;
 brew_install bash-completion2;
 
 # Install font tools.
-# https://github.com/bramstein/homebrew-webfonttools
 brew tap bramstein/webfonttools;
 brew_install sfnt2woff;
 brew_install sfnt2woff-zopfli;
 brew_install woff2;
 
-# Install other useful binaries
+# Install other useful binaries.
 brew_install gist;
 brew_install libdvdcss;
 brew_install mas;
@@ -66,25 +75,15 @@ brew cleanup;
 
 [[ $? ]] && log_success 'Homebrew packages installed.';
 
+# Native Apps
 
-# Check for an existing cask or app file before installing
-function brew_cask_install() {
-  APP=$(brew cask info ${1} | grep \\.app | sed -e 's/\ (App)//');
-  if $(brew cask list ${1} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
-    log_warning "${1} already installed";
-  else
-    brew cask install ${@};
-  fi;
-}
-
-# Install native applications
 log_header 'Installing casks (native apps)...';
 
-# Install brew-cask
+# Tap brew-cask.
 brew tap caskroom/cask;
 brew tap caskroom/versions;
 
-# Native apps
+# Install native applications.
 brew_cask_install 1Password;
 brew_cask_install alfred;
 brew_cask_install appcleaner;
@@ -136,15 +135,16 @@ brew_cask_install webpquicklook;
 
 brew cask cleanup;
 
-
 [[ $? ]] && log_success 'Homebrew Casks installed';
 
+# Fonts
 
-# Install fonts
 log_header 'Installing fonts...';
 
+# Tap brew-cask fonts
 brew tap caskroom/fonts;
 
+# Install fonts.
 brew_cask_install font-hack;
 brew_cask_install font-inconsolata;
 brew_cask_install font-lato;
@@ -164,3 +164,5 @@ brew_cask_install font-roboto-slab;
 brew_cask_install font-source-code-pro;
 brew_cask_install font-source-sans-pro;
 brew_cask_install font-source-serif-pro;
+
+[[ $? ]] && log_success 'Fonts installed';

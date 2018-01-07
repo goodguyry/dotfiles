@@ -1,42 +1,40 @@
 #!/bin/bash
-# Install Node and NPM via NVM
-# https://github.com/creationix/nvm
+
+# Install NVM, Node, and packages from NPM.
 
 
-# Source utils
+# Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 
-# Check for an existing NVM install location
-# The `type` check isn't working for `nvm`
+# Check for an existing NVM install location.
+# The `type` check isn't working for `nvm`.
 NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
 
-# Install NVM
+# Install NVM.
 if [[ ! -d "${NVM_LOC}" ]]; then
   log_header 'Installing NVM...';
   git clone https://github.com/creationix/nvm.git "${NVM_LOC}";
 fi;
 
-
-# Make sure NVM is up-to-date
+# Make sure NVM is up-to-date.
 cd "${NVM_LOC}" && git checkout `git describe --abbrev=0 --tags`; cd -;
 
-# Source nvm
+# Source nvm.
 source "${NVM_LOC}/nvm.sh";
 
-
-# Install NPM
+# Install NPM.
 log_header 'Installing NPM...';
 npm install -g npm@latest;
 
-# Install and use latest stable version of Node
+# Install and use latest stable version of Node.
 nvm install node;
 nvm alias default node;
 
-
-# Install packages globally and quietly
+# Install packages globally and quietly.
 log_header 'Installing Node packages...';
+
 NPM_LIST='browser-sync git-open';
 npm install ${NPM_LIST} --global --quiet;
 

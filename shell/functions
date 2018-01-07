@@ -1,56 +1,53 @@
 #!/bin/bash
 
-# **
-# Switch to projects folder; open it in Sublime Text
+##
+# Switch to projects folder; open it in Sublime Text.
 #   Usage: p [project-name] [subdirectory]
-# **
+##
 function p() {
-  # Check for passed argument(s)
+  # Check for passed argument(s).
   if [[ ${#} -gt 0 ]]; then
-    # Change to the project root
+    # Change to the project root.
     cd "${HOME}/Projects/${1}";
-    # Check for Sublime Text
+    # Check for Sublime Text.
     if [[ "$(type -P subl)" ]]; then
-      # Check for a passed subdirectory
+      # Check for a passed subdirectory.
       if [[ ${#} -gt 1 ]]; then
-        # Open the passed subdirectory in Sublime Text
+        # Open the passed subdirectory in Sublime Text.
         code "${2}";
       else
-        # Open the project root in Sublime Text
+        # Open the project root in Sublime Text.
         code .;
       fi;
     fi;
 
-    # Check for a .git repo
+    # Check for a .git repo.
     if $(git rev-parse --is-inside-work-tree &> /dev/null); then
       clear;
       git status;
-      # Bring Terminal forward
+      # Bring Terminal forward.
       osascript -e 'tell app "Terminal" to activate';
     fi;
   else
-    # No arguments; change to $HOME/Projects
+    # No arguments; change to $HOME/Projects.
     cd "${HOME}/Projects";
   fi;
 }
 
-
-# Change working directory to the top-most Finder window location
+# Change working directory to the top-most Finder window location.
 # http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
 function cdf() { # short for `cdfinder`
   cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 
-
-# Create a new directory and enter it
+# Create a new directory and enter it.
 function mkd() {
   mkdir -p "${@}" && cd "${@}";
 }
 
-
-# Create a temporary plain text file
+# Create a temporary plain text file.
 # Usage: `tmp ext` (creates file: temp.[date string].ext)
-# If no extension is passed, defaults to "md"
+# If no extension is passed, defaults to "md".
 function tmp() {
   local PREFIX='temp';
   local SUFFIX="$(date +%Y%m%d%H%M%S)";
@@ -59,28 +56,24 @@ function tmp() {
   touch "${FILENAME}";
 }
 
-
-# Hide individual file(s)
+# Hide individual file(s).
 function hide() {
   chflags hidden "${@}";
 }
 
-
-# Unhide individual file(s)
+# Unhide individual file(s).
 function unhide() {
   chflags nohidden "${@}";
 }
 
-
-# Recursively delete files that match a certain pattern
-# (by default delete all `.DS_Store` files)
+# Recursively delete files that match a certain pattern.
+# (by default delete all `.DS_Store` files).
 cleanup() {
   local Q="${1:-*.DS_Store}";
   find . -type f -name "${Q}" -ls -delete;
 }
 
-
-# Determine size of a file or total size of a directory
+# Determine size of a file or total size of a directory.
 function fs() {
   if du -b /dev/null > /dev/null 2>&1; then
     local arg=-sbh;
@@ -94,22 +87,21 @@ function fs() {
   fi;
 }
 
-
-# git branch ahead/behind another
+# git branch ahead/behind another.
 function gcheck() {
-  # use first argument or master
+  # use first argument or master.
   local ORIGINAL=${1-master};
 
-  # use the second argument or current branch if not given
+  # use the second argument or current branch if not given.
   local CURRENT="$(git branch | grep \* | sed s/\*\ //)";
   local COMPARE=${2-$CURRENT};
 
-  # run git rev-list and capture numbers returned
+  # run git rev-list and capture numbers returned.
   local RESULT="$(git rev-list --left-right --count ${ORIGINAL}...${COMPARE})";
 
   local NUMBERS=(${RESULT});
   printf '\n';
-  # print numbers in a pretty message
+  # print numbers in a pretty message.
   if [ ${NUMBERS[0]} -gt 0 ]; then
     echo -e "$(tput setaf 136)${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}$(tput sgr0)";
   fi;
@@ -118,8 +110,7 @@ function gcheck() {
   fi;
 }
 
-
-# Use Git’s colored diff when available
+# Use Git’s colored diff when available.
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
   function diff() {
@@ -127,8 +118,7 @@ if [ $? -eq 0 ]; then
   }
 fi;
 
-
-# Create a data URI from a file
+# Create a data URI from a file.
 function datauri() {
   local MIMETYPE="$(file -b --mime-type "${1}")";
   if [[ "${MIMETYPE}" == text/* ]]; then
@@ -138,8 +128,7 @@ function datauri() {
   echo 'The data URI is on the clipboard.';
 }
 
-
-# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
+# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression.
 function targz() {
   local TMPFILE="${@%/}.tar";
   tar -cvf "${TMPFILE}" --exclude='.DS_Store' "${@}" || return 1;
@@ -147,11 +136,11 @@ function targz() {
   size=$(
     stat -f"%z" "${TMPFILE}" 2> /dev/null; # OS X `stat`
     stat -c"%s" "${TMPFILE}" 2> /dev/null; # GNU `stat`
-  )
+  );
 
-  local CMD=""
+  local CMD="";
   if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
-    # the .tar file is smaller than 50 MB and Zopfli is available; use it
+    # the .tar file is smaller than 50 MB and Zopfli is available; use it.
     CMD='zopfli';
   else
     if hash pigz 2> /dev/null; then
@@ -167,8 +156,7 @@ function targz() {
   echo "${TMPFILE}.gz created successfully.";
 }
 
-
-# Compare original and gzipped file size
+# Compare original and gzipped file size.
 function gz() {
   local ORIGSIZE=$(wc -c < "${1}");
   local GZIPSIZE=$(gzip -c "${1}" | wc -c);
@@ -177,28 +165,26 @@ function gz() {
   printf "gzip: %d bytes (%2.2f%%)\n" "${GZIPSIZE}" "${RATIO}";
 }
 
-
-# Start an HTTP server from a directory, optionally specifying the port
+# Start an HTTP server from a directory, optionally specifying the port.
 function server() {
   local PORT="${1:-8000}";
   sleep 1 && open "http://localhost:${PORT}/" &
-  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`.
+  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files).
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "${PORT}";
 }
 
-
-# ----------------------------------------------
-# Add a timestamp to a file or folder; optionally copy the timestamp to the clipboard
+##
+# Add a timestamp to a file or folder; optionally copy the timestamp to the clipboard.
 #
-#   Usage: stamp [-d] string
+# Usage: stamp [-d] string
 #
-#     -d (optional) : duplicate item before appending the timestamp
-#     -c (optional) : copy the timestamp to the clipboard
-#     -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
+#   -d (optional) : duplicate item before appending the timestamp
+#   -c (optional) : copy the timestamp to the clipboard
+#   -s=SEPARATOR (optional) : set the separator between the item name and the timestamp
 #
-#   Change date format in $stamp to alter output
-# ----------------------------------------------
+# Change date format in $stamp to alter output.
+##
 
 function run_stamp_help() {
 
@@ -226,76 +212,74 @@ function stamp() {
   local CLIPBOARD=false;
   local SEP=${STAMP_SEPARATOR:="."}; # Default separator
 
-  # No args were given
+  # No args were given.
   if [[ ${#} -lt 1 ]]; then
     run_stamp_help;
     return;
   fi;
 
-  # Test for flags
+  # Test for flags.
   for OPT in "${@}"; do
     case "${OPT}" in
-      -d) DUP=true ;;   # Duplicate the item before appending the timestamp
-      -c) CLIPBOARD=true ;;   # Copy the timestamp to the clipboard
-      -s*) SEP="${OPT##*-s=}" ;; # Set the separator between the itme name and the timestamp
-      *) ITEM="${OPT}" ;;   # Set ITEM to the other argument
+      -d) DUP=true ;;              # Duplicate the item before appending the timestamp.
+      -c) CLIPBOARD=true ;;        # Copy the timestamp to the clipboard.
+      -s*) SEP="${OPT##*-s=}" ;;   # Set the separator between the itme name and the timestamp.
+      *) ITEM="${OPT}" ;;          # Set ITEM to the other argument.
     esac
   done;
 
-  # Copy the timestamp to the clipboard and exit
+  # Copy the timestamp to the clipboard and exit.
   if $CLIPBOARD; then
     $(echo "${STAMP}" | pbcopy);
     echo "${STAMP} copied to the clipboard.";
-    # Exit if there's no file/directory passed
+    # Exit if there's no file/directory passed.
     if [[ -z "${ITEM}" ]]; then
       return;
     fi;
   fi;
 
-  # Make sure ITEM is set before proceeding
+  # Make sure ITEM is set before proceeding.
   if [[ -z "${ITEM}" ]]; then
     run_stamp_help;
     return;
   fi;
 
   if [[ -d "${ITEM}" ]]; then
-    # Split off the trailing slash (if it's there)
+    # Split off the trailing slash (if it's there).
     NAME="${ITEM%/*}";
-    # Clear the extension
+    # Clear the extension.
     EXT="";
   else
-    # Split the name from the extension
+    # Split the name from the extension.
     NAME="${ITEM%.*}";
-    # Include the dot in the extension to make things easier in the next step
+    # Include the dot in the extension to make things easier in the next step.
     EXT=".${ITEM##*.}";
   fi
 
   if $DUP; then
-    # Duplicate the item with timestamp
+    # Duplicate the item with timestamp.
     cp -r "${NAME}"{,"${SEP}${STAMP}"}"${EXT}";
   else
-    # Timestamp the item without duplication
+    # Timestamp the item without duplication.
     mv "${NAME}"{,"${SEP}${STAMP}"}"${EXT}";
   fi;
 
   unset SEP;
 }
 
-
 function zero() {
   [[ "${#}" -lt 1 ]] && return;
 
-  # Ask before deleting files
+  # Ask before deleting files.
   printf '\n';
   MESSAGE="You are about to permanently remove \"${@}\"";
-  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${MESSAGE}"
+  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${MESSAGE}";
   printf 'Are you sure? [Y/n] ';
   read CONTINUE;
   printf '\n';
 
-  # Conditionally set defaults
+  # Conditionally set defaults.
   if [[ "${CONTINUE}" != 'n' ]]; then
     srm -rvz "${@}";
   fi;
-
 }

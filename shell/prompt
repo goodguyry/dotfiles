@@ -1,12 +1,14 @@
-if [[ ${COLORTERM} = gnome-* && ${TERM} = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-  export TERM=gnome-256color;
+#!/bin/bash
+
+if [[ "${COLORTERM}" = gnome-* && "${TERM}" = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+  export TERM='gnome-256color';
 elif infocmp xterm-256color >/dev/null 2>&1; then
-  export TERM=xterm-256color;
+  export TERM='xterm-256color';
 fi;
 
 	# Solarized colors, taken from http://git.io/solarized-colors.
 if tput setaf 1 &> /dev/null; then
-  tput sgr0; # reset colors
+  tput sgr0; # Reset colors.
   BLACK=$(tput setaf 0);
   BLUE=$(tput setaf 68);
   BOLD=$(tput bold);
@@ -46,36 +48,28 @@ prompt_git() {
   # Check if the current directory is in a Git repository.
   if [ $(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}") == '0' ]; then
 
-    # check if the current directory is in .git before running git checks
+    # check if the current directory is in .git before running git checks.
     if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
       # Ensure the index is up to date.
       git update-index --really-refresh -q &>/dev/null;
 
       # Check for uncommitted changes in the index.
-      if ! $(git diff --quiet --ignore-submodules --cached); then
-        S+="${GREEN}+${GRAY}";
-      fi;
+      [[ ! $(git diff --quiet --ignore-submodules --cached) ]] && S+="${GREEN}+${GRAY}";
 
       # Check for unstaged changes.
-      if ! $(git diff-files --quiet --ignore-submodules --); then
-        S+="${YELLOW}!${GRAY}";
-      fi;
+      [[ ! $(git diff-files --quiet --ignore-submodules --) ]] && S+="${YELLOW}!${GRAY}";
 
       # Check for untracked files.
-      if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-        S+="${RED}?${GRAY}";
-      fi;
+      [[ -n "$(git ls-files --others --exclude-standard)" ]] && S+="${RED}?${GRAY}";
 
       # Check for stashed files.
-      if $(git rev-parse --verify refs/stash &>/dev/null); then
-        S+="${PURPLE}\$${GRAY}";
-      fi;
+      [[ $(git rev-parse --verify refs/stash &>/dev/null) ]] && S+="${PURPLE}\$${GRAY}";
 
     fi;
 
     # Get the short symbolic ref.
-    # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
+    # If HEAD isn’t a symbolic ref, get the short SHA for the latest commit.
     # Otherwise, just give up.
     BRANCHNAME="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
                 git rev-parse --short HEAD 2> /dev/null || \
@@ -89,23 +83,23 @@ prompt_git() {
   fi;
 }
 
-# Clear prompt variables
+# Clear prompt variables.
 unset PS1;
 unset PS2;
 
-# If a the prompt variables aren't set, use the default
+# If a the prompt variables aren't set, use the default.
 if [[ ! -n ${PS1} ]]; then
   # Main prompt
   # HH:MM:SS - User@Host
   PS1="\n\[${GRAY}\]\T - \u@\h";
   # New line; Current directory
   PS1+="\n\[${BLUE}\]\$(pwd)";
-  # If inside a Git repo, print "on <branch>" at the end of the line
-  PS1+="\$(prompt_git \"\[${GRAY}\] on \[${ORANGE}\]\" \"\[${GRAY}\]\")"; # Git repository details
-  # Prompt on a new line
+  # If inside a Git repo, print "on <branch>" at the end of the line.
+  PS1+="\$(prompt_git \"\[${GRAY}\] on \[${ORANGE}\]\" \"\[${GRAY}\]\")"; # Git repository details.
+  # Prompt on a new line.
   PS1+="\n\[${BLUE}\]\$ \[${LTGRAY}\]";
 
-  # Continuation prompt
+  # Continuation prompt.
   PS2="\[${BLUE}\]: \[${LTGRAY}\]";
 fi;
 
