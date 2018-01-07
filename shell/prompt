@@ -4,20 +4,40 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
   export TERM=xterm-256color;
 fi;
 
-BLACK='\e[38;5;0m';
-RED='\e[38;5;196m';
-GREEN='\e[38;5;2m';
-YELLOW='\e[38;5;3m';
-BLUE='\e[38;5;67m';
-PURPLE='\e[38;5;55m';
-MAGENTA='\e[38;5;95m';
-CYAN='\e[38;5;45m';
-WHITE='\e[38;5;15m';
-RESET='\e[0m';
-GRAY='\e[38;5;240m';
-LTGRAY='\e[38;5;246m';
-VIOLET='\e[38;5;60m';
-ORANGE='\e[38;5;202m';
+	# Solarized colors, taken from http://git.io/solarized-colors.
+if tput setaf 1 &> /dev/null; then
+  tput sgr0; # reset colors
+  BLACK=$(tput setaf 0);
+  BLUE=$(tput setaf 68);
+  BOLD=$(tput bold);
+  CYAN=$(tput setaf 37);
+  GRAY=$(tput setaf 240);
+  GREEN=$(tput setaf 64);
+  LTGRAY=$(tput setaf 245);
+  ORANGE=$(tput setaf 166);
+  PURPLE=$(tput setaf 125);
+  RED=$(tput setaf 124);
+  RESET=$(tput sgr0);
+  VIOLET=$(tput setaf 97);
+  WHITE=$(tput setaf 15);
+  YELLOW=$(tput setaf 226);
+else
+	BOLD='';
+  BLACK="\e[1;30m";
+  BLUE="\e[1;34m";
+  CYAN="\e[1;36m";
+  GRAY="\e[1;30m";
+  GREEN="\e[1;32m";
+  LTGRAY="\e[0;37m";
+  ORANGE="\e[1;33m";
+  PURPLE="\e[1;35m";
+  RED="\e[1;31m";
+  RESET="\e[0m";
+  VIOLET="\e[1;35m";
+  WHITE="\e[1;37m";
+  YELLOW="\e[1;33m";
+fi;
+
 
 function parse_git_dirty() {
   # Show "∆" if the stage isn't clean
