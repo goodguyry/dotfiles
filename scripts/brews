@@ -37,6 +37,7 @@ brew install dark-mode;
 brew install gist;
 brew install libdvdcss;
 brew install mas;
+brew install moreutils;
 brew install mysql;
 brew install packer;
 brew install phantomjs;

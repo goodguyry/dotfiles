@@ -21,6 +21,7 @@
 - [GNU Grep](https://www.gnu.org/software/grep/)
 - [OpenSSH](http://www.openssh.com/)
 - [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
+- [moreutils](https://joeyh.name/code/moreutils/)
 - [MySQL](https://dev.mysql.com/doc/refman/5.6/en/)
 - [Packer](https://www.packer.io/)
 - [PhantomJS](http://phantomjs.org/)
