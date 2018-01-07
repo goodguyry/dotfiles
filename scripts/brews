@@ -64,6 +64,16 @@ brew cleanup;
 [[ $? ]] && log_success 'Homebrew packages installed.';
 
 
+# Check for an existing cask or app file before installing
+function brew_cask_install() {
+  APP=$(brew cask info ${1} | grep \\.app | sed -e 's/\ (App)//');
+  if $(brew cask list ${1} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
+    log_warning "${1} already installed";
+  else
+    brew cask install ${@};
+  fi;
+}
+
 # Install native applications
 log_header 'Installing casks (native apps)...';
 
@@ -72,55 +82,55 @@ brew tap caskroom/cask;
 brew tap caskroom/versions;
 
 # Native apps
-brew cask install 1Password;
-brew cask install alfred;
-brew cask install atext;
-brew cask install caffeine;
-brew cask install chronosync;
-brew cask install clamxav;
-brew cask install clipy;
-brew cask install coconutbattery;
-brew cask install dropbox;
-brew cask install firefox;
-brew cask install firefoxdeveloperedition;
-brew cask install gitify;
-brew cask install google-chrome-canary;
-brew cask install google-chrome;
-brew cask install handbrake;
-brew cask install imageoptim;
-brew cask install macdown;
-brew cask install nvalt;
-brew cask install onyx;
-brew cask install opera-beta;
-brew cask install opera-developer;
-brew cask install opera-mobile-emulator;
-brew cask install opera;
-brew cask install rar;
-brew cask install safari-technology-preview;
-brew cask install sequel-pro;
-brew cask install sketch;
-brew cask install sublime-text;
-brew cask install suspicious-package;
-brew cask install torbrowser;
-brew cask install transmission;
-brew cask install transmit;
-brew cask install vagrant;
-brew cask install virtualbox;
-brew cask install visual-studio-code;
-brew cask install vlc;
-brew cask install webkit-nightly;
+brew_cask_install 1Password;
+brew_cask_install alfred;
+brew_cask_install atext;
+brew_cask_install caffeine;
+brew_cask_install chronosync;
+brew_cask_install clamxav;
+brew_cask_install clipy;
+brew_cask_install coconutbattery;
+brew_cask_install dropbox;
+brew_cask_install firefox;
+brew_cask_install firefoxdeveloperedition;
+brew_cask_install gitify;
+brew_cask_install google-chrome-canary;
+brew_cask_install google-chrome;
+brew_cask_install handbrake;
+brew_cask_install imageoptim;
+brew_cask_install macdown;
+brew_cask_install nvalt;
+brew_cask_install onyx;
+brew_cask_install opera-beta;
+brew_cask_install opera-developer;
+brew_cask_install opera-mobile-emulator;
+brew_cask_install opera;
+brew_cask_install rar;
+brew_cask_install safari-technology-preview;
+brew_cask_install sequel-pro;
+brew_cask_install sketch;
+brew_cask_install sublime-text;
+brew_cask_install suspicious-package;
+brew_cask_install torbrowser;
+brew_cask_install transmission;
+brew_cask_install transmit;
+brew_cask_install vagrant;
+brew_cask_install virtualbox;
+brew_cask_install visual-studio-code;
+brew_cask_install vlc;
+brew_cask_install webkit-nightly;
 
 # System Preferences panes
-brew cask install web-sharing;
+brew_cask_install web-sharing;
 
 # QuickLook Plugins
-brew cask install betterzipql;
-brew cask install qlcolorcode;
-brew cask install qlimagesize;
-brew cask install qlmarkdown;
-brew cask install qlstephen;
-brew cask install quicklook-csv;
-brew cask install webpquicklook;
+brew_cask_install betterzipql;
+brew_cask_install qlcolorcode;
+brew_cask_install qlimagesize;
+brew_cask_install qlmarkdown;
+brew_cask_install qlstephen;
+brew_cask_install quicklook-csv;
+brew_cask_install webpquicklook;
 
 brew cask cleanup;
 
