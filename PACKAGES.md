@@ -4,32 +4,32 @@
 - [RVM](https://rvm.io)
   - Ruby 2.3.0
 - [NVM](https://github.com/creationix/nvm)
-  - Latest stable Node
-  - Latest stable NPM
+  - Latest Node
+  - Latest NPM
 
 ## Homebrew
 
-- [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [Bash 4](http://www.gnu.org/software/bash/)
-- [caskroom/cask/brew-cask](https://github.com/caskroom/homebrew-cask)
-- [caskroom/versions](https://github.com/caskroom/homebrew-versions)
+- [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
 - [Findutils](http://www.gnu.org/software/findutils/)
-- [gist](https://github.com/defunkt/gist)
-- [GNU Wget](https://www.gnu.org/software/wget/)
-- [GNU Grep](https://www.gnu.org/software/grep/)
+- [GNU grep](https://www.gnu.org/software/grep/)
 - [GNU sed](https://www.gnu.org/software/sed/)
-- [OpenSSH](http://www.openssh.com/)
-- [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
-- [moreutils](https://joeyh.name/code/moreutils/)
+- [GNU wget](https://www.gnu.org/software/wget/)
+- [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
+- [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
 - [MySQL](https://dev.mysql.com/doc/refman/5.6/en/)
+- [OpenSSH](http://www.openssh.com/)
 - [Packer](https://www.packer.io/)
 - [PhantomJS](http://phantomjs.org/)
-- [pigz](https://zlib.net/pigz/)
-- [rar](http://www.rarlab.com/)
+- [RAR](http://www.rarlab.com/)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
-- [homebrew/webfonttools](https://github.com/bramstein/homebrew-webfonttools)
+- [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
+- [gist](https://github.com/defunkt/gist)
+- [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
+- [moreutils](https://joeyh.name/code/moreutils/)
+- [pigz](https://zlib.net/pigz/)
 
 ## Gems
 
@@ -45,7 +45,6 @@
 ## Native applications
 
 - [1Password](https://1password.com/)
-- [aText](https://www.trankynam.com/atext/)
 - [Alfred 3](https://www.alfredapp.com/)
 - [AppCleaner](https://freemacsoft.net/appcleaner/)
 - [Caffeine](http://lightheadsw.com/caffeine/)
@@ -62,7 +61,6 @@
 - [Handbrake](http://handbrake.fr)
 - [ImageOptim](https://imageoptim.com/)
 - [MacDown](http://macdown.uranusjr.com/)
-- [nvALT](http://brettterpstra.com/projects/nvalt/)
 - [Onyx](http://www.titanium.free.fr/onyx.html)
 - [Opera Beta](http://www.opera.com/computer/beta)
 - [Opera Developer](http://www.opera.com/developer)
@@ -76,11 +74,13 @@
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
+- [VLC](http://www.videolan.org/vlc/index.html)
 - [Vagrant](https://www.vagrantup.com/)
 - [VirtualBox](https://www.virtualbox.org/)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [VLC](http://www.videolan.org/vlc/index.html)
 - [Webkit Nightly](http://www.webkit.org/)
+- [aText](https://www.trankynam.com/atext/)
+- [nvALT](http://brettterpstra.com/projects/nvalt/)
 
 ## System Preferences panes
 

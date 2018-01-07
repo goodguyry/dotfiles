@@ -24,9 +24,10 @@ brew install findutils --with-default-names;
 brew install wget --enable-iri;
 
 # Install more recent versions of some OS X tools
-brew install grep
-brew install openssh
-brew install vim --with-override-system-vi
+brew install gnu-sed --with-default-names;
+brew install grep;
+brew install openssh;
+brew install vim --with-override-system-vi;
 
 # Install Bash 4
 brew install bash;
@@ -34,14 +35,13 @@ brew install bash-completion2;
 
 # Install font tools.
 # https://github.com/bramstein/homebrew-webfonttools
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+brew tap bramstein/webfonttools;
+brew install sfnt2woff;
+brew install sfnt2woff-zopfli;
+brew install woff2;
 
 # Install other useful binaries
 brew install gist;
-brew install gnu-sed --with-default-names;
 brew install libdvdcss;
 brew install mas;
 brew install moreutils;
