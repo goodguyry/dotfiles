@@ -1,13 +1,16 @@
-## Package managers
+# Scripts
 
-- [Homebrew](http://brew.sh)
-- [RVM](https://rvm.io)
-  - Ruby 2.3.0
-- [NVM](https://github.com/creationix/nvm)
-  - Latest Node
-  - Latest NPM
+- `gitconfig`: Set up Git configuration settings and aliases.
+- `macos`: Set Application, User and System-wide preferences for macOS.
+- `brews`: Install Homebrew and Homebrew packages, native applications, and fonts.
+- `rvm`: Install RVM, Ruby, and Gems.
+- `nvm`: Install NVM, Node, and packages from NPM.
+- `appstore`: Install Mac App Store purchases.
+- `sublime`: Install Sublime Text packages and settings.
 
-## Homebrew
+## Packages:
+
+### [Homebrew](http://brew.sh)
 
 - [Bash 4](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
@@ -32,25 +35,14 @@
 - [Vim](https://vim.sourceforge.io/)
 - [woff2](https://github.com/google/woff2)
 
-## Homebrew Taps
+#### Homebrew Taps
 
 - [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
 - [Homebrew Cask/fonts](https://github.com/caskroom/homebrew-fonts)
 - [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
 - [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
 
-## Gems
-
-- [Jekyll](http://jekyllrb.com/)
-- [Rouge](http://rouge.jneen.net/)
-- [Sass](http://sass-lang.com/)
-
-## NPM
-
-- [Browsersync](http://www.browsersync.io/)
-- [git-open](https://github.com/paulirish/git-open)
-
-## Native applications
+#### Casks (native applications)
 
 - [1Password](https://1password.com/)
 - [Alfred 3](https://www.alfredapp.com/)
@@ -90,11 +82,11 @@
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 
-## System Preferences panes
+#### System Preferences panes
 
 - [Web Sharing](https://clickontyler.com/web-sharing/)
 
-## QuickLook plugins
+#### QuickLook plugins
 
 - [QLColorCode](https://code.google.com/p/qlcolorcode/)
 - [qlImageSize](https://github.com/Nyx0uf/qlImageSize)
@@ -103,44 +95,8 @@
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
 - [WebP](https://github.com/dchest/webp-quicklook)
 
-# Mac App Store purchases
+#### Fonts
 
-- [2Do](https://itunes.apple.com/us/app/2do/id477670270)
-- [Bear](http://www.bear-writer.com)
-- [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
-- [Byword](https://itunes.apple.com/us/app/2do/id420212497)
-- [Duo](https://itunes.apple.com/us/app/2do/id777886035)
-- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
-- [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
-- [Pixelmator](http://www.pixelmator.com/mac/)
-- [Reeder](https://itunes.apple.com/us/app/2do/id880001334)
-- [Slack](https://itunes.apple.com/us/app/2do/id803453959)
-- [SnippetsLab](https://itunes.apple.com/us/app/2do/id1006087419)
-- [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
-- [Things](https://itunes.apple.com/us/app/things-3/id904280696)
-- [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
-
-# Sublime Text 3 packages
-
-- [CSS3](https://github.com/y0ssar1an/CSS3)
-- [Dayle Rees Colour Schemes](https://github.com/daylerees/colour-schemes)
-- [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
-- [editorconfig](https://github.com/sindresorhus/editorconfig-sublime)
-- [FileDiffs](https://github.com/colinta/SublimeFileDiffs)
-- [Git](https://github.com/kemayo/sublime-text-git)
-- [GitGutter](https://github.com/jisaacks/GitGutter)
-- [JavaScript Completions](https://github.com/pichillilorenzo/JavaScript-Completions)
-- [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
-- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview) (Manual install)
-- [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
-- [Package Control](https://packagecontrol.io/installation) (Manual install)
-- [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
-- [Sublime Github](https://github.com/bgreenlee/sublime-github)
-- [SublimeLinter 3](https://github.com/SublimeLinter/SublimeLinter3)
-- [SublimeLinter eslint](https://github.com/roadhump/SublimeLinter-eslint)
-- [Syntax Highlighting for Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
-
-# Fonts
 - Hack
 - Inconsolata
 - Lato
@@ -160,3 +116,55 @@
 - Source Code Pro
 - Source Sans Pro
 - Source Serif Pro
+
+### RVM
+
+- [RVM](https://rvm.io)
+  - [Ruby (2.3.0)](https://www.ruby-lang.org/en/)
+- [Jekyll](http://jekyllrb.com/)
+- [Rouge](http://rouge.jneen.net/)
+- [Sass](http://sass-lang.com/)
+
+### NVM
+
+- [NVM](https://github.com/creationix/nvm)
+  - [Node (Latest)](https://nodejs.org/en/)
+- [Browsersync](http://www.browsersync.io/)
+- [git-open](https://github.com/paulirish/git-open)
+
+### Mac App Store purchases
+
+- [2Do](https://itunes.apple.com/us/app/2do/id477670270)
+- [Bear](http://www.bear-writer.com)
+- [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
+- [Byword](https://itunes.apple.com/us/app/2do/id420212497)
+- [Duo](https://itunes.apple.com/us/app/2do/id777886035)
+- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
+- [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
+- [Pixelmator](http://www.pixelmator.com/mac/)
+- [Reeder](https://itunes.apple.com/us/app/2do/id880001334)
+- [Slack](https://itunes.apple.com/us/app/2do/id803453959)
+- [SnippetsLab](https://itunes.apple.com/us/app/2do/id1006087419)
+- [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
+- [Things](https://itunes.apple.com/us/app/things-3/id904280696)
+- [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
+
+### Sublime Text 3 packages
+
+- [CSS3](https://github.com/y0ssar1an/CSS3)
+- [Dayle Rees Colour Schemes](https://github.com/daylerees/colour-schemes)
+- [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
+- [editorconfig](https://github.com/sindresorhus/editorconfig-sublime)
+- [FileDiffs](https://github.com/colinta/SublimeFileDiffs)
+- [Git](https://github.com/kemayo/sublime-text-git)
+- [GitGutter](https://github.com/jisaacks/GitGutter)
+- [JavaScript Completions](https://github.com/pichillilorenzo/JavaScript-Completions)
+- [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
+- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview) (Manual install)
+- [MarkdownHighlighting](https://github.com/braver/MarkdownHighlighting)
+- [Package Control](https://packagecontrol.io/installation) (Manual install)
+- [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
+- [Sublime Github](https://github.com/bgreenlee/sublime-github)
+- [SublimeLinter 3](https://github.com/SublimeLinter/SublimeLinter3)
+- [SublimeLinter eslint](https://github.com/roadhump/SublimeLinter-eslint)
+- [Syntax Highlighting for Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
