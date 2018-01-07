@@ -1,9 +1,6 @@
 # GoodGuyRy's dotfiles
 
-Dev-related packages and shell configuration. Very exciting.
-
-*Here is the [master list of installed packages](PACKAGES.md).*
-
+Dev-related [packages](scripts/) and shell configuration. Very exciting.
 
 
 ## Download
