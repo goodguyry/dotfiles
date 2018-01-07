@@ -24,7 +24,9 @@ Options:
     -n, --no-packages     Suppress package installations and updates (including casks)
     -s, --server          Skip OS X-related packages/settings
 
- Notes: '--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github
+Notes:
+'--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github.
+'editorconfig' is always copied.
 
 Documentation can be found at https://github.com/goodguyry/dotfiles
 
@@ -151,8 +153,10 @@ function set_files() {
   # Dev
   set_file 'dev/gitignore'                        "${HOME}/.gitignore";
   set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
-  set_file 'dev/editorconfig'                     "${HOME}/.editorconfig";
   set_file 'dev/vimrc'                            "${HOME}/.vimrc";
+
+  # Always copy editorconfig
+  rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
 
   # Shell
   set_file 'shell/aliases'                        "${HOME}/.aliases";

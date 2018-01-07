@@ -14,10 +14,10 @@ function p() {
       # Check for a passed subdirectory
       if [[ ${#} -gt 1 ]]; then
         # Open the passed subdirectory in Sublime Text
-        subl "${2}";
+        code "${2}";
       else
         # Open the project root in Sublime Text
-        subl .;
+        code .;
       fi;
     fi;
 
@@ -178,16 +178,6 @@ function gz() {
 }
 
 
-# Start a PHP server from a directory, optionally specifying the port
-# (Requires PHP 5.4.0+.)
-function phpserver() {
-  local PORT="${1:-4000}";
-  local IP="$(ipconfig getifaddr en1)";
-  sleep 1 && open "http://${IP}:${PORT}/" &
-  php -S "${IP}:${PORT}";
-}
-
-
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
   local PORT="${1:-8000}";
@@ -210,7 +200,7 @@ function server() {
 #   Change date format in $stamp to alter output
 # ----------------------------------------------
 
-function run_help() {
+function run_stamp_help() {
 
 cat <<EOT
 Usage: stamp [-d] [-c] [-s=SEPARATOR]
@@ -226,7 +216,7 @@ EOT
 function stamp() {
   # Help text
   if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -238,7 +228,7 @@ function stamp() {
 
   # No args were given
   if [[ ${#} -lt 1 ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -264,7 +254,7 @@ function stamp() {
 
   # Make sure ITEM is set before proceeding
   if [[ -z "${ITEM}" ]]; then
-    run_help;
+    run_stamp_help;
     return;
   fi;
 
@@ -290,6 +280,7 @@ function stamp() {
 
   unset SEP;
 }
+
 
 function zero() {
   [[ "${#}" -lt 1 ]] && return;

@@ -24,25 +24,31 @@ brew install findutils --with-default-names;
 brew install wget --enable-iri;
 
 # Install more recent versions of some OS X tools
-# See https://github.com/Homebrew/homebrew-dupes for more
-brew tap homebrew/dupes;
-brew install homebrew/dupes/grep --with-default-names;
-brew install homebrew/dupes/openssh;
-
-brew tap homebrew/versions;
+brew install gnu-sed --with-default-names;
+brew install grep;
+brew install openssh;
+brew install vim --with-override-system-vi;
 
 # Install Bash 4
 brew install bash;
 brew install bash-completion2;
 
+# Install font tools.
+# https://github.com/bramstein/homebrew-webfonttools
+brew tap bramstein/webfonttools;
+brew install sfnt2woff;
+brew install sfnt2woff-zopfli;
+brew install woff2;
+
 # Install other useful binaries
-brew install dark-mode;
 brew install gist;
 brew install libdvdcss;
 brew install mas;
+brew install moreutils;
 brew install mysql;
 brew install packer;
 brew install phantomjs;
+brew install pigz;
 brew install rar;
 brew install tree;
 
@@ -58,18 +64,16 @@ log_header 'Installing casks (native apps)...';
 brew tap caskroom/cask;
 brew tap caskroom/versions;
 
-# Link Homebrew casks in `/Applications` rather than `~/Applications`
-export HOMEBREW_CASK_OPTS='--appdir=/Applications';
-
 # Native apps
+brew cask install 1Password;
+brew cask install alfred;
 brew cask install atext;
 brew cask install caffeine;
 brew cask install chronosync;
 brew cask install clamxav;
-brew cask install clipmenu;
+brew cask install clipy;
 brew cask install coconutbattery;
 brew cask install dropbox;
-brew cask install evernote;
 brew cask install firefox;
 brew cask install firefoxdeveloperedition;
 brew cask install gitify;
@@ -94,6 +98,7 @@ brew cask install transmission;
 brew cask install transmit;
 brew cask install vagrant;
 brew cask install virtualbox;
+brew cask install visual-studio-code;
 brew cask install vlc;
 brew cask install webkit-nightly;
 
