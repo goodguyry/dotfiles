@@ -78,7 +78,6 @@
 - [Vagrant](https://www.vagrantup.com/)
 - [VirtualBox](https://www.virtualbox.org/)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Webkit Nightly](http://www.webkit.org/)
 - [aText](https://www.trankynam.com/atext/)
 - [nvALT](http://brettterpstra.com/projects/nvalt/)
 

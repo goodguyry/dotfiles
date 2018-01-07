@@ -118,7 +118,6 @@ brew_cask_install vagrant;
 brew_cask_install virtualbox;
 brew_cask_install visual-studio-code;
 brew_cask_install vlc;
-brew_cask_install webkit-nightly;
 
 # System Preferences panes
 brew_cask_install web-sharing;
