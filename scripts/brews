@@ -64,9 +64,6 @@ log_header 'Installing casks (native apps)...';
 brew tap caskroom/cask;
 brew tap caskroom/versions;
 
-# Link Homebrew casks in `/Applications` rather than `~/Applications`
-export HOMEBREW_CASK_OPTS='--appdir=/Applications';
-
 # Native apps
 brew cask install 1Password;
 brew cask install alfred;
