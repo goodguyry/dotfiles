@@ -11,45 +11,53 @@ source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
 log_header 'Installing new formulae...';
 
+# Check for existing brew before installing
+function brew_install() {
+  if $(brew list ${1} &> /dev/null); then
+    log_warning "${1} already installed";
+  else
+    brew install ${@};
+  fi;
+}
 
 # Install CLI packages
 
 # GNU File, Shell, and Text utilities
-brew install coreutils;
+brew_install coreutils;
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
-brew install findutils --with-default-names;
+brew_install findutils --with-default-names;
 
 # Install wget with IRI support
-brew install wget --enable-iri;
+brew_install wget --enable-iri;
 
 # Install more recent versions of some OS X tools
-brew install gnu-sed --with-default-names;
-brew install grep;
-brew install openssh;
-brew install vim --with-override-system-vi;
+brew_install gnu-sed --with-default-names;
+brew_install grep;
+brew_install openssh;
+brew_install vim --with-override-system-vi;
 
 # Install Bash 4
-brew install bash;
-brew install bash-completion2;
+brew_install bash;
+brew_install bash-completion2;
 
 # Install font tools.
 # https://github.com/bramstein/homebrew-webfonttools
 brew tap bramstein/webfonttools;
-brew install sfnt2woff;
-brew install sfnt2woff-zopfli;
-brew install woff2;
+brew_install sfnt2woff;
+brew_install sfnt2woff-zopfli;
+brew_install woff2;
 
 # Install other useful binaries
-brew install gist;
-brew install libdvdcss;
-brew install mas;
-brew install moreutils;
-brew install mysql;
-brew install packer;
-brew install phantomjs;
-brew install pigz;
-brew install tree;
+brew_install gist;
+brew_install libdvdcss;
+brew_install mas;
+brew_install moreutils;
+brew_install mysql;
+brew_install packer;
+brew_install phantomjs;
+brew_install pigz;
+brew_install tree;
 
 brew cleanup;
 
