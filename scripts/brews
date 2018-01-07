@@ -85,6 +85,7 @@ brew tap caskroom/versions;
 brew_cask_install 1Password;
 brew_cask_install alfred;
 brew_cask_install atext;
+brew_cask_install betterzip;
 brew_cask_install caffeine;
 brew_cask_install chronosync;
 brew_cask_install clamxav;
@@ -123,7 +124,6 @@ brew_cask_install vlc;
 brew_cask_install web-sharing;
 
 # QuickLook Plugins
-brew_cask_install betterzipql;
 brew_cask_install qlcolorcode;
 brew_cask_install qlimagesize;
 brew_cask_install qlmarkdown;

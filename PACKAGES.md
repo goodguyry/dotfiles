@@ -46,6 +46,7 @@
 - [1Password](https://1password.com/)
 - [Alfred 3](https://www.alfredapp.com/)
 - [AppCleaner](https://freemacsoft.net/appcleaner/)
+- [BetterZip](https://macitbetter.com/)
 - [Caffeine](http://lightheadsw.com/caffeine/)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
 - [ClamXav](https://www.clamxav.com/)
@@ -87,7 +88,6 @@
 
 ## QuickLook plugins
 
-- [BetterZipQL](http://macitbetter.com/BetterZip-Quick-Look-Generator/)
 - [QLColorCode](https://code.google.com/p/qlcolorcode/)
 - [qlImageSize](https://github.com/Nyx0uf/qlImageSize)
 - [QLMarkdown](https://github.com/toland/qlmarkdown)
