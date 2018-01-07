@@ -30,6 +30,7 @@
 - [rar](http://www.rarlab.com/)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
+- [homebrew/webfonttools](https://github.com/bramstein/homebrew-webfonttools)
 
 ## Gems
 

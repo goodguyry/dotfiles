@@ -32,6 +32,13 @@ brew install vim --with-override-system-vi
 brew install bash;
 brew install bash-completion2;
 
+# Install font tools.
+# https://github.com/bramstein/homebrew-webfonttools
+brew tap bramstein/webfonttools
+brew install sfnt2woff
+brew install sfnt2woff-zopfli
+brew install woff2
+
 # Install other useful binaries
 brew install dark-mode;
 brew install gist;
