@@ -178,16 +178,6 @@ function gz() {
 }
 
 
-# Start a PHP server from a directory, optionally specifying the port
-# (Requires PHP 5.4.0+.)
-function phpserver() {
-  local PORT="${1:-4000}";
-  local IP="$(ipconfig getifaddr en1)";
-  sleep 1 && open "http://${IP}:${PORT}/" &
-  php -S "${IP}:${PORT}";
-}
-
-
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
   local PORT="${1:-8000}";
