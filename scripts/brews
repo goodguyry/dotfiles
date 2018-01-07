@@ -68,7 +68,6 @@ brew cask install clamxav;
 brew cask install clipy;
 brew cask install coconutbattery;
 brew cask install dropbox;
-brew cask install evernote;
 brew cask install firefox;
 brew cask install firefoxdeveloperedition;
 brew cask install gitify;
