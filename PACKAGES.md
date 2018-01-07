@@ -35,6 +35,7 @@
 ## Homebrew Taps
 
 - [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
+- [Homebrew Cask/fonts](https://github.com/caskroom/homebrew-fonts)
 - [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
 - [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
 
@@ -138,3 +139,24 @@
 - [SublimeLinter 3](https://github.com/SublimeLinter/SublimeLinter3)
 - [SublimeLinter eslint](https://github.com/roadhump/SublimeLinter-eslint)
 - [Syntax Highlighting for Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
+
+# Fonts
+- Hack
+- Inconsolata
+- Lato
+- Merriweather
+- Merriweather Sans
+- Nunito
+- Open Sans
+- Open Sans Condensed
+- Open Sans Hebrew
+- Open Sans Hebrew Condensed
+- PT Mono
+- PT Sans
+- PT Serif
+- Roboto Condensed
+- Roboto Mono
+- Roboto Slab
+- Source Code Pro
+- Source Sans Pro
+- Source Serif Pro
