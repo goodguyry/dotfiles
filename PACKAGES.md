@@ -11,24 +11,31 @@
 
 - [Bash 4](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
-- [Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
-- [Findutils](http://www.gnu.org/software/findutils/)
+- [gist](https://github.com/defunkt/gist)
+- [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
+- [GNU Findutils](http://www.gnu.org/software/findutils/)
 - [GNU grep](https://www.gnu.org/software/grep/)
 - [GNU sed](https://www.gnu.org/software/sed/)
 - [GNU wget](https://www.gnu.org/software/wget/)
-- [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
-- [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
+- [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
+- [mas](https://github.com/mas-cli/mas)
+- [moreutils](https://joeyh.name/code/moreutils/)
 - [MySQL](https://dev.mysql.com/doc/refman/5.6/en/)
 - [OpenSSH](http://www.openssh.com/)
 - [Packer](https://www.packer.io/)
 - [PhantomJS](http://phantomjs.org/)
+- [pigz](https://zlib.net/pigz/)
+- [sfnt2woff-zopfli](https://github.com/bramstein/sfnt2woff-zopfli)
+- [sfnt2woff](https://github.com/bramstein/sfnt2woff)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
+- [woff2](https://github.com/google/woff2)
+
+## Homebrew Taps
+
+- [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
+- [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
 - [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
-- [gist](https://github.com/defunkt/gist)
-- [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
-- [moreutils](https://joeyh.name/code/moreutils/)
-- [pigz](https://zlib.net/pigz/)
 
 ## Gems
 
@@ -46,6 +53,7 @@
 - [1Password](https://1password.com/)
 - [Alfred 3](https://www.alfredapp.com/)
 - [AppCleaner](https://freemacsoft.net/appcleaner/)
+- [aText](https://www.trankynam.com/atext/)
 - [BetterZip](https://macitbetter.com/)
 - [Caffeine](http://lightheadsw.com/caffeine/)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
@@ -75,12 +83,10 @@
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
-- [VLC](http://www.videolan.org/vlc/index.html)
 - [Vagrant](https://www.vagrantup.com/)
 - [VirtualBox](https://www.virtualbox.org/)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [aText](https://www.trankynam.com/atext/)
-- [nvALT](http://brettterpstra.com/projects/nvalt/)
+- [VLC](http://www.videolan.org/vlc/index.html)
 
 ## System Preferences panes
 

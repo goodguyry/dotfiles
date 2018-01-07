@@ -25,16 +25,18 @@ function brew_install() {
 # GNU File, Shell, and Text utilities
 brew_install coreutils;
 
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
+# Install GNU `find`, `locate`, `updatedb`, `xargs` and `sed`, g-prefixed
 brew_install findutils --with-default-names;
+brew_install gnu-sed --with-default-names;
 
 # Install wget with IRI support
 brew_install wget --enable-iri;
 
 # Install more recent versions of some OS X tools
-brew_install gnu-sed --with-default-names;
 brew_install grep;
 brew_install openssh;
+
+# Install latest Vim
 brew_install vim --with-override-system-vi;
 
 # Install Bash 4
@@ -84,6 +86,7 @@ brew tap caskroom/versions;
 # Native apps
 brew_cask_install 1Password;
 brew_cask_install alfred;
+brew_cask_install appcleaner;
 brew_cask_install atext;
 brew_cask_install betterzip;
 brew_cask_install caffeine;
@@ -100,7 +103,6 @@ brew_cask_install google-chrome;
 brew_cask_install handbrake;
 brew_cask_install imageoptim;
 brew_cask_install macdown;
-brew_cask_install nvalt;
 brew_cask_install onyx;
 brew_cask_install opera-beta;
 brew_cask_install opera-developer;
