@@ -42,6 +42,7 @@ brew install moreutils;
 brew install mysql;
 brew install packer;
 brew install phantomjs;
+brew install pigz;
 brew install rar;
 brew install tree;
 

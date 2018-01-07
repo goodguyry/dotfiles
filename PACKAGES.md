@@ -26,6 +26,7 @@
 - [MySQL](https://dev.mysql.com/doc/refman/5.6/en/)
 - [Packer](https://www.packer.io/)
 - [PhantomJS](http://phantomjs.org/)
+- [pigz](https://zlib.net/pigz/)
 - [rar](http://www.rarlab.com/)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
