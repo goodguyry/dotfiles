@@ -49,7 +49,6 @@ brew install mysql;
 brew install packer;
 brew install phantomjs;
 brew install pigz;
-brew install rar;
 brew install tree;
 
 brew cleanup;
@@ -88,6 +87,7 @@ brew cask install opera-beta;
 brew cask install opera-developer;
 brew cask install opera-mobile-emulator;
 brew cask install opera;
+brew cask install rar;
 brew cask install safari-technology-preview;
 brew cask install sequel-pro;
 brew cask install sketch;
