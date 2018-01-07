@@ -40,7 +40,7 @@ The following options are available when running the init file:
 | `-h`, `--help`        | Print this help text                           |
 | `-c`, `--copy`        | Copy the files instead of symlinking           |
 | `-n`, `--no-packages` | Suppress package installations and updates     |
-| `-s`, `--server`      | Skip Projects folder and OS X-related packages |
+| `-s`, `--server`      | Skip Projects folder and macOS-related packages |
 
 **Notes:**
 - `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github.
@@ -54,9 +54,9 @@ The following options are available when running the init file:
 Used to add extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
 
 
-### OS X defaults
+### macOS defaults
 
-The setup process will prompt to apply the OS X defaults. They can also be applied independently from the dotfiles directory:
+The setup process will prompt to apply the masOS defaults. They can also be applied independently from the dotfiles directory:
 
 ```
 ./scripts/macos

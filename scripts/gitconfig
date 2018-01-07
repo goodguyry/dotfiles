@@ -203,7 +203,7 @@ git_config_add core.pager 'diff-highlight | less -r';
 git_config_add core.precomposeunicode true;
 git_config_add core.repositoryformatversion 0;
 git_config_add core.safecrlf true;
-# Make `git rebase` safer on OS X
+# Make `git rebase` safer on macOS
 # http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
 git_config_add core.trustctime false;
 # Spaces before tabs, lines indented with 8 or more spaces, and all kinds of trailing whitespace are errors.

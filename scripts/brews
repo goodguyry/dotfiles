@@ -42,7 +42,7 @@ brew_install gnu-sed --with-default-names;
 # Install wget with IRI support.
 brew_install wget --enable-iri;
 
-# Install more recent versions of some OS X tools.
+# Install more recent versions of some macOS tools.
 brew_install grep;
 brew_install openssh;
 brew_install rsync;

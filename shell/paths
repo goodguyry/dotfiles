@@ -19,7 +19,7 @@ PATH="${PATH}:/usr/bin:/bin:/usr/sbin:/sbin";
 if [ "$(type -P brew)" ] && [[ "$(brew --prefix coreutils)" ]]; then
   PATH="${PATH}:$(brew --prefix coreutils)/libexec/gnubin";
 else
-  # Fall back to OS X default.
+  # Fall back to macOS default.
   PATH="${PATH}:/libexec/gnubin";
 fi;
 

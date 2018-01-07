@@ -134,7 +134,7 @@ function targz() {
   tar -cvf "${TMPFILE}" --exclude='.DS_Store' "${@}" || return 1;
 
   size=$(
-    stat -f"%z" "${TMPFILE}" 2> /dev/null; # OS X `stat`
+    stat -f"%z" "${TMPFILE}" 2> /dev/null; # macOS `stat`
     stat -c"%s" "${TMPFILE}" 2> /dev/null; # GNU `stat`
   );
 

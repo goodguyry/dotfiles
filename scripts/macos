@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Application, User and System-wide preferences for macOS.
-# A lot of these were borrowed from http://mths.be/osx.
+# A lot of these were borrowed from http://mths.be/macos.
 
 
 # Source utils.
@@ -11,7 +11,7 @@ source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 # Ask for the administrator password upfront.
 sudo -v;
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished.
+# Keep-alive: update existing `sudo` time stamp until `macos` has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 
@@ -493,7 +493,7 @@ defaults write org.m0k.transmission WarningLegal -bool false;
 
 echo -e "\a\a\a";
 
-log_success 'OS X settings updated! Note that some of these changes require a logout/restart to take effect.';
+log_success 'macOS settings updated! Note that some of these changes require a logout/restart to take effect.';
 
 for APP in 'Dock' 'Finder' 'SystemUIServer' ; do
   killall "${APP}" > /dev/null 2>&1

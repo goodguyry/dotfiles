@@ -23,7 +23,7 @@ Options:
     -h, --help            Print this help text
     -c, --copy            Copy the files in place instead of linking
     -n, --no-packages     Suppress package installations and updates (including casks)
-    -s, --server          Skip OS X-related packages/settings
+    -s, --server          Skip macOS-related packages/settings
 
 Notes:
 '--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github.
@@ -72,7 +72,7 @@ do
                -n)  NO_PACKAGES=true ;;
            --copy)  COPY_FILES=true ;;                # Copy files instead of linking.
                -c)  COPY_FILES=true ;;
-         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip OS X-related packages/settings.
+         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
                -s)  SERVER=true; NO_PACKAGES=true ;;
            -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac
@@ -168,7 +168,7 @@ function set_files() {
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
     else
-      # Extract colors/solarized.vim into .vim (OS X-Friendly).
+      # Extract colors/solarized.vim into .vim (macOS-Friendly).
       log_header 'Downloading Solarized Vim theme...';
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
@@ -232,14 +232,14 @@ fi;
 if ! $SERVER; then
   # Ask before potentially overwriting files.
   printf '\n';
-  log_warning 'Warning: This step may modify your OS X system defaults.';
+  log_warning 'Warning: This step may modify your macOS system defaults.';
   printf 'Continue? [Y/n] ';
-  read SET_OSX;
+  read SET_MACOS;
   printf '\n';
 
   # Conditionally set defaults.
-  if [[ "${SET_OSX}" == 'n' ]]; then
-    log_header 'Skipped OS X settings update.';
+  if [[ "${SET_MACOS}" == 'n' ]]; then
+    log_header 'Skipped macOS settings update.';
   else
     source scripts/macos;
   fi;
