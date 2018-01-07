@@ -138,3 +138,29 @@ brew cask cleanup;
 
 
 [[ $? ]] && log_success 'Homebrew Casks installed';
+
+
+# Install fonts
+log_header 'Installing fonts...';
+
+brew tap caskroom/fonts;
+
+brew_cask_install font-hack;
+brew_cask_install font-inconsolata;
+brew_cask_install font-lato;
+brew_cask_install font-merriweather-sans;
+brew_cask_install font-merriweather;
+brew_cask_install font-nunito;
+brew_cask_install font-open-sans-condensed;
+brew_cask_install font-open-sans-hebrew-condensed;
+brew_cask_install font-open-sans-hebrew;
+brew_cask_install font-open-sans;
+brew_cask_install font-pt-mono;
+brew_cask_install font-pt-sans;
+brew_cask_install font-pt-serif;
+brew_cask_install font-roboto-condensed;
+brew_cask_install font-roboto-mono;
+brew_cask_install font-roboto-slab;
+brew_cask_install font-source-code-pro;
+brew_cask_install font-source-sans-pro;
+brew_cask_install font-source-serif-pro;
