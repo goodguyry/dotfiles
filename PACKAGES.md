@@ -25,6 +25,7 @@
 - [Packer](https://www.packer.io/)
 - [PhantomJS](http://phantomjs.org/)
 - [pigz](https://zlib.net/pigz/)
+- [rsync](https://rsync.samba.org/)
 - [sfnt2woff-zopfli](https://github.com/bramstein/sfnt2woff-zopfli)
 - [sfnt2woff](https://github.com/bramstein/sfnt2woff)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
