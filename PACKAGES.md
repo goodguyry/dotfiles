@@ -14,7 +14,6 @@
 - [caskroom/cask/brew-cask](https://github.com/caskroom/homebrew-cask)
 - [caskroom/versions](https://github.com/caskroom/homebrew-versions)
 - [Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
-- [dark-mode](https://github.com/sindresorhus/dark-mode)
 - [Findutils](http://www.gnu.org/software/findutils/)
 - [gist](https://github.com/defunkt/gist)
 - [GNU Wget](https://www.gnu.org/software/wget/)
