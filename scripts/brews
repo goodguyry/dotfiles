@@ -35,6 +35,7 @@ brew install bash-completion2;
 # Install other useful binaries
 brew install dark-mode;
 brew install gist;
+brew install gnu-sed --with-default-names;
 brew install libdvdcss;
 brew install mas;
 brew install moreutils;

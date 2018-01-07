@@ -19,6 +19,7 @@
 - [gist](https://github.com/defunkt/gist)
 - [GNU Wget](https://www.gnu.org/software/wget/)
 - [GNU Grep](https://www.gnu.org/software/grep/)
+- [GNU sed](https://www.gnu.org/software/sed/)
 - [OpenSSH](http://www.openssh.com/)
 - [libdvdcss](https://www.videolan.org/developers/libdvdcss.html)
 - [moreutils](https://joeyh.name/code/moreutils/)
