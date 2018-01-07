@@ -205,12 +205,16 @@ git_config_add core.safecrlf true;
 git_config_add core.trustctime false;
 # Spaces before tabs, lines indented with 8 or more spaces, and all kinds of trailing whitespace are errors
 git_config_add core.whitespace 'space-before-tab,indent-with-non-tab,trailing-space';
+# Speed up commands involving untracked files such as `git status`.
+# https://git-scm.com/docs/git-update-index#_untracked_cache
+git_config_add core.untrackedCache true;
 
 # Misc
 
 # Detect whitespace errors when applying a patch
 git_config_add apply.whitespace 'fix';
 git_config_add credential.helper 'osxkeychain';
+# Automatically correct and execute mistyped commands
 git_config_add help.autocorrect 1;
 # Include summaries of merged commits in newly created merge commit messages
 git_config_add merge.log true;
@@ -219,7 +223,12 @@ git_config_add mergetool.keepbackup true;
 # ref: http://linux.die.net/man/1/git-log
 # Result: <short-sha> <commit-message> (<pointer-names>) -- <commit-author-name>; <relative-time>
 git_config_add pretty.nice '%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar';
-git_config_add push.default 'matching';
+# https://git-scm.com/docs/git-config#git-config-pushdefault
+git_config_add push.default 'simple';
+# Make `git push` push relevant annotated tags when pushing branches out.
+git_config_add push.followTags true;
+# Detect copies as well as renames
+git_config_add diff.renames copies;
 
 # URL Shorthands
 
