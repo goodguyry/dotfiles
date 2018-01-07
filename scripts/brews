@@ -24,12 +24,8 @@ brew install findutils --with-default-names;
 brew install wget --enable-iri;
 
 # Install more recent versions of some OS X tools
-# See https://github.com/Homebrew/homebrew-dupes for more
-brew tap homebrew/dupes;
-brew install homebrew/dupes/grep --with-default-names;
-brew install homebrew/dupes/openssh;
-
-brew tap homebrew/versions;
+brew install grep
+brew install openssh
 
 # Install Bash 4
 brew install bash;
