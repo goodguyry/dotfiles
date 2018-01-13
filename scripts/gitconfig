@@ -127,7 +127,7 @@ git_config_add alias.new 'checkout -B';
 # Pull in remote changes for the current repository and all its submodules.
 git_config_add alias.p '!git pull; git submodule foreach git pull origin master';
 # Stage files in patches.
-git_config_add alias.patch "!p() { git add ${1} --patch; }; p";
+git_config_add alias.patch '!p() { git add ${@} -N; git add ${@} --patch; }; p';
 # Push and track HEAD to origin (useful for long/complicated branch names).
 git_config_add alias.ph '!git push -u origin HEAD';
 # Interactive rebase with the given number of latest commits.
