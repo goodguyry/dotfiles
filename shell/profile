@@ -24,6 +24,8 @@ done;
 
 unset FILES;
 
+source <(npm completion);
+
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
 GIT_COMMITTER_EMAIL="$(git config user.email)";
