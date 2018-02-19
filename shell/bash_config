@@ -57,19 +57,6 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 fi;
 
-#**
-# Commented out until further testing is complete
-#
-# Git tab completion
-# if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
-#   source $(brew --prefix)/etc/bash_completion.d/git-completion.bash;
-# fi;
-
-# If possible, add tab completion for Homebrew
-# if [ -r $(brew --repository)/Library/Contributions/brew_bash_completion.sh ]; then
-#   source $(brew --repository)/Library/Contributions/brew_bash_completion.sh;
-# fi;
-
 # Colon-separated list of directories in which the shell looks for destination directories specified by the cd command.
 CDPATH='.:~:/private';
 
