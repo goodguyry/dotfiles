@@ -6,38 +6,38 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
   export TERM='xterm-256color';
 fi;
 
-	# Solarized colors, taken from http://git.io/solarized-colors.
+# Solarized colors, taken from http://git.io/solarized-colors.
 if tput setaf 1 &> /dev/null; then
   tput sgr0; # Reset colors.
   BLACK=$(tput setaf 0);
-  BLUE=$(tput setaf 68);
+  BLUE=$(tput setaf 80);
   BOLD=$(tput bold);
   CYAN=$(tput setaf 37);
   GRAY=$(tput setaf 240);
-  GREEN=$(tput setaf 64);
+  GREEN=$(tput setaf 150);
   LTGRAY=$(tput setaf 245);
-  ORANGE=$(tput setaf 166);
+  ORANGE=$(tput setaf 215);
   PURPLE=$(tput setaf 125);
-  RED=$(tput setaf 124);
+  RED=$(tput setaf 210);
   RESET=$(tput sgr0);
   VIOLET=$(tput setaf 97);
   WHITE=$(tput setaf 15);
   YELLOW=$(tput setaf 226);
 else
-	BOLD='';
-  BLACK="\e[1;30m";
-  BLUE="\e[1;34m";
-  CYAN="\e[1;36m";
-  GRAY="\e[1;30m";
-  GREEN="\e[1;32m";
-  LTGRAY="\e[0;37m";
-  ORANGE="\e[1;33m";
-  PURPLE="\e[1;35m";
-  RED="\e[1;31m";
   RESET="\e[0m";
-  VIOLET="\e[1;35m";
-  WHITE="\e[1;37m";
-  YELLOW="\e[1;33m";
+  BLACK="\e[38;5;0m";
+  BLUE="\e[38;5;80m";
+  CYAN="\e[38;5;37m";
+  GRAY="\e[38;5;240m";
+  GREEN="\e[38;5;150m";
+  LTGRAY="\e[38;5;245m";
+  ORANGE="\e[38;5;215m";
+  PURPLE="\e[38;5;125m";
+  RED="\e[38;5;210m";
+  RESET=$(tput sgr0);
+  VIOLET="\e[38;5;97m";
+  WHITE="\e[38;5;15m";
+  YELLOW="\e[38;5;226m";
 fi;
 
 # h/t https://github.com/necolas/dotfiles
@@ -101,14 +101,14 @@ if [[ ! -n ${PS1} ]]; then
   # HH:MM:SS - User@Host
   PS1="\n\[${GRAY}\]\T - \u@\h";
   # New line; Current directory
-  PS1+="\n\[${BLUE}\]\$(pwd)";
+  PS1+="\n\[${GREEN}\]\$(pwd)";
   # If inside a Git repo, print "on <branch>" at the end of the line.
   PS1+="\$(prompt_git \"\[${GRAY}\] on \[${ORANGE}\]\" \"\[${GRAY}\]\")"; # Git repository details.
   # Prompt on a new line.
-  PS1+="\n\[${BLUE}\]\$ \[${LTGRAY}\]";
+  PS1+="\n\[${GREEN}\]\$ \[${LTGRAY}\]";
 
   # Continuation prompt.
-  PS2="\[${BLUE}\]: \[${LTGRAY}\]";
+  PS2="\[${GREEN}\]: \[${LTGRAY}\]";
 fi;
 
 export PS1;
