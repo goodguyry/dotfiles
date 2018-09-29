@@ -9,17 +9,13 @@ if [ -z "$BRANCHES_TO_SKIP" ]; then
 fi;
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD);
-# BRANCH_NAME="${BRANCH_NAME##*/}";
 BRANCH_NAME=$(echo "${BRANCH_NAME}" | tr '[:lower:]' '[:upper:]');
 
 BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$");
-BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" $1);
 
-# Extract the JIRA ticket number from the branch name
-IFS='-|\/' read -ra BRANCH_NAME_SPLIT <<< "${BRANCH_NAME}";
-# BRANCH_NAME_SPLIT=(${BRANCH_NAME//-/ });
-TICKET_CODE="${BRANCH_NAME_SPLIT[0]^^}-${BRANCH_NAME_SPLIT[1]}";
-
-if [ -n "$TICKET_CODE" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-  sed -i.bak -e "1s/^/${TICKET_CODE} /" $1;
+if [[ "${BRANCH_NAME}" =~ ([A-Z]{3}-[0-9]{3}) ]]; then
+  # Verify branch name
+  if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
+    sed -i.bak -e "1s/^/${BASH_REMATCH[1]} /" $1;
+  fi;
 fi;
