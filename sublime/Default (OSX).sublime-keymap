@@ -26,5 +26,42 @@
   {
     "keys": ["super+alt+shift+v"],
     "command": "clipboard_commands_paste_plain_text"
-  }
+  },
+  {
+    "keys": ["super+shift+k"],
+    "command": "run_macro_file",
+    "args": {
+      "file": "res://Packages/Default/Delete Line.sublime-macro"
+    }
+  },
+  {
+    "keys": ["super+alt+shift+up"],
+    "command": "select_lines",
+    "args": {
+      "forward": false
+    }
+  },
+  {
+    "keys": ["super+alt+shift+down"],
+    "command": "select_lines",
+    "args": {
+      "forward": true
+    }
+  },
+  {
+    "keys": ["super+alt+a"],
+    "command": "reindent",
+    "args": {
+      "single_line": false
+    }
+  },
+  {
+    "keys": ["super+alt+ctrl+t"],
+    "command": "open_terminal"
+  },
+  {
+    "keys": ["super+shift+t"],
+    "command": "reopen_last_file"
+  },
+  // { "keys": ["super+shift+alt+t"], "command": "open_terminal_project_folder" }
 ]
