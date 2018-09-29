@@ -4,11 +4,12 @@
 	"auto_complete_with_fields": true,
 	"binary_file_patterns":
 	[
-		"static"
+		"static",
+		"client/build"
 	],
 	"bold_folder_labels": true,
 	"caret_style": "phase",
-	"color_scheme": "Packages/User/SublimeLinter/Special Boards - Special Edition (SL).tmTheme",
+	"color_scheme": "Packages/User/ColorHighlighter/themes/ayu-mirage.tmTheme",
 	"drag_text": false,
 	"draw_minimap_border": true,
 	"draw_white_space": "all",
@@ -52,7 +53,7 @@
 		"tmp"
 	],
 	"font_face": "Hack",
-	"font_size": 11.0,
+	"font_size": 10.0,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -68,7 +69,7 @@
 	],
 	"show_definitions": false,
 	"tab_size": 2,
-	"theme": "Adaptive.sublime-theme",
+	"theme": "ayu-mirage.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": true,
 	"wrap_width": 120
