@@ -37,6 +37,8 @@ set ttyfast                               " Optimize for fast terminal connectio
 set visualbell                            " No sounds
 set wildmenu                              " Enhance command-line completion
 set wildmode=list:longest                 " Tab complete like shell
+set textwidth=80                          " Force the cursor onto a new line after 80 characters
+set colorcolumn=+1                        " Visually alert when textwidth is exceeded
 
 " Centralize backups, swapfiles and undo history
 
@@ -87,6 +89,7 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript    " Treat .json files as .js
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown              " Treat .md files as Markdown
   autocmd BufWritePre * :%s/\s\+$//e                                      " Remove trailing whitespace
+  autocmd FileType gitcommit set textwidth=72                             " Git commit messages 72 chars
 endif
 
 " Ignore case of searches
