@@ -10,12 +10,12 @@
 	"linters": {
 		"phpcs": {
 			"disable": false,
-			"executable": "/Users/ryandomingue/.composer/vendor/bin/phpcs",
+			"executable": "~/.composer/vendor/bin/phpcs",
 			"standard": "${folder}/phpcs.xml"
 		},
 		"eslint": {
 			"env": {
-			  "PATH": "/Users/ryandomingue/.nvm/versions/node/v10.4.1/bin",
+			  "PATH": "~/.nvm/versions/node/v10.4.1/bin",
 			}
 		},
 		"stylelint": {

@@ -2,7 +2,7 @@
 
 {
 	"node_path": {
-		"osx": "/Users/ryandomingue/.nvm/versions/node/v9.3.0/bin/node"
+		"osx": "~/.nvm/versions/node/v9.3.0/bin/node"
 	},
 	"config_path": "/.eslintrc",
 }
