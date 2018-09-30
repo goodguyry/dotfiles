@@ -7,7 +7,6 @@
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
-
 # Set Sublime Text settings directory.
 SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
 
@@ -59,34 +58,51 @@ add_sublime_package 'jonlabelle/SublimeJsPrettier.git'                'JsPrettie
 add_sublime_package 'dempfi/ayu.git'                                  'Ayu';
 add_sublime_package 'saadq/Materialize.git'                           'Materialize';
 
-
 log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
-# Move Sublime Text settings files into place.
+# Sublime Text settings.
+set_file \
+  'sublime/Preferences.sublime-settings' \
+  "${SUBLIME_PACKAGES}/User/Preferences.sublime-settings";
+
 set_file \
   'sublime/Default (OSX).sublime-keymap' \
   "${SUBLIME_PACKAGES}/User/Default (OSX).sublime-keymap";
 
+# Language-specific settings.
 set_file \
   'sublime/Markdown.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/Markdown.sublime-settings";
-
-set_file \
-  'sublime/Preferences.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Preferences.sublime-settings";
 
 set_file \
   'sublime/Ruby.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/Ruby.sublime-settings";
 
 set_file \
+  'JavaScript.sublime-settings' \
+  "${SUBLIME_PACKAGES}/User/JavaScript.sublime-settings";
+
+set_file \
   'sublime/Shell-Unix-Generic.sublime-settings' \
-  "$SUBLIME_PACKAGES/User/Shell-Unix-Generic.sublime-settings";
+  "${SUBLIME_PACKAGES}/User/Shell-Unix-Generic.sublime-settings";
 
 set_file \
   'sublime/Git.sublime-settings' \
-  "$SUBLIME_PACKAGES/User/Git.sublime-settings";
+  "${SUBLIME_PACKAGES}/User/Git.sublime-settings";
+
+# Plugin settings.
+set_file \
+  'ColorHighlighter.sublime-settings' \
+  "${SUBLIME_PACKAGES}/User/ColorHighlighter.sublime-settings";
+
+set_file \
+  'ESLint-Formatter.sublime-settings' \
+  "${SUBLIME_PACKAGES}/User/ESLint-Formatter.sublime-settings";
+
+set_file \
+  'SublimeLinter.sublime-settings' \
+  "${SUBLIME_PACKAGES}/User/SublimeLinter.sublime-settings";
 
 [[ $? ]] && log_success 'Sublime settings done.'
