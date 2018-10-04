@@ -6,6 +6,7 @@
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+source "${DOTFILES_DIRECTORY}/utils/set-file.sh";
 
 # Set Sublime Text settings directory.
 SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
