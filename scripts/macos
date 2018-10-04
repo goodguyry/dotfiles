@@ -1,19 +1,18 @@
 #!/bin/bash
 
+##
 # Set Application, User and System-wide preferences for macOS.
 # A lot of these were borrowed from http://mths.be/macos.
-
+##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
-
 # Ask for the administrator password upfront.
 sudo -v;
 # Keep-alive: update existing `sudo` time stamp until `macos` has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 
 # Get the computer name.
 COMPUTERNAME="$(sudo systemsetup -getcomputername)";

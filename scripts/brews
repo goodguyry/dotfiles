@@ -1,13 +1,13 @@
 #!/bin/bash
 
+##
 # Install Homebrew and Homebrew packages, native applications, and fonts.
-
+##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
-
 
 # Check for existing brew before installing.
 function brew_install() {
