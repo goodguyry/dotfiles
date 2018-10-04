@@ -1,12 +1,12 @@
 #!/bin/bash
 
+##
 # Install NVM, Node, and packages from NPM.
-
+##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-
 
 # Check for an existing NVM install location.
 # The `type` check isn't working for `nvm`.
@@ -37,5 +37,7 @@ log_header 'Installing Node packages...';
 
 NPM_LIST='browser-sync git-open';
 npm install ${NPM_LIST} --global --quiet;
+
+npm list -g --depth 0;
 
 [[ $? ]] && log_success 'NPM packages installed.';

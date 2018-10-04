@@ -274,6 +274,7 @@ function stamp() {
   unset SEP;
 }
 
+# Securely delete a file or folder.
 function zero() {
   [[ "${#}" -lt 1 ]] && return;
 

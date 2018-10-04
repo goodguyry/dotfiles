@@ -1,12 +1,12 @@
 #!/bin/bash
 
+##
 # Install RVM, Ruby, and Gems.
-
+##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-
 
 # Set Ruby version.
 RUBY_VERSION='2.3.0';

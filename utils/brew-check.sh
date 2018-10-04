@@ -1,3 +1,9 @@
+#!/bin/bash
+
+##
+# Check for, install and/or update Homebrew.
+##
+
 # Before relying on Homebrew, check that packages can be compiled.
 if [ ! "$(type -P gcc)" ]; then
   log_header 'The XCode Command Line Tools must be installed first.';

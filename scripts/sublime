@@ -1,7 +1,8 @@
 #!/bin/bash
 
+##
 # Install Sublime Text packages and settings.
-
+##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
@@ -70,47 +71,23 @@ log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
-# Sublime Text settings.
-set_file \
-  'sublime/Preferences.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Preferences.sublime-settings";
+# Sublime Text settings files.
+declare -a SUBLIME_SETTINGS_FILES=(
+  'ColorHighlighter.sublime-settings'
+  'Default (OSX).sublime-keymap'
+  'ESLint-Formatter.sublime-settings'
+  'Git.sublime-settings'
+  'JavaScript.sublime-settings'
+  'Markdown.sublime-settings'
+  'Preferences.sublime-settings'
+  'Ruby.sublime-settings'
+  'Shell-Unix-Generic.sublime-settings'
+  'SublimeLinter.sublime-settings'
+);
 
-set_file \
-  'sublime/Default (OSX).sublime-keymap' \
-  "${SUBLIME_PACKAGES}/User/Default (OSX).sublime-keymap";
-
-# Language-specific settings.
-set_file \
-  'sublime/Markdown.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Markdown.sublime-settings";
-
-set_file \
-  'sublime/Ruby.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Ruby.sublime-settings";
-
-set_file \
-  'sublime/JavaScript.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/JavaScript.sublime-settings";
-
-set_file \
-  'sublime/Shell-Unix-Generic.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Shell-Unix-Generic.sublime-settings";
-
-set_file \
-  'sublime/Git.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/Git.sublime-settings";
-
-# Plugin settings.
-set_file \
-  'sublime/ColorHighlighter.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/ColorHighlighter.sublime-settings";
-
-set_file \
-  'sublime/ESLint-Formatter.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/ESLint-Formatter.sublime-settings";
-
-set_file \
-  'sublime/SublimeLinter.sublime-settings' \
-  "${SUBLIME_PACKAGES}/User/SublimeLinter.sublime-settings";
+# Link the settings files into place.
+for SUBLIME_SETTINGS_FILE in ${SUBLIME_SETTINGS_FILES[*]}; do
+  set_file "${SUBLIME_SETTINGS_FILE}" "${SUBLIME_PACKAGES}/User/${SUBLIME_SETTINGS_FILE}";
+done;
 
 [[ $? ]] && log_success 'Sublime settings done.'
