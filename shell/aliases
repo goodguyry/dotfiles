@@ -68,6 +68,9 @@ alias update='brew update; brew upgrade; brew cleanup; \
   rvm cleanup all; \
   sudo gem update --system; sudo gem update; sudo gem cleanup';
 
+# List globally-installed npm packages.
+alias npmg='npm list -g --depth 0';
+
 # Clean up LaunchServices to remove duplicates in the “Open With” menu.
 LSREG='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister';
 alias lscleanup="${LSREG} -kill -r -domain local -domain system -domain user && killall Finder";
