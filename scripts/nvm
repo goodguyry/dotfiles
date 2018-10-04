@@ -38,4 +38,6 @@ log_header 'Installing Node packages...';
 NPM_LIST='browser-sync git-open';
 npm install ${NPM_LIST} --global --quiet;
 
+npm list -g --depth 0;
+
 [[ $? ]] && log_success 'NPM packages installed.';
