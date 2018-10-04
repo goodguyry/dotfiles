@@ -7,6 +7,7 @@
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+source "${DOTFILES_DIRECTORY}/utils/set-file.sh";
 
 # Set Sublime Text settings directory.
 SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
@@ -54,6 +55,13 @@ add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLi
 add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolution';
 add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter-eslint';
 add_sublime_package 'jonlabelle/SublimeJsPrettier.git'                'JsPrettier';
+add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
+add_sublime_package 'TheSavior/ESLint-Formatter'                      'ESLint-Formatter';
+add_sublime_package 'daaain/Handlebars'                               'Handlebars';
+add_sublime_package 'facelessuser/MarkdownPreview'                    'MarkdownPreview';
+
+# Checkout the `SublimeText2` branch for the SCSS package.
+cd "${SUBLIME_PACKAGES}/SCSS" && git checkout SublimeText2 && cd -;
 
 # Themes
 add_sublime_package 'dempfi/ayu.git'                                  'Ayu';
@@ -69,6 +77,7 @@ declare -a SUBLIME_SETTINGS_FILES=(
   'Default (OSX).sublime-keymap'
   'ESLint-Formatter.sublime-settings'
   'Git.sublime-settings'
+  'JavaScript.sublime-settings'
   'Markdown.sublime-settings'
   'Preferences.sublime-settings'
   'Ruby.sublime-settings'

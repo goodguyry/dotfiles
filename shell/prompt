@@ -10,9 +10,9 @@ fi;
 if tput setaf 1 &> /dev/null; then
   tput sgr0; # Reset colors.
   BLACK=$(tput setaf 0);
-  BLUE=$(tput setaf 80);
+  BLUE=$(tput setaf 117);
   BOLD=$(tput bold);
-  CYAN=$(tput setaf 37);
+  CYAN=$(tput setaf 80);
   GRAY=$(tput setaf 240);
   GREEN=$(tput setaf 150);
   LTGRAY=$(tput setaf 245);
@@ -26,8 +26,8 @@ if tput setaf 1 &> /dev/null; then
 else
   RESET="\e[0m";
   BLACK="\e[38;5;0m";
-  BLUE="\e[38;5;80m";
-  CYAN="\e[38;5;37m";
+  BLUE="\e[38;5;117m";
+  CYAN="\e[38;5;80m";
   GRAY="\e[38;5;240m";
   GREEN="\e[38;5;150m";
   LTGRAY="\e[38;5;245m";
