@@ -81,7 +81,7 @@ set_file \
   "${SUBLIME_PACKAGES}/User/Ruby.sublime-settings";
 
 set_file \
-  'JavaScript.sublime-settings' \
+  'sublime/JavaScript.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/JavaScript.sublime-settings";
 
 set_file \
@@ -94,15 +94,15 @@ set_file \
 
 # Plugin settings.
 set_file \
-  'ColorHighlighter.sublime-settings' \
+  'sublime/ColorHighlighter.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/ColorHighlighter.sublime-settings";
 
 set_file \
-  'ESLint-Formatter.sublime-settings' \
+  'sublime/ESLint-Formatter.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/ESLint-Formatter.sublime-settings";
 
 set_file \
-  'SublimeLinter.sublime-settings' \
+  'sublime/SublimeLinter.sublime-settings' \
   "${SUBLIME_PACKAGES}/User/SublimeLinter.sublime-settings";
 
 [[ $? ]] && log_success 'Sublime settings done.'
