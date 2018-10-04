@@ -93,8 +93,6 @@ else
   source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
 
   # Install Git from Homebrew.
-  log_header 'Updating Homebrew...';
-  brew update;
   log_header 'Installing Git...';
   brew install git;
   ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
