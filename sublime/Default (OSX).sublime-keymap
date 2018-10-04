@@ -63,5 +63,9 @@
     "keys": ["super+shift+t"],
     "command": "reopen_last_file"
   },
+  {
+  	"keys": ["super+alt+shift+r"],
+  	"command": "reveal_in_side_bar"
+  },
   // { "keys": ["super+shift+alt+t"], "command": "open_terminal_project_folder" }
 ]
