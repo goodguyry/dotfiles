@@ -267,7 +267,7 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 
 # Enable tap to click and dragging without DragLock for builtin and Bluetooth trackpads.
-for TRACKPAD_PLIST in ${TRACKPAD_PLIST_PLISTS[*]}; do
+for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
   defaults write "${TRACKPAD_PLIST}" Clicking -bool true;
   defaults write "${TRACKPAD_PLIST}" DragLock -bool false;
   defaults write "${TRACKPAD_PLIST}" Dragging -bool true;
