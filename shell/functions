@@ -1,33 +1,46 @@
 #!/bin/bash
 
 ##
-# Switch to projects folder; open it in Sublime Text.
-#   Usage: p [project-name] [subdirectory]
+# Change to a given project directory.
+# If no PROJECTNAME is passed, change to ~/Projects.
+#
+# Usage: p [-o] PROJECTNAME
+#   -o  Open the project directory in your editor and git client.
 ##
 function p() {
   # Check for passed argument(s).
   if [[ ${#} -gt 0 ]]; then
-    # Change to the project root.
-    cd "${HOME}/Projects/${1}";
-    # Check for Sublime Text.
-    if [[ "$(type -P subl)" ]]; then
-      # Check for a passed subdirectory.
-      if [[ ${#} -gt 1 ]]; then
-        # Open the passed subdirectory in Sublime Text.
-        code "${2}";
-      else
-        # Open the project root in Sublime Text.
-        code .;
-      fi;
-    fi;
+    local OPEN=false;
 
-    # Check for a .git repo.
-    if $(git rev-parse --is-inside-work-tree &> /dev/null); then
-      clear;
-      git status;
-      # Bring Terminal forward.
-      osascript -e 'tell app "Terminal" to activate';
-    fi;
+    # Test for option(s)
+    for OPT in "${@}"; do
+      case "${OPT}" in
+        -o) OPEN=true ;;
+         *) DIR="${OPT}" ;;
+      esac
+    done
+
+    FIND_ARGS="-maxdepth 1 -mindepth 1 -type d -name ${DIR} -print -quit";
+
+    local SITE=$(find "${HOME}"/Projects/sites $FIND_ARGS);
+    local PROJECT=$(find "${HOME}"/Projects $FIND_ARGS);
+
+    # Change to the project root.
+    if [[ -n "${PROJECT}" ]]; then
+      cd "${PROJECT}";
+    elif [[ -n "${SITE}" ]]; then
+      cd "${SITE}";
+    else
+      echo "\"${DIR}\" not found.";
+      return;
+    fi
+
+    if $OPEN; then
+      # Open the project root in the editor
+      [[ "$(type -P $EDITOR_CLI)" ]] && $EDITOR_CLI .;
+      # Open the project in the git client
+      [[ "$(type -P $GIT_CLIENT_CLI)" ]] && $GIT_CLIENT_CLI .;
+    fi
   else
     # No arguments; change to $HOME/Projects.
     cd "${HOME}/Projects";
