@@ -15,9 +15,15 @@ PATH="${PATH}:${HOME}/.bin";
 # Add back default bins.
 PATH="${PATH}:/usr/bin:/bin:/usr/sbin:/sbin";
 
-# Add brew-installed GNU core utilities bin.
-if [ "$(type -P brew)" ] && [[ "$(brew --prefix coreutils)" ]]; then
-  PATH="${PATH}:$(brew --prefix coreutils)/libexec/gnubin";
+if [ "$(type -P brew)" ]; then
+  COREUTILS="$(brew --prefix coreutils)";
+
+  if [[ "${COREUTILS}" ]]; then
+    # Add brew-installed GNU core utilities bin.
+    PATH="${PATH}:${COREUTILS}/libexec/gnubin";
+    # Add coreutils man pages.
+    MANPATH="${COREUTILS}/libexec/gnuman:${MANPATH}";
+  fi;
 else
   # Fall back to macOS default.
   PATH="${PATH}:/libexec/gnubin";
@@ -30,10 +36,4 @@ PATH="${PATH}:/usr/local/mysql/bin";
 PATH="${PATH}:/Applications/Visual Studio Code.app/Contents/Resources/app/bin";
 
 export PATH;
-
-# Add coreutils man pages.
-if [ "$(type -P brew)" ] && [[ "$(brew --prefix coreutils)" ]]; then
-  MANPATH="$(brew --prefix coreutils)/libexec/gnuman:${MANPATH}";
-fi;
-
 export MANPATH;
