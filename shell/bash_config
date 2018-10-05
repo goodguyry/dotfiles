@@ -26,19 +26,6 @@ export HISTTIMEFORMAT;
 export LANG='en_US';
 export LC_ALL='en_US.UTF-8';
 
-# Add `p` tab completion for switching to ~/Project directories.
-for ITEM in "${HOME}/Projects"/*; do
-  if [[ -d "${ITEM}" ]]; then
-    # Extract the folder name.
-    # Could also be 'NAME=${ITEM##*/}'.
-    NAME="$(basename ${ITEM})";
-    COMPLETE_LIST+="${NAME} ";
-  fi;
-done;
-unset ITEM;
-complete -o "nospace" -W "${COMPLETE_LIST}" p;
-unset COMPLETE_LIST;
-
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards.
 [[ -e "${HOME}/.ssh/config" ]] && complete -o 'default' -o 'nospace' -W "$(grep '^Host' ~/.ssh/config | grep -v "[?*]" | cut -d ' ' -f2 | tr ' ' '\n')" scp sftp ssh;
 
