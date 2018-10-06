@@ -56,9 +56,10 @@ add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolut
 add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter-eslint';
 add_sublime_package 'jonlabelle/SublimeJsPrettier.git'                'JsPrettier';
 add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
-add_sublime_package 'TheSavior/ESLint-Formatter'                      'ESLint-Formatter';
-add_sublime_package 'daaain/Handlebars'                               'Handlebars';
-add_sublime_package 'facelessuser/MarkdownPreview'                    'MarkdownPreview';
+add_sublime_package 'TheSavior/ESLint-Formatter.git'                  'ESLint-Formatter';
+add_sublime_package 'daaain/Handlebars.git'                           'Handlebars';
+add_sublime_package 'facelessuser/MarkdownPreview.git'                'MarkdownPreview';
+add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
 cd "${SUBLIME_PACKAGES}/SCSS" && git checkout SublimeText2 && cd -;
