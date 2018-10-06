@@ -13,31 +13,35 @@ if tput setaf 1 &> /dev/null; then
   BLUE=$(tput setaf 117);
   BOLD=$(tput bold);
   CYAN=$(tput setaf 80);
+  DEEP_GREEN=$(tput setaf 112);
+  DEEP_RED=$(tput setaf 196);
   GRAY=$(tput setaf 240);
   GREEN=$(tput setaf 150);
-  LTGRAY=$(tput setaf 245);
+  LTGRAY=$(tput setaf 188);
   ORANGE=$(tput setaf 215);
   PURPLE=$(tput setaf 125);
   RED=$(tput setaf 210);
   RESET=$(tput sgr0);
-  VIOLET=$(tput setaf 97);
+  VIOLET=$(tput setaf 183);
   WHITE=$(tput setaf 15);
-  YELLOW=$(tput setaf 226);
+  YELLOW=$(tput setaf 222);
 else
-  RESET="\e[0m";
   BLACK="\e[38;5;0m";
   BLUE="\e[38;5;117m";
   CYAN="\e[38;5;80m";
+  DEEP_GREEN="\e[38;5;112m";
+  DEEP_RED="\e[38;5;196m";
   GRAY="\e[38;5;240m";
   GREEN="\e[38;5;150m";
-  LTGRAY="\e[38;5;245m";
+  LTGRAY="\e[38;5;188m";
   ORANGE="\e[38;5;215m";
   PURPLE="\e[38;5;125m";
   RED="\e[38;5;210m";
+  RESET="\e[0m";
   RESET=$(tput sgr0);
-  VIOLET="\e[38;5;97m";
+  VIOLET="\e[38;5;183m";
   WHITE="\e[38;5;15m";
-  YELLOW="\e[38;5;226m";
+  YELLOW="\e[38;5;222m";
 fi;
 
 # h/t https://github.com/necolas/dotfiles

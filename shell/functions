@@ -37,32 +37,19 @@ function p() {
 
     if $OPEN; then
       # Open the project root in the editor
-      [[ "$(type -P $EDITOR_CLI)" ]] && $EDITOR_CLI .;
+      if [[ "$(type -P subl)" ]]; then
+        SUBLIME_WORKSPACE=$(find . -type f -name "*.sublime-workspace");
+        subl $([[ -r "${SUBLIME_WORKSPACE}" ]] && echo "${SUBLIME_WORKSPACE}" || echo '.');
+      fi
+
       # Open the project in the git client
-      [[ "$(type -P $GIT_CLIENT_CLI)" ]] && $GIT_CLIENT_CLI .;
+      [[ "$(type -P smerge)" ]] && smerge .;
     fi
   else
     # No arguments; change to $HOME/Projects.
     cd "${HOME}/Projects";
   fi;
 }
-
-# Add `p` tab completion for switching to ~/Project directories.
-function _project_completion() {
-  local CUR=${COMP_WORDS[COMP_CWORD]};
-  local DIRS='';
-  local COMPLETE_LIST='';
-
-  SITES=$(find "${HOME}/Projects/sites" -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*");
-  DIRS=$(find "${HOME}/Projects/" -maxdepth 1 -mindepth 1 -type d -not -path "*sites*");
-
-  for DIR in $(echo -e "${DIRS} \n ${SITES}"); do
-    COMPLETE_LIST+="$(basename ${DIR}) ";
-  done;
-
-  COMPREPLY=( $(compgen -W "${COMPLETE_LIST}" -- ${CUR}) );
-}
-complete -F _project_completion p;
 
 # Change working directory to the top-most Finder window location.
 # http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
@@ -73,17 +60,6 @@ function cdf() { # short for `cdfinder`
 # Create a new directory and enter it.
 function mkd() {
   mkdir -p "${@}" && cd "${@}";
-}
-
-# Create a temporary plain text file.
-# Usage: `tmp ext` (creates file: temp.[date string].ext)
-# If no extension is passed, defaults to "md".
-function tmp() {
-  local PREFIX='temp';
-  local SUFFIX="$(date +%Y%m%d%H%M%S)";
-  local EXT="${1:-md}";
-  local FILENAME="${PREFIX}.${SUFFIX}.${EXT}";
-  touch "${FILENAME}";
 }
 
 # Hide individual file(s).
@@ -117,13 +93,6 @@ function fs() {
   fi;
 }
 
-# Autocomplete branch names for `gcheck`.
-function _gcheck_complete() {
-    branches=$(git branch -l | cut -c3-);
-    COMPREPLY=($(compgen -W "${branches}" -- "${2}"));
-}
-complete -F _gcheck_complete gcheck
-
 # git branch ahead/behind another.
 function gcheck() {
   # use first argument or master.
@@ -140,10 +109,10 @@ function gcheck() {
   printf '\n';
   # print numbers in a pretty message.
   if [ ${NUMBERS[0]} -gt 0 ]; then
-    echo -e "$(tput setaf 136)${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}$(tput sgr0)";
+    echo -e "${ORANGE}- ${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}${RESET}";
   fi;
   if [ ${NUMBERS[1]} -gt 0 ]; then
-    echo -e "$(tput setaf 64)${COMPARE} is ${NUMBERS[1]} commits ahead of ${ORIGINAL}$(tput sgr0)";
+    echo -e "${YELLOW}+ ${COMPARE} is ${NUMBERS[1]} commits ahead of ${ORIGINAL}${RESET}";
   fi;
 }
 
@@ -209,6 +178,18 @@ function server() {
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`.
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files).
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "${PORT}";
+}
+
+# Get the closest ansi color for a hex value
+# https://unix.stackexchange.com/a/269085
+function fromhex() {
+    hex=${1#"#"}
+    r=$(printf '0x%0.2s' "$hex")
+    g=$(printf '0x%0.2s' ${hex#??})
+    b=$(printf '0x%0.2s' ${hex#????})
+    printf '%03d' "$(( (r<75?0:(r-35)/40)*6*6 +
+                       (g<75?0:(g-35)/40)*6   +
+                       (b<75?0:(b-35)/40)     + 16 ))"
 }
 
 ##
@@ -302,34 +283,4 @@ function stamp() {
   fi;
 
   unset SEP;
-}
-
-# Securely delete a file or folder.
-function zero() {
-  [[ "${#}" -lt 1 ]] && return;
-
-  # Ask before deleting files.
-  printf '\n';
-  MESSAGE="You are about to permanently remove \"${@}\"";
-  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${MESSAGE}";
-  printf 'Are you sure? [Y/n] ';
-  read CONTINUE;
-  printf '\n';
-
-  # Conditionally set defaults.
-  if [[ "${CONTINUE}" != 'n' ]]; then
-    srm -rvz "${@}";
-  fi;
-}
-
-# Get the closest ansi color for a hex value
-# https://unix.stackexchange.com/a/269085
-function fromhex() {
-    hex=${1#"#"}
-    r=$(printf '0x%0.2s' "$hex")
-    g=$(printf '0x%0.2s' ${hex#??})
-    b=$(printf '0x%0.2s' ${hex#????})
-    printf '%03d' "$(( (r<75?0:(r-35)/40)*6*6 +
-                       (g<75?0:(g-35)/40)*6   +
-                       (b<75?0:(b-35)/40)     + 16 ))"
 }
