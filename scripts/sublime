@@ -32,35 +32,30 @@ function add_sublime_package() {
 # Clone packages.
 log_header 'Adding Sublime Text packages...';
 
-add_sublime_package 'daylerees/colour-schemes.git'                    'ColourSchemes';
+add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
+add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
+add_sublime_package 'Monnoroch/ColorHighlighter.git'                  'ColorHighlighter';
 add_sublime_package 'y0ssar1an/CSS3.git'                              'CSS3';
 add_sublime_package 'spadgos/sublime-jsdocs.git'                      'DocBlockr';
 add_sublime_package 'sindresorhus/editorconfig-sublime.git'           'EditorConfig';
+add_sublime_package 'TheSavior/ESLint-Formatter.git'                  'ESLint Formatter';
 add_sublime_package 'colinta/SublimeFileDiffs.git'                    'FileDiffs';
 add_sublime_package 'kemayo/sublime-text-git.git'                     'Git';
 add_sublime_package 'jisaacks/GitGutter.git'                          'GitGutter';
-add_sublime_package 'siteleaf/liquid-syntax-mode.git'                 'LiquidSyntax';
-add_sublime_package 'braver/MarkdownHighlighting.git'                 'MarkdownHighlighting';
-add_sublime_package 'titoBouzout/SideBarEnhancements.git'             'SideBarEnhancements';
-add_sublime_package 'lamotta/specialsboard.git'                       'SpecialsBoard';
-add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
-add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'      'JavaScriptCompletions';
-add_sublime_package 'bgreenlee/sublime-github.git'                    'Github';
-add_sublime_package 'SublimeLinter/SublimeLinter3.git'                'SublimeLinter';
-add_sublime_package 'roadhump/SublimeLinter-eslint.git'               'SublimeLinter-eslint';
-add_sublime_package 'wbond/sublime_terminal.git'                      'Sublime Terminal';
-add_sublime_package 'Monnoroch/ColorHighlighter.git'                  'ColorHighlighter';
-add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
-add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax-highlighting-for-PostCSS';
-add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter-phpcs';
-add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolution';
-add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter-eslint';
-add_sublime_package 'jonlabelle/SublimeJsPrettier.git'                'JsPrettier';
-add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
-add_sublime_package 'TheSavior/ESLint-Formatter.git'                  'ESLint-Formatter';
 add_sublime_package 'daaain/Handlebars.git'                           'Handlebars';
-add_sublime_package 'facelessuser/MarkdownPreview.git'                'MarkdownPreview';
-add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
+add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'      'JavaScript Completions';
+add_sublime_package 'siteleaf/liquid-syntax-mode.git'                 'Liquid Syntax';
+add_sublime_package 'braver/MarkdownHighlighting.git'                 'MarkdownHighlighting';
+add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolution';
+add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
+add_sublime_package 'titoBouzout/SideBarEnhancements.git'             'SideBarEnhancements';
+add_sublime_package 'bgreenlee/sublime-github.git'                    'Sublime Github';
+add_sublime_package 'wbond/sublime_terminal.git'                      'Sublime Terminal';
+add_sublime_package 'SublimeLinter/SublimeLinter3.git'                'SublimeLinter';
+add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter ESLint';
+add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter PHPCS';
+add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax Highlighting for PostCSS';
+add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
 cd "${ST_PACKAGES}/SCSS" && git checkout SublimeText2 && cd - &>/dev/null;
