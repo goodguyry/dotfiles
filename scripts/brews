@@ -122,7 +122,6 @@ brew_cask_install transmission;
 brew_cask_install transmit;
 brew_cask_install vagrant;
 brew_cask_install virtualbox;
-brew_cask_install visual-studio-code;
 brew_cask_install vlc;
 
 # System Preferences panes
