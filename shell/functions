@@ -120,10 +120,10 @@ function gcheck() {
   printf '\n';
   # print numbers in a pretty message.
   if [ ${NUMBERS[0]} -gt 0 ]; then
-    echo -e "$(tput setaf 136)${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}$(tput sgr0)";
+    echo -e "${ORANGE}- ${COMPARE} is ${NUMBERS[0]} commits behind ${ORIGINAL}${RESET}";
   fi;
   if [ ${NUMBERS[1]} -gt 0 ]; then
-    echo -e "$(tput setaf 64)${COMPARE} is ${NUMBERS[1]} commits ahead of ${ORIGINAL}$(tput sgr0)";
+    echo -e "${YELLOW}+ ${COMPARE} is ${NUMBERS[1]} commits ahead of ${ORIGINAL}${RESET}";
   fi;
 }
 
@@ -291,7 +291,7 @@ function zero() {
   # Ask before deleting files.
   printf '\n';
   MESSAGE="You are about to permanently remove \"${@}\"";
-  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "${MESSAGE}";
+  printf "${YELLOW}! %s${RESET}\n" "${MESSAGE}";
   printf 'Are you sure? [Y/n] ';
   read CONTINUE;
   printf '\n';

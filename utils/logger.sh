@@ -6,18 +6,24 @@
 # https://github.com/necolas/dotfiles/blob/master/lib/utils
 ##
 
+DEEP_GREEN=$(tput setaf 112);
+DEEP_RED=$(tput setaf 196);
+LTGRAY=$(tput setaf 188);
+YELLOW=$(tput setaf 222);
+RESET=$(tput sgr0);
+
 log_header() {
-  printf "\n$(tput setaf 188)%s$(tput sgr0)\n" "${@}";
+  printf "\n${LTGRAY}%s${RESET}\n" "${@}";
 }
 
 log_success() {
-  printf "$(tput setaf 150)✓ %s$(tput sgr0)\n" "${@}";
+  printf "${DEEP_GREEN}✓ %s${RESET}\n" "${@}";
 }
 
 log_error() {
-  printf "$(tput setaf 196)x %s$(tput sgr0)\n" "${@}";
+  printf "${DEEP_RED}x %s${RESET}\n" "${@}";
 }
 
 log_warning() {
-  printf "$(tput setaf 222)! %s$(tput sgr0)\n" "${@}";
+  printf "${YELLOW}! %s${RESET}\n" "${@}";
 }
