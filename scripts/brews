@@ -67,7 +67,6 @@ brew_install mas;
 brew_install moreutils;
 brew_install mysql;
 brew_install packer;
-brew_install phantomjs;
 brew_install pigz;
 brew_install tree;
 
@@ -97,18 +96,18 @@ brew_cask_install dropbox;
 brew_cask_install firefox;
 brew_cask_install firefox-developer-edition;
 brew_cask_install gitify;
-brew_cask_install google-chrome-canary;
 brew_cask_install google-chrome;
+brew_cask_install google-chrome-canary;
 brew_cask_install handbrake;
 brew_cask_install highsierramediakeyenabler;
 brew_cask_install imageoptim;
 brew_cask_install macdown;
 brew_cask_install muzzle;
 brew_cask_install onyx;
+brew_cask_install opera;
 brew_cask_install opera-beta;
 brew_cask_install opera-developer;
 brew_cask_install opera-mobile-emulator;
-brew_cask_install opera;
 brew_cask_install rar;
 brew_cask_install safari-technology-preview;
 brew_cask_install sequel-pro;
@@ -117,7 +116,6 @@ brew_cask_install sublime-merge;
 brew_cask_install sublime-text;
 brew_cask_install suspicious-package;
 brew_cask_install torbrowser;
-brew_cask_install tower;
 brew_cask_install transmission;
 brew_cask_install transmit;
 brew_cask_install vagrant;
@@ -126,6 +124,7 @@ brew_cask_install vlc;
 
 # System Preferences panes
 brew_cask_install web-sharing;
+brew_cask_install hazel;
 
 # QuickLook Plugins
 brew_cask_install qlcolorcode;
