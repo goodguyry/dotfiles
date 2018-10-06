@@ -17,9 +17,7 @@ declare -a FILES=(
 
 # If these files are readable, source them.
 for INDEX in ${!FILES[*]}; do
-  if [[ -r "${FILES[$INDEX]}" ]]; then
-    source "${FILES[$INDEX]}";
-  fi;
+  [[ -r "${FILES[$INDEX]}" ]] && source "${FILES[$INDEX]}";
 done;
 
 unset FILES;
