@@ -62,17 +62,6 @@ function mkd() {
   mkdir -p "${@}" && cd "${@}";
 }
 
-# Create a temporary plain text file.
-# Usage: `tmp ext` (creates file: temp.[date string].ext)
-# If no extension is passed, defaults to "md".
-function tmp() {
-  local PREFIX='temp';
-  local SUFFIX="$(date +%Y%m%d%H%M%S)";
-  local EXT="${1:-md}";
-  local FILENAME="${PREFIX}.${SUFFIX}.${EXT}";
-  touch "${FILENAME}";
-}
-
 # Hide individual file(s).
 function hide() {
   chflags hidden "${@}";
@@ -191,6 +180,18 @@ function server() {
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "${PORT}";
 }
 
+# Get the closest ansi color for a hex value
+# https://unix.stackexchange.com/a/269085
+function fromhex() {
+    hex=${1#"#"}
+    r=$(printf '0x%0.2s' "$hex")
+    g=$(printf '0x%0.2s' ${hex#??})
+    b=$(printf '0x%0.2s' ${hex#????})
+    printf '%03d' "$(( (r<75?0:(r-35)/40)*6*6 +
+                       (g<75?0:(g-35)/40)*6   +
+                       (b<75?0:(b-35)/40)     + 16 ))"
+}
+
 ##
 # Add a timestamp to a file or folder; optionally copy the timestamp to the clipboard.
 #
@@ -282,16 +283,4 @@ function stamp() {
   fi;
 
   unset SEP;
-}
-
-# Get the closest ansi color for a hex value
-# https://unix.stackexchange.com/a/269085
-function fromhex() {
-    hex=${1#"#"}
-    r=$(printf '0x%0.2s' "$hex")
-    g=$(printf '0x%0.2s' ${hex#??})
-    b=$(printf '0x%0.2s' ${hex#????})
-    printf '%03d' "$(( (r<75?0:(r-35)/40)*6*6 +
-                       (g<75?0:(g-35)/40)*6   +
-                       (b<75?0:(b-35)/40)     + 16 ))"
 }
