@@ -72,6 +72,7 @@
 - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
 - [SequelPro](http://www.sequelpro.com/)
 - [Sketch](https://www.sketchapp.com)
+- [Sublime Merge](https://www.sublimemerge.com/)
 - [Sublime Text 3](http://www.sublimetext.com/3)
 - [Suspicious Package](http://www.mothersruin.com/software/SuspiciousPackage/)
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
