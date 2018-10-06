@@ -37,9 +37,13 @@ function p() {
 
     if $OPEN; then
       # Open the project root in the editor
-      [[ "$(type -P $EDITOR_CLI)" ]] && $EDITOR_CLI .;
+      if [[ "$(type -P subl)" ]]; then
+        SUBLIME_WORKSPACE=$(find . -type f -name "*.sublime-workspace");
+        subl $([[ -r "${SUBLIME_WORKSPACE}" ]] && echo "${SUBLIME_WORKSPACE}" || echo '.');
+      fi
+
       # Open the project in the git client
-      [[ "$(type -P $GIT_CLIENT_CLI)" ]] && $GIT_CLIENT_CLI .;
+      [[ "$(type -P smerge)" ]] && smerge .;
     fi
   else
     # No arguments; change to $HOME/Projects.
