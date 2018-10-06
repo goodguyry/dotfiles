@@ -284,24 +284,6 @@ function stamp() {
   unset SEP;
 }
 
-# Securely delete a file or folder.
-function zero() {
-  [[ "${#}" -lt 1 ]] && return;
-
-  # Ask before deleting files.
-  printf '\n';
-  MESSAGE="You are about to permanently remove \"${@}\"";
-  printf "${YELLOW}! %s${RESET}\n" "${MESSAGE}";
-  printf 'Are you sure? [Y/n] ';
-  read CONTINUE;
-  printf '\n';
-
-  # Conditionally set defaults.
-  if [[ "${CONTINUE}" != 'n' ]]; then
-    srm -rvz "${@}";
-  fi;
-}
-
 # Get the closest ansi color for a hex value
 # https://unix.stackexchange.com/a/269085
 function fromhex() {
