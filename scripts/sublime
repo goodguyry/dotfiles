@@ -62,7 +62,7 @@ add_sublime_package 'facelessuser/MarkdownPreview.git'                'MarkdownP
 add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
-cd "${SUBLIME_PACKAGES}/SCSS" && git checkout SublimeText2 && cd -;
+cd "${SUBLIME_PACKAGES}/SCSS" && git checkout SublimeText2 && cd - &>/dev/null;
 
 # Themes
 add_sublime_package 'dempfi/ayu.git'                                  'Ayu';
