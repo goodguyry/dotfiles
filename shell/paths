@@ -32,8 +32,5 @@ fi;
 # Add MySQL.
 PATH="${PATH}:/usr/local/mysql/bin";
 
-# Add VS Code.
-PATH="${PATH}:/Applications/Visual Studio Code.app/Contents/Resources/app/bin";
-
 export PATH;
 export MANPATH;

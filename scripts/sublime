@@ -10,7 +10,8 @@ source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 source "${DOTFILES_DIRECTORY}/utils/set-file.sh";
 
 # Set Sublime Text settings directory.
-SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
+ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
+SM_PACKAGES="${HOME}/Library/Application Support/Sublime Merge/Packages";
 
 # Create the directory path if it doesn't exist.
 [[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
@@ -19,9 +20,9 @@ SUBLIME_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
 function add_sublime_package() {
   local REPO="${1}"
   local PACKAGE="${2}";
-  if [[ ! -d "${SUBLIME_PACKAGES}/${PACKAGE}" ]]; then
+  if [[ ! -d "${ST_PACKAGES}/${PACKAGE}" ]]; then
     log_header "Cloning ${PACKAGE}";
-    git clone "https://github.com/${REPO}" "${SUBLIME_PACKAGES}/${PACKAGE}"  &> /dev/null;
+    git clone "https://github.com/${REPO}" "${ST_PACKAGES}/${PACKAGE}"  &> /dev/null;
     [[ $? ]] && log_success "${PACKAGE} installed."
   else
     log_header "${PACKAGE} already exists...";
@@ -31,37 +32,33 @@ function add_sublime_package() {
 # Clone packages.
 log_header 'Adding Sublime Text packages...';
 
-add_sublime_package 'daylerees/colour-schemes.git'                    'ColourSchemes';
+add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
+add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
+add_sublime_package 'Monnoroch/ColorHighlighter.git'                  'ColorHighlighter';
 add_sublime_package 'y0ssar1an/CSS3.git'                              'CSS3';
 add_sublime_package 'spadgos/sublime-jsdocs.git'                      'DocBlockr';
 add_sublime_package 'sindresorhus/editorconfig-sublime.git'           'EditorConfig';
+add_sublime_package 'TheSavior/ESLint-Formatter.git'                  'ESLint Formatter';
 add_sublime_package 'colinta/SublimeFileDiffs.git'                    'FileDiffs';
 add_sublime_package 'kemayo/sublime-text-git.git'                     'Git';
 add_sublime_package 'jisaacks/GitGutter.git'                          'GitGutter';
-add_sublime_package 'siteleaf/liquid-syntax-mode.git'                 'LiquidSyntax';
+add_sublime_package 'daaain/Handlebars.git'                           'Handlebars';
+add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'      'JavaScript Completions';
+add_sublime_package 'siteleaf/liquid-syntax-mode.git'                 'Liquid Syntax';
 add_sublime_package 'braver/MarkdownHighlighting.git'                 'MarkdownHighlighting';
-add_sublime_package 'titoBouzout/SideBarEnhancements.git'             'SideBarEnhancements';
-add_sublime_package 'lamotta/specialsboard.git'                       'SpecialsBoard';
-add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
-add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'      'JavaScriptCompletions';
-add_sublime_package 'bgreenlee/sublime-github.git'                    'Github';
-add_sublime_package 'SublimeLinter/SublimeLinter3.git'                'SublimeLinter';
-add_sublime_package 'roadhump/SublimeLinter-eslint.git'               'SublimeLinter-eslint';
-add_sublime_package 'wbond/sublime_terminal.git'                      'Sublime Terminal';
-add_sublime_package 'Monnoroch/ColorHighlighter.git'                  'ColorHighlighter';
-add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
-add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax-highlighting-for-PostCSS';
-add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter-phpcs';
 add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolution';
-add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter-eslint';
-add_sublime_package 'jonlabelle/SublimeJsPrettier.git'                'JsPrettier';
 add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
-add_sublime_package 'TheSavior/ESLint-Formatter'                      'ESLint-Formatter';
-add_sublime_package 'daaain/Handlebars'                               'Handlebars';
-add_sublime_package 'facelessuser/MarkdownPreview'                    'MarkdownPreview';
+add_sublime_package 'titoBouzout/SideBarEnhancements.git'             'SideBarEnhancements';
+add_sublime_package 'bgreenlee/sublime-github.git'                    'Sublime Github';
+add_sublime_package 'wbond/sublime_terminal.git'                      'Sublime Terminal';
+add_sublime_package 'SublimeLinter/SublimeLinter3.git'                'SublimeLinter';
+add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter ESLint';
+add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter PHPCS';
+add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax Highlighting for PostCSS';
+add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
-cd "${SUBLIME_PACKAGES}/SCSS" && git checkout SublimeText2 && cd -;
+cd "${ST_PACKAGES}/SCSS" && git checkout SublimeText2 && cd - &>/dev/null;
 
 # Themes
 add_sublime_package 'dempfi/ayu.git'                                  'Ayu';
@@ -71,23 +68,16 @@ log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
-# Sublime Text settings files.
-declare -a SUBLIME_SETTINGS_FILES=(
-  'ColorHighlighter.sublime-settings'
-  'Default (OSX).sublime-keymap'
-  'ESLint-Formatter.sublime-settings'
-  'Git.sublime-settings'
-  'JavaScript.sublime-settings'
-  'Markdown.sublime-settings'
-  'Preferences.sublime-settings'
-  'Ruby.sublime-settings'
-  'Shell-Unix-Generic.sublime-settings'
-  'SublimeLinter.sublime-settings'
-);
-
-# Link the settings files into place.
-for SUBLIME_SETTINGS_FILE in ${SUBLIME_SETTINGS_FILES[*]}; do
-  set_file "${SUBLIME_SETTINGS_FILE}" "${SUBLIME_PACKAGES}/User/${SUBLIME_SETTINGS_FILE}";
+# Link the Sublime Text settings files into place.
+for ST_SETTINGS_FILE in sublime/*; do
+  [[ -f "${ST_SETTINGS_FILE}" ]] && set_file "${ST_SETTINGS_FILE}" "${ST_PACKAGES}/User/";
 done;
 
-[[ $? ]] && log_success 'Sublime settings done.'
+[[ $? ]] && log_success 'Sublime Text settings done.'
+
+# Link the Sublime Merge settings files into place.
+for SM_SETTINGS_FILE in sublime/merge/*; do
+  set_file "${SM_SETTINGS_FILE}" "${SM_PACKAGES}/User/";
+done;
+
+[[ $? ]] && log_success 'Sublime Merge settings done.'
