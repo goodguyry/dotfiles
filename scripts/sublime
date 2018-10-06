@@ -72,23 +72,9 @@ log_success 'Sublime Text packages installed.'
 log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
-# Sublime Text settings files.
-declare -a SUBLIME_SETTINGS_FILES=(
-  'ColorHighlighter.sublime-settings'
-  'Default (OSX).sublime-keymap'
-  'ESLint-Formatter.sublime-settings'
-  'Git.sublime-settings'
-  'JavaScript.sublime-settings'
-  'Markdown.sublime-settings'
-  'Preferences.sublime-settings'
-  'Ruby.sublime-settings'
-  'Shell-Unix-Generic.sublime-settings'
-  'SublimeLinter.sublime-settings'
-);
-
 # Link the settings files into place.
-for SUBLIME_SETTINGS_FILE in ${SUBLIME_SETTINGS_FILES[*]}; do
-  set_file "${SUBLIME_SETTINGS_FILE}" "${SUBLIME_PACKAGES}/User/${SUBLIME_SETTINGS_FILE}";
+for SUBLIME_SETTINGS_FILE in sublime/*; do
+  set_file "${SUBLIME_SETTINGS_FILE}" "${SUBLIME_PACKAGES}/User/";
 done;
 
 [[ $? ]] && log_success 'Sublime settings done.'
