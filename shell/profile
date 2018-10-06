@@ -6,6 +6,7 @@ export INPUTRC="${HOME}/.inputrc";
 # Shamelessly stolen from @wilto
 declare -a FILES=(
   "${HOME}/.nvm/nvm.sh" # Load NVM.
+  "${HOME}/.completions" # Autocompletion scripts.
   "${HOME}/.prompt" # Custom bash prompt.
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.
@@ -21,8 +22,6 @@ for INDEX in ${!FILES[*]}; do
 done;
 
 unset FILES;
-
-source <(npm completion);
 
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
