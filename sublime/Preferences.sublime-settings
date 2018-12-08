@@ -9,7 +9,7 @@
 	],
 	"bold_folder_labels": true,
 	"caret_style": "phase",
-	"color_scheme": "Packages/User/ColorHighlighter/themes/ayu-mirage.tmTheme",
+	"color_scheme": "Packages/Ayu/ayu-mirage.tmTheme",
 	"drag_text": false,
 	"draw_minimap_border": true,
 	"draw_white_space": "all",
