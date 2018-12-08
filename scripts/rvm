@@ -9,7 +9,7 @@ DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
 # Set Ruby version.
-RUBY_VERSION='2.3.0';
+RUBY_VERSION='2.3.1';
 
 # Install RVM.
 if [ ! "$(type -P rvm)" ]; then
