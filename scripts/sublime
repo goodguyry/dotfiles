@@ -55,6 +55,7 @@ add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLi
 add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter PHPCS';
 add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax Highlighting for PostCSS';
 add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
+add_sublime_package 'reywood/sublime-project-specific-syntax.git'     'sublime-project-specific-syntax';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
 cd "${ST_PACKAGES}/SCSS" && git checkout SublimeText2 && cd - &>/dev/null;
