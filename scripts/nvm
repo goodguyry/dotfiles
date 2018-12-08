@@ -8,6 +8,8 @@
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 
+LTS_VERSION=carbon;
+
 # Check for an existing NVM install location.
 # The `type` check isn't working for `nvm`.
 NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
@@ -29,8 +31,8 @@ log_header 'Installing NPM...';
 npm install -g npm@latest;
 
 # Install and use latest stable version of Node.
-nvm install node;
-nvm alias default node;
+nvm install --lts="${LTS_VERSION}";
+nvm use --lts="${LTS_VERSION}";
 
 # Install packages globally and quietly.
 log_header 'Installing Node packages...';
