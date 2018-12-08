@@ -1,4 +1,6 @@
-// Settings in here override those in "Default/Preferences.sublime-settings",
-// and are overridden in turn by syntax-specific settings.
 {
+	"diff_style": "inline",
+	"font_face": "Hack",
+	"font_size": 11,
+	"theme": "Merge.sublime-theme"
 }
