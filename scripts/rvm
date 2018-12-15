@@ -38,4 +38,10 @@ gem install ${GEM_LIST} --no-document;
 
 gem cleanup;
 
+# Install Vagrant plugins
+vagrant plugin install vagrant-ghost;
+
+# Add Dreambox
+vagrant box add goodguyry/dreambox --provider virtualbox;
+
 [[ $? ]] && log_success 'Gems installed.';
