@@ -4,6 +4,15 @@
 # ~/.git-templates/hooks/
 #
 
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# Do nothing if amending or if this is a merge commit
+if [[ 'merge' == "$COMMIT_SOURCE" || $SHA1 ]]; then
+  exit
+fi
+
 if [ -z "$BRANCHES_TO_SKIP" ]; then
   BRANCHES_TO_SKIP=(master develop test production preprod staging qa);
 fi;
