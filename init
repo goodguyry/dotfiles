@@ -60,8 +60,10 @@ do
                -n)  NO_PACKAGES=true ;;
            --copy)  COPY_FILES=true ;;                # Copy files instead of linking.
                -c)  COPY_FILES=true ;;
-         --server)  SERVER=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
-               -s)  SERVER=true; NO_PACKAGES=true ;;
+         --server)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
+               -s)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;
+         --distro)  DISTRO=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
+               -d)  DISTRO=true; NO_PACKAGES=true ;;
            -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac
 done;
@@ -78,12 +80,18 @@ mkdirs "${HOME}/.bin";
 if $SERVER; then
   log_header 'Skipping Homebrew and Git installations.';
 else
-  source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
-
   # Install Git from Homebrew.
   log_header 'Installing Git...';
-  brew install git;
-  ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
+  
+  if ! $DISTRO; then
+    source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+    brew install git;
+    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
+  else
+    sudo add-apt-repository ppa:git-core/ppa;
+    sudo apt update;
+    sudo apt-get install git;
+  fi
 fi;
 
 # Conditionally init and pull the Git repo.
