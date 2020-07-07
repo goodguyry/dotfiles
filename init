@@ -62,8 +62,8 @@ do
                -c)  COPY_FILES=true ;;
          --server)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
                -s)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;
-         --distro)  DISTRO=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
-               -d)  DISTRO=true; NO_PACKAGES=true ;;
+         --distro)  DISTRO=true; ;;  # Skip macOS-related packages/settings.
+               -d)  DISTRO=true; ;;
            -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac
 done;
@@ -202,6 +202,13 @@ source "${HOME}/.bashrc";
 # Conditionally install packages.
 if [[ $NO_PACKAGES ]]; then
   log_header 'Skipping package installation...';
+elif [[ $DISTRO ]]; then
+  # Install apt packages.
+  source scripts/apt;
+  # Install NVM and Node packages.
+  source scripts/nvm;
+  # Set up Sublime Text.
+  source scripts/sublime;
 else
   # Install Homebrew packages.
   source scripts/brews;
