@@ -82,7 +82,7 @@ if $SERVER; then
 else
   # Install Git from Homebrew.
   log_header 'Installing Git...';
-  
+
   if ! $DISTRO; then
     source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
     brew install git;
@@ -207,9 +207,10 @@ else
   source scripts/brews;
   # Install App Store apps.
   source scripts/appstore;
-  # Install Homebrew packages.
+  # Install NVM and Node packages.
   source scripts/nvm;
-  # Install Homebrew packages.
+  # Install RVM and Ruby packages.
+  # @todo Do I still need this?
   source scripts/rvm;
   # Set up Sublime Text.
   source scripts/sublime;
