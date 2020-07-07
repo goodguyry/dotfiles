@@ -63,7 +63,7 @@ alias flush='sudo discoveryutil mdnsflushcache && sudo discoveryutil udnsflushca
 # Update installed Ruby gems, Homebrew, npm, and their installed packages.
 alias update='brew update; brew upgrade; brew cleanup; \
   brew upgrade brew-cask; brew cask cleanup; \
-  nvm install --lts=carbon --reinstall-packages-from=$(nvm current | sed "s/v//") \
+  nvm install --lts --reinstall-packages-from=$(nvm current | sed "s/v//") \
   npm update -g \
   rvm cleanup all; \
   sudo gem update --system; sudo gem update; sudo gem cleanup';
