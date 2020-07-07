@@ -218,7 +218,11 @@ git_config_add core.untrackedCache true;
 
 # Detect whitespace errors when applying a patch.
 git_config_add apply.whitespace 'fix';
-git_config_add credential.helper 'osxkeychain';
+CREDENTIAL_HELPER='osxkeychain';
+if $DISTRO; then
+  CREDENTIAL_HELPER='store';
+fi
+git_config_add credential.helper "${CREDENTIAL_HELPER}";
 # Automatically correct and execute mistyped commands.
 git_config_add help.autocorrect 1;
 # Include summaries of merged commits in newly created merge commit messages.

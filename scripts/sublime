@@ -10,8 +10,13 @@ source "${DOTFILES_DIRECTORY}/utils/logger.sh";
 source "${DOTFILES_DIRECTORY}/utils/set-file.sh";
 
 # Set Sublime Text settings directory.
-ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
-SM_PACKAGES="${HOME}/Library/Application Support/Sublime Merge/Packages";
+if [[ $DISTRO ]]; then
+  ST_PACKAGES="${HOME}/.config/sublime-text-3/Packages";
+  SM_PACKAGES="${HOME}/.config/sublime-merge/Packages";
+else
+  ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
+  SM_PACKAGES="${HOME}/Library/Application Support/Sublime Merge/Packages";
+fi
 
 # Create the directory path if it doesn't exist.
 [[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
