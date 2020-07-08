@@ -9,7 +9,7 @@ DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 # Source utils
 source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/set-file.sh";
+source "${DOTFILES_DIRECTORY}/utils/helpers.sh";
 
 # Help text.
 function show_help() {
@@ -38,14 +38,6 @@ Copyright (c) Ryan Domingue
 Licensed under the MIT license.
 EOT
 
-}
-
-# Create a directory if it doesn't already exist.
-function mkdirs() {
-  if [[ ! -d "${@}" ]]; then
-    mkdir "${@}";
-    echo "Created ${@}";
-  fi;
 }
 
 # Show help text.
