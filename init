@@ -21,10 +21,12 @@ Dotfiles - Ryan Domingue - http://ryandomingue.com/
 Usage: $(basename "$0") [options]
 
 Options:
-    -h, --help            Print this help text
-    -c, --copy            Copy the files in place instead of linking
-    -n, --no-packages     Suppress package installations and updates (including casks)
-    -s, --server          Skip macOS-related packages/settings
+    --help            Print this help text
+    --copy            Copy the files in place instead of linking
+    --server          Skip packages/settings not applicable to a server
+    --distro          Linux packages/settings
+    --skip-packages   Suppress package installations and updates
+    --skip-git-init   Do not initialize a Git repo
 
 Notes:
 '--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github.
@@ -56,49 +58,48 @@ fi;
 for OPT in "${@}";
 do
   case "${OPT}" in
-    --no-packages)  NO_PACKAGES=true ;;               # Suppresses installing packages.
-               -n)  NO_PACKAGES=true ;;
-           --copy)  COPY_FILES=true ;;                # Copy files instead of linking.
-               -c)  COPY_FILES=true ;;
-         --server)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;  # Skip macOS-related packages/settings.
-               -s)  SERVER=true; DISTRO=true; NO_PACKAGES=true ;;
-         --distro)  DISTRO=true; ;;  # Skip macOS-related packages/settings.
-               -d)  DISTRO=true; ;;
-           -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
+             --copy)  COPY_FILES=true ;;    # Copy the files in place instead of linking
+           --server)  SERVER=true; ;;       # Skip packages/settings not applicable to a server
+           --distro)  DISTRO=true; ;;       # Linux packages/settings
+    --skip-packages)  SKIP_PACKAGES=true ;; # Suppress package installations and updates
+    --skip-git-init)  SKIP_GIT_INIT=true ;; # Do not initialize a Git repo
+             -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac
 done;
 
 # Create a Projects folder.
-if ! $SERVER; then
-  mkdirs "${HOME}/Projects";
-fi;
+[ ! $SERVER ] && mkdirs "${HOME}/Projects";
 
 # Create a ~/.bin directory, if it doesn't exist.
 mkdirs "${HOME}/.bin";
 
 # Conditionally install Command Line Tools, Homebrew and Git.
-if $SERVER; then
+if $SKIP_PACKAGES; then
   log_header 'Skipping Homebrew and Git installations.';
 else
-  # Install Git from Homebrew.
   log_header 'Installing Git...';
 
-  if ! $DISTRO; then
-    source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
-    brew install git;
-    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
-  else
+  if $DISTRO; then
     sudo add-apt-repository ppa:git-core/ppa;
     sudo apt update;
     sudo apt-get install git;
+  else
+    # Install Git from Homebrew for macOS
+    source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+    brew install git;
+    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
   fi
 fi;
 
 # Conditionally init and pull the Git repo.
-if [[ ! ${COPY} || ! ${SERVER} ]] && [ "$(type -P git)" ] ; then
+if [ $SKIP_GIT_INIT ]; then
+  log_header 'Skipping `git init`';
+elif [ "$(type -P git)" ]; then
   cd "${DOTFILES_DIRECTORY}";
   # Initialize the git repository if it's missing.
-  if ! $(git rev-parse --is-inside-work-tree &> /dev/null); then
+  if $(git rev-parse --is-inside-work-tree &> /dev/null); then
+    log_header 'Already a Git repo.';
+  else
     log_header 'Initializing git repository...';
     git init;
     git remote add origin "${DOTFILES_GIT_REMOTE}";
@@ -110,11 +111,9 @@ if [[ ! ${COPY} || ! ${SERVER} ]] && [ "$(type -P git)" ] ; then
     log_header 'Syncing dotfiles...';
     # Pull down the latest changes.
     git pull --rebase origin master;
-  else
-    log_header 'Already a Git repo.';
   fi;
 else
-  log_header 'Skipping \`git init\`';
+  log_header 'Git is not installed';
 fi;
 
 # Sets the dotfiles in place in the `HOME` directory.
@@ -155,21 +154,21 @@ function set_files() {
   set_file 'shell/prompt'                         "${HOME}/.prompt";
 
   # Download the Solarized Vim theme.
-  if [[ ! -r "${HOME}/.vim/colors/solarized.vim" ]]; then
-    if $SERVER; then
-      # Extract colors/solarized.vim into .vim (Linux-friendly).
-      log_header 'Downloading Solarized Vim theme...';
+  if test -f "${HOME}/.vim/colors/solarized.vim"; then
+    log_header 'Solarized Vim theme already installed.';
+  else
+    log_header 'Downloading Solarized Vim theme...';
+    # Extract colors/solarized.vim into .vim (Linux-friendly).
+    if $DISTRO; then
+      # Linux-friendly.
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
     else
-      # Extract colors/solarized.vim into .vim (macOS-Friendly).
-      log_header 'Downloading Solarized Vim theme...';
+      # macOS-Friendly.
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
     fi;
     [[ $? ]] && log_success 'Solarized Vim theme installed';
-  else
-    log_header 'Solarized Vim theme already installed.';
   fi;
 
   log_success 'Dotfiles update complete!';
@@ -200,7 +199,7 @@ source scripts/gitconfig;
 source "${HOME}/.bashrc";
 
 # Conditionally install packages.
-if [[ $NO_PACKAGES ]]; then
+if $SKIP_PACKAGES; then
   log_header 'Skipping package installation...';
 elif [[ $DISTRO ]]; then
   # Install apt packages.
@@ -223,15 +222,17 @@ else
   source scripts/sublime;
 
   # Change to bash 4 installed by bin/brews.
-  if [[ ! "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then
+  if [[ "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then
+    log_header "'/usr/local/bin/bash' already in /etc/shells";
+  else
     echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
     log_success 'Shell switched to Bash 4';
-  else
-    log_header "'/usr/local/bin/bash' already in /etc/shells";
   fi;
 fi;
 
-if ! $SERVER; then
+if [[ $SERVER || $DISTRO ]]; then
+  log_header 'Skipped macOS settings update.';
+else
   # Ask before potentially overwriting files.
   printf '\n';
   log_warning 'Warning: This step may modify your macOS system defaults.';
