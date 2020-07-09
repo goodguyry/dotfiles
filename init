@@ -192,32 +192,9 @@ source "${HOME}/.bashrc";
 if $SKIP_PACKAGES; then
   log_header 'Skipping package installation...';
 elif [[ $DISTRO ]]; then
-  # Install apt packages.
-  source scripts/apt;
-  # Install NVM and Node packages.
-  source scripts/nvm;
-  # Set up Sublime Text.
-  source scripts/sublime;
+  source scripts/packages.linux.sh;
 else
-  # Install Homebrew packages.
-  source scripts/brews;
-  # Install App Store apps.
-  source scripts/appstore;
-  # Install NVM and Node packages.
-  source scripts/nvm;
-  # Install RVM and Ruby packages.
-  # @todo Do I still need this?
-  source scripts/rvm;
-  # Set up Sublime Text.
-  source scripts/sublime;
-
-  # Change to bash 4 installed by bin/brews.
-  if [[ "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then
-    log_header "'/usr/local/bin/bash' already in /etc/shells";
-  else
-    echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
-    log_success 'Shell switched to Bash 4';
-  fi;
+  source scripts/packages.macos.sh;
 fi;
 
 if [[ $SERVER || $DISTRO ]]; then
