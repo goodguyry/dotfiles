@@ -59,6 +59,21 @@ do
   esac
 done;
 
+# Ask before proceeding.
+printf '\n';
+log_warning 'This script will do the following:';
+MESSAGE="$(get_init_prompt)";
+echo -e "${MESSAGE}";
+printf 'Continue? [Y/n]';
+read CONTINUE;
+printf '\n';
+
+# Exit if denied.
+if [[ "${CONTINUE}" == 'n' ]]; then
+  log_header 'Aborting...';
+  exit 1;
+fi;
+
 # Create a Projects folder.
 [ ! $SERVER ] && mkdirs "${HOME}/Projects";
 
@@ -109,77 +124,60 @@ else
 fi;
 
 # Sets the dotfiles in place in the `HOME` directory.
-function set_files() {
-  log_header 'Setting files...';
+log_header 'Setting files...';
 
-  # List of directories.
-  declare -a DIRECTORIES=(
-    .vim/backups
-    .vim/swaps
-  );
+# List of directories.
+declare -a DIRECTORIES=(
+  .vim/backups
+  .vim/swaps
+);
 
-  # Create directories.
-  for DIRECTORY in ${DIRECTORIES[*]}; do
-    if [[ ! -d "${HOME}/${DIRECTORY}" ]]; then
-      mkdir -p "${HOME}/${DIRECTORY}";
-      echo "Created ${HOME}/${DIRECTORY}";
-    fi;
-  done;
-
-  # Dev
-  set_file 'dev/gitignore'                        "${HOME}/.gitignore";
-  set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
-  set_file 'dev/vimrc'                            "${HOME}/.vimrc";
-
-  # Always copy editorconfig.
-  rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
-
-  # Shell
-  set_file 'shell/aliases'                        "${HOME}/.aliases";
-  set_file 'shell/bash_config'                    "${HOME}/.bash_config";
-  set_file 'shell/bashrc'                         "${HOME}/.bashrc";
-  set_file 'shell/functions'                      "${HOME}/.functions";
-  set_file 'shell/hushlogin'                      "${HOME}/.hushlogin";
-  set_file 'shell/inputrc'                        "${HOME}/.inputrc";
-  set_file 'shell/paths'                          "${HOME}/.paths";
-  set_file 'shell/profile'                        "${HOME}/.profile";
-  set_file 'shell/prompt'                         "${HOME}/.prompt";
-
-  # Download the Solarized Vim theme.
-  if test -f "${HOME}/.vim/colors/solarized.vim"; then
-    log_header 'Solarized Vim theme already installed.';
-  else
-    log_header 'Downloading Solarized Vim theme...';
-    # Extract colors/solarized.vim into .vim (Linux-friendly).
-    if $DISTRO; then
-      # Linux-friendly.
-      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-        tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
-    else
-      # macOS-Friendly.
-      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-        tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
-    fi;
-    [[ $? ]] && log_success 'Solarized Vim theme installed';
+# Create directories.
+for DIRECTORY in ${DIRECTORIES[*]}; do
+  if [[ ! -d "${HOME}/${DIRECTORY}" ]]; then
+    mkdir -p "${HOME}/${DIRECTORY}";
+    echo "Created ${HOME}/${DIRECTORY}";
   fi;
+done;
 
-  log_success 'Dotfiles update complete!';
-}
+# Dev
+set_file 'dev/gitignore'                        "${HOME}/.gitignore";
+set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
+set_file 'dev/vimrc'                            "${HOME}/.vimrc";
 
-# Ask before potentially overwriting files.
-printf '\n';
-log_warning 'Warning: This step may overwrite your existing dotfiles.';
-printf 'Continue? [Y/n]';
-read CONTINUE;
-printf '\n';
+# Always copy editorconfig.
+rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
 
-# Conditionally set the dotfiles in place.
-if [[ "${CONTINUE}" == 'n' ]]; then
-  log_header 'Aborting...';
-  exit 1;
+# Shell
+set_file 'shell/aliases'                        "${HOME}/.aliases";
+set_file 'shell/bash_config'                    "${HOME}/.bash_config";
+set_file 'shell/bashrc'                         "${HOME}/.bashrc";
+set_file 'shell/functions'                      "${HOME}/.functions";
+set_file 'shell/hushlogin'                      "${HOME}/.hushlogin";
+set_file 'shell/inputrc'                        "${HOME}/.inputrc";
+set_file 'shell/paths'                          "${HOME}/.paths";
+set_file 'shell/profile'                        "${HOME}/.profile";
+set_file 'shell/prompt'                         "${HOME}/.prompt";
+
+# Download the Solarized Vim theme.
+if test -f "${HOME}/.vim/colors/solarized.vim"; then
+  log_header 'Solarized Vim theme already installed.';
 else
-  set_files;
+  log_header 'Downloading Solarized Vim theme...';
+  # Extract colors/solarized.vim into .vim (Linux-friendly).
+  if $DISTRO; then
+    # Linux-friendly.
+    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+      tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
+  else
+    # macOS-Friendly.
+    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+      tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+  fi;
+  [[ $? ]] && log_success 'Solarized Vim theme installed';
 fi;
+
+log_success 'Dotfiles update complete!';
 
 # Create dotfiles.local if not present.
 [[ ! -r "${HOME}/.dotfiles.local" ]] && printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
