@@ -22,10 +22,10 @@ Usage: $(basename "$0") [options]
 
 Options:
     --help            Print this help text
-    --copy            Copy the files in place instead of linking
+    --copy            Copy the files in place instead of symlinking
     --server          Skip packages/settings not applicable to a server
-    --distro          Linux packages/settings
-    --skip-packages   Suppress package installations and updates
+    --distro          Install Linux packages & settings
+    --skip-packages   Suppress all package installations and updates
     --skip-git-init   Do not initialize a Git repo
 
 Notes:
@@ -49,10 +49,10 @@ fi;
 for OPT in "${@}";
 do
   case "${OPT}" in
-             --copy)  COPY_FILES=true ;;    # Copy the files in place instead of linking
+             --copy)  COPY_FILES=true ;;    # Copy the files in place instead of symlinking
            --server)  SERVER=true; ;;       # Skip packages/settings not applicable to a server
-           --distro)  DISTRO=true; ;;       # Linux packages/settings
-    --skip-packages)  SKIP_PACKAGES=true ;; # Suppress package installations and updates
+           --distro)  DISTRO=true; ;;       # Install Linux packages & settings
+    --skip-packages)  SKIP_PACKAGES=true ;; # Suppress all package installations and updates
     --skip-git-init)  SKIP_GIT_INIT=true ;; # Do not initialize a Git repo
              -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
   esac

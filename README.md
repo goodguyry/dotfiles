@@ -35,15 +35,16 @@ Then ```cd``` into the downloaded directory.
 
 The following options are available when running the init file:
 
-| Option                | Description                                    |
-|-----------------------|------------------------------------------------|
-| `-h`, `--help`        | Print this help text                           |
-| `-c`, `--copy`        | Copy the files instead of symlinking           |
-| `-n`, `--no-packages` | Suppress package installations and updates     |
-| `-s`, `--server`      | Skip Projects folder and macOS-related packages |
+| Option            | Description                                          |
+|-------------------|------------------------------------------------------|
+| `--help`          | Print this help text                                 |
+| `--copy`          | Copy the files in place instead of symlinking        |
+| `--server`        | Skip packages/settings not applicable to a server    |
+| `--distro`        | Install Linux packages & settings (default is macOS) |
+| `--skip-packages` | Suppress all package installations and updates       |
+| `--skip-git-init` | Do not initialize a Git repo                         |
 
 **Notes:**
-- `--copy` and `--server` also suppress initializing a Git repo and pulling updates from Github.
 - `editorconfig` is always copied.
 
 
@@ -58,11 +59,11 @@ Used to add extraneous functionality (aliases, functions, prompts, etc.) without
 
 The setup process will prompt to apply the masOS defaults. They can also be applied independently from the dotfiles directory:
 
-```
+```shell
 ./scripts/macos
 ```
 
-Take time to read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file.
+Many of these configuration options are likely outdated. Take time to read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file.
 
 
 ## Acknowledgements
