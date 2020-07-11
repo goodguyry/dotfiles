@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Adds the official Sublime Text/Merge PPA
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 sudo apt-get install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
@@ -9,25 +10,34 @@ sudo add-apt-repository ppa:stebbins/handbrake-releases;
 
 sudo apt-get update;
 
-# apt-get
+#
+# Install CLI apps.
+#
 sudo apt-get -y install
-  curl \
-  wget \
-  virtualbox \
-  sublime-text \
-  sublime-merge \
-  handbrake-gtk \
-  unzip \
   bash-completion \
-  vim \
-  openssh-client \
-  trimage \
-  tree \
-  pigz \
+  curl \
   gist \
-  moreutils;
+  moreutils \
+  openssh-client \
+  pigz \
+  tree \
+  trimage \
+  unzip \
+  vim \
+  wget;
 
+#
+# Install GUI apps.
+#
+sudo apt-get -y install
+  handbrake-gtk \
+  sublime-merge \
+  sublime-text \
+  virtualbox;
+
+#
 # Snap apps
+#
 snap install vlc;
 
 ###
