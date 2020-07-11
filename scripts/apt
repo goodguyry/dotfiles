@@ -23,16 +23,68 @@ sudo apt-get -y install
   openssh-client \
   trimage \
   tree \
-  pigz;
+  pigz \
+  gist \
+  moreutils;
 
 # Snap apps
 snap install vlc;
 
-VAGRANT_VER="2.2.9";
+###
+### Download and install.
+###
+
+##
+# Vagrant
+##
+
+VAGRANT_VER='2.2.9';
 wget https://releases.hashicorp.com/vagrant/${VAGRANT_VER}/vagrant_${VAGRANT_VER}_x86_64.deb;
 sudo dpkg -i vagrant_${VAGRANT_VER}_x86_64.deb;
 sudo apt -f install;
+# Cleanup.
+rm vagrant_${VAGRANT_VER}_x86_64.deb;
 
-PACKER_VERSION="1.6.0";
+##
+# Packer
+##
+
+PACKER_VERSION='1.6.0';
 wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip;
 sudo unzip packer_${VER}_linux_amd64.zip -d /usr/local/bin;
+# Cleanup.
+rm packer_${VER}_linux_amd64.zip;
+
+##
+# libdvdcss
+##
+
+LIBDVDCSS_VERSION='1.2.13-0';
+wget http://download.videolan.org/pub/debian/stable/libdvdcss2_${LIBDVDCSS_VERSION}_amd64.deb;
+sudo dpkg -i libdvdcss2_${LIBDVDCSS_VERSION}_amd64.deb;
+# Cleanup.
+rm libdvdcss2_${LIBDVDCSS_VERSION}_amd64.deb;
+
+##
+# Hack font.
+##
+
+# @todo https://wiki.manjaro.org/index.php?title=Improve_Font_Rendering
+HACK_FONT_VERSION='3.003';
+wget https://github.com/source-foundry/Hack/releases/download/v${HACK_FONT_VERSION}/Hack-v${HACK_FONT_VERSION}-ttf.zip;
+sudo mkdir -p /usr/share/fonts/truetype/hack/;
+# Unzip font files to system font folder.
+sudo unzip -j Hack-v${HACK_FONT_VERSION}-ttf.zip -d /usr/share/fonts/truetype/hack/;
+# Get full source to retrieve the config file.
+wget https://github.com/source-foundry/Hack/archive/v${HACK_FONT_VERSION}.zip;
+# Unzip configuration file system font configuration folder.
+sudo bash -c "unzip -p v${HACK_FONT_VERSION}.zip Hack-${HACK_FONT_VERSION}/config/fontconfig/45-Hack.conf > /usr/share/fontconfig/conf.avail/45-Hack.conf;"
+# Symlink config file into place.
+sudo ln -fs /usr/share/fontconfig/conf.avail /usr/share/fontconfig/conf.d;
+# Clear and regenerate the font cache and indexes.
+fc-cache -f -v;
+# Confirm the fontz are installed.
+fc-list | grep "Hack"
+# Cleanup.
+rm Hack-v${HACK_FONT_VERSION}-ttf.zip;
+rm v${HACK_FONT_VERSION}.zip;
