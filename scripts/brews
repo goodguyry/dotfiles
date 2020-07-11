@@ -20,7 +20,9 @@ function brew_cask_install() {
   fi;
 }
 
-# CLI packages
+###
+### CLI packages
+###
 
 log_header 'Installing CLI packages...';
 
@@ -42,7 +44,7 @@ brew_install rsync;
 # Install latest Vim.
 brew_install vim --with-override-system-vi;
 
-# Install Bash 4.
+# Install newer Bash.
 brew_install bash;
 brew_install bash-completion2;
 
@@ -64,13 +66,14 @@ brew_install tree;
 
 [[ $? ]] && log_success 'Homebrew packages installed.';
 
-# Native Apps
+###
+### Native Apps
+###
 
 log_header 'Installing casks (native apps)...';
 
-# Tap brew-cask.
-brew tap caskroom/cask;
-brew tap caskroom/versions;
+# Tap for alternate versions.
+brew tap homebrew/cask-versions;
 
 # Install native applications.
 brew_cask_install 1Password;
@@ -130,12 +133,14 @@ brew cask cleanup;
 
 [[ $? ]] && log_success 'Homebrew Casks installed';
 
-# Fonts
+###
+### Fonts
+###
 
 log_header 'Installing fonts...';
 
 # Tap brew-cask fonts
-brew tap caskroom/fonts;
+brew tap homebrew/cask-fonts;
 
 # Install fonts.
 brew_cask_install font-hack;
