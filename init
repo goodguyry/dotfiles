@@ -83,17 +83,24 @@ mkdirs "${HOME}/.bin";
 if $SKIP_PACKAGES; then
   log_header 'Skipping Homebrew and Git installations.';
 else
+  log_header 'Installing Homebrew...';
+  source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+
   log_header 'Installing Git...';
 
   if $DISTRO; then
     sudo add-apt-repository ppa:git-core/ppa;
     sudo apt update;
     sudo apt-get install git;
+    # Set up word highlighting.
+    [ -s /usr/share/doc/git/contrib/diff-highlight ] \
+      && ln -sf "/usr/share/doc/git/contrib/diff-highlight" "${HOME}/.bin/diff-highlight";
   else
     # Install Git from Homebrew for macOS
-    source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
     brew install git;
-    ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
+    # Set up word highlighting.
+    [ -s $(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight ] \
+      && ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
   fi
 fi;
 
