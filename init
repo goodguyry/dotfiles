@@ -29,7 +29,6 @@ Options:
     --skip-git-init   Do not initialize a Git repo
 
 Notes:
-'--copy' and '--server' also suppress initializing a Git repo and pulling updates from Github.
 'editorconfig' is always copied.
 
 Documentation can be found at https://github.com/goodguyry/dotfiles
