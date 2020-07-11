@@ -2,20 +2,22 @@
 {
 	"paths": {
 		"osx": [
-			"~/.nvm/versions/node/v9.3.0/bin/node",
-			"~/.nvm/versions/node/v10.4.1/bin/node",
-			"~/.nvm/versions/node/v8.14.0/bin/node"
+			 "~/.nvm/versions/node/v8.17.0/bin/node",
+			 "~/.nvm/versions/node/v10.21.0/bin/node",
+			 "~/.nvm/versions/node/v12.18.2/bin/node",
+			 "~/.nvm/versions/node/v14.5.0/bin/node",
 		],
+		"linux": [],
 	},
 	"linters": {
 		"phpcs": {
 			"disable": false,
-			"executable": "~/.composer/vendor/bin/phpcs",
+			"executable": "/Users/ryandomingue/broadway/www/phpcs/bin/phpcs",
 			"standard": "${folder}/phpcs.xml"
 		},
 		"eslint": {
 			"env": {
-			  "PATH": "~/.nvm/versions/node/v8.14.0/bin",
+				"PATH": "~/.nvm/versions/node/v12.18.2/bin",
 			},
 			"excludes": [
 				"*.md"

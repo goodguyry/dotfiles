@@ -1,13 +1,5 @@
 [
   {
-    "keys": ["super+shift+["],
-    "command": "next_view_in_stack"
-  },
-  {
-    "keys": ["super+shift+]"],
-    "command": "prev_view_in_stack"
-  },
-  {
     "keys": ["super+alt+left"],
     "command": "prev_view"
   },
@@ -85,5 +77,4 @@
     "keys": ["super+shift+m"],
     "command": "sublime_linter_panel_toggle",
   }
-  // { "keys": ["super+shift+alt+t"], "command": "open_terminal_project_folder" }
 ]
