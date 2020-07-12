@@ -80,7 +80,7 @@ fi;
 mkdirs "${HOME}/.bin";
 
 # Conditionally install Command Line Tools, Homebrew and Git.
-if $SKIP_PACKAGES; then
+if [ $SKIP_PACKAGES ]; then
   log_header 'Skipping Homebrew and Git installations.';
 else
   log_header 'Installing Homebrew...';
@@ -195,7 +195,7 @@ source scripts/gitconfig;
 source "${HOME}/.bashrc";
 
 # Conditionally install packages.
-if $SKIP_PACKAGES; then
+if [ $SKIP_PACKAGES ]; then
   log_header 'Skipping package installation...';
 elif [[ $DISTRO ]]; then
   source scripts/packages.linux.sh;
