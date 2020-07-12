@@ -13,7 +13,7 @@ fi;
 # Check for Homebrew.
 if [ ! "$(type -P brew)" ]; then
   log_header 'Installing Homebrew...';
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   brew doctor;
   [[ $? ]] && log_success 'Homebrew installed.';
 fi;

@@ -54,6 +54,7 @@
 	],
 	"font_face": "Hack",
 	"font_size": 10.0,
+	"gpu_window_buffer": false,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -65,6 +66,7 @@
 	"line_padding_top": 1,
 	"rulers":
 	[
+		80,
 		120
 	],
 	"show_definitions": false,
