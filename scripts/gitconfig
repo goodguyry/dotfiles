@@ -148,6 +148,8 @@ git_config_add alias.tags 'tag -l';
 git_config_add alias.tracking "!git for-each-ref --format='%(upstream:short)' \"$(git symbolic-ref -q HEAD)\"";
 # `git unstage [file]` Unstages a file or the entire index.
 git_config_add alias.unstage 'reset HEAD --';
+# Show the user email for the current repository.
+git_config_add alias.whoami "config user.email";
 
 # Branches
 
