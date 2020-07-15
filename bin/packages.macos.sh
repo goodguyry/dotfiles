@@ -4,13 +4,13 @@
 # Install macOS packages
 ##
 
-source scripts/brews;
-source scripts/appstore;
-source scripts/nvm;
-source scripts/rvm; # @todo Still needed?
+source bin/brews;
+source bin/appstore;
+source bin/nvm;
+source bin/rvm; # @todo Still needed?
 
 # Set up Sublime Text & Sublime Merge
-source scripts/sublime;
+source bin/sublime;
 
 # Change to bash 4 installed by bin/brews.
 if [[ "$(grep "/usr/local/bin/bash" /etc/shells)" ]]; then

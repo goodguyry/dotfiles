@@ -6,8 +6,8 @@
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+source "${DOTFILES_DIRECTORY}/var/logger.sh";
+source "${DOTFILES_DIRECTORY}/var/brew-check.sh";
 
 # Check for `mas`.
 if [[ ! "$(type -P mas)" ]]; then

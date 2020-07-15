@@ -4,8 +4,8 @@
 # Install Linux packages
 ##
 
-source scripts/apt;
-source scripts/nvm;
+source bin/apt;
+source bin/nvm;
 
 # Set up Sublime Text & Sublime Merge.
-source scripts/sublime;
+source bin/sublime;

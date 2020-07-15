@@ -6,9 +6,9 @@
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
-source "${DOTFILES_DIRECTORY}/utils/helpers.sh";
+source "${DOTFILES_DIRECTORY}/var/logger.sh";
+source "${DOTFILES_DIRECTORY}/var/brew-check.sh";
+source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Check for an existing cask or app file before installing.
 function brew_cask_install() {

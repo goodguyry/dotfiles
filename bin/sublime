@@ -6,8 +6,8 @@
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/helpers.sh";
+source "${DOTFILES_DIRECTORY}/var/logger.sh";
+source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Set Sublime Text settings directory.
 if $DISTRO; then
@@ -74,14 +74,14 @@ log_warning 'Install Package Control: https://packagecontrol.io/installation'
 log_warning 'Install Markdown Preview with Package Control'
 
 # Link the Sublime Text settings files into place.
-for ST_SETTINGS_FILE in sublime/*; do
+for ST_SETTINGS_FILE in etc/sublime-text/*; do
   [[ -f "${ST_SETTINGS_FILE}" ]] && set_file "${ST_SETTINGS_FILE}" "${ST_PACKAGES}/User/";
 done;
 
 [[ $? ]] && log_success 'Sublime Text settings done.'
 
 # Link the Sublime Merge settings files into place.
-for SM_SETTINGS_FILE in sublime/merge/*; do
+for SM_SETTINGS_FILE in etc/sublime-merge/*; do
   set_file "${SM_SETTINGS_FILE}" "${SM_PACKAGES}/User/";
 done;
 

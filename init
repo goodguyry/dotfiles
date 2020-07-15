@@ -8,8 +8,8 @@ DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
 # Source utils
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/helpers.sh";
+source "${DOTFILES_DIRECTORY}/var/logger.sh";
+source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Help text.
 function show_help() {
@@ -84,7 +84,7 @@ if [ $SKIP_PACKAGES ]; then
   log_header 'Skipping Homebrew and Git installations.';
 else
   log_header 'Installing Homebrew...';
-  source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
+  source "${DOTFILES_DIRECTORY}/var/brew-check.sh";
 
   log_header 'Installing Git...';
 
@@ -134,6 +134,7 @@ log_header 'Setting files...';
 
 # List of directories.
 declare -a DIRECTORIES=(
+  .git-templates/hooks
   .vim/backups
   .vim/swaps
 );
@@ -146,24 +147,23 @@ for DIRECTORY in ${DIRECTORIES[*]}; do
   fi;
 done;
 
-# Dev
-set_file 'dev/gitignore'                        "${HOME}/.gitignore";
-set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
-set_file 'dev/vimrc'                            "${HOME}/.vimrc";
+set_file 'home/aliases'                        "${HOME}/.aliases";
+set_file 'home/bash_config'                    "${HOME}/.bash_config";
+set_file 'home/bashrc'                         "${HOME}/.bashrc";
+set_file 'home/completions'                    "${HOME}/.completions";
+set_file 'home/functions'                      "${HOME}/.functions";
+set_file 'home/gitignore'                      "${HOME}/.gitignore";
+set_file 'home/hushlogin'                      "${HOME}/.hushlogin";
+set_file 'home/inputrc'                        "${HOME}/.inputrc";
+set_file 'home/jshintrc'                       "${HOME}/.jshintrc";
+set_file 'home/paths'                          "${HOME}/.paths";
+set_file 'home/profile'                        "${HOME}/.profile";
+set_file 'home/prompt'                         "${HOME}/.prompt";
+set_file 'home/vimrc'                          "${HOME}/.vimrc";
+set_file 'etc/prepare-commit-msg'              "${HOME}/.git-templates/hooks/prepare-commit-msg";
 
 # Always copy editorconfig.
-rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
-
-# Shell
-set_file 'shell/aliases'                        "${HOME}/.aliases";
-set_file 'shell/bash_config'                    "${HOME}/.bash_config";
-set_file 'shell/bashrc'                         "${HOME}/.bashrc";
-set_file 'shell/functions'                      "${HOME}/.functions";
-set_file 'shell/hushlogin'                      "${HOME}/.hushlogin";
-set_file 'shell/inputrc'                        "${HOME}/.inputrc";
-set_file 'shell/paths'                          "${HOME}/.paths";
-set_file 'shell/profile'                        "${HOME}/.profile";
-set_file 'shell/prompt'                         "${HOME}/.prompt";
+rsync -avz --quiet 'home/editorconfig'         "${HOME}/.editorconfig";
 
 # Download the Solarized Vim theme.
 if test -f "${HOME}/.vim/colors/solarized.vim"; then
@@ -189,7 +189,7 @@ log_success 'Dotfiles update complete!';
 [[ ! -r "${HOME}/.dotfiles.local" ]] && printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
 
 # Add git config settings.
-source scripts/gitconfig;
+source bin/gitconfig;
 
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
@@ -198,9 +198,9 @@ source "${HOME}/.bashrc";
 if [ $SKIP_PACKAGES ]; then
   log_header 'Skipping package installation...';
 elif [[ $DISTRO ]]; then
-  source scripts/packages.linux.sh;
+  source bin/packages.linux.sh;
 else
-  source scripts/packages.macos.sh;
+  source bin/packages.macos.sh;
 fi;
 
 if [[ $SERVER || $DISTRO ]]; then
@@ -217,7 +217,7 @@ else
   if [[ "${SET_MACOS}" == 'n' ]]; then
     log_header 'Skipped macOS settings update.';
   else
-    source scripts/macos;
+    source bin/macos;
   fi;
 fi;
 
