@@ -10,7 +10,7 @@ source "${DOTFILES_DIRECTORY}/var/logger.sh";
 source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Set Sublime Text settings directory.
-if $DISTRO; then
+if $IS_LINUX; then
   ST_PACKAGES="${HOME}/.config/sublime-text-3/Packages";
   SM_PACKAGES="${HOME}/.config/sublime-merge/Packages";
 else

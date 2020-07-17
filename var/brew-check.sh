@@ -11,7 +11,7 @@ if [ ! "$(type -P gcc)" ]; then
 fi;
 
 # Check for Homebrew.
-if [ ! "$(type -P brew)" ]; then
+if ! $HAS_BREW; then
   log_header 'Installing Homebrew...';
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   brew doctor;
@@ -20,6 +20,3 @@ fi;
 
 log_header 'Updating Homebrew...';
 brew update;
-
-log_header 'Upgrading installed formulae...';
-brew upgrade;

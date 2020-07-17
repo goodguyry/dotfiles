@@ -63,6 +63,7 @@ brew_install mysql;
 brew_install packer;
 brew_install pigz;
 brew_install tree;
+brew_install zlib;
 
 [[ $? ]] && log_success 'Homebrew packages installed.';
 
@@ -96,7 +97,7 @@ brew_cask_install gitify;
 brew_cask_install google-chrome-canary;
 brew_cask_install google-chrome;
 brew_cask_install handbrake;
-brew_cask_install highsierramediakeyenabler;
+brew_cask_install macmediakeyforwarder;
 brew_cask_install imageoptim;
 brew_cask_install macdown;
 brew_cask_install muzzle;
@@ -134,8 +135,6 @@ brew_cask_install qlmarkdown;
 brew_cask_install qlstephen;
 brew_cask_install quicklook-csv;
 brew_cask_install webpquicklook;
-
-brew cask cleanup;
 
 [[ $? ]] && log_success 'Homebrew Casks installed';
 

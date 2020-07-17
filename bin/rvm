@@ -9,13 +9,16 @@ DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/var/logger.sh";
 
 # Set Ruby version.
-RUBY_VERSION='2.3.1';
+RUBY_VERSION='2.7.1';
 
 # Install RVM.
 if [ ! "$(type -P rvm)" ]; then
   log_header 'Installing RVM...';
-  curl -L https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
+  \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
 fi;
+
+echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
+echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
 
 # Source rvm.
 RVM_LOC=${rvm_path:="$HOME/.rvm"};
