@@ -1,40 +1,110 @@
 #!/bin/bash
 
-# Format the init prompt.
-function get_init_prompt() {
-  local MESSAGE='';
+##
+# Show help text
+##
+function show_help_text() {
+cat <<EOT
 
-  [ ! $SKIP_GIT_INIT ] && MESSAGE="${MESSAGE} * Initialize a Git repo\n";
+Usage: $(basename "$0") [--help] [--copy] [--no-sync] [--no-packages] [--no-settings]
 
-  [ $COPY_FILES ] \
-    && MESSAGE="${MESSAGE} * Configure the shell environment by copying dotfiles to the home directory\n" \
-    || MESSAGE="${MESSAGE} * Configure the shell environment by symlinking dotfiles to the home directory\n";
+OPTIONS:
+    ${YELLOW}--help${RESET}            Print this help text
+    ${YELLOW}--copy${RESET}            Copy the files in place instead of linking
+    ${YELLOW}${RESET}                  editorconfig is always copied.
+    ${YELLOW}--no-sync${RESET}         Suppress syncing with GitHub
+    ${YELLOW}--no-packages${RESET}     Suppress package installations and updates
+    ${YELLOW}--no-settings${RESET}     Suppress configuring OS settings
 
-  MESSAGE="${MESSAGE} * Create a file at ${HOME}/.dotfiles.local for further customizations\n";
-  MESSAGE="${MESSAGE} * Configure Git\n";
+Documentation can be found at https://github.com/goodguyry/dotfiles
 
-  if [[ ! $SERVER && ! $SKIP_PACKAGES ]]; then
-    [[ $DISTRO ]] \
-      && MESSAGE="${MESSAGE} * Install Linux packages (via apt, snap, npm)\n" \
-      || MESSAGE="${MESSAGE} * Install macOS packages (via Homebrew, App Store, npm, ruby gem)\n";
-
-    [ ! $SKIP_PACKAGES ] && MESSAGE="${MESSAGE} * Install Sublime Text plugins and configure Sublime Text & Sublime Merge preferences\n";
-  fi
-
-  [[ ! $SERVER && ! $DISTRO ]] && MESSAGE="${MESSAGE} * Configure macOS preferences\n";
-
-  echo "${MESSAGE}";
+Copyright (c) Ryan Domingue
+Licensed under the MIT license.
+EOT
 }
 
+##
+# Logging helpers
+# By Necolas Gallagher
+# https://github.com/necolas/dotfiles/blob/master/lib/utils
+##
+DEEP_GREEN=$(tput setaf 112);
+DEEP_RED=$(tput setaf 196);
+LTGRAY=$(tput setaf 188);
+YELLOW=$(tput setaf 222);
+RESET=$(tput sgr0);
+
+log_header() {
+  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
+}
+
+log_success() {
+  printf "\n${DEEP_GREEN}✅ %s${RESET}\n" "${@}";
+}
+
+log_error() {
+  printf "\n${DEEP_RED}❌ %s${RESET}\n" "${@}";
+}
+
+log_warning() {
+  printf "\n${YELLOW}⚠️  %s${RESET}\n" "${@}";
+}
+
+##
+# Format the init prompt.
+##
+function print_script_details() {
+  ##
+  # Detect the operating system to provision.
+  #
+  # Detect macOS via check for sw_vers. Could also check for $(uname -s) == 'Darwin'
+  ##
+  [[ "$(type -P sw_vers)" ]] && IS_MACOS=true;
+  [[ $(uname -s) == 'Linux' ]] && IS_LINUX=true;
+
+  # If Linux, attempt to detect whether we're on desktop or server.
+  if $IS_LINUX; then
+    PROVISION_ENV='Linux';
+
+    # Detect desktop environment.
+    [[ "$(dpkg -l | grep ubuntu-desktop)" ]] && IS_SERVER=false || IS_SERVER=true;
+
+    # Format message string. e.g, "Linux desktop"
+    $IS_SERVER \
+      && PROVISION_ENV="${PROVISION_ENV} server" \
+      || PROVISION_ENV="${PROVISION_ENV} desktop";
+  else
+    PROVISION_ENV='macOS';
+  fi
+
+  # Parse options
+  $COPY_FILES \
+    && WRITE_VERB='Copy' \
+    || WRITE_VERB='Symlink';
+
+  printf '\n';
+  log_warning "This script will do the following for your ${PROVISION_ENV} machine:";
+  log_warning "  * ${WRITE_VERB} dotfiles into place";
+  $INSTALL_PACKAGES && log_warning "  * Install and configure ${PROVISION_ENV} packages"
+  $CONFIGURE_PREFERENCES && log_warning "  * Configure ${PROVISION_ENV} preferences"
+
+  export PROVISION_ENV;
+  export WRITE_VERB;
+}
+
+##
 # Create a directory if it doesn't already exist.
+##
 function mkdirs() {
   if [[ ! -d "${@}" ]]; then
-    mkdir "${@}";
-    echo "Created ${@}";
+    mkdir -p "${@}";
+    log_success "Created ${@}";
   fi;
 }
 
+##
 # Conditionally symlink or copy the files.
+##
 function set_file() {
   local SRC="${DOTFILES_DIRECTORY}/${1}";
   local DEST="$2";
@@ -47,11 +117,11 @@ function set_file() {
   fi
 }
 
-# Check for existing brew before installing.
-function brew_install() {
-  if $(brew list ${1} &> /dev/null); then
-    log_warning "${1} already installed";
-  else
-    brew install ${@};
-  fi;
+##
+# Joins an array with a space.
+##
+function join_with_space() {
+  ITEMS=$(printf " %s" "${@}");
+  ITEMS=${ITEMS:1};
+  echo "${ITEMS}";
 }
