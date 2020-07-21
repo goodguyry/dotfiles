@@ -9,12 +9,12 @@ DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Set Sublime Text settings directory.
-if $IS_LINUX; then
-  ST_PACKAGES="${HOME}/.config/sublime-text-3/Packages";
-  SM_PACKAGES="${HOME}/.config/sublime-merge/Packages";
-else
+if $IS_MACOS; then
   ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
   SM_PACKAGES="${HOME}/Library/Application Support/Sublime Merge/Packages";
+else
+  ST_PACKAGES="${HOME}/.config/sublime-text-3/Packages";
+  SM_PACKAGES="${HOME}/.config/sublime-merge/Packages";
 fi
 
 # Create the directory path if it doesn't exist.

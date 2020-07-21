@@ -61,7 +61,7 @@ function install_nvm() {
   # Source nvm.
   source "${NVM_LOC}/nvm.sh";
 
-  # Install NPM.
+  # Install/update NPM.
   log_header 'Installing NPM...';
   npm install -g npm@latest;
 

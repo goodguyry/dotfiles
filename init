@@ -113,10 +113,11 @@ set_file 'etc/prepare-commit-msg'              "${HOME}/.git-templates/hooks/pre
 # Always copy editorconfig.
 rsync -avz --quiet 'home/editorconfig'         "${HOME}/.editorconfig";
 
-log_header "Creating ${HOME}/.dotfiles.local";
-
 # Create dotfiles.local if not present.
-[[ ! -r "${HOME}/.dotfiles.local" ]] && printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
+if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
+  log_header "Creating ${HOME}/.dotfiles.local";
+  printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
+fi;
 
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
