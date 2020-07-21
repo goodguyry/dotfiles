@@ -235,6 +235,8 @@ git_config_add mergetool.keepbackup true;
 git_config_add pretty.nice '%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar';
 # https://git-scm.com/docs/git-config#git-config-pushdefault
 git_config_add push.default 'simple';
+# How to reconcile divergent branches
+git_config_add pull.rebase false;
 # Make `git push` push relevant annotated tags when pushing branches out.
 git_config_add push.followTags true;
 # Detect copies as well as renames.
