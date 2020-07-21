@@ -88,7 +88,7 @@ if [[ $CONFIGURE_PREFERENCES && $HAS_GIT ]]; then
   log_header "Configuring Git...";
 
   source bin/gitconfig;
-  [[ $? ]] && log_success "Git configuration applied"; || log_error 'There was a problem configuring Git.';
+  [[ $? ]] && log_success "Git configuration applied" || log_error 'There was a problem configuring Git.';
 fi;
 
 log_header "${WRITE_VERB}ing files to ${HOME}..."
@@ -141,14 +141,14 @@ if $INSTALL_PACKAGES; then
   $IS_SERVER && source var/packages.linux-server.sh;
 
   [ ${#BREW_LIST[@]} -gt 0 ] && brew_install "${BREW_LIST[@]}";
-  [ ${#BREW_CASK_LIST[@]} -gt 0 ] && brew_cask_install "${$BREW_CASK_LIST[@]}";
+  [ ${#BREW_CASK_LIST[@]} -gt 0 ] && brew_cask_install "${BREW_CASK_LIST[@]}";
   [ ${#MAS_APPS_LIST[@]} -gt 0 ] && mas_install "${MAS_APPS_LIST[@]}";
   [ ${#APT_LIST[@]} -gt 0 ] && apt_install "${APT_LIST[@]}";
   [ ${#SNAP_LIST[@]} -gt 0 ] && snap_install "${SNAP_LIST[@]}";
 
   if ! $IS_SERVER; then
-    npm_install 'browser-sync git-open';
-    rvm_install 'jekyll octopress-autoprefixer rouge sass';
+    npm_install browser-sync git-open;
+    rvm_install jekyll octopress-autoprefixer rouge sass;
   fi;
 
   # List of directories.

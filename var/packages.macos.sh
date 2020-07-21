@@ -68,7 +68,6 @@ declare -a CASK_APPS=(
   safari-technology-preview
   sequel-pro
   sketch
-  sketch
   sublime-merge
   sublime-text
   suspicious-package

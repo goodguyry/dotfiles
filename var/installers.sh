@@ -201,9 +201,11 @@ function set_ppas() {
 # Install a given brew if it's not already installed.
 ##
 function brew_install() {
-  for BREW in ${@[*]}; do
-    if $(brew list ${BREW} &> /dev/null); then
-      log_warning "${BREW} already installed";
+  ITEMS=("$@");
+  for BREW in ${ITEMS[*]}; do
+    PACKAGE_NAME="$(printf "%s\n" "${BREW%% *}")"; echo "${PACKAGE_NAME}";
+    if $(brew list ${PACKAGE_NAME} &> /dev/null); then
+      log_warning "${PACKAGE_NAME} already installed";
     else
       brew install ${BREW};
     fi;
@@ -216,7 +218,8 @@ function brew_install() {
 # Install a given brew cask if it's not already installed.
 ##
 function brew_cask_install() {
-  for BREW in ${@[*]}; do
+  ITEMS=("$@");
+  for BREW in ${ITEMS[*]}; do
     APP=$(brew cask info ${BREW} | grep \\.app | sed -e 's/\ (App)//');
     if $(brew cask list ${BREW} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
       log_warning "${BREW} already installed";
@@ -274,9 +277,10 @@ function rvm_install() {
 # Install app from the Mac App Store.
 ##
 function mas_install() {
-  APPS="$(join_by_space ("$@"))";
-
-  mas install "${APPS}";
+  ITEMS=("$@");
+  for APP in ${ITEMS[*]}; do
+    mas install "${APP}";
+  done;
 
   [[ $? ]] && log_success 'App Store apps installed.' || log_error 'There was a problem installing App Store apps.';
 }
@@ -285,7 +289,8 @@ function mas_install() {
 # Install Debian apps.
 ##
 function apt_install() {
-  APT_PACKAGES="$(join_by_space ("$@"))";
+  ITEMS=("$@");
+  APT_PACKAGES="$(join_with_space "${ITEMS[@]}")";
 
   sudo apt-get install -y "${APT_PACKAGES}";
 
@@ -296,7 +301,8 @@ function apt_install() {
 # Install Snap packages.
 ##
 function snap_install() {
-  SNAP_PACKAGES="$(join_by_space ("$@"))";
+  ITEMS=("$@");
+  SNAP_PACKAGES="$(join_with_space "${ITEMS[@]}")";
 
   snap install "${SNAP_PACKAGES}";
 
