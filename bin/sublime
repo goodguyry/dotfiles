@@ -25,16 +25,16 @@ function add_sublime_package() {
   local REPO="${1}"
   local PACKAGE="${2}";
   if [[ ! -d "${ST_PACKAGES}/${PACKAGE}" ]]; then
-    log_header "Cloning ${PACKAGE}";
+    log_info "Cloning ${PACKAGE}";
     git clone "https://github.com/${REPO}" "${ST_PACKAGES}/${PACKAGE}"  &> /dev/null;
     [[ $? ]] && log_success "${PACKAGE} installed."
   else
-    log_header "${PACKAGE} already exists...";
+    log_info "${PACKAGE} already exists...";
   fi;
 }
 
 # Clone packages.
-log_header 'Adding Sublime Text packages...';
+log_info 'Adding Sublime Text packages...';
 
 add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
 add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';

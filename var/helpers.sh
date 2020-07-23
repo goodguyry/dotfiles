@@ -35,7 +35,7 @@ YELLOW=$(tput setaf 222);
 RESET=$(tput sgr0);
 
 log_header() {
-  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
+  printf "${LTGRAY}=> %s${RESET}\n" "${@}";
 }
 
 log_success() {
@@ -48,6 +48,10 @@ log_error() {
 
 log_warning() {
   printf "\n${YELLOW}⚠️  %s${RESET}\n" "${@}";
+}
+
+log_info() {
+  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
 }
 
 ##
@@ -84,9 +88,9 @@ function print_script_details() {
 
   printf '\n';
   log_warning "This script will do the following for your ${PROVISION_ENV} machine:";
-  log_warning "  * ${WRITE_VERB} dotfiles into place";
-  $INSTALL_PACKAGES && log_warning "  * Install and configure ${PROVISION_ENV} packages"
-  $CONFIGURE_PREFERENCES && log_warning "  * Configure ${PROVISION_ENV} preferences"
+  log_header "  * ${WRITE_VERB} dotfiles into place";
+  $INSTALL_PACKAGES && log_header "  * Install and configure ${PROVISION_ENV} packages";
+  $CONFIGURE_PREFERENCES && log_header "  * Configure ${PROVISION_ENV} preferences";
 
   export PROVISION_ENV;
   export WRITE_VERB;

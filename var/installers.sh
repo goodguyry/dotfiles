@@ -18,17 +18,18 @@ function install_homebrew() {
 
   # Check for Homebrew.
   if ! $HAS_BREW; then
-    log_header 'Installing Homebrew...';
+    log_info 'Installing Homebrew...';
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
     brew doctor;
 
-    [[ $? ]] && log_success 'Homebrew installed.';
+    [[ $? ]] \
+      && log_success 'Homebrew is ready.' \
+      || log_error 'There was a problem installing Homebrew.';
   fi;
 
+  log_info 'Updating Homebrew...';
   brew update;
-
-  [[ $? ]] && log_success 'Homebrew is up-to-date.' || log_error 'There was a problem installing Homebrew.';
 
   # Mac-only taps.
   if $IS_MACOS; then
@@ -45,13 +46,14 @@ function install_homebrew() {
 # Install and/or update NVM.
 ##
 function install_nvm() {
+
   # Check for an existing NVM install location.
   # The `type` check isn't working for `nvm`.
   NVM_LOC=${NVM_DIR:="$HOME/.nvm"};
 
   # Install NVM.
   if [[ ! -d "${NVM_LOC}" ]]; then
-    log_header 'Installing NVM...';
+    log_info 'Installing NVM...';
     git clone https://github.com/creationix/nvm.git "${NVM_LOC}";
   fi;
 
@@ -61,16 +63,21 @@ function install_nvm() {
   # Source nvm.
   source "${NVM_LOC}/nvm.sh";
 
+  printf "\n";
+  log_info 'Installing NPM and Node LTS and stable...';
+  printf "\n";
+
   # Install/update NPM.
-  log_header 'Installing NPM...';
   npm install -g npm@latest;
 
   # Install LTS and stable versions of Node.
-  log_header 'Installing Node...';
   nvm install --lts;
   nvm install stable;
 
-  [[ $? ]] && log_success 'NVM installed.' || log_error 'There was a problem installing NVM.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'NVM, NPM & Node are ready.' \
+    || log_error 'There was a problem installing NVM, NPM or Node.';
 }
 
 ##
@@ -78,7 +85,7 @@ function install_nvm() {
 ##
 function install_rvm() {
   if [ ! "$(type -P rvm)" ]; then
-    log_header 'Installing RVM...';
+    log_info 'Installing RVM...';
     \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
   fi;
 
@@ -105,7 +112,10 @@ function install_rvm() {
 
   rvm cleanup all;
 
-  [[ $? ]] && log_success 'RVM installed.' || log_error 'There was a problem installing RVM.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success "RVM and Ruby are ready." \
+    || log_error 'There was a problem installing RVM or Ruby.';
 }
 
 ##
@@ -121,6 +131,8 @@ function install_mas() {
 
   # Capture account.
   ACCOUNT=$(mas account);
+  printf '\n';
+  log_info "Setting up the MAS CLI tool...";
 
   # Sign in if not signed in.
   if [[ "${ACCOUNT}" == *"Not signed in"* ]]; then
@@ -143,15 +155,17 @@ function install_mas() {
       exit;
     fi;
   else
-    log_success "You are signed in with ${ACCOUNT}";
+    log_success "You are already signed in with ${ACCOUNT}";
   fi;
+
+  printf '\n';
 }
 
 ##
 # Install Git.
 ##
 function install_git() {
-  log_header 'Installing Git...';
+  log_info 'Installing Git...';
 
   # Make .bin exists for diff-highlight.
   mkdir -p "${HOME}/.bin";
@@ -173,7 +187,10 @@ function install_git() {
       && ln -sf "/usr/share/doc/git/contrib/diff-highlight" "${HOME}/.bin/diff-highlight";
   fi
 
-  [[ $? ]] && log_success 'Git installed.' || log_error 'There was a problem installing Git.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Git ready.' \
+    || log_error 'There was a problem installing Git.';
 }
 
 ##
@@ -192,9 +209,12 @@ function set_ppas() {
   # Adds the official Handbrake PPA
   sudo add-apt-repository ppa:stebbins/handbrake-releases;
 
-  [[ $? ]] && log_success 'PPAs added.' || log_error 'There was a problem adding PPAs.';
-
   sudo apt-get update;
+
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'PPAs are ready.' \
+    || log_error 'There was a problem adding PPAs.';
 }
 
 ##
@@ -204,13 +224,16 @@ function brew_install() {
   for BREW in "${@}"; do
     PACKAGE_NAME="$(printf "%s\n" "${BREW%% *}")";
     if $(brew list ${PACKAGE_NAME} &> /dev/null); then
-      log_warning "${PACKAGE_NAME} already installed";
+      log_header "${PACKAGE_NAME} already installed.";
     else
       brew install ${BREW};
     fi;
   done;
 
-  [[ $? ]] && log_success 'Brew packages installed.' || log_error 'There was a problem installing Brew packages.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Brew packages ready.' \
+    || log_error 'There was a problem installing Brew packages.';
 }
 
 ##
@@ -220,13 +243,16 @@ function brew_cask_install() {
   for BREW in "${@}"; do
     APP=$(brew cask info ${BREW} | grep \\.app | sed -e 's/\ (App)//');
     if $(brew cask list ${BREW} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
-      log_warning "${BREW} already installed";
+      log_header "${BREW} already installed";
     else
       brew cask install ${BREW};
     fi;
   done;
 
-  [[ $? ]] && log_success 'Brew casks installed.' || log_error 'There was a problem installing Brew casks.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Brew casks ready.' \
+    || log_error 'There was a problem installing Brew casks.';
 }
 
 ##
@@ -234,7 +260,7 @@ function brew_cask_install() {
 ##
 function npm_install() {
   # Install Node packages.
-  log_header 'Installing Node packages...';
+  log_info 'Installing Node packages...';
 
   # Install global packages for LTS.
   nvm use --lts;
@@ -249,7 +275,10 @@ function npm_install() {
   # Be sure to switch back to the LTS version.
   nvm use --lts;
 
-  [[ $? ]] && log_success 'NPM packages installed.' || log_error 'There was a problem installing NPM packages.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'NPM packages are ready.' \
+    || log_error 'There was a problem installing NPM packages.';
 }
 
 ##
@@ -257,12 +286,15 @@ function npm_install() {
 ##
 function rvm_install() {
   # Install Gems.
-  log_header 'Installing Gems...';
+  log_info 'Installing Gems...';
   gem install "${@}" --no-document;
 
   gem cleanup;
 
-  [[ $? ]] && log_success 'Gems installed.' || log_error 'There was a problem installing Gems.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Ruby Gems are ready.' \
+    || log_error 'There was a problem installing Gems.';
 
   # Install Vagrant plugins
   vagrant plugin install vagrant-ghost;
@@ -279,7 +311,10 @@ function mas_install() {
     mas install "${APP}";
   done;
 
-  [[ $? ]] && log_success 'App Store apps installed.' || log_error 'There was a problem installing App Store apps.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'App Store apps ready.' \
+    || log_error 'There was a problem installing App Store apps.';
 }
 
 ##
@@ -291,7 +326,10 @@ function apt_install() {
 
   sudo apt-get install -y "${APT_PACKAGES}";
 
-  [[ $? ]] && log_success 'apt packages installed.' || log_error 'There was a problem installing apt packages.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'apt packages ready.' \
+    || log_error 'There was a problem installing apt packages.';
 }
 
 ##
@@ -303,14 +341,16 @@ function snap_install() {
 
   snap install "${SNAP_PACKAGES}";
 
-  [[ $? ]] && log_success 'Snap apps installed.' || log_error 'There was a problem installing Snap apps.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Snap apps ready.' \
+    || log_error 'There was a problem installing Snap apps.';
 }
 
 ###
 # Download and install deb packages.
 ###
 function install_downloads_debian() {
-
   # Vagrant
   VAGRANT_VER='2.2.9';
   wget https://releases.hashicorp.com/vagrant/${VAGRANT_VER}/vagrant_${VAGRANT_VER}_x86_64.deb;
@@ -354,5 +394,8 @@ function install_downloads_debian() {
   rm Hack-v${HACK_FONT_VERSION}-ttf.zip;
   rm v${HACK_FONT_VERSION}.zip;
 
-  [[ $? ]] && log_success 'Downloadable deb packages installed.' || log_error 'There was a problem downloading or installing deb packages.';
+  printf "\n";
+  [[ $? ]] \
+    && log_success 'Downloadable deb packages ready.' \
+    || log_error 'There was a problem downloading or installing deb packages.';
 }

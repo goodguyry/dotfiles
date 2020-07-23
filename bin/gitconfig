@@ -22,7 +22,7 @@ function collect_git_info() {
 
     if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation.
-      printf '\n###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting.
+      printf '###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting.
       echo " Name: ${NAME}";
       echo "Email: ${EMAIL}";
       printf "\n";
@@ -73,16 +73,14 @@ export ADDED=0;
 function git_config_add() {
   if [[ $(git config "${1}") ]]; then
     REPLACED=$((REPLACED+1))
-    log_warning "Replacing "${1}"...";
     git config --global --replace-all "${1}" "${2}";
   else
     ADDED=$((ADDED+1))
-    log_success "Adding "${1}"...";
     git config --global "${1}" "${2}";
   fi;
 }
 
-log_header 'Adding Git config settings...';
+log_info 'Adding gitconfig options...';
 
 # Aliases
 
@@ -266,3 +264,7 @@ git_config_add user.email "${EMAIL}";
 [[ $? ]] \
   && log_success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
   || log_error 'There was a problem configuring Git.';
+
+# log_header "${REPLACED} config options replaced."
+# log_header "${ADDED} config options added."
+printf "\n";
