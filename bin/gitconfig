@@ -35,7 +35,7 @@ function collect_git_info() {
       printf '\n';
 
       if [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
-	# Confirmed; increment status variable.
+        # Confirmed; increment status variable.
         COLLECTED=1;
       fi;
     fi;
@@ -66,12 +66,17 @@ else
   fi;
 fi;
 
+export REPLACED=0;
+export ADDED=0;
+
 # Add config values.
 function git_config_add() {
   if [[ $(git config "${1}") ]]; then
+    REPLACED=$((REPLACED+1))
     log_warning "Replacing "${1}"...";
     git config --global --replace-all "${1}" "${2}";
   else
+    ADDED=$((ADDED+1))
     log_success "Adding "${1}"...";
     git config --global "${1}" "${2}";
   fi;
@@ -258,4 +263,6 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 git_config_add user.name "${NAME}";
 git_config_add user.email "${EMAIL}";
 
-[[ $? ]] && log_success 'Done adding Git config values.';
+[[ $? ]] \
+  && log_success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
+  || log_error 'There was a problem configuring Git.';
