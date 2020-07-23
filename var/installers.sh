@@ -201,9 +201,8 @@ function set_ppas() {
 # Install a given brew if it's not already installed.
 ##
 function brew_install() {
-  ITEMS=("$@");
-  for BREW in ${ITEMS[*]}; do
-    PACKAGE_NAME="$(printf "%s\n" "${BREW%% *}")"; echo "${PACKAGE_NAME}";
+  for BREW in "${@}"; do
+    PACKAGE_NAME="$(printf "%s\n" "${BREW%% *}")";
     if $(brew list ${PACKAGE_NAME} &> /dev/null); then
       log_warning "${PACKAGE_NAME} already installed";
     else
@@ -218,8 +217,7 @@ function brew_install() {
 # Install a given brew cask if it's not already installed.
 ##
 function brew_cask_install() {
-  ITEMS=("$@");
-  for BREW in ${ITEMS[*]}; do
+  for BREW in "${@}"; do
     APP=$(brew cask info ${BREW} | grep \\.app | sed -e 's/\ (App)//');
     if $(brew cask list ${BREW} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
       log_warning "${BREW} already installed";
@@ -277,8 +275,7 @@ function rvm_install() {
 # Install app from the Mac App Store.
 ##
 function mas_install() {
-  ITEMS=("$@");
-  for APP in ${ITEMS[*]}; do
+  for APP in "${@}"; do
     mas install "${APP}";
   done;
 
