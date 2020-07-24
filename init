@@ -96,7 +96,6 @@ set_file 'home/functions'                      "${HOME}/.functions";
 set_file 'home/gitignore'                      "${HOME}/.gitignore";
 set_file 'home/hushlogin'                      "${HOME}/.hushlogin";
 set_file 'home/inputrc'                        "${HOME}/.inputrc";
-set_file 'home/jshintrc'                       "${HOME}/.jshintrc";
 set_file 'home/paths'                          "${HOME}/.paths";
 set_file 'home/profile'                        "${HOME}/.profile";
 set_file 'home/prompt'                         "${HOME}/.prompt";
