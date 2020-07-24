@@ -1,228 +1,211 @@
 #!/bin/bash
 
-##
-# Move dotfiles into place, install necessary software and setup development environment.
-##
+export DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+export DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
 
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
-DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
+cd "${DOTFILES_DIRECTORY}";
 
 # Source utils
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
-source "${DOTFILES_DIRECTORY}/utils/helpers.sh";
+source var/helpers.sh;
+source var/installers.sh;
 
-# Help text.
-function show_help() {
+# Sensible defaults.
+export COPY_FILES=false;
+export INSTALL_PACKAGES=true;
+export CONFIGURE_PREFERENCES=true;
+export IS_MACOS=false;
+export IS_LINUX=false;
+export IS_SERVER=false;
 
-cat <<EOT
+# Additional DRY checks.
+[ -z "$(type -P brew)" ] && HAS_BREW=false || HAS_BREW=true;
+export HAS_BREW;
 
-Dotfiles - Ryan Domingue - http://ryandomingue.com/
-
-Usage: $(basename "$0") [options]
-
-Options:
-    --help            Print this help text
-    --copy            Copy the files in place instead of symlinking
-    --server          Skip packages/settings not applicable to a server
-    --distro          Install Linux packages & settings
-    --skip-packages   Suppress all package installations and updates
-    --skip-git-init   Do not initialize a Git repo
-
-Notes:
-'editorconfig' is always copied.
-
-Documentation can be found at https://github.com/goodguyry/dotfiles
-
-Copyright (c) Ryan Domingue
-Licensed under the MIT license.
-EOT
-
-}
+[ -z "$(type -P git)" ] && HAS_GIT=false || HAS_GIT=true;
+export HAS_GIT;
 
 # Show help text.
 if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
-  show_help;
+  show_help_text;
   exit;
 fi;
 
 # Test for known flags.
-for OPT in "${@}";
-do
+for OPT in "${@}"; do
   case "${OPT}" in
-             --copy)  COPY_FILES=true ;;    # Copy the files in place instead of symlinking
-           --server)  SERVER=true; ;;       # Skip packages/settings not applicable to a server
-           --distro)  DISTRO=true; ;;       # Install Linux packages & settings
-    --skip-packages)  SKIP_PACKAGES=true ;; # Suppress all package installations and updates
-    --skip-git-init)  SKIP_GIT_INIT=true ;; # Do not initialize a Git repo
-             -*|--*)  log_warning "Warning: invalid option ${OPT}" && show_help && exit ;;
+           --copy) COPY_FILES=true ;;             # Copy the files in place instead of linking
+        --no-sync) SYNC_REPO=false ;;             # Suppress syncing with GitHub
+    --no-packages) INSTALL_PACKAGES=false ;;      # Suppress package installations and updates
+    --no-settings) CONFIGURE_PREFERENCES=false ;; # Suppress configuring OS settings
+           -*|--*) log_warning "Warning: invalid option ${OPT}" && show_help_text && exit ;;
   esac
 done;
 
-# Ask before proceeding.
+print_script_details;
+
+# Ask before potentially overwriting files.
 printf '\n';
-log_warning 'This script will do the following:';
-MESSAGE="$(get_init_prompt)";
-echo -e "${MESSAGE}";
 printf 'Continue? [Y/n]';
 read CONTINUE;
-printf '\n';
 
-# Exit if denied.
+# Conditionally set the dotfiles in place.
 if [[ "${CONTINUE}" == 'n' ]]; then
   log_header 'Aborting...';
   exit 1;
 fi;
 
 # Create a Projects folder.
-[ ! $SERVER ] && mkdirs "${HOME}/Projects";
+! $IS_SERVER && mkdirs "${HOME}/Projects";
 
-# Create a ~/.bin directory, if it doesn't exist.
-mkdirs "${HOME}/.bin";
+if $INSTALL_PACKAGES; then
+  ! $HAS_GIT && install_git;
 
-# Conditionally install Command Line Tools, Homebrew and Git.
-if [ $SKIP_PACKAGES ]; then
-  log_header 'Skipping Homebrew and Git installations.';
-else
-  log_header 'Installing Homebrew...';
-  source "${DOTFILES_DIRECTORY}/utils/brew-check.sh";
-
-  log_header 'Installing Git...';
-
-  if $DISTRO; then
-    sudo add-apt-repository ppa:git-core/ppa;
-    sudo apt update;
-    sudo apt-get install git;
-    # Set up word highlighting.
-    [ -s /usr/share/doc/git/contrib/diff-highlight ] \
-      && ln -sf "/usr/share/doc/git/contrib/diff-highlight" "${HOME}/.bin/diff-highlight";
-  else
-    # Install Git from Homebrew for macOS
-    brew install git;
-    # Set up word highlighting.
-    [ -s $(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight ] \
-      && ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";
-  fi
-fi;
-
-# Conditionally init and pull the Git repo.
-if [ $SKIP_GIT_INIT ]; then
-  log_header 'Skipping `git init`';
-elif [ "$(type -P git)" ]; then
-  cd "${DOTFILES_DIRECTORY}";
-  # Initialize the git repository if it's missing.
-  if $(git rev-parse --is-inside-work-tree &> /dev/null); then
-    log_header 'Already a Git repo.';
-  else
-    log_header 'Initializing git repository...';
-    git init;
-    git remote add origin "${DOTFILES_GIT_REMOTE}";
-    git fetch origin master;
-    # Reset the index and working tree to the fetched HEAD.
-    git reset --hard FETCH_HEAD;
-    # Remove any untracked files.
-    git clean -fd;
-    log_header 'Syncing dotfiles...';
-    # Pull down the latest changes.
-    git pull --rebase origin master;
+  if $SYNC_REPO; then
+    # Initialize the git repository if it's missing.
+    if $(git rev-parse --is-inside-work-tree &> /dev/null); then
+      log_info 'Dotfiles directory is already a Git repo.';
+    else
+      log_info 'Syncing dotfiles...';
+      git init;
+      git remote add origin "${DOTFILES_GIT_REMOTE}";
+      git fetch origin master;
+      # Reset the index and working tree to the fetched HEAD.
+      git reset --hard FETCH_HEAD;
+      # Remove any untracked files.
+      git clean -fd;
+      # Pull down the latest changes.
+      git pull --rebase origin master;
+    fi;
   fi;
-else
-  log_header 'Git is not installed';
-fi;
-
-# Sets the dotfiles in place in the `HOME` directory.
-log_header 'Setting files...';
-
-# List of directories.
-declare -a DIRECTORIES=(
-  .vim/backups
-  .vim/swaps
-);
-
-# Create directories.
-for DIRECTORY in ${DIRECTORIES[*]}; do
-  if [[ ! -d "${HOME}/${DIRECTORY}" ]]; then
-    mkdir -p "${HOME}/${DIRECTORY}";
-    echo "Created ${HOME}/${DIRECTORY}";
-  fi;
-done;
-
-# Dev
-set_file 'dev/gitignore'                        "${HOME}/.gitignore";
-set_file 'dev/jshintrc'                         "${HOME}/.jshintrc";
-set_file 'dev/vimrc'                            "${HOME}/.vimrc";
-
-# Always copy editorconfig.
-rsync -avz --quiet 'dev/editorconfig'           "${HOME}/.editorconfig";
-
-# Shell
-set_file 'shell/aliases'                        "${HOME}/.aliases";
-set_file 'shell/bash_config'                    "${HOME}/.bash_config";
-set_file 'shell/bashrc'                         "${HOME}/.bashrc";
-set_file 'shell/functions'                      "${HOME}/.functions";
-set_file 'shell/hushlogin'                      "${HOME}/.hushlogin";
-set_file 'shell/inputrc'                        "${HOME}/.inputrc";
-set_file 'shell/paths'                          "${HOME}/.paths";
-set_file 'shell/profile'                        "${HOME}/.profile";
-set_file 'shell/prompt'                         "${HOME}/.prompt";
-
-# Download the Solarized Vim theme.
-if test -f "${HOME}/.vim/colors/solarized.vim"; then
-  log_header 'Solarized Vim theme already installed.';
-else
-  log_header 'Downloading Solarized Vim theme...';
-  # Extract colors/solarized.vim into .vim (Linux-friendly).
-  if $DISTRO; then
-    # Linux-friendly.
-    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-      tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
-  else
-    # macOS-Friendly.
-    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-      tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
-  fi;
-  [[ $? ]] && log_success 'Solarized Vim theme installed';
-fi;
-
-log_success 'Dotfiles update complete!';
-
-# Create dotfiles.local if not present.
-[[ ! -r "${HOME}/.dotfiles.local" ]] && printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
+fi
 
 # Add git config settings.
-source scripts/gitconfig;
+if [[ $CONFIGURE_PREFERENCES && $HAS_GIT ]]; then
+  source bin/gitconfig;
+fi;
+
+log_info "${WRITE_VERB}ing files to ${HOME}..."
+
+mkdirs '.git-templates/hooks';
+
+set_file 'home/aliases'                        "${HOME}/.aliases";
+set_file 'home/bash_config'                    "${HOME}/.bash_config";
+set_file 'home/bashrc'                         "${HOME}/.bashrc";
+set_file 'home/completions'                    "${HOME}/.completions";
+set_file 'home/functions'                      "${HOME}/.functions";
+set_file 'home/gitignore'                      "${HOME}/.gitignore";
+set_file 'home/hushlogin'                      "${HOME}/.hushlogin";
+set_file 'home/inputrc'                        "${HOME}/.inputrc";
+set_file 'home/paths'                          "${HOME}/.paths";
+set_file 'home/profile'                        "${HOME}/.profile";
+set_file 'home/prompt'                         "${HOME}/.prompt";
+set_file 'home/vimrc'                          "${HOME}/.vimrc";
+set_file 'etc/prepare-commit-msg'              "${HOME}/.git-templates/hooks/prepare-commit-msg";
+
+# Always copy editorconfig.
+rsync -avz --quiet 'home/editorconfig'         "${HOME}/.editorconfig";
+
+# Create dotfiles.local if not present.
+if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
+  log_info "Creating ${HOME}/.dotfiles.local";
+  printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
+fi;
 
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
+log_success "Done.";
+printf "\n";
 
-# Conditionally install packages.
-if [ $SKIP_PACKAGES ]; then
-  log_header 'Skipping package installation...';
-elif [[ $DISTRO ]]; then
-  source scripts/packages.linux.sh;
-else
-  source scripts/packages.macos.sh;
-fi;
+if $INSTALL_PACKAGES; then
+  install_homebrew;
+  install_nvm;
+  install_rvm;
 
-if [[ $SERVER || $DISTRO ]]; then
-  log_header 'Skipped macOS settings update.';
-else
-  # Ask before potentially overwriting files.
-  printf '\n';
-  log_warning 'Warning: This step may modify your macOS system defaults.';
-  printf 'Continue? [Y/n] ';
-  read SET_MACOS;
-  printf '\n';
+  if $IS_MACOS; then
+    install_mas;
+    source var/packages.macos.sh;
+  fi;
 
-  # Conditionally set defaults.
-  if [[ "${SET_MACOS}" == 'n' ]]; then
-    log_header 'Skipped macOS settings update.';
+  if $IS_LINUX && ! $IS_SERVER; then
+    set_ppas;
+    source var/packages.linux-desktop.sh;
+
+    install_downloads_debian;
+  fi;
+
+  $IS_SERVER && source var/packages.linux-server.sh;
+
+  [ ${#BREW_LIST[@]} -gt 0 ] && brew_install "${BREW_LIST[@]}";
+  [ ${#BREW_CASK_LIST[@]} -gt 0 ] && brew_cask_install "${BREW_CASK_LIST[@]}";
+  [ ${#MAS_APPS_LIST[@]} -gt 0 ] && mas_install "${MAS_APPS_LIST[@]}";
+  [ ${#APT_LIST[@]} -gt 0 ] && apt_install "${APT_LIST[@]}";
+  [ ${#SNAP_LIST[@]} -gt 0 ] && snap_install "${SNAP_LIST[@]}";
+
+  if ! $IS_SERVER; then
+    npm_install browser-sync git-open;
+    rvm_install jekyll octopress-autoprefixer rouge sass;
+  fi;
+
+  # List of directories.
+  declare -a DIRECTORIES=(
+    .vim/backups
+    .vim/colors
+    .vim/swaps
+  );
+
+  # Create directories.
+  for DIRECTORY in ${DIRECTORIES[*]}; do
+    mkdirs "${HOME}/${DIRECTORY}";
+  done;
+
+  # Download the Solarized Vim theme.
+  if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
+    log_info 'Solarized Vim theme already installed.';
   else
-    source scripts/macos;
+    # log_info 'Downloading Solarized Vim theme...';
+    # Extract colors/solarized.vim into .vim (Linux-friendly).
+    if $IS_LINUX; then
+      # Linux-friendly.
+      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+        tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
+    else
+      # macOS-Friendly.
+      curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+        tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+    fi;
+    [[ $? ]] && log_success 'Solarized Vim theme installed' || log_error 'There was a problem installing the Solarized Vim theme.';
   fi;
 fi;
 
-unset COPY_FILES;
+if $CONFIGURE_PREFERENCES; then
+  # Ask before potentially overwriting files.
+  log_warning "Warning: This step may modify your ${PROVISION_ENV} system defaults.";
+  printf 'Continue? [Y/n] ';
+  read DO_PREFERENCES;
+  printf '\n';
 
-[[ $? ]] && log_success 'Restarting the shell to apply changes';
+  # Conditionally set defaults.
+  if [[ "${DO_PREFERENCES}" =~ ^[yY]$ ]]; then
+    $IS_MACOS && source bin/macos;
+    # $IS_LINUX && source bin/linux-desktop;
+    # $IS_SERVER && source bin/linux-server;
+  fi;
+fi;
+
+unset DOTFILES_DIRECTORY;
+unset DOTFILES_GIT_REMOTE;
+unset COPY_FILES;
+unset INSTALL_PACKAGES;
+unset CONFIGURE_PREFERENCES;
+unset IS_MACOS;
+unset IS_LINUX;
+unset IS_SERVER;
+unset HAS_BREW;
+unset HAS_GIT;
+unset PROVISION_ENV;
+unset WRITE_VERB;
+
+[[ $? ]] && log_success 'Done. Restarting the shell to apply changes...';
+printf "\n";
 
 exec $SHELL -l;

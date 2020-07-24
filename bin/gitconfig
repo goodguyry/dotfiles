@@ -6,7 +6,7 @@
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/utils/logger.sh";
+source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Collect Git author info.
 function collect_git_info() {
@@ -22,7 +22,7 @@ function collect_git_info() {
 
     if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation.
-      printf '\n###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting.
+      printf '###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting.
       echo " Name: ${NAME}";
       echo "Email: ${EMAIL}";
       printf "\n";
@@ -35,7 +35,7 @@ function collect_git_info() {
       printf '\n';
 
       if [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
-	# Confirmed; increment status variable.
+        # Confirmed; increment status variable.
         COLLECTED=1;
       fi;
     fi;
@@ -66,18 +66,21 @@ else
   fi;
 fi;
 
+export REPLACED=0;
+export ADDED=0;
+
 # Add config values.
 function git_config_add() {
   if [[ $(git config "${1}") ]]; then
-    log_warning "Replacing "${1}"...";
+    REPLACED=$((REPLACED+1))
     git config --global --replace-all "${1}" "${2}";
   else
-    log_success "Adding "${1}"...";
+    ADDED=$((ADDED+1))
     git config --global "${1}" "${2}";
   fi;
 }
 
-log_header 'Adding Git config settings...';
+log_info 'Adding gitconfig options...';
 
 # Aliases
 
@@ -221,11 +224,8 @@ git_config_add core.untrackedCache true;
 # Detect whitespace errors when applying a patch.
 git_config_add apply.whitespace 'fix';
 
-if $DISTRO; then
-  git_config_add credential.helper 'store';
-else
-  git_config_add credential.helper 'osxkeychain';
-fi
+$IS_MACOS && HELPER='osxkeychain' || HELPER='store';
+git_config_add credential.helper "${HELPER}";
 
 # Automatically correct and execute mistyped commands.
 git_config_add help.autocorrect 1;
@@ -238,6 +238,8 @@ git_config_add mergetool.keepbackup true;
 git_config_add pretty.nice '%C(yellow)%h%C(reset) %C(white)%s%C(cyan)%d%C(reset) -- %an; %ar';
 # https://git-scm.com/docs/git-config#git-config-pushdefault
 git_config_add push.default 'simple';
+# How to reconcile divergent branches
+git_config_add pull.rebase false;
 # Make `git push` push relevant annotated tags when pushing branches out.
 git_config_add push.followTags true;
 # Detect copies as well as renames.
@@ -259,4 +261,10 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 git_config_add user.name "${NAME}";
 git_config_add user.email "${EMAIL}";
 
-[[ $? ]] && log_success 'Done adding Git config values.';
+[[ $? ]] \
+  && log_success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
+  || log_error 'There was a problem configuring Git.';
+
+# log_header "${REPLACED} config options replaced."
+# log_header "${ADDED} config options added."
+printf "\n";
