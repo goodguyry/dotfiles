@@ -34,25 +34,24 @@ LTGRAY=$(tput setaf 188);
 YELLOW=$(tput setaf 222);
 RESET=$(tput sgr0);
 
-log_header() {
-  printf "${LTGRAY}=> %s${RESET}\n" "${@}";
+function log_header() {
+  printf "$\n{LTGRAY}=> %s${RESET}\n" "${@}";
 }
 
-log_success() {
-  printf "\n${DEEP_GREEN}✅ %s${RESET}\n" "${@}";
+function log_success() {
+  printf "$\n{DEEP_GREEN}✅ %s${RESET}\n" "${@}";
 }
 
-log_error() {
-  printf "\n${DEEP_RED}❌ %s${RESET}\n" "${@}";
+function log_error() {
+  printf "$\n{DEEP_RED}❌ %s${RESET}\n" "${@}";
 }
 
-log_warning() {
-  printf "\n${YELLOW}⚠️  %s${RESET}\n" "${@}";
+function log_warning() {
+  printf "$\n{YELLOW}⚠️  %s${RESET}\n" "${@}";
 }
 
-log_info() {
-  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
-}
+function log_info() {
+  printf "$\n{LTGRAY}💡 %s${RESET}\n" "${@}";
 
 ##
 # Format the init prompt.
