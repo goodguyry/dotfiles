@@ -89,6 +89,8 @@ function install_rvm() {
     \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
   fi;
 
+  [[ ! -r "${HOME}/.rvmrc" ]] && touch "${HOME}/.rvmrc";
+
   # Enable auto-updating.
   [[ -z "$(grep 'rvm_autoupdate_flag' ~/.rvmrc)" ]] && \
     echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
