@@ -35,23 +35,23 @@ YELLOW=$(tput setaf 222);
 RESET=$(tput sgr0);
 
 function log_header() {
-  printf "$\n{LTGRAY}=> %s${RESET}\n" "${@}";
+  printf "\n${LTGRAY}=> %s${RESET}\n" "${@}";
 }
 
 function log_success() {
-  printf "$\n{DEEP_GREEN}✅ %s${RESET}\n" "${@}";
+  printf "\n${DEEP_GREEN}✅ %s${RESET}\n" "${@}";
 }
 
 function log_error() {
-  printf "$\n{DEEP_RED}❌ %s${RESET}\n" "${@}";
+  printf "\n${DEEP_RED}❌ %s${RESET}\n" "${@}";
 }
 
 function log_warning() {
-  printf "$\n{YELLOW}⚠️  %s${RESET}\n" "${@}";
+  printf "\n${YELLOW}⚠️  %s${RESET}\n" "${@}";
 }
 
 function log_info() {
-  printf "$\n{LTGRAY}💡 %s${RESET}\n" "${@}";
+  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
 }
 
 ##
