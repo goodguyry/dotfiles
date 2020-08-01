@@ -86,7 +86,7 @@ fi;
 
 log_info "${WRITE_VERB}ing files to ${HOME}..."
 
-mkdirs '.git-templates/hooks';
+mkdirs "${HOME}/.git-templates/hooks";
 
 set_file 'home/aliases'                        "${HOME}/.aliases";
 set_file 'home/bash_config'                    "${HOME}/.bash_config";
