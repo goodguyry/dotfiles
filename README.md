@@ -35,14 +35,13 @@ Then ```cd``` into the downloaded directory.
 
 The following options are available when running the init file:
 
-| Option            | Description                                          |
-|-------------------|------------------------------------------------------|
-| `--help`          | Print this help text                                 |
-| `--copy`          | Copy the files in place instead of symlinking        |
-| `--server`        | Skip packages/settings not applicable to a server    |
-| `--distro`        | Install Linux packages & settings (default is macOS) |
-| `--skip-packages` | Suppress all package installations and updates       |
-| `--skip-git-init` | Do not initialize a Git repo                         |
+| Option          | Description                                |
+|-----------------|--------------------------------------------|
+| `--help`        | Print this help text                       |
+| `--copy`        | Copy the files in place instead of linking |
+| `--no-sync`     | Suppress syncing with GitHub               |
+| `--no-packages` | Suppress package installations and updates |
+| `--no-settings` | Suppress configuring OS settings           |
 
 **Notes:**
 - `editorconfig` is always copied.
