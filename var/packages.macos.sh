@@ -4,10 +4,10 @@ declare -a BREW_LIST=(
   # Missing or outdated utils.
   coreutils
   moreutils
-  'findutils --with-default-names'
-  'gnu-sed --with-default-names'
-  'wget --enable-iri'
-  'vim --with-override-system-vi'
+  findutils # PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+  gnu-sed # PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  wget
+  vim
   grep
   openssh
   rsync
@@ -28,6 +28,7 @@ declare -a BREW_LIST=(
   mysql
   packer
   pigz
+  svn
   tree
   zlib
 );
@@ -37,8 +38,9 @@ declare -a CASK_APPS=(
   alfred
   appcleaner
   atext
+  bartender
   betterzip
-  brave
+  brave-browser
   caffeine
   chronosync
   clamxav
@@ -67,12 +69,12 @@ declare -a CASK_APPS=(
   rar
   safari-technology-preview
   sequel-pro
+  sip
   sketch
   sublime-merge
   sublime-text
   suspicious-package
-  torbrowser
-  transmission
+  tor-browser
   transmit
   vagrant
   virtualbox
@@ -81,7 +83,6 @@ declare -a CASK_APPS=(
 );
 
 declare -a SETTINGS_PANES=(
-  web-sharing
   hazel
 );
 
@@ -108,7 +109,7 @@ declare -a FONTS=(
   font-pt-mono
   font-pt-sans
   font-pt-serif
-  font-roboto-condensed
+  font-roboto
   font-roboto-mono
   font-roboto-slab
   font-source-code-pro
@@ -125,14 +126,14 @@ declare -a MAS_APPS_LIST=(
   414209656  # Better Rename 9
   420212497  # Byword
   777886035  # Duo
-  530458789  # Frank DeLoupe
   409203825  # Numbers
   409201541  # Pages
   407963104  # Pixelmator
-  880001334  # Reeder
+  1449412482 # Reeder 4
   803453959  # Slack
   1006087419 # SnippetsLab
   425424353  # The Unarchiver
   904280696  # Things
   557168941  # Tweetbot
+  497799835  # XCode
 );
