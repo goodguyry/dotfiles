@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Brew paths
-PATH=/usr/local/bin:/usr/local/sbin;
+PATH="$(brew --prefix)/bin":/usr/local/bin:/usr/local/sbin;
 
 # $HOME/.nvm/versions/node/{version}/bin
 PATH="${PATH}:${NVM_BIN}";
