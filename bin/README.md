@@ -2,10 +2,6 @@
 
 - `gitconfig`: Set up Git configuration settings and aliases.
 - `macos`: Set Application, User and System-wide preferences for macOS.
-- `brews`: Install Homebrew and Homebrew packages, native applications, and fonts.
-- `rvm`: Install RVM, Ruby, and Gems.
-- `nvm`: Install NVM, Node, and packages from NPM.
-- `appstore`: Install Mac App Store purchases.
 - `sublime`: Install Sublime Text and Sublime Merge packages and settings.
 
 ## Packages:
