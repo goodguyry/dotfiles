@@ -52,6 +52,7 @@ function log_warning() {
 
 function log_info() {
   printf "$\n{LTGRAY}💡 %s${RESET}\n" "${@}";
+}
 
 ##
 # Format the init prompt.
