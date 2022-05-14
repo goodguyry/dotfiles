@@ -81,12 +81,10 @@
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
 - [Vagrant](https://www.vagrantup.com/)
-- [VirtualBox](https://www.virtualbox.org/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 
 #### System Preferences panes
 
-- [Web Sharing](https://clickontyler.com/web-sharing/)
 - [Hazel](https://www.noodlesoft.com/)
 
 #### QuickLook plugins
@@ -113,7 +111,6 @@
 - PT Mono
 - PT Sans
 - PT Serif
-- Roboto Condensed
 - Roboto Mono
 - Roboto Slab
 - Source Code Pro
@@ -142,7 +139,6 @@
 - [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
 - [Byword](https://itunes.apple.com/us/app/2do/id420212497)
 - [Duo](https://itunes.apple.com/us/app/2do/id777886035)
-- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
 - [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
 - [Numbers](https://www.apple.com/numbers/)
 - [Pages](https://www.apple.com/pages/)

@@ -75,13 +75,11 @@ declare -a CASK_APPS=(
   transmission
   transmit
   vagrant
-  virtualbox
   vlc
   zeplin
 );
 
 declare -a SETTINGS_PANES=(
-  web-sharing
   hazel
 );
 
@@ -108,7 +106,6 @@ declare -a FONTS=(
   font-pt-mono
   font-pt-sans
   font-pt-serif
-  font-roboto-condensed
   font-roboto-mono
   font-roboto-slab
   font-source-code-pro
@@ -125,7 +122,6 @@ declare -a MAS_APPS_LIST=(
   414209656  # Better Rename 9
   420212497  # Byword
   777886035  # Duo
-  530458789  # Frank DeLoupe
   409203825  # Numbers
   409201541  # Pages
   407963104  # Pixelmator
