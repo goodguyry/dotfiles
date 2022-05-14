@@ -241,11 +241,11 @@ function brew_install() {
 ##
 function brew_cask_install() {
   for BREW in "${@}"; do
-    APP=$(brew cask info ${BREW} | grep \\.app | sed -e 's/\ (App)//');
-    if $(brew cask list ${BREW} &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
+    APP=$(brew info ${BREW} --cask | grep \\.app | sed -e 's/\ (App)//');
+    if $(brew list ${BREW}  --cask &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
       log_header "${BREW} already installed";
     else
-      brew cask install ${BREW};
+      brew install ${BREW} --cask;
     fi;
   done;
 
