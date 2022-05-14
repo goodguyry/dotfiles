@@ -107,7 +107,7 @@ function install_rvm() {
   RUBY_VERSION='2.7.1';
 
   # Install Ruby.
-  rvm install "ruby-${RUBY_VERSION}";
+  rvm install "ruby-${RUBY_VERSION}" --with-out-ext=fiddle;
   rvm use "${RUBY_VERSION}" --default;
 
   rvm cleanup all;

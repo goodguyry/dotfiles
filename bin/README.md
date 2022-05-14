@@ -12,7 +12,7 @@
 
 ### [Homebrew](http://brew.sh)
 
-- [Bash 4](http://www.gnu.org/software/bash/)
+- [Bash 5](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [gist](https://github.com/defunkt/gist)
 - [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)

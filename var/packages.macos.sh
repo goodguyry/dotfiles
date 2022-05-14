@@ -4,10 +4,10 @@ declare -a BREW_LIST=(
   # Missing or outdated utils.
   coreutils
   moreutils
-  'findutils --with-default-names'
-  'gnu-sed --with-default-names'
+  findutils
+  gnu-sed
   'wget --enable-iri'
-  'vim --with-override-system-vi'
+  vim
   grep
   openssh
   rsync
@@ -38,7 +38,7 @@ declare -a CASK_APPS=(
   appcleaner
   atext
   betterzip
-  brave
+  brave-browser
   caffeine
   chronosync
   clamxav
@@ -71,7 +71,7 @@ declare -a CASK_APPS=(
   sublime-merge
   sublime-text
   suspicious-package
-  torbrowser
+  tor-browser
   transmission
   transmit
   vagrant
