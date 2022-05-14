@@ -10,7 +10,7 @@ source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 # Set Sublime Text settings directory.
 if $IS_MACOS; then
-  ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text 3/Packages";
+  ST_PACKAGES="${HOME}/Library/Application Support/Sublime Text/Packages";
   SM_PACKAGES="${HOME}/Library/Application Support/Sublime Merge/Packages";
 else
   ST_PACKAGES="${HOME}/.config/sublime-text-3/Packages";
