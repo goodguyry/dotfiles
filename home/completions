@@ -15,7 +15,7 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 
   # Set up completion for aliases
-  _xfunc git __git_complete g _git;
+  __git_complete g git;
 fi;
 
 # NPM completions.
