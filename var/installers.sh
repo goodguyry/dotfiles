@@ -179,11 +179,10 @@ function set_ppas() {
 ##
 function brew_install() {
   for BREW in "${@}"; do
-    PACKAGE_NAME="$(printf "%s\n" "${BREW%% *}")";
-    if $(brew list ${PACKAGE_NAME} &> /dev/null); then
-      log_header "${PACKAGE_NAME} already installed.";
+    if $(brew list ${BREW} &> /dev/null); then
+      log_header "${BREW} already installed.";
     else
-      brew install ${BREW};
+      brew install "${BREW}";
     fi;
   done;
 
@@ -198,11 +197,10 @@ function brew_install() {
 ##
 function brew_cask_install() {
   for BREW in "${@}"; do
-    APP=$(brew info ${BREW} --cask | grep \\.app | sed -e 's/\ (App)//');
-    if $(brew list ${BREW}  --cask &> /dev/null) || $(ls /Applications/ | grep -i "${APP}" &> /dev/null); then
+    if $(brew list ${BREW} --cask &> /dev/null); then
       log_header "${BREW} already installed";
     else
-      brew install ${BREW} --cask;
+      brew install "${BREW}" --cask;
     fi;
   done;
 
