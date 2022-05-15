@@ -32,5 +32,10 @@ fi;
 # Add MySQL.
 PATH="${PATH}:/usr/local/mysql/bin";
 
+# Add pyenv.
+# Added after installing gpg.
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 export PATH;
 export MANPATH;

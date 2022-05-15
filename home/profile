@@ -36,3 +36,13 @@ NVM_CURRENT="$(nvm current | sed 's/v//')";
 
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv);
 # eval $($(brew --prefix)/bin/brew shellenv)
+
+# https://stackoverflow.com/a/55993078
+export GPG_TTY=$(tty);
+
+# Added after installing gpg.
+eval "$(pyenv init --path)";
+# Star pyenv.
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)";
+fi
