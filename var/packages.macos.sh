@@ -122,6 +122,8 @@ declare -a MAS_APPS_LIST=(
   414209656  # Better Rename 9
   420212497  # Byword
   777886035  # Duo
+  682658836  # GarageBand
+  1568924476 # Mela
   409203825  # Numbers
   409201541  # Pages
   407963104  # Pixelmator
