@@ -12,7 +12,6 @@ declare -a FILES=(
   "${HOME}/.aliases" # Aliases.
   "${HOME}/.functions" # Functions.
   "${HOME}/.paths" # Path modifications.
-  "${HOME}/.dotfiles.local" # Local and private settings not under version control (e.g. git name/email, package lists).
   "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*.
 );
 
@@ -33,6 +32,8 @@ GIT_COMMITTER_EMAIL="$(git config user.email)";
 
 # Current Node version.
 NVM_CURRENT="$(nvm current | sed 's/v//')";
+
+source "${HOME}/.dotfiles.local"; # Local and private settings not under version control (e.g. git name/email, package lists).
 
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv);
 # eval $($(brew --prefix)/bin/brew shellenv)
