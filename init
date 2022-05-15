@@ -140,6 +140,16 @@ if $INSTALL_PACKAGES; then
   [ ${#APT_LIST[@]} -gt 0 ] && apt_install "${APT_LIST[@]}";
   [ ${#SNAP_LIST[@]} -gt 0 ] && snap_install "${SNAP_LIST[@]}";
 
+  if $IS_MACOS; then
+    # Change to bash version installed from Homebrew.
+    if [[ ! $(grep "/usr/local/bin/bash" /etc/shells) ]]; then
+      echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
+      log_success "Shell switched Homebrew Bash";
+    else
+      log_header "/usr/local/bin/bash already in /etc/shells";
+    fi;
+  fi;
+
   if ! $IS_SERVER; then
     npm_install browser-sync git-open;
     rvm_install jekyll octopress-autoprefixer rouge sass;
