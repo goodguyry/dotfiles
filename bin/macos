@@ -245,8 +245,8 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true;
 defaults write com.apple.terminal StringEncodings -array 4;
 
 # Use my theme by default in Terminal.app.
-if [[ -r "${DOTFILES_DIRECTORY}/shell/GoodGuyRy.terminal" ]]; then
-  open "${DOTFILES_DIRECTORY}/shell/GoodGuyRy.terminal";
+if [[ -r "${DOTFILES_DIRECTORY}/etc/GoodGuyRy.terminal" ]]; then
+  open "${DOTFILES_DIRECTORY}/etc/GoodGuyRy.terminal";
   sleep 2; # Wait a bit to make sure the theme is loaded.
   defaults write com.apple.terminal 'Default Window Settings' -string 'GoodGuyRy';
   defaults write com.apple.terminal 'Startup Window Settings' -string 'GoodGuyRy';
