@@ -1,26 +1,15 @@
 // SublimeLinter Settings - User
 {
-	"paths": {
-		"osx": [
-			 "~/.nvm/versions/node/v8.17.0/bin/node",
-			 "~/.nvm/versions/node/v10.21.0/bin/node",
-			 "~/.nvm/versions/node/v12.18.2/bin/node",
-			 "~/.nvm/versions/node/v14.5.0/bin/node",
-		],
-		"linux": [],
-	},
 	"linters": {
 		"phpcs": {
 			"disable": false,
-			"executable": "/Users/ryandomingue/broadway/www/phpcs/bin/phpcs",
-			"standard": "${folder}/phpcs.xml"
+			"executable": "${HOME}/broadway/www/phpcs/bin/phpcs",
+			"args": "--standard='${project_path}/phpcs.xml'"
 		},
 		"eslint": {
-			"env": {
-				"PATH": "~/.nvm/versions/node/v12.18.2/bin",
-			},
-			"excludes": [
-				"*.md"
+			"executable": [
+				"${HOME}/.nvm/versions/node/v12.18.3/bin/node",
+				"${project_path}/node_modules/.bin/eslint",
 			],
 		},
 		"stylelint": {
