@@ -2,10 +2,10 @@
 
 declare -a BREW_LIST=(
   # Missing or outdated utils.
-  coreutils
-  moreutils
-  findutils
-  gnu-sed
+  coreutils # /opt/homebrew/opt/coreutils
+  moreutils # /opt/homebrew/opt/moreutils
+  findutils # /opt/homebrew/opt/findutils
+  gnu-sed # /opt/homebrew/opt/gnu-sed
   'wget --enable-iri'
   vim
   grep
@@ -28,6 +28,7 @@ declare -a BREW_LIST=(
   mysql
   packer
   pigz
+  svn
   tree
   zlib
 );
@@ -37,8 +38,8 @@ declare -a CASK_APPS=(
   alfred
   appcleaner
   atext
+  bartender
   betterzip
-  brave-browser
   caffeine
   chronosync
   clamxav
@@ -47,26 +48,28 @@ declare -a CASK_APPS=(
   coconutbattery
   daisydisk
   dropbox
-  firefox-developer-edition
   firefox
+  firefox-developer-edition
   gitify
-  google-chrome-canary
   google-chrome
+  google-chrome-canary
   handbrake
-  macmediakeyforwarder
+  hazel
   imageoptim
   macdown
+  macmediakeyforwarder
   muzzle
   notion
   onyx
+  opera
   opera-beta
   opera-developer
   opera-mobile-emulator
-  opera
   pixelsnap
   rar
   safari-technology-preview
   sequel-pro
+  sip
   sketch
   sublime-merge
   sublime-text
@@ -77,10 +80,6 @@ declare -a CASK_APPS=(
   vagrant
   vlc
   zeplin
-);
-
-declare -a SETTINGS_PANES=(
-  hazel
 );
 
 declare -a QL_PLUGINS=(
@@ -114,7 +113,7 @@ declare -a FONTS=(
 );
 
 # Merge brew cask arrays.
-BREW_CASK_LIST=("${CASK_APPS[@]}" "${SETTINGS_PANES[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
+BREW_CASK_LIST=("${CASK_APPS[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
 
 # Mac App Store apps.
 declare -a MAS_APPS_LIST=(
@@ -127,10 +126,11 @@ declare -a MAS_APPS_LIST=(
   409203825  # Numbers
   409201541  # Pages
   407963104  # Pixelmator
-  880001334  # Reeder
+  1529448980 # Reeder 5
   803453959  # Slack
   1006087419 # SnippetsLab
   425424353  # The Unarchiver
   904280696  # Things
   557168941  # Tweetbot
+  497799835  # XCode
 );
