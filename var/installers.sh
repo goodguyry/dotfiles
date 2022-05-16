@@ -109,7 +109,7 @@ function install_rvm() {
   RUBY_VERSION='2.7.1';
 
   # Install Ruby.
-  rvm install "ruby-${RUBY_VERSION}";
+  rvm install "ruby-${RUBY_VERSION}" --with-out-ext=fiddle;
   rvm use "${RUBY_VERSION}" --default;
 
   rvm cleanup all;
@@ -118,49 +118,6 @@ function install_rvm() {
   [[ $? ]] \
     && log_success "RVM and Ruby are ready." \
     || log_error 'There was a problem installing RVM or Ruby.';
-}
-
-##
-# Install the Mac App Store CLI and attempt to sign in.
-##
-function install_mas() {
-  ! $HAS_BREW && install_homebrew;
-
-  # Check for `mas`.
-  if [[ ! "$(type -P mas)" ]]; then
-    brew install mas;
-  fi;
-
-  # Capture account.
-  ACCOUNT=$(mas account);
-  printf '\n';
-  log_info "Setting up the MAS CLI tool...";
-
-  # Sign in if not signed in.
-  if [[ "${ACCOUNT}" == *"Not signed in"* ]]; then
-    # Ask for Apple ID.
-    printf '\n';
-    log_warning 'You are not signed in to the App Store';
-    printf 'Enter your App Store Apple ID ';
-    read APPLE_ID;
-    printf '\n';
-
-    # Check APPLE_ID value.
-    if [[ "$(echo -e ${APPLE_ID} | tr -d '[:space:]')" != '' ]]; then
-      if [[ $(mas signin "${APPLE_ID}") && $? -eq 0 ]]; then
-        log_header "You are signed in with ${APPLE_ID}";
-      else
-        log_error "Could not sign in to the App Store.";
-        exit;
-      fi;
-    else
-      exit;
-    fi;
-  else
-    log_success "You are already signed in with ${ACCOUNT}";
-  fi;
-
-  printf '\n';
 }
 
 ##
@@ -224,7 +181,7 @@ function set_ppas() {
 ##
 function brew_install() {
   for BREW in "${@}"; do
-    if $(brew list ${BREW} &> /dev/null); then
+    if $(brew list "${BREW}" &> /dev/null); then
       log_header "${BREW} already installed.";
     else
       brew install "${BREW}";
@@ -242,10 +199,10 @@ function brew_install() {
 ##
 function brew_cask_install() {
   for BREW in "${@}"; do
-    if $(brew cask list ${BREW} &> /dev/null); then
+    if $(brew list "${BREW}" --cask &> /dev/null); then
       log_header "${BREW} already installed";
     else
-      brew cask install ${BREW};
+      brew install "${BREW}" --cask;
     fi;
   done;
 

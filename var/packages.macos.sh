@@ -2,11 +2,11 @@
 
 declare -a BREW_LIST=(
   # Missing or outdated utils.
-  coreutils
-  moreutils
-  findutils # PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-  gnu-sed # PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-  wget
+  coreutils # /opt/homebrew/opt/coreutils
+  moreutils # /opt/homebrew/opt/moreutils
+  findutils # /opt/homebrew/opt/findutils
+  gnu-sed # /opt/homebrew/opt/gnu-sed
+  'wget --enable-iri'
   vim
   grep
   openssh
@@ -40,7 +40,6 @@ declare -a CASK_APPS=(
   atext
   bartender
   betterzip
-  brave-browser
   caffeine
   chronosync
   clamxav
@@ -49,22 +48,23 @@ declare -a CASK_APPS=(
   coconutbattery
   daisydisk
   dropbox
-  firefox-developer-edition
   firefox
+  firefox-developer-edition
   gitify
-  google-chrome-canary
   google-chrome
+  google-chrome-canary
   handbrake
-  macmediakeyforwarder
+  hazel
   imageoptim
   macdown
+  macmediakeyforwarder
   muzzle
   notion
   onyx
+  opera
   opera-beta
   opera-developer
   opera-mobile-emulator
-  opera
   pixelsnap
   rar
   safari-technology-preview
@@ -77,13 +77,8 @@ declare -a CASK_APPS=(
   tor-browser
   transmit
   vagrant
-  virtualbox
   vlc
   zeplin
-);
-
-declare -a SETTINGS_PANES=(
-  hazel
 );
 
 declare -a QL_PLUGINS=(
@@ -118,7 +113,7 @@ declare -a FONTS=(
 );
 
 # Merge brew cask arrays.
-BREW_CASK_LIST=("${CASK_APPS[@]}" "${SETTINGS_PANES[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
+BREW_CASK_LIST=("${CASK_APPS[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
 
 # Mac App Store apps.
 declare -a MAS_APPS_LIST=(
@@ -126,10 +121,12 @@ declare -a MAS_APPS_LIST=(
   414209656  # Better Rename 9
   420212497  # Byword
   777886035  # Duo
+  682658836  # GarageBand
+  1568924476 # Mela
   409203825  # Numbers
   409201541  # Pages
   407963104  # Pixelmator
-  1449412482 # Reeder 4
+  1529448980 # Reeder 5
   803453959  # Slack
   1006087419 # SnippetsLab
   425424353  # The Unarchiver

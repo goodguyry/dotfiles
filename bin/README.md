@@ -2,17 +2,13 @@
 
 - `gitconfig`: Set up Git configuration settings and aliases.
 - `macos`: Set Application, User and System-wide preferences for macOS.
-- `brews`: Install Homebrew and Homebrew packages, native applications, and fonts.
-- `rvm`: Install RVM, Ruby, and Gems.
-- `nvm`: Install NVM, Node, and packages from NPM.
-- `appstore`: Install Mac App Store purchases.
 - `sublime`: Install Sublime Text and Sublime Merge packages and settings.
 
 ## Packages:
 
 ### [Homebrew](http://brew.sh)
 
-- [Bash 4](http://www.gnu.org/software/bash/)
+- [Bash 5](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [gist](https://github.com/defunkt/gist)
 - [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
@@ -81,12 +77,10 @@
 - [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
 - [Vagrant](https://www.vagrantup.com/)
-- [VirtualBox](https://www.virtualbox.org/)
 - [VLC](http://www.videolan.org/vlc/index.html)
 
 #### System Preferences panes
 
-- [Web Sharing](https://clickontyler.com/web-sharing/)
 - [Hazel](https://www.noodlesoft.com/)
 
 #### QuickLook plugins
@@ -113,7 +107,6 @@
 - PT Mono
 - PT Sans
 - PT Serif
-- Roboto Condensed
 - Roboto Mono
 - Roboto Slab
 - Source Code Pro
@@ -142,7 +135,6 @@
 - [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
 - [Byword](https://itunes.apple.com/us/app/2do/id420212497)
 - [Duo](https://itunes.apple.com/us/app/2do/id777886035)
-- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
 - [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
 - [Numbers](https://www.apple.com/numbers/)
 - [Pages](https://www.apple.com/pages/)

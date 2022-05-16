@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Brew paths
-PATH=/usr/local/bin:/usr/local/sbin;
+PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin;
 
 # $HOME/.nvm/versions/node/{version}/bin
 PATH="${PATH}:${NVM_BIN}";
@@ -16,13 +16,25 @@ PATH="${PATH}:${HOME}/.bin";
 PATH="${PATH}:/usr/bin:/bin:/usr/sbin:/sbin";
 
 if [ "$(type -P brew)" ]; then
+  FINDUTILS="$(brew --prefix findutils)";
+
+  if [[ "${FINDUTILS}" ]]; then
+    PATH="${PATH}:${FINDUTILS}/libexec/gnubin";
+    MANPATH="${FINDUTILS}/libexec/gnuman:${MANPATH}";
+  fi;
+
   COREUTILS="$(brew --prefix coreutils)";
 
   if [[ "${COREUTILS}" ]]; then
-    # Add brew-installed GNU core utilities bin.
     PATH="${PATH}:${COREUTILS}/libexec/gnubin";
-    # Add coreutils man pages.
     MANPATH="${COREUTILS}/libexec/gnuman:${MANPATH}";
+  fi;
+
+  GNU_SED="$(brew --prefix gnu-sed)";
+
+  if [[ "${GNU_SED}" ]]; then
+    PATH="${PATH}:${GNU_SED}/libexec/gnubin";
+    MANPATH="${GNU_SED}/libexec/gnuman:${MANPATH}";
   fi;
 else
   # Fall back to macOS default.

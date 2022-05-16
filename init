@@ -122,7 +122,6 @@ if $INSTALL_PACKAGES; then
   install_rvm;
 
   if $IS_MACOS; then
-    install_mas;
     source var/packages.macos.sh;
   fi;
 
