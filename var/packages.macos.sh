@@ -105,6 +105,7 @@ declare -a FONTS=(
   font-pt-mono
   font-pt-sans
   font-pt-serif
+  font-roboto
   font-roboto-mono
   font-roboto-slab
   font-source-code-pro
