@@ -6,7 +6,7 @@ declare -a BREW_LIST=(
   moreutils # /opt/homebrew/opt/moreutils
   findutils # /opt/homebrew/opt/findutils
   gnu-sed # /opt/homebrew/opt/gnu-sed
-  'wget --enable-iri'
+  wget
   vim
   grep
   openssh
