@@ -22,7 +22,7 @@ function collect_git_info() {
 
     if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation.
-      printf '###  GIT AUTHOR INFO  ###\n'; # Just some dumb formatting.
+      printf "\n###  GIT AUTHOR INFO  ###\n"; # Just some dumb formatting.
       echo " Name: ${NAME}";
       echo "Email: ${EMAIL}";
       printf "\n";
