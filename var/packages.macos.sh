@@ -66,6 +66,7 @@ declare -a CASK_APPS=(
   opera-developer
   opera-mobile-emulator
   pixelsnap
+  protonvpn
   rar
   safari-technology-preview
   sequel-pro
