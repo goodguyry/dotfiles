@@ -142,11 +142,11 @@ if $INSTALL_PACKAGES; then
 
   if $IS_MACOS; then
     # Change to bash version installed from Homebrew.
-    if [[ ! $(grep "/usr/local/bin/bash" /etc/shells) ]]; then
-      echo /usr/local/bin/bash|sudo tee -a /etc/shells && chsh -s /usr/local/bin/bash;
+    if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
+      echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
       log_success "Shell switched Homebrew Bash";
     else
-      log_header "/usr/local/bin/bash already in /etc/shells";
+      log_header "/opt/homebrew/bin/bash already in /etc/shells";
     fi;
   fi;
 
