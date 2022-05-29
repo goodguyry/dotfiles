@@ -3,6 +3,15 @@
 Dev-related [packages](scripts/) and shell configuration. Very exciting.
 
 
+## Prerequisites
+
+XCode Command Line Tools must be installed.
+
+```shell
+xcode-select --install
+```
+
+
 ## Download
 
 

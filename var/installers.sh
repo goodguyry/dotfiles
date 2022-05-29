@@ -7,15 +7,9 @@ source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
 ##
 # Install and/or update Homebrew.
-# macOS requires XCode.
+# macOS requires XCode Command Line Tools.
 ##
 function install_homebrew() {
-  # Before relying on Homebrew, check that packages can be compiled.
-  if [ ! "$(type -P gcc)" ]; then
-    log_error 'The XCode Command Line Tools must be installed first.';
-    xcode-select --install;
-  fi;
-
   # Check for Homebrew.
   if ! $HAS_BREW; then
     log_info 'Installing Homebrew...';
