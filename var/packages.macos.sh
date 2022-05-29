@@ -134,5 +134,4 @@ declare -a MAS_APPS_LIST=(
   425424353  # The Unarchiver
   904280696  # Things
   557168941  # Tweetbot
-  497799835  # XCode
 );
