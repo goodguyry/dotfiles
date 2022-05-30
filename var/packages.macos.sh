@@ -126,6 +126,6 @@ declare -a MAS_APPS_LIST=(
   425424353
   # Things
   904280696
-  # Tweetbot
-  557168941
+  # Tweetbot 3
+  1384080005
 );
