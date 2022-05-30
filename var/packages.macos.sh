@@ -14,7 +14,7 @@ declare -a BREW_LIST=(
 
   # Install newer Bash.
   bash
-  bash-completion2
+  bash-completion@2
 
   # Font tools.
   sfnt2woff
