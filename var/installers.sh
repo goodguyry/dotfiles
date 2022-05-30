@@ -92,15 +92,16 @@ function install_rvm() {
   [[ -z "$(grep 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc)" ]] && \
     echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
 
+  # Set Ruby version.
+  RUBY_VERSION='2.7.1';
+
   # Source rvm.
-  RVM_LOC=${rvm_path:="$HOME/.rvm"};
+  RVM_LOC=${rvm_path:="${HOME}/.rvm"};
   source "${RVM_LOC}/scripts/rvm";
 
   # Update PATH before installing Gems so they end up where intended.
-  export PATH=${GEM_HOME}/bin:${GEM_HOME}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
-
-  # Set Ruby version.
-  RUBY_VERSION='2.7.1';
+  GEM_ROOT=${GEM_HOME:="${HOME}/.rvm/gems/ruby-${RUBY_VERSION}"};
+  export PATH=${GEM_ROOT}/bin:${GEM_ROOT}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
 
   # Install Ruby.
   rvm install "ruby-${RUBY_VERSION}" --with-out-ext=fiddle;
