@@ -56,10 +56,6 @@ declare -a CASK_APPS=(
   macmediakeyforwarder
   notion
   onyx
-  opera
-  opera-beta
-  opera-developer
-  opera-mobile-emulator
   protonvpn
   rar
   safari-technology-preview
