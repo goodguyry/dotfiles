@@ -69,6 +69,7 @@ declare -a CASK_APPS=(
   suspicious-package
   tor-browser
   transmit
+  vagrant
 );
 
 declare -a QL_PLUGINS=(

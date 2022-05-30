@@ -192,6 +192,9 @@ function brew_install() {
 # Install a given brew cask if it's not already installed.
 ##
 function brew_cask_install() {
+  # Install Rosetta 2.
+  sudo softwareupdate --install-rosetta;
+
   for BREW in "${@}"; do
     if $(brew list ${BREW} --cask &> /dev/null); then
       log_header "${BREW} already installed";
