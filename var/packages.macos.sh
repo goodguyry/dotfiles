@@ -104,16 +104,28 @@ BREW_CASK_LIST=("${CASK_APPS[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
 
 # Mac App Store apps.
 declare -a MAS_APPS_LIST=(
-  1091189122 # Bear
-  414209656  # Better Rename 9
-  682658836  # GarageBand
-  1568924476 # Mela
-  409203825  # Numbers
-  409201541  # Pages
-  407963104  # Pixelmator
-  1529448980 # Reeder 5
-  1006087419 # SnippetsLab
-  425424353  # The Unarchiver
-  904280696  # Things
-  557168941  # Tweetbot
+  # Bear
+  1091189122
+  # Better Rename 9
+  414209656
+  # GarageBand
+  682658836
+  # Mela
+  1568924476
+  # Numbers
+  409203825
+  # Pages
+  409201541
+  # Pixelmator
+  407963104
+  # Reeder 5
+  1529448980
+  # SnippetsLab
+  1006087419
+  # The Unarchiver
+  425424353
+  # Things
+  904280696
+  # Tweetbot
+  557168941
 );
