@@ -11,6 +11,7 @@ declare -a BREW_LIST=(
   grep
   openssh
   rsync
+  git
 
   # Install newer Bash.
   bash
