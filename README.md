@@ -11,6 +11,12 @@ XCode Command Line Tools must be installed.
 xcode-select --install
 ```
 
+Allow full-disk access for Terminal
+
+```shell
+open x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles
+```
+
 
 ## Download
 
