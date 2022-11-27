@@ -60,7 +60,7 @@
 	"ignored_packages":
 	[
 		"Markdown",
-		"Vintage"
+		"Vintage",
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
@@ -74,5 +74,5 @@
 	"theme": "ayu-mirage.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": true,
-	"wrap_width": 120
+	"wrap_width": 120,
 }
