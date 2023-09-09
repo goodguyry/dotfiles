@@ -21,7 +21,7 @@ fi
 [[ ! -d "${SUBLIME_PACKAGES}/User" ]] && mkdir -p "${SUBLIME_PACKAGES}/User";
 
 # Clone a Sublime Text 3 package repo to Packages directory.
-function add_sublime_package() {
+function add_sublime_package_from_github() {
   local REPO="${1}"
   local PACKAGE="${2}";
   if [[ ! -d "${ST_PACKAGES}/${PACKAGE}" ]]; then
@@ -34,43 +34,48 @@ function add_sublime_package() {
 }
 
 # Clone packages.
-log_info 'Adding Sublime Text packages...';
+log_info 'Installing Package Control...';
 
-add_sublime_package 'randy3k/AlignTab.git'                            'AlignTab';
-add_sublime_package 'babel/babel-sublime.git'                         'Babel Sublime';
-add_sublime_package 'y0ssar1an/CSS3.git'                              'CSS3';
-add_sublime_package 'spadgos/sublime-jsdocs.git'                      'DocBlockr';
-add_sublime_package 'sindresorhus/editorconfig-sublime.git'           'EditorConfig';
-add_sublime_package 'TheSavior/ESLint-Formatter.git'                  'ESLint Formatter';
-add_sublime_package 'colinta/SublimeFileDiffs.git'                    'FileDiffs';
-add_sublime_package 'kemayo/sublime-text-git.git'                     'Git';
-add_sublime_package 'jisaacks/GitGutter.git'                          'GitGutter';
-add_sublime_package 'daaain/Handlebars.git'                           'Handlebars';
-add_sublime_package 'pichillilorenzo/JavaScript-Completions.git'      'JavaScript Completions';
-add_sublime_package 'siteleaf/liquid-syntax-mode.git'                 'Liquid Syntax';
-add_sublime_package 'braver/MarkdownHighlighting.git'                 'MarkdownHighlighting';
-add_sublime_package 'ahmedam55/SassSolution.git'                      'SassSolution';
-add_sublime_package 'MarioRicalde/SCSS.tmbundle.git'                  'SCSS';
-add_sublime_package 'titoBouzout/SideBarEnhancements.git'             'SideBarEnhancements';
-add_sublime_package 'bgreenlee/sublime-github.git'                    'Sublime Github';
-add_sublime_package 'wbond/sublime_terminal.git'                      'Sublime Terminal';
-add_sublime_package 'SublimeLinter/SublimeLinter3.git'                'SublimeLinter';
-add_sublime_package 'SublimeLinter/SublimeLinter-eslint.git'          'SublimeLinter ESLint';
-add_sublime_package 'SublimeLinter/SublimeLinter-phpcs.git'           'SublimeLinter PHPCS';
-add_sublime_package 'hudochenkov/Syntax-highlighting-for-PostCSS.git' 'Syntax Highlighting for PostCSS';
-add_sublime_package 'P233/Syntax-highlighting-for-Sass.git'           'SyntaxHighlightingForSass';
-add_sublime_package 'reywood/sublime-project-specific-syntax.git'     'sublime-project-specific-syntax';
+subl --command "install_package_control";
+
+declare -a packages=(
+  'A File Icon'
+  'AlignTab'
+  'ayu'
+  'Babel'
+  'CSS3'
+  'DocBlockr'
+  'EditorConfig'
+  'JavaScript Completions'
+  'JS Template String Converter'
+  'Liquid'
+  'MarkdownEditing'
+  'MarkdownPreview'
+  'Project Specific Syntax Settings'
+  'Sass'
+  'SassSolution'
+  'SidebarEnhancements'
+  'SublimeLinter ESLint'
+  'SublimeLinter PHPCS'
+  'SublimeLinter'
+  'Syntax Highlighting for Sass'
+  'Terminal'
+);
+
+printf -v joined_packages '%s,' "${packages[@]}";
+
+printf "\n";
+log_info "Use \"Package Control: Advanced Install Package\" from the command palette";
+log_header "${joined_packages%,}";
+printf "\n";
+
+# Git
+add_sublime_package_from_github 'kemayo/sublime-text-git.git' 'Git';
 
 # Checkout the `SublimeText2` branch for the SCSS package.
 cd "${ST_PACKAGES}/SCSS" && git checkout SublimeText2 && cd - &>/dev/null;
 
-# Themes
-add_sublime_package 'dempfi/ayu.git'                                  'Ayu';
-add_sublime_package 'saadq/Materialize.git'                           'Materialize';
-
 log_success 'Sublime Text packages installed.'
-log_warning 'Install Package Control: https://packagecontrol.io/installation'
-log_warning 'Install Markdown Preview with Package Control'
 
 # Link the Sublime Text settings files into place.
 for ST_SETTINGS_FILE in etc/sublime-text/*; do
