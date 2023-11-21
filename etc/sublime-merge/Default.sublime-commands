@@ -12,5 +12,12 @@
 		"args": {
 			"argv": ["push", "-u", "origin", "HEAD"],
 		}
-	}
+	},
+  {
+    "caption": "Git Open\t git open",
+    "command": "git",
+    "args": {
+      "argv": ["open"],
+    }
+  }
 ]

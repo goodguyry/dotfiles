@@ -19,6 +19,13 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
 fi;
 
 # NPM completions.
+# NPM_VERSION="$(npm -v)";
+# if [[ "8" < "$NPM_VERSION" ]]; then
+#   echo "Newer.";
+#   npm completion;
+# else
+#   echo "Older.";
+# fi;
 source <(npm completion);
 
 # Autocomplete branch names for `gcheck`.

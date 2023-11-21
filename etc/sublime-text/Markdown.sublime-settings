@@ -1,4 +1,4 @@
 {
   // Taken care of by .editorconfig, but enabling anyway
-  "trim_trailing_white_space_on_save": false
+  "trim_trailing_white_space_on_save": false,
 }

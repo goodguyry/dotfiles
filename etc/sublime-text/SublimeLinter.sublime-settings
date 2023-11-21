@@ -1,19 +1,19 @@
 // SublimeLinter Settings - User
 {
-	"linters": {
-		"phpcs": {
-			"disable": false,
-			"executable": "${HOME}/broadway/www/phpcs/bin/phpcs",
-			"args": "--standard='${project_path}/phpcs.xml'"
-		},
-		"eslint": {
-			"executable": [
-				"${HOME}/.nvm/versions/node/v12.18.3/bin/node",
-				"${project_path}/node_modules/.bin/eslint",
-			],
-		},
-		"stylelint": {
-			"disable": true,
-		}
-	}
+  "linters": {
+    "eslint": {
+      "selector": "source.js, source.ts, source.jsx, source.tsx - meta.attribute-with-value",
+      "executable": "${project_path}/node_modules/.bin/eslint"
+    },
+    "stylelint": {
+      "executable": "${project_path}/node_modules/.bin/stylelint"
+    },
+    "phpcs": {
+      "executable": "${HOME}/broadway/config/composer/bin/phpcs",
+      "args": "--standard='${project_path}/.phpcs.xml'",
+      "env": {
+        "PATH": "/opt/homebrew/bin"
+      }
+    }
+  }
 }
