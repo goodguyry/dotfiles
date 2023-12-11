@@ -6,11 +6,18 @@
       "argv": ["reset", "--soft", "HEAD~1"],
     }
   },
-	{
-		"caption": "ph\t git push -u origin HEAD",
-		"command": "git",
-		"args": {
-			"argv": ["push", "-u", "origin", "HEAD"],
-		}
-	}
+  {
+    "caption": "ph\t git push -u origin HEAD",
+    "command": "git",
+    "args": {
+      "argv": ["push", "-u", "origin", "HEAD"],
+    }
+  },
+  {
+    "caption": "Git Open\t git open",
+    "command": "git",
+    "args": {
+      "argv": ["open"],
+    }
+  }
 ]

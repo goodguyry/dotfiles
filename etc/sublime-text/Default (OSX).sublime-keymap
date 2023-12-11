@@ -75,6 +75,10 @@
   },
   {
     "keys": ["super+shift+m"],
-    "command": "sublime_linter_panel_toggle",
+    "command": "sublime_linter_panel_toggle"
+  },
+  {
+    "keys": ["super+shift+alt+t"],
+    "command": "open_terminal_project_folder"
   }
 ]
