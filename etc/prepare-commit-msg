@@ -4,6 +4,18 @@
 # ~/.git-templates/hooks/
 #
 
+# COMMIT_MSG_FILE=$1 # Unused.
+COMMIT_SOURCE=$2
+SHA1=$3
+
+changes=$(git diff-index --cached --exit-code HEAD);
+changes_length=${#changes};
+
+# Do nothing if the commit is empty, we're amending a commit, or this is a merge commit.
+if [[ $changes_length == 0 || 'merge' == "$COMMIT_SOURCE" || $SHA1 ]]; then
+  exit
+fi
+
 if [ -z "$BRANCHES_TO_SKIP" ]; then
   BRANCHES_TO_SKIP=(master main develop test production preprod staging qa);
 fi;
