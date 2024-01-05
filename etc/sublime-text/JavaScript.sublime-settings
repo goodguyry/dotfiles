@@ -1,6 +1,10 @@
 {
   "extensions":
   [
-    ".js"
+    "js"
+  ],
+  "rulers":
+  [
+    80
   ]
 }

@@ -2,5 +2,9 @@
 	"extensions":
 	[
 		"jsx"
+	],
+	"rulers":
+	[
+		80
 	]
 }

@@ -80,5 +80,21 @@
   {
     "keys": ["super+shift+alt+t"],
     "command": "open_terminal_project_folder"
-  }
+  },
+  {
+    "keys": ["super+shift+]"],
+    "command": "next_os_tab"
+  },
+  {
+    "keys": ["super+shift+["],
+    "command": "prev_os_tab"
+  },
+  {
+    "keys": ["ctrl+alt+shift+tab"],
+    "command": "prev_view"
+  },
+  {
+    "keys": ["ctrl+alt+tab"],
+    "command": "next_view"
+  },
 ]
