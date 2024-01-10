@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Create a data URI from a file.
+function datauri() {
+  local MIMETYPE="$(file -b --mime-type "${1}")";
+  if [[ "${MIMETYPE}" == text/* ]]; then
+    MIMETYPE="${MIMETYPE};charset=utf-8";
+  fi;
+  echo "data:${MIMETYPE};base64,$(openssl base64 -in "$1" | tr -d '\n')" | pbcopy;
+  echo 'The data URI is on the clipboard.';
+}

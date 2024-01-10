@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# @todo source all function files
+
+# Change working directory to the top-most Finder window location.
+# http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
+function cdf() { # short for `cdfinder`
+  if [ "$(type -P osascript)" ]; then
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+  fi
+}
+
+# Create a new directory and enter it.
+function mkd() {
+  mkdir -p "${@}" && cd "${@}";
+}
+
+# Hide individual file(s).
+function hide() {
+  chflags hidden "${@}";
+}
+
+# Unhide individual file(s).
+function unhide() {
+  chflags nohidden "${@}";
+}
+
+# Recursively delete files that match a certain pattern.
+# (by default delete all `.DS_Store` files).
+cleanup() {
+  local Q="${1:-*.DS_Store}";
+  find . -type f -name "${Q}" -ls -delete;
+}
+
+# Use Git’s colored diff when available.
+hash git &>/dev/null;
+if [ $? -eq 0 ]; then
+  function diff() {
+    git diff --no-index --color-words "${@}";
+  }
+fi;
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}

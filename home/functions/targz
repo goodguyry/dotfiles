@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression.
+function targz() {
+  local TMPFILE="${@%/}.tar";
+  tar -cvf "${TMPFILE}" --exclude='.DS_Store' "${@}" || return 1;
+
+  size=$(
+    stat -f"%z" "${TMPFILE}" 2> /dev/null; # macOS `stat`
+    stat -c"%s" "${TMPFILE}" 2> /dev/null; # GNU `stat`
+  );
+
+  local CMD="";
+  if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
+    # the .tar file is smaller than 50 MB and Zopfli is available; use it.
+    CMD='zopfli';
+  else
+    if hash pigz 2> /dev/null; then
+      CMD='pigz';
+    else
+      CMD='gzip';
+    fi;
+  fi;
+
+  echo "Compressing .tar using \`${CMD}\`…";
+  "${CMD}" -v "${TMPFILE}" || return 1;
+  [ -f "${TMPFILE}" ] && rm "${TMPFILE}";
+  echo "${TMPFILE}.gz created successfully.";
+}
