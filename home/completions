@@ -19,6 +19,7 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
 fi;
 
 # NPM completions.
+# @todo This is not compatible with npm workspaces.
 source <(npm completion);
 
 # Autocomplete branch names for `gcheck`.
@@ -44,4 +45,3 @@ function _project_completion() {
   COMPREPLY=( $(compgen -W "${COMPLETE_LIST}" -- ${CUR}) );
 }
 complete -F _project_completion p;
-
