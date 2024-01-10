@@ -9,7 +9,6 @@ export NVM_DIR="${HOME}/.nvm"
 # Load the shell dotfiles, and then some:
 # Shamelessly stolen from @wilto
 declare -a FILES=(
-  # "${HOME}/.nvm/nvm.sh" # Load NVM.
   "${HOME}/.prompt" # Custom bash prompt.
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.

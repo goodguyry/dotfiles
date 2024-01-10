@@ -1,10 +1,10 @@
 {
-	"extensions":
-	[
-		"js"
-	],
-	"rulers":
-	[
-		80
-	]
+  "extensions":
+  [
+    "js"
+  ],
+  "rulers":
+  [
+    80
+  ]
 }

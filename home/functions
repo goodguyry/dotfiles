@@ -294,3 +294,23 @@ function stamp() {
 function tre() {
   tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+##
+# Prune merged Git branches.
+##
+function prune_merged() {
+  # git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d;
+  git remotes prune origin;
+  BRANCHES=$(git branch --merged | grep -v "\\*");
+  BRANCHES_TO_SKIP=(master main production develop test preprod staging qa vip-develop vip-master);
+
+  for BRANCH in $BRANCHES; do
+    # Trim whitespace.
+    BRANCH_NO_WS="$(echo -e "${BRANCH}" | tr -d '[:space:]')"
+    BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NO_WS$");
+
+    if ! [[ $BRANCH_EXCLUDED -eq 1 ]]; then
+      git branch -d "${BRANCH_NO_WS}";
+    fi
+  done;
+}
