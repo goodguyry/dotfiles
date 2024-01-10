@@ -129,6 +129,8 @@ function install_git() {
     ! $HAS_BREW && install_homebrew;
     brew install git;
 
+    # keep it independent of the git version
+    # `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
     # Set up word highlighting.
     [ -s $(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight ] \
       && ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" "${HOME}/.bin/diff-highlight";

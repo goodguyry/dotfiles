@@ -207,6 +207,7 @@ git_config_add core.ignorecase true;
 git_config_add core.logallrefupdates true;
 # http://theunixtoolbox.com/git-diff-highlight/
 git_config_add core.pager 'diff-highlight | less -r';
+# git_config_add core.pager '`brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less';
 git_config_add core.precomposeunicode true;
 git_config_add core.repositoryformatversion 0;
 git_config_add core.safecrlf true;
