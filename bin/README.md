@@ -2,7 +2,6 @@
 
 - `gitconfig`: Set up Git configuration settings and aliases.
 - `macos`: Set Application, User and System-wide preferences for macOS.
-- `sublime`: Install Sublime Text and Sublime Merge packages and settings.
 
 ## Packages:
 
@@ -129,34 +128,3 @@
 - [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
 - [Things](https://itunes.apple.com/us/app/things-3/id904280696)
 - [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
-
-### Sublime Text 3 packages
-
-- [Package Control](https://packagecontrol.io/installation) (Manual install)
-- [AlignTab](https://github.com/randy3k/AlignTab)
-- [Ayu](https://github.com/dempfi/ayu)
-- [Babel Sublime](https://github.com/babel/babel-sublime)
-- [ColorHighlighter](https://github.com/Monnoroch/ColorHighlighter)
-- [CSS3](https://github.com/y0ssar1an/CSS3)
-- [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
-- [EditorConfig](https://github.com/sindresorhus/editorconfig-sublime)
-- [ESLint Formatter](https://github.com/TheSavior/ESLint-Formatter)
-- [FileDiffs](https://github.com/colinta/SublimeFileDiffs)
-- [Git](https://github.com/kemayo/sublime-text-git)
-- [GitGutter](https://github.com/jisaacks/GitGutter)
-- [Handlebars](https://github.com/daaain/Handlebars)
-- [JavaScript Completions](https://github.com/pichillilorenzo/JavaScript-Completions)
-- [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
-- [Markdown Highlighting](https://github.com/braver/MarkdownHighlighting)
-- [Markdown Preview](https://github.com/facelessuser/MarkdownPreview) (Manual install)
-- [Materialize](https://github.com/saadq/Materialize)
-- [SassSolution](https://github.com/ahmedam55/SassSolution)
-- [SCSS](https://github.com/MarioRicalde/SCSS.tmbundle)
-- [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
-- [Sublime Github](https://github.com/bgreenlee/sublime-github)
-- [Sublime Terminal](https://github.com/wbond/sublime_terminal)
-- [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3)
-- [SublimeLinter ESLint](https://github.com/SublimeLinter/SublimeLinter-eslint)
-- [SublimeLinter PHPCS](https://github.com/SublimeLinter/SublimeLinter-phpcs)
-- [Syntax Highlighting for PostCSS](https://github.com/hudochenkov/Syntax-highlighting-for-PostCSS)
-- [Syntax Highlighting For Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
