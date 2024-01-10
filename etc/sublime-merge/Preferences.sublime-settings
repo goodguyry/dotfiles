@@ -1,8 +1,0 @@
-{
-  "diff_style": "inline",
-  "font_face": "Hack",
-  "font_size": 11,
-  "theme": "Merge.sublime-theme",
-  "hardware_acceleration": "none",
-  "side_bar_layout": "commit_graph_as_column",
-}
