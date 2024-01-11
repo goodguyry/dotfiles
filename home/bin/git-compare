@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ##
-# @todo Rename to `git-compare`.
 # `git check`
 #
 # Check how far ahead/behind two branches are.
