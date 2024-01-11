@@ -18,16 +18,13 @@
 # Use git-sh-setup.
 # https://git-scm.com/docs/git-sh-setup
 SUBDIRECTORY_OK=1;
-OPTIONS_SPEC="\
-git prune-merged
---
-  Available options:
+OPTIONS_SPEC=;
+USAGE="[--dry-run]
 
-dry-run! Dry run
-h Show usage help
+Prune merged branches.
 
-  Configure additional branches to skip in your gitconfig.
-  > git config --global prune-merged.skip \"master staging vip-develop vip-master\"
+Optional: Configure additional branches to skip in your gitconfig.
+> git config --global prune-merged.skip \"master staging vip-develop vip-master\"
 ";
 
 . "$(git --exec-path)/git-sh-setup";
@@ -42,7 +39,6 @@ dryrun=0;
 while [ $# -gt 0 ]; do
   case "$1" in
     --dry-run) dryrun=1 ;;
-    -h) usage ;;
     --) ;; # Do nothing. This is always included.
   esac
 

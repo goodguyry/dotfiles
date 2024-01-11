@@ -14,11 +14,15 @@
 # Use git-sh-setup.
 # https://git-scm.com/docs/git-sh-setup
 SUBDIRECTORY_OK=1;
-OPTIONS_SPEC="\
-git check [<base-branch>] [<compare-branch>]
---
-  Check how far ahead/behind two branches are.
-  Base branch defaults to main; compare branch defaults to the current branch
+OPTIONS_SPEC=;
+USAGE="[<branch-1>] [<branch-2>]
+
+Prints the number of commits branch-2 is ahead/behind of branch-1.
+ * 'branch-1' defaults to the main base branch ('main').
+ * 'branch-2' defaults to the current branch.
+
+Optional: Configure the main branch in your gitconfig.
+> git config git-compare.main \"production\"
 ";
 
 . "$(git --exec-path)/git-sh-setup";
