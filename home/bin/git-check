@@ -30,7 +30,7 @@ yellow=$(tput setaf 222);
 reset=$(tput sgr0);
 
 # @todo Make this configurable.
-base=${1:-master};
+base=${1:-main};
 
 # Use the current branch as the main working branch.
 current=$(git symbolic-ref -q --short HEAD);
