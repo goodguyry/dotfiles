@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# rm -f "${HOME}/.functions/gzcompare";
-# chmod +x home/functions/gzcompare;
-# ln -fs $(realpath home/functions/gzcompare) "${HOME}/.bin/gzcompare";
-# rm -f "${HOME}/.bin/gzcompare";
-
 ##
 # `gzcompare <file>`
 #

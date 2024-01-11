@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# @todo source all function files
-
 # Change working directory to the top-most Finder window location.
 # http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
 function cdf() { # short for `cdfinder`

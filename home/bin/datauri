@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# ln -fs $(realpath home/functions/datauri) "${HOME}/.bin/datauri";
-# rm -f "${HOME}/.bin/datauri";
-
 # Create a data URI from a file.
 mimetype="$(file -b --mime-type "${1}")";
 

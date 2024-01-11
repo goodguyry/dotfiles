@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# ln -fs $(realpath home/functions/git-check) "${HOME}/.bin/git-check";
-# rm -f "${HOME}/.bin/git-check";
-
 ##
 # @todo Rename to `git-compare`.
 # `git check`

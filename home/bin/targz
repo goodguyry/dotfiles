@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# rm -f "${HOME}/.functions/targz";
-# chmod +x home/functions/targz;
-# ln -fs $(realpath home/functions/targz) "${HOME}/.bin/targz";
-# rm -f "${HOME}/.bin/targz";
-
 ##
 # `targz <file>`
 #
