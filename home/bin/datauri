@@ -1,6 +1,12 @@
 #!/bin/bash
 
+##
+# `datauri`
+# @todo Remove?
+#
 # Create a data URI from a file.
+##
+
 mimetype="$(file -b --mime-type "${1}")";
 
 if [[ "${mimetype}" == text/* ]]; then

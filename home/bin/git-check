@@ -11,9 +11,10 @@
 # https://git-scm.com/docs/git-sh-setup
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC="\
-git check [<base-branch> ?<compare-branch>]
+git check [<base-branch>] [<compare-branch>]
 --
   Check how far ahead/behind two branches are.
+  Base branch defaults to main; compare branch defaults to the current branch
 ";
 
 . "$(git --exec-path)/git-sh-setup";

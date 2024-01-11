@@ -1,9 +1,15 @@
 #!/bin/bash
 
 ##
-# Change to a given project directory.
-# If no argument is passed, change to ~/Projects.
+#  `p <project-name>`
+#
+# Change to the broadway directory containing the given
+# Sublime Text project, with the option to open the project
+# in Sublime Text.
+#
+# With no <project-name>, `cd` to the Projects directory.
 ##
+
 function p() {
   if [[ ${#} -lt 1 ]]; then
     # No arguments; change to $HOME/Projects.
