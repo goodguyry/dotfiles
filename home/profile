@@ -13,7 +13,6 @@ declare -a FILES=(
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.
   "${HOME}/.paths" # Path modifications.
-  "${HOME}/.dotfiles.local" # Local and private settings not under version control (e.g. git name/email, package lists).
   "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*.
   "${HOME}/.completions" # Autocompletion scripts.
 );
@@ -29,6 +28,9 @@ unset FILES;
 for function_file in "${HOME}/.functions/"*; do
   [[ -r "${function_file}" ]] && source "${function_file}";
 done;
+
+# Local and private settings not under version control (e.g. git name/email, package lists).
+[[ -r "${HOME}/.dotfiles.local" ]] && source "${HOME}/.dotfiles.local";
 
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
