@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# rm -f "${HOME}/.functions/gzcompare";
+# chmod +x home/functions/gzcompare;
+# ln -fs $(realpath home/functions/gzcompare) "${HOME}/.bin/gzcompare";
+# rm -f "${HOME}/.bin/gzcompare";
+
+##
+# `gzcompare <file>`
+#
+# Compare the original and gzipped file sizes for a given file.
+##
+
+origsize=$(wc -c < "${1}");
+gzipsize=$(gzip -c "${1}" | wc -c);
+ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l);
+
+printf "orig: %d bytes\n" "${origsize}";
+printf "gzip: %d bytes (%2.2f%%)\n" "${gzipsize}" "${ratio}";

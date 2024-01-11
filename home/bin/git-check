@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# ln -fs $(realpath home/functions/git-check) "${HOME}/.bin/git-check";
+# rm -f "${HOME}/.bin/git-check";
+
+##
+# @todo Rename to `git-compare`.
+# `git check`
+#
+# Check how far ahead/behind two branches are.
+##
+
+# Use git-sh-setup.
+# https://git-scm.com/docs/git-sh-setup
+SUBDIRECTORY_OK=1;
+OPTIONS_SPEC="\
+git check [<base-branch> ?<compare-branch>]
+--
+  Check how far ahead/behind two branches are.
+";
+
+. "$(git --exec-path)/git-sh-setup";
+
+# We must be within the working tree of the repository.
+require_work_tree;
+
+# Bypass the default '--' arg.
+test "$1" == -- && { shift; }
+
+# Set colors.
+deep_green=$(tput setaf 112);
+yellow=$(tput setaf 222);
+reset=$(tput sgr0);
+
+# @todo Make this configurable.
+base=${1:-master};
+
+# Use the current branch as the main working branch.
+current=$(git symbolic-ref -q --short HEAD);
+compare=${2:-$current};
+
+if ! git show-ref --quiet "refs/heads/${base}"; then
+  echo "Base branch '${base}' not found.";
+  die;
+fi
+
+if ! git show-ref --quiet "refs/heads/${compare}"; then
+  echo "Compare branch '${compare}' not found.";
+  die;
+fi
+
+# run git rev-list and capture numbers returned.
+result="$(git rev-list --left-right --count ${base}...${compare})";
+
+numbers=(${result});
+
+# print numbers in a pretty message.
+if [ ${numbers[0]} -gt 0 ]; then
+  echo -e "${yellow}- ${compare} is ${numbers[0]} commits behind ${base}${reset}";
+fi
+
+if [ ${numbers[1]} -gt 0 ]; then
+  echo -e "${deep_green}+ ${compare} is ${numbers[1]} commits ahead of ${base}${reset}";
+fi;

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# ln -fs $(realpath home/functions/datauri) "${HOME}/.bin/datauri";
+# rm -f "${HOME}/.bin/datauri";
+
+# Create a data URI from a file.
+mimetype="$(file -b --mime-type "${1}")";
+
+if [[ "${mimetype}" == text/* ]]; then
+  mimetype="${mimetype};charset=utf-8";
+fi;
+
+endcoded_file=$( echo "data:${mimetype};base64,$(openssl base64 -in "$1" | tr -d '\n')" );
+echo "${endcoded_file}" | pbcopy;
+
+echo -e "The data URI is on the clipboard:\n${endcoded_file}";
