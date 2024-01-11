@@ -4,6 +4,11 @@
 # `git check`
 #
 # Check how far ahead/behind two branches are.
+#
+# Optional: Customize the main branch in your gitconfig.
+#
+# Example:
+# git config git-compare.main "production"
 ##
 
 # Use git-sh-setup.
@@ -29,8 +34,11 @@ deep_green=$(tput setaf 112);
 yellow=$(tput setaf 222);
 reset=$(tput sgr0);
 
-# @todo Make this configurable.
-base=${1:-main};
+# Merge any additional branches from the config.
+config_git_compare_main=$(git config git-compare.main);
+main=${config_git_compare_main:-main};
+
+base=${1:-$main};
 
 # Use the current branch as the main working branch.
 current=$(git symbolic-ref -q --short HEAD);
