@@ -29,17 +29,27 @@ function _gcheck_completion() {
 }
 complete -F _gcheck_completion gcheck
 
-# Autocomplete project directory names for `p`
-function _project_completion() {
+##
+# Sets up directory completion for sublime project directories.
+# Used in conjunction with the p() function.
+##
+function _project_completion {
   local CUR=${COMP_WORDS[COMP_CWORD]};
-  local DIRS='';
-  local COMPLETE_LIST='';
 
-  SITES=$(find "${HOME}/Projects/sites" -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*");
-  DIRS=$(find "${HOME}/Projects/" -maxdepth 1 -mindepth 1 -type d -not -path "*sites*");
+  # Find all subilme-project files, which are kept within their project directory.
+  # Keep the filename without the directory path.
+  local PROJECTS=$(find \
+    ~/Projects \
+    ~/Projects/sites \
+    -maxdepth 2 \
+    -mindepth 2 \
+    -type f \
+    -iname '*.sublime-project' \
+    -print0 | xargs -0 basename -s .sublime-project);
 
-  for DIR in $(echo -e "${DIRS} \n ${SITES}"); do
-    COMPLETE_LIST+="$(basename ${DIR}) ";
+  # Concatenate the lists, separated by spaces.
+  for DIR in "${PROJECTS} ${FORCED_PROJECTS}"; do
+    COMPLETE_LIST+="${DIR} ";
   done;
 
   COMPREPLY=( $(compgen -W "${COMPLETE_LIST}" -- ${CUR}) );

@@ -2,51 +2,55 @@
 
 ##
 # Change to a given project directory.
-# If no PROJECTNAME is passed, change to ~/Projects.
-#
-# Usage: p [-o] PROJECTNAME
-#   -o  Open the project directory in your editor and git client.
+# If no argument is passed, change to ~/Projects.
 ##
 function p() {
-  # Check for passed argument(s).
-  if [[ ${#} -gt 0 ]]; then
-    local OPEN=false;
-
-    # Test for option(s)
-    for OPT in "${@}"; do
-      case "${OPT}" in
-        -o) OPEN=true ;;
-         *) DIR="${OPT}" ;;
-      esac
-    done
-
-    FIND_ARGS="-maxdepth 1 -mindepth 1 -type d -name ${DIR} -print -quit";
-
-    local SITE=$(find "${HOME}"/Projects/sites $FIND_ARGS);
-    local PROJECT=$(find "${HOME}"/Projects $FIND_ARGS);
-
-    # Change to the project root.
-    if [[ -n "${PROJECT}" ]]; then
-      cd "${PROJECT}";
-    elif [[ -n "${SITE}" ]]; then
-      cd "${SITE}";
-    else
-      echo "\"${DIR}\" not found.";
-      return;
-    fi
-
-    if $OPEN; then
-      # Open the project root in the editor
-      if [[ "$(type -P subl)" ]]; then
-        SUBLIME_WORKSPACE=$(find . -type f -name "*.sublime-workspace");
-        subl $([[ -r "${SUBLIME_WORKSPACE}" ]] && echo "${SUBLIME_WORKSPACE}" || echo '.');
-      fi
-
-      # Open the project in the git client
-      [[ "$(type -P smerge)" ]] && smerge .;
-    fi
-  else
+  if [[ ${#} -lt 1 ]]; then
     # No arguments; change to $HOME/Projects.
     cd "${HOME}/Projects";
-  fi;
+    return;
+  fi
+
+  # We passed a project name...
+  local name="${@}";
+
+  # Locate the first matching project directory.
+  local project=$(find \
+    ~/Projects \
+    ~/Projects/sites \
+    -maxdepth 2 \
+    -mindepth 2 \
+    -type f \
+    -iname "${name}.sublime-project" \
+    -exec dirname {} \; -quit);
+
+  # Change to the project root
+  if [[ -n "${project}" ]]; then
+    echo "Switching to ${project}...";
+    cd "${project}";
+  else
+    echo "\'${name}\' not found.";
+    return;
+  fi
+
+  # Ask before opening.
+  printf '\n';
+  printf "Open this project in your editor(s)? [Y/n]";
+  read continue;
+
+  # Conditionally set the dotfiles in place.
+  if [[ "${continue}" != 'n' ]]; then
+    local sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${name}.sublime-project");
+
+    if [[ -n "${sublime_project}" ]]; then
+      # Open the project root in the editor
+      [[ "$(type -P subl)" ]] && subl --project "${name}";
+
+      # Open the project in the git client
+      # This got annoying. I never close projects in Merge. Maybe I should start?
+      # [[ "$(type -P smerge)" ]] && smerge .;
+    else
+      [[ "$(type -P subl)" ]] && subl .;
+    fi
+  fi
 }
