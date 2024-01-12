@@ -5,6 +5,8 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
+# usage: gitconfig
+#
 # Set up Git configuration settings and aliases.
 
 # Source utils.

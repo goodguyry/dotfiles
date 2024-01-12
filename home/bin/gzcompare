@@ -8,7 +8,6 @@
 # usage: gzcompare <file>
 #
 # Compare the original and gzipped file sizes for the given file.
-##
 
 origsize=$(wc -c < "${1}");
 gzipsize=$(gzip -c "${1}" | wc -c);

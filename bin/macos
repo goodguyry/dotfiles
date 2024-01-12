@@ -5,6 +5,8 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
+# usage: macos
+#
 # Set Application, User and System-wide preferences for macOS.
 
 # Source utils.

@@ -5,7 +5,7 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage p [project-name]
+# usage: p [project-name]
 #
 # `cd` to the Projects directory. If a project is given and
 # found, cd to it and open the project in Sublime Text.
