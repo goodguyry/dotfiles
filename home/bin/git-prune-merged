@@ -1,22 +1,20 @@
 #!/bin/bash
-
-##
-# `git prune-merged`
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: git prune-merged [--dry-run]
 #
 # Prune merged branches.
 #
 # Available options:
 #    --dry-run    Dry run
-#    -h           Show usage help
 #
-# Optional setup: Include additional branches to skip in your gitconfig.
-#
-# Example:
-# git config --global prune-merged.skip "master staging vip-develop vip-master";
-##
+# Optional: Configure additional branches to skip in your gitconfig.
+# > git config --global prune-merged.skip "master staging vip-develop vip-master";
 
-# Use git-sh-setup.
-# https://git-scm.com/docs/git-sh-setup
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;
 USAGE="[--dry-run]
@@ -27,6 +25,9 @@ Optional: Configure additional branches to skip in your gitconfig.
 > git config --global prune-merged.skip \"master staging vip-develop vip-master\"
 ";
 
+# Uses git-sh-setup.
+# https://git-scm.com/docs/git-sh-setup
+# https://github.com/git/git/blob/master/git-sh-setup.sh
 . "$(git --exec-path)/git-sh-setup";
 
 # We must be within the working tree of the repository.

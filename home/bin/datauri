@@ -1,11 +1,14 @@
 #!/bin/bash
-
-##
-# `datauri`
-# @todo Remove?
+# @todo Remove this function as unused?
 #
-# Create a data URI from a file.
-##
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: datauri <file>
+#
+# Create a base64-encoded data URI from the given file.
 
 mimetype="$(file -b --mime-type "${1}")";
 

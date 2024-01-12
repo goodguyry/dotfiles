@@ -1,10 +1,13 @@
 #!/bin/bash
-
-##
-# `targz <file>`
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: targz <file>
 #
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression.
-##
 
 tmpfile="${@%/}.tar";
 tar -cvf "${tmpfile}" --exclude='.DS_Store' "${@}" || return 1;

@@ -1,30 +1,30 @@
 #!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: git check [branch {'main'}] [branch {HEAD}]
+#
+# Prints the number of commits the second branch is ahead/behind of first branch.
+#
+# Optional: Customize the main branch in your gitconfig.s
+# > git config git-compare.main "production"
 
-##
-# `git check`
-#
-# Check how far ahead/behind two branches are.
-#
-# Optional: Customize the main branch in your gitconfig.
-#
-# Example:
-# git config git-compare.main "production"
-##
-
-# Use git-sh-setup.
-# https://git-scm.com/docs/git-sh-setup
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;
-USAGE="[<branch-1>] [<branch-2>]
+USAGE="[branch {'main'}] [branch {HEAD}]
 
-Prints the number of commits branch-2 is ahead/behind of branch-1.
- * 'branch-1' defaults to the main base branch ('main').
- * 'branch-2' defaults to the current branch.
+Prints the number of commits the second branch is ahead/behind of first branch.
 
 Optional: Configure the main branch in your gitconfig.
 > git config git-compare.main \"production\"
 ";
 
+# Uses git-sh-setup.
+# https://git-scm.com/docs/git-sh-setup
+# https://github.com/git/git/blob/master/git-sh-setup.sh
 . "$(git --exec-path)/git-sh-setup";
 
 # We must be within the working tree of the repository.

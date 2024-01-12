@@ -1,9 +1,13 @@
 #!/bin/bash
-
-##
-# `gzcompare <file>`
 #
-# Compare the original and gzipped file sizes for a given file.
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: gzcompare <file>
+#
+# Compare the original and gzipped file sizes for the given file.
 ##
 
 origsize=$(wc -c < "${1}");

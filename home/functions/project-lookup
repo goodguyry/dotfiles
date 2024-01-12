@@ -1,15 +1,16 @@
 #!/bin/bash
-
-##
-#  `p <project-name>`
 #
-# Change to the broadway directory containing the given
-# Sublime Text project, with the option to open the project
-# in Sublime Text.
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
 #
-# With no <project-name>, `cd` to the Projects directory.
-##
-
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# Various small functions.
+#
+#  usage p [project-name]
+#
+# `cd` to the Projects directory. If a project is given and
+# found, cd to it and open the project in Sublime Text.
 function p() {
   if [[ ${#} -lt 1 ]]; then
     # No arguments; change to $HOME/Projects.
@@ -61,10 +62,8 @@ function p() {
   fi
 }
 
-##
-# Sets up directory completion for sublime project directories.
+# Set up directory completion for sublime project directories.
 # Used in conjunction with the p() function.
-##
 function _project_completion {
   local CUR=${COMP_WORDS[COMP_CWORD]};
 

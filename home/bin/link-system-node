@@ -1,12 +1,13 @@
 #!/bin/bash
-
-##
-# `link-system-node`
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: lsn
 #
 # Symlink the current node version for system-wide access.
-#
-# Usage: link-system-node
-##
 
 # Trim "vMM.mm.pp" to "vMM";
 function trim_version_to_major {
