@@ -1,0 +1,88 @@
+#!/bin/bash
+
+##
+# `bytesize <file>`
+#
+# Determine the size in bytes of a file.
+##
+
+function bytesize() {
+  units="bytes";
+  useage="\
+Copyright (c) 2024 Ryan Domingue and contributors
+Report bugs at: https://github.com/goodguyry/dotfiles/issues
+
+This is free software with ABSOLUTELY NO WARRANTY.
+
+usage: bytesize [-n] <file>
+
+bytesize is a small formatting wrapper around \`wc\` for
+printing the filesize in bytes for the given file.
+
+  -n    Print only the number";
+
+  # Test for known flag.
+  test "$1" == -n && { units=""; shift; }
+
+  # Missing/invalid file argument, or is a directory.
+  if [[ $# -eq 0 ]] || [[ ! -f "${1}" ]] || [[ -d "${1}" ]]; then
+    echo "${useage}";
+    return;
+  fi
+
+  bytes=$(wc -c < "${1}");
+
+  if [[ $? -eq 0 ]]; then
+    printf "%d %s\n" ${bytes} ${units};
+    return;
+  fi
+
+  echo "${useage}";
+  return;
+}
+
+##
+# `kbytesize <file>`
+# usage: kbytesize [-n] <file>
+#
+# Determine the kilobyte size of a file.
+##
+
+function kbytesize() {
+  units="kilobytes";
+  useage="\
+Copyright (c) 2024 Ryan Domingue and contributors
+Report bugs at: https://github.com/goodguyry/dotfiles/issues
+
+This is free software with ABSOLUTELY NO WARRANTY.
+
+usage: kbytesize [-n] <file>
+
+kbytesize is a small formatting wrapper around \`wc\` for
+printing the filesize in kilobytes for the given file.
+
+  -n    Print only the number";
+
+  # Test for known flag.
+  test "$1" == -n && { units=""; shift; }
+
+  # Missing/invalid file argument, or is a directory.
+  if [[ $# -eq 0 ]] || [[ ! -f "${1}" ]] || [[ -d "${1}" ]]; then
+    echo "${useage}";
+    return;
+  fi
+
+  bytes=$(wc -c < "${1}");
+
+  if [[ $? ]]; then
+    kbytes=$(echo "${bytes} / 1024" | bc -l);
+
+    if [[ $? ]]; then
+      printf "%2.2f %s\n" ${kbytes} ${units};
+      return;
+    fi
+  fi
+
+  echo "${useage}";
+  return;
+}
