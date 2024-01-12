@@ -7,7 +7,7 @@
 
 # usage: bytesize [-n] <file>
 #
-# bytesize is a small formatting wrapper around \`wc\` for
+# bytesize is a small formatting wrapper around `wc` for
 # printing the filesize in bytes for the given file.
 function bytesize() {
   units="bytes";
@@ -46,7 +46,7 @@ printing the filesize in bytes for the given file.
 
 # usage: kbytesize [-n] <file>
 #
-# kbytesize is a small formatting wrapper around \`wc\` for
+# kbytesize is a small formatting wrapper around `wc` for
 # printing the filesize in kilobytes for the given file.
 function kbytesize() {
   units="kilobytes";

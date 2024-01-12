@@ -1,4 +1,21 @@
 #!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: ./init [--help] [--copy] [--no-sync] [--no-packages] [--no-settings]
+#
+# Available options:
+#   --help           Print this help text
+#   --copy           Copy the files in place instead of linking
+#                    editorconfig is always copied.
+#   --no-sync        Suppress syncing with GitHub
+#   --no-packages    Suppress package installations and updates
+#   --no-settings    Suppress configuring OS settings
+#
+# Additional documentation: https://github.com/goodguyry/dotfiles
 
 export DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 export DOTFILES_GIT_REMOTE="https://github.com/goodguyry/dotfiles"
