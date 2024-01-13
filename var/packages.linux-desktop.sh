@@ -20,7 +20,6 @@ declare -a APT_UTILS=(
 );
 
 declare -a APT_GUI_APPS=(
-  dropbox
   gpaste
   handbrake-gtk
   sublime-merge

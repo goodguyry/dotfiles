@@ -3,15 +3,15 @@
 declare -a BREW_LIST=(
   # Missing or outdated utils.
   coreutils # /opt/homebrew/opt/coreutils
-  moreutils # /opt/homebrew/opt/moreutils
-  findutils # /opt/homebrew/opt/findutils
-  gnu-sed # /opt/homebrew/opt/gnu-sed
-  wget
-  vim
+  findutils # /opt/homebrew/opt/findutils # PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+  git
+  gnu-sed # /opt/homebrew/opt/gnu-sed # PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
   grep
+  moreutils # /opt/homebrew/opt/moreutils
   openssh
   rsync
-  git
+  vim
+  wget
 
   # Install newer Bash.
   bash
@@ -35,20 +35,19 @@ declare -a BREW_LIST=(
 );
 
 declare -a CASK_APPS=(
-  1Password
+  1password
   alfred
   appcleaner
-  atext
-  bartender
   betterzip
   chronosync
   clamxav
   cleanshot
   coconutbattery
   daisydisk
-  dropbox
+  espanso
   firefox
   firefox-developer-edition
+  gitify
   google-chrome
   google-chrome-canary
   handbrake
@@ -57,16 +56,21 @@ declare -a CASK_APPS=(
   macmediakeyforwarder
   notion
   onyx
+  parallels
+  pixelsnap
   protonvpn
   rar
   safari-technology-preview
   sequel-pro
+  sip
   sublime-merge
   sublime-text
   suspicious-package
   tor-browser
   transmit
   vagrant
+  vlc
+  zoom
 );
 
 declare -a QL_PLUGINS=(
@@ -109,6 +113,8 @@ declare -a MAS_APPS_LIST=(
   1091189122
   # Better Rename 9
   414209656
+  # Duo
+  777886035
   # GarageBand
   682658836
   # Mela
@@ -119,7 +125,7 @@ declare -a MAS_APPS_LIST=(
   409201541
   # Pixelmator
   407963104
-  # Reeder 5
+  # Reeder
   1529448980
   # SnippetsLab
   1006087419
@@ -127,6 +133,6 @@ declare -a MAS_APPS_LIST=(
   425424353
   # Things
   904280696
-  # Tweetbot 3
-  1384080005
+  # Xcode
+  497799835
 );
