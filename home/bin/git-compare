@@ -9,7 +9,7 @@
 #
 # Prints the number of commits the second branch is ahead/behind of first branch.
 #
-# Optional: Customize the main branch in your gitconfig.s
+# Optional: Customize the main branch in your gitconfig.
 # > git config git-compare.main "production"
 
 SUBDIRECTORY_OK=1;
