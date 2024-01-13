@@ -14,17 +14,17 @@ complete -o 'nospace' -W 'Contacts Calendar Dock Finder Mail Safari iTunes Syste
 if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]]; then
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 
-  # Set up completion for aliases
+  # Completion for git-compare.
+  _git_compare() {
+    local dwim_opt="$(__git_checkout_default_dwim_mode)";
+    __git_complete_refs $dwim_opt --mode="refs";
+  }
+  __git_complete compare _git_compare;
+
+  # Set up completion for the `g` alias.
   __git_complete g git;
 fi;
 
 # NPM completions.
 # @todo This is not compatible with npm workspaces.
 source <(npm completion);
-
-# Autocomplete branch names for `gcheck`.
-function _gcheck_completion() {
-    branches=$(git branch -l | cut -c3-);
-    COMPREPLY=($(compgen -W "${branches}" -- "${2}"));
-}
-complete -F _gcheck_completion gcheck
