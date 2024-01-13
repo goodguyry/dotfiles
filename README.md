@@ -86,8 +86,6 @@ Many of these configuration options are likely outdated. Take time to read throu
 
 [Mathias Bynens](http://github.com/mathiasbynens/dotfiles)
 
-[Mat Marquis](https://github.com/wilto/)
-
 ---
 
 Copyright (C) Ryan Domingue
