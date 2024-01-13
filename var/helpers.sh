@@ -1,8 +1,11 @@
 #!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
 
-##
 # Show help text
-##
 function show_help_text() {
 cat <<EOT
 
@@ -23,11 +26,9 @@ Licensed under the MIT license.
 EOT
 }
 
-##
 # Logging helpers
 # By Necolas Gallagher
 # https://github.com/necolas/dotfiles/blob/master/lib/utils
-##
 DEEP_GREEN=$(tput setaf 112);
 DEEP_RED=$(tput setaf 196);
 LTGRAY=$(tput setaf 188);
@@ -54,15 +55,10 @@ function log_info() {
   printf "${LTGRAY}💡 %s${RESET}\n" "${@}";
 }
 
-##
 # Format the init prompt.
-##
 function print_script_details() {
-  ##
   # Detect the operating system to provision.
-  #
   # Detect macOS via check for sw_vers. Could also check for $(uname -s) == 'Darwin'
-  ##
   [[ "$(type -P sw_vers)" ]] && IS_MACOS=true;
   [[ $(uname -s) == 'Linux' ]] && IS_LINUX=true;
 
@@ -96,9 +92,7 @@ function print_script_details() {
   export WRITE_VERB;
 }
 
-##
 # Create a directory if it doesn't already exist.
-##
 function mkdirs() {
   if [[ ! -d "${@}" ]]; then
     mkdir -p "${@}";
@@ -106,9 +100,7 @@ function mkdirs() {
   fi;
 }
 
-##
 # Conditionally symlink or copy the files.
-##
 function set_file() {
   local SRC="${DOTFILES_DIRECTORY}/${1}";
   local DEST="$2";
@@ -121,9 +113,7 @@ function set_file() {
   fi
 }
 
-##
 # Joins an array with a space.
-##
 function join_with_space() {
   ITEMS=$(printf " %s" "${@}");
   ITEMS=${ITEMS:1};

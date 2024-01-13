@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: gzcompare <file>
+#
+# Compare the original and gzipped file sizes for the given file.
+
+origsize=$(wc -c < "${1}");
+gzipsize=$(gzip -c "${1}" | wc -c);
+ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l);
+
+printf "orig: %d bytes\n" "${origsize}";
+printf "gzip: %d bytes (%2.2f%%)\n" "${gzipsize}" "${ratio}";

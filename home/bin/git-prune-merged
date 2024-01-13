@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: git prune-merged [--dry-run]
+#
+# Prune merged branches.
+#
+# Available options:
+#    --dry-run    Dry run
+#
+# Optional: Configure additional branches to skip in your gitconfig.
+# > git config --global prune-merged.skip "master staging vip-develop vip-master";
+
+SUBDIRECTORY_OK=1;
+OPTIONS_SPEC=;
+USAGE="[--dry-run]
+
+Prune merged branches.
+
+Optional: Configure additional branches to skip in your gitconfig.
+> git config --global prune-merged.skip \"master staging vip-develop vip-master\"
+";
+
+# Uses git-sh-setup.
+# https://git-scm.com/docs/git-sh-setup
+# https://github.com/git/git/blob/master/git-sh-setup.sh
+. "$(git --exec-path)/git-sh-setup";
+
+# We must be within the working tree of the repository.
+require_work_tree;
+
+# Defaults
+dryrun=0;
+
+# Test for options.
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --dry-run) dryrun=1 ;;
+    --) ;; # Do nothing. This is always included.
+  esac
+
+  shift;
+done;
+
+# Prune remote branches.
+git remotes prune origin;
+
+declare -a branches_to_skip=(
+  develop
+  main
+  preprod
+  production
+  qa
+);
+
+(( dryrun )) && echo -e "\nDry run:";
+
+# Merge any additional branches from the config.
+config_no_prune=$(git config prune-merged.skip);
+branches_to_skip+=(${config_no_prune[@]});
+
+branches=$(git branch --merged | grep -v "\\*");
+for branch in $branches; do
+  branch_no_ws="$(echo -e "${branch}" | tr -d '[:space:]')"; # Trim whitespace.
+  branch_excluded=$(printf "%s\n" "${branches_to_skip[@]}" | grep -c "^$branch_no_ws$");
+
+  if ! [[ $branch_excluded -eq 1 ]]; then
+    if (( dryrun )); then
+      echo "* ${branch_no_ws}";
+    else
+      git branch -d "${branch_no_ws}";
+    fi
+  fi
+done;

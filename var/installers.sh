@@ -1,14 +1,18 @@
 #!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
 # Install package managers and packages.
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
 source "${DOTFILES_DIRECTORY}/var/helpers.sh";
 
-##
 # Install and/or update Homebrew.
 # macOS requires XCode Command Line Tools.
-##
 function install_homebrew() {
   # Check for Homebrew.
   if ! $HAS_BREW; then
@@ -36,9 +40,7 @@ function install_homebrew() {
   fi
 }
 
-##
 # Install and/or update NVM.
-##
 function install_nvm() {
 
   # Check for an existing NVM install location.
@@ -74,9 +76,7 @@ function install_nvm() {
     || log_error 'There was a problem installing NVM, NPM or Node.';
 }
 
-##
 # Install and configure RVM.
-##
 function install_rvm() {
   if [ ! "$(type -P rvm)" ]; then
     log_info 'Installing RVM...';
@@ -115,9 +115,7 @@ function install_rvm() {
     || log_error 'There was a problem installing RVM or Ruby.';
 }
 
-##
 # Install Git.
-##
 function install_git() {
   log_info 'Installing Git...';
 
@@ -149,9 +147,7 @@ function install_git() {
     || log_error 'There was a problem installing Git.';
 }
 
-##
 # Adds necessary PPAs
-##
 function set_ppas() {
   # Adds the official Sublime Text/Merge PPA
   wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -173,9 +169,7 @@ function set_ppas() {
     || log_error 'There was a problem adding PPAs.';
 }
 
-##
 # Install a given brew if it's not already installed.
-##
 function brew_install() {
   for BREW in "${@}"; do
     if $(brew list ${BREW} &> /dev/null); then
@@ -191,9 +185,7 @@ function brew_install() {
     || log_error 'There was a problem installing Brew packages.';
 }
 
-##
 # Install a given brew cask if it's not already installed.
-##
 function brew_cask_install() {
   # Install Rosetta 2.
   sudo softwareupdate --install-rosetta;
@@ -212,9 +204,7 @@ function brew_cask_install() {
     || log_error 'There was a problem installing Brew casks.';
 }
 
-##
 # Install global NPM packages.
-##
 function npm_install() {
   # Install Node packages.
   log_info 'Installing Node packages...';
@@ -238,9 +228,7 @@ function npm_install() {
     || log_error 'There was a problem installing NPM packages.';
 }
 
-##
 # Install Ruby, Gems, Vagrant plugins and add Dreambox.
-##
 function rvm_install() {
   # Install Gems.
   log_info 'Installing Gems...';
@@ -260,9 +248,7 @@ function rvm_install() {
   vagrant box add goodguyry/dreambox --provider virtualbox;
 }
 
-##
 # Install app from the Mac App Store.
-##
 function mas_install() {
   for APP in "${@}"; do
     mas install "${APP}";
@@ -274,9 +260,7 @@ function mas_install() {
     || log_error 'There was a problem installing App Store apps.';
 }
 
-##
 # Install Debian apps.
-##
 function apt_install() {
   ITEMS=("$@");
   APT_PACKAGES="$(join_with_space "${ITEMS[@]}")";
@@ -289,9 +273,7 @@ function apt_install() {
     || log_error 'There was a problem installing apt packages.';
 }
 
-##
 # Install Snap packages.
-##
 function snap_install() {
   ITEMS=("$@");
   SNAP_PACKAGES="$(join_with_space "${ITEMS[@]}")";
@@ -304,9 +286,7 @@ function snap_install() {
     || log_error 'There was a problem installing Snap apps.';
 }
 
-###
 # Download and install deb packages.
-###
 function install_downloads_debian() {
   # Vagrant
   VAGRANT_VER='2.2.9';

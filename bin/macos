@@ -1,9 +1,13 @@
 #!/bin/bash
-
-##
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: macos
+#
 # Set Application, User and System-wide preferences for macOS.
-# A lot of these were borrowed from http://mths.be/macos.
-##
 
 # Source utils.
 DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
