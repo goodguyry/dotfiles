@@ -169,7 +169,7 @@ function set_ppas() {
     || log_error 'There was a problem adding PPAs.';
 }
 
-# Install a given brew if it's not already installed.
+# Install a list of brew packages if they're not already installed.
 function brew_install() {
   for BREW in "${@}"; do
     if $(brew list ${BREW} &> /dev/null); then
@@ -185,7 +185,7 @@ function brew_install() {
     || log_error 'There was a problem installing Brew packages.';
 }
 
-# Install a given brew cask if it's not already installed.
+# Install a list of brew casks if they're not already installed.
 function brew_cask_install() {
   # Install Rosetta 2.
   sudo softwareupdate --install-rosetta;

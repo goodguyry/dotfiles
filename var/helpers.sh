@@ -36,23 +36,23 @@ YELLOW=$(tput setaf 222);
 RESET=$(tput sgr0);
 
 function log_header() {
-  printf "${LTGRAY}=> %s${RESET}\n" "${@}";
+  printf "\n${LTGRAY}=> %s${RESET}\n" "${@}";
 }
 
 function log_success() {
-  printf "${DEEP_GREEN}✅ %s${RESET}\n" "${@}";
+  printf "\n${DEEP_GREEN}✅ %s${RESET}\n" "${@}";
 }
 
 function log_error() {
-  printf "${DEEP_RED}❌ %s${RESET}\n" "${@}";
+  printf "\n${DEEP_RED}❌ %s${RESET}\n" "${@}";
 }
 
 function log_warning() {
-  printf "${YELLOW}⚠️  %s${RESET}\n" "${@}";
+  printf "\n${YELLOW}⚠️  %s${RESET}\n" "${@}";
 }
 
 function log_info() {
-  printf "${LTGRAY}💡 %s${RESET}\n" "${@}";
+  printf "\n${LTGRAY}💡 %s${RESET}\n" "${@}";
 }
 
 # Format the init prompt.
