@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# Logging helpers
+# By Necolas Gallagher
+# https://github.com/necolas/dotfiles/blob/master/lib/utils
+deep_green=$(tput setaf 112);
+deep_red=$(tput setaf 196);
+ltgray=$(tput setaf 188);
+yellow=$(tput setaf 222);
+reset=$(tput sgr0);
+
+function log_header() {
+  printf "\n${ltgray}=> %s${reset}\n" "${@}";
+}
+
+function log_success() {
+  printf "\n${deep_green}✅ %s${reset}\n" "${@}";
+}
+
+function log_error() {
+  printf "\n${deep_red}❌ %s${reset}\n" "${@}";
+}
+
+function log_warning() {
+  printf "\n${yellow}⚠️  %s${reset}\n" "${@}";
+}
+
+function log_info() {
+  printf "\n${ltgray}💡 %s${reset}\n" "${@}";
+}

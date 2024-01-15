@@ -59,7 +59,7 @@ The following options are available when running the setup file:
 
 ### The `dotfiles` command
 
-**sync** - Symlinks files to the user `$HOME` directory.
+Dotfiles are symlinked to the user `$HOME` directory as part of all commands.
 
 **cli** - Installs CLI packages (non-cask brews).
 
