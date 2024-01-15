@@ -13,7 +13,9 @@ complete -o 'nospace' -W 'Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # Any completion scripts in /usr/local/etc/bash_completion.d will continue to be sourced as well.
 if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]]; then
   source "$(brew --prefix)/share/bash-completion/bash_completion";
+fi
 
+if [ -z "$(type -P git)" ]; then
   # Completion for git-compare.
   _git_compare() {
     local dwim_opt="$(__git_checkout_default_dwim_mode)";
@@ -23,7 +25,7 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
 
   # Set up completion for the `g` alias.
   __git_complete g git;
-fi;
+fi
 
 # NPM completions.
 # @todo This is not compatible with npm workspaces.
