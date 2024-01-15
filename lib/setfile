@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# Symlink a file into place.
+function setfile() {
+  local SRC=$(realpath "${1}");
+  local DEST="${2}";
+
+  # Create the symlink, forcing a replacement if necessary.
+  ln -fs "${SRC}" "${DEST}";
+}

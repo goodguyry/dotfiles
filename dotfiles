@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+source "${HOME}/.dotfiles/lib/mkdirs";
+
+echo "Hello from dotfiles.";
+
+mkdirs "${HOME}/Projects";
+mkdirs "${HOME}/.git-templates/hooks";
+
+! [ -z "$(type -P git)" ] && install_git;
