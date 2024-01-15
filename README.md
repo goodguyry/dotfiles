@@ -37,42 +37,28 @@ curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclu
 
 Then ```cd``` into the downloaded directory.
 
-## Install
+## Setup
+
+The `setup` script will install and run `dotfiles`. After initial setup, the `dotfiles` command is available globally.
 
 ```shell
 ./setup.sh
 ```
 
-The `setup` script will add the dotfiles executable to the PATH and run `dotfiles sync`.
+## The `dotfiles` command
 
-The following options are available when running the setup file:
+\** The home directory is always synced, regardless of subcommand \**
 
-| Option          | Description                                |
-|-----------------|--------------------------------------------|
-| `--help`        | Print this help text                       |
-| `--copy`        | Copy the files in place instead of linking |
-| `--no-packages` | Suppress package installations and updates |
-| `--no-settings` | Suppress configuring OS settings           |
+**packages** - Installs CLI packages (non-cask brews).
 
-**Notes:**
-- `editorconfig` is always copied.
-
-### The `dotfiles` command
-
-Dotfiles are symlinked to the user `$HOME` directory as part of all commands.
-
-**cli** - Installs CLI packages (non-cask brews).
-
-**install** - Installs GUI applications (cask brews).
+**apps** - Installs GUI applications (cask brews).
 
 **run prefs** - Sets system-wide macOS preference defaults.
 
-**run gitconfig** - Creates the global `.gitconfig` file.
-
-Combine subcommands as such:
+Combine subcommands as such, with the `run` subcommand placed last:
 
 ```shell
-dotfiles sync cli run prefs
+dotfiles packages run prefs
 ```
 
 ### Local configuration
