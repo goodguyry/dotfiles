@@ -9,6 +9,10 @@ source "${HOME}/.dotfiles/lib/logger";
 source "${HOME}/.dotfiles/lib/mkdirs";
 source "${HOME}/.dotfiles/lib/setfile";
 
+# @todo Confirm.
+
+# @todo Print script details.
+
 log_info "Symlinking files to ${HOME}...";
 
 declare -a home_files=(
@@ -56,3 +60,6 @@ fi;
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
 log_success "Done.";
+
+# @todo Support subcommands: packages, apps, run prefs.
+# ! [ -z "$(type -P git)" ] && install-git;
