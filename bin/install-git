@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# Install and configure Git.
+
+source "${HOME}/.dotfiles/lib/logger";
+source "${HOME}/.dotfiles/lib/mkdirs";
+source "${HOME}/.dotfiles/lib/setfile";
+
+mkdirs "${HOME}/Projects";
+
+# Git is managed by Homebrew.
+! [ -z "$(type -P brew)" ] && install-homebrew;
+
+# Install Git if it's not already installed.
+if ! [ -z "$(type -P git)" ]; then
+  log_info 'Installing and configuring Git...';
+  brew install git;
+else
+  log_info 'Git already installed.';
+fi
+
+# Additional Git setup.
+gitcore="$(brew --prefix git)/share/git-core";
+
+# Adds prepare-commit-msg to global hooks.
+mkdirs "${gitcore}/templates/hooks";
+set_file 'etc/prepare-commit-msg' "${gitcore}/templates/hooks/prepare-commit-msg";
+
+set_file "home/gitignore" "${HOME}/.gitignore";
+
+# Set up word highlighting.
+git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
+[ -s "${git_dh}" ] && ln -sf "${git_dh}" "${HOME}/.bin/diff-highlight";
+
+# Add git config settings.
+source gitconfig;
+
+[[ $? ]] && log_success 'Git ready.' || log_error 'There was a problem installing Git.';
