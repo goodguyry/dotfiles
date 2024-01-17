@@ -1,0 +1,134 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: dotfiles packages
+
+# Source setup files.
+source "${dotfiles_dir}/lib/mkdirs";
+source "${dotfiles_dir}/lib/package-installers";
+source "${dotfiles_dir}/lib/setfile";
+source "${dotfiles_dir}/lib/status";
+
+install-homebrew;
+
+# Font tools.
+brew tap bramstein/webfonttools;
+# Alternate versions.
+brew tap homebrew/cask-versions;
+# Fonts.
+brew tap homebrew/cask-fonts;
+
+install-git;
+
+# Install and/or update NVM.
+nvm_loc="${HOME}/.nvm";
+
+if [[ ! -d "${nvm_loc}" ]]; then
+  status --info 'Installing NVM...';
+  git clone https://github.com/creationix/nvm.git "${nvm_loc}";
+fi;
+
+# Make sure NVM is up-to-date.
+cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd -;
+
+# Source nvm.
+source "${nvm_loc}/nvm.sh";
+
+status --info 'Installing NPM and Node LTS and stable...';
+
+# Install/update NPM.
+npm install -g npm@latest;
+
+# Install LTS and stable versions of Node.
+nvm install --lts;
+nvm install stable;
+
+[[ $? ]] \
+  && status --success 'NVM, NPM & Node are ready.' \
+  || status --error 'There was a problem installing NVM, NPM or Node.';
+
+# Install and configure RVM.
+if [ ! "$(type -P rvm)" ]; then
+  status --info 'Installing RVM...';
+  \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
+fi;
+
+[[ ! -r "${HOME}/.rvmrc" ]] && touch "${HOME}/.rvmrc";
+
+# Enable auto-updating.
+[[ -z "$(grep 'rvm_autoupdate_flag' ~/.rvmrc)" ]] && \
+  echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
+# Quiet RVM complaints about its position in PATH.
+[[ -z "$(grep 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc)" ]] && \
+  echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
+
+# Set Ruby version.
+ruby_version='3.3.0';
+
+# Source rvm.
+rvm_loc=${rvm_path:="${HOME}/.rvm"};
+source "${rvm_loc}/scripts/rvm";
+
+# Update PATH before installing Gems so they end up where intended.
+gem_root=${GEM_HOME:="${HOME}/.rvm/gems/ruby-${ruby_version}"};
+export PATH=${gem_root}/bin:${gem_root}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
+
+# Install Ruby.
+rvm install "ruby-${ruby_version}" --with-out-ext=fiddle;
+rvm use "${ruby_version}" --default;
+
+rvm cleanup all;
+
+[[ $? ]] \
+  && status --success "RVM and Ruby are ready." \
+  || status --error 'There was a problem installing RVM or Ruby.';
+
+# Packages to install.
+source var/packages.macos.sh;
+
+# Install from package managers.
+[ ${#BREW_LIST[@]} -gt 0 ] && __brew_install "${BREW_LIST[@]}";
+__npm_install browser-sync git-open;
+__gem_install jekyll octopress-autoprefixer rouge sass;
+
+# Change to bash version installed from Homebrew.
+if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
+  echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
+  status --success "Shell switched Homebrew Bash";
+else
+  status --header "/opt/homebrew/bin/bash already in /etc/shells";
+fi;
+
+# List of directories.
+declare -a DIRECTORIES=(
+  .vim/backups
+  .vim/colors
+  .vim/swaps
+);
+
+# Create directories.
+for DIRECTORY in ${DIRECTORIES[*]}; do
+  mkdirs "${HOME}/${DIRECTORY}";
+done;
+
+# Download the Solarized Vim theme.
+if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
+  status --info 'Solarized Vim theme already installed.';
+else
+  # status --info 'Downloading Solarized Vim theme...';
+  # Extract colors/solarized.vim into .vim (Linux-friendly).
+  if $IS_LINUX; then
+    # Linux-friendly.
+    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+      tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
+  else
+    # macOS-Friendly.
+    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+      tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+  fi;
+  [[ $? ]] && status --success 'Solarized Vim theme installed' || status --error 'There was a problem installing the Solarized Vim theme.';
+fi;

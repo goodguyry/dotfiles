@@ -4,6 +4,9 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: dotfiles [packages|apps]
+
 export dotfiles_dir="${HOME}/.dotfiles";
 export dotfiles_bin="${HOME}/.dotfiles/bin";
 
@@ -66,6 +69,17 @@ fi;
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
 status --success "Done.";
+
+sub="${1}"; shift;
+[[ "" == "${sub}" ]] && exit 0;
+
+if [[ -x "${dotfiles_bin}/dotfiles-${sub}" ]]; then
+  "dotfiles-${sub}";
+  exit $?;
+else
+  printf '%s\n' "dotfiles: Unknown sub-command '${sub}'." >&2;
+  exit 1;
+fi
 
 # @todo Support subcommands: packages, apps, run prefs.
 # ! [ -z "$(type -P git)" ] && install-git;

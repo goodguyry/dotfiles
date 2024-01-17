@@ -25,11 +25,3 @@ fi;
 
 status --info 'Updating Homebrew...';
 brew update;
-
-# Font tools.
-# @todo Move this to where packages are installed.
-brew tap bramstein/webfonttools;
-# Alternate versions.
-brew tap homebrew/cask-versions;
-# Fonts.
-brew tap homebrew/cask-fonts;

@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+
+# Source setup file.
+source "${dotfiles_dir}/lib/status";
+source "${dotfiles_dir}/lib/mkdirs";
+source "${dotfiles_dir}/lib/setfile";
+
+# Install a list of brew packages if they're not already installed.
+function __brew_install() {
+  test "$1" = --cask && { cask=$1; shift; }
+
+  for BREW in "${@}"; do
+    if $(brew list ${BREW} &> /dev/null); then
+      status --header "${BREW} already installed.";
+    else
+      brew install "${BREW}" "${cask}";
+    fi;
+  done;
+
+  [[ $? ]] \
+    && status --success 'Brew packages ready.' \
+    || status --error 'There was a problem installing Brew packages.';
+}
+
+# Install global NPM packages.
+function __npm_install() {
+  # Install Node packages.
+  status --info 'Installing Node packages...';
+
+  # Install global packages for LTS.
+  nvm use --lts;
+  npm install "${@}" --global --quiet;
+  npm list -g --depth 0;
+
+  # Also install stable with the same packages.
+  nvm use stable;
+  npm install "${@}" --global --quiet;
+  npm list -g --depth 0;
+
+  # Be sure to switch back to the LTS version.
+  nvm use --lts;
+
+  [[ $? ]] \
+    && status --success 'NPM packages are ready.' \
+    || status --error 'There was a problem installing NPM packages.';
+}
+
+# Install Ruby, Gems, Vagrant plugins and add Dreambox.
+function __gem_install() {
+  # Install Gems.
+  status --info 'Installing Gems...';
+  gem install "${@}" --no-document;
+
+  gem cleanup;
+
+  [[ $? ]] \
+    && status --success 'Ruby Gems are ready.' \
+    || status --error 'There was a problem installing Gems.';
+
+  # Install Vagrant plugins
+  vagrant plugin install vagrant-ghost;
+
+  # Add Dreambox
+  # vagrant box add goodguyry/dreambox --provider virtualbox;
+}
+
+# Install app from the Mac App Store.
+function __mas_install() {
+  for APP in "${@}"; do
+    mas install "${APP}";
+  done;
+
+  printf "\n";
+  [[ $? ]] \
+    && status --success 'App Store apps ready.' \
+    || status --error 'There was a problem installing App Store apps.';
+}
