@@ -18,7 +18,9 @@ if ! [ -z "$(type -P brew)" ]; then
 
   brew doctor;
 
-  [[ $? ]] && status --success 'Homebrew is ready.' || status --error 'There was a problem installing Homebrew.';
+  [[ $? ]] \
+    && status --success 'Homebrew is ready.' \
+    || status --error 'There was a problem installing Homebrew.';
 fi;
 
 status --info 'Updating Homebrew...';

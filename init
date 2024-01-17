@@ -218,7 +218,9 @@ if $INSTALL_PACKAGES; then
       curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
         tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
     fi;
-    [[ $? ]] && log_success 'Solarized Vim theme installed' || log_error 'There was a problem installing the Solarized Vim theme.';
+    [[ $? ]] \
+      && log_success 'Solarized Vim theme installed' \
+      || log_error 'There was a problem installing the Solarized Vim theme.';
   fi;
 fi;
 
