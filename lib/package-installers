@@ -76,7 +76,6 @@ function __mas_install() {
     mas install "${APP}";
   done;
 
-  printf "\n";
   [[ $? ]] \
     && status --success 'App Store apps ready.' \
     || status --error 'There was a problem installing App Store apps.';

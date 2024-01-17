@@ -121,14 +121,8 @@ if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
 else
   # status --info 'Downloading Solarized Vim theme...';
   # Extract colors/solarized.vim into .vim (Linux-friendly).
-  if $IS_LINUX; then
-    # Linux-friendly.
-    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-      tar -xzv -C "${HOME}/.vim" --strip-components 1 --wildcards '**/solarized.vim';
-  else
-    # macOS-Friendly.
-    curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-      tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
-  fi;
+  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+
   [[ $? ]] && status --success 'Solarized Vim theme installed' || status --error 'There was a problem installing the Solarized Vim theme.';
 fi;
