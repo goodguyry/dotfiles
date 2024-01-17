@@ -8,19 +8,19 @@
 # Install and/or update Homebrew.
 # Requires XCode Command Line Tools.
 
-source "${HOME}/.dotfiles/lib/logger";
+source "${HOME}/.dotfiles/lib/status";
 
 # Check for Homebrew.
 if ! [ -z "$(type -P brew)" ]; then
-  log_info 'Installing Homebrew...';
+  status --info 'Installing Homebrew...';
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   brew doctor;
 
-  [[ $? ]] && log_success 'Homebrew is ready.' || log_error 'There was a problem installing Homebrew.';
+  [[ $? ]] && status --success 'Homebrew is ready.' || status --error 'There was a problem installing Homebrew.';
 fi;
 
-log_info 'Updating Homebrew...';
+status --info 'Updating Homebrew...';
 brew update;
 
 # Font tools.

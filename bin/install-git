@@ -7,7 +7,7 @@
 #
 # Install and configure Git.
 
-source "${HOME}/.dotfiles/lib/logger";
+source "${HOME}/.dotfiles/lib/status";
 source "${HOME}/.dotfiles/lib/mkdirs";
 source "${HOME}/.dotfiles/lib/setfile";
 
@@ -18,10 +18,10 @@ mkdirs "${HOME}/Projects";
 
 # Install Git if it's not already installed.
 if ! [ -z "$(type -P git)" ]; then
-  log_info 'Installing and configuring Git...';
+  status --info 'Installing and configuring Git...';
   brew install git;
 else
-  log_info 'Git already installed.';
+  status --info 'Git already installed.';
 fi
 
 # Additional Git setup.
@@ -40,4 +40,4 @@ git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
 # Add git config settings.
 source gitconfig;
 
-[[ $? ]] && log_success 'Git ready.' || log_error 'There was a problem installing Git.';
+[[ $? ]] && status --success 'Git ready.' || status --error 'There was a problem installing Git.';

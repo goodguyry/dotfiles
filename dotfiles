@@ -5,15 +5,15 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 
-source "${HOME}/.dotfiles/lib/logger";
 source "${HOME}/.dotfiles/lib/mkdirs";
 source "${HOME}/.dotfiles/lib/setfile";
+source "${HOME}/.dotfiles/lib/status";
 
 # @todo Confirm.
 
 # @todo Print script details.
 
-log_info "Symlinking files to ${HOME}...";
+status --info "Symlinking files to ${HOME}...";
 
 declare -a home_files=(
   'home/aliases'
@@ -40,7 +40,7 @@ if [[ $? ]]; then
     [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
   done;
 else
-  log_error "Could not create ${HOME}/.functions"
+  status --error "Could not create ${HOME}/.functions"
 fi
 
 # Link commands into PATH.
@@ -53,13 +53,13 @@ rsync -avz --quiet 'home/editorconfig' "${HOME}/.editorconfig";
 
 # Create dotfiles.local if not present.
 if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
-  log_info "Creating ${HOME}/.dotfiles.local";
+  status --info "Creating ${HOME}/.dotfiles.local";
   printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
 fi;
 
 # Source bashrc to make sure the environment is set before moving on.
 source "${HOME}/.bashrc";
-log_success "Done.";
+status --success "Done.";
 
 # @todo Support subcommands: packages, apps, run prefs.
 # ! [ -z "$(type -P git)" ] && install-git;

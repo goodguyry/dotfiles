@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# usage: status --info <message>
+#    or: status --header <message>
+#    or: status --success <message>
+#    or: status --error <message>
+#    or: status --warning <message>
+
+function status() {
+  local deep_green=$(tput setaf 112);
+  local deep_red=$(tput setaf 196);
+  local ltgray=$(tput setaf 188);
+  local yellow=$(tput setaf 222);
+  local reset=$(tput sgr0);
+
+  local prompt="$(basename ${0})";
+  local prefix="";
+
+  case "$1" in
+    --info)
+      prefix="${ltgray}💡";
+      ;;
+    --header)
+      prefix="${ltgray}=>";
+      ;;
+    --success)
+      prefix="${deep_green}✅";
+      ;;
+    --error)
+      prefix="${deep_red}❌";
+      ;;
+    --warning)
+      prefix="${yellow}⚠️";
+      ;;
+  esac
+
+  shift;
+  local msg="$1";
+
+  printf "${prompt}: ${prefix} %s${reset}\n" "${msg}";
+}
