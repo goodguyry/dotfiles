@@ -8,7 +8,8 @@
 # Install and/or update Homebrew.
 # Requires XCode Command Line Tools.
 
-source "${HOME}/.dotfiles/lib/status";
+# Source setup files.
+source "${dotfiles_dir}/lib/status";
 
 # Check for Homebrew.
 if ! [ -z "$(type -P brew)" ]; then

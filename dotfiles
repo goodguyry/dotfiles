@@ -4,10 +4,16 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
+export dotfiles_dir="${HOME}/.dotfiles";
+export dotfiles_bin="${HOME}/.dotfiles/bin";
 
-source "${HOME}/.dotfiles/lib/mkdirs";
-source "${HOME}/.dotfiles/lib/setfile";
-source "${HOME}/.dotfiles/lib/status";
+# @todo Protect PATH.
+export PATH="${PATH}:${dotfiles_bin}";
+
+# Source setup files.
+source "${dotfiles_dir}/lib/mkdirs";
+source "${dotfiles_dir}/lib/setfile";
+source "${dotfiles_dir}/lib/status";
 
 # @todo Confirm.
 

@@ -7,9 +7,10 @@
 #
 # Install and configure Git.
 
-source "${HOME}/.dotfiles/lib/status";
-source "${HOME}/.dotfiles/lib/mkdirs";
-source "${HOME}/.dotfiles/lib/setfile";
+# Source setup files.
+source "${dotfiles_dir}/lib/mkdirs";
+source "${dotfiles_dir}/lib/setfile";
+source "${dotfiles_dir}/lib/status";
 
 mkdirs "${HOME}/Projects";
 
