@@ -7,7 +7,9 @@
 #
 # Create a directory if it doesn't already exist.
 function mkdirs() {
-  if [[ ! -d "${@}" ]]; then
-    mkdir -pv "${@}";
-  fi;
+  for dir in $(realpath "${@}"); do
+    if [[ ! -d "${dir}" ]]; then
+      mkdir -pv "${dir}";
+    fi;
+  done
 }
