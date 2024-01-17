@@ -17,7 +17,7 @@ function __brew_install() {
 
   for BREW in "${@}"; do
     if $(brew list ${BREW} &> /dev/null); then
-      status --header "${BREW} already installed.";
+      status "${BREW} already installed.";
     else
       brew install "${BREW}" "${cask}";
     fi;

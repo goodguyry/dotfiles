@@ -5,8 +5,8 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage: status --info <message>
-#    or: status --header <message>
+# usage: status <message>
+#    or: status --info <message>
 #    or: status --success <message>
 #    or: status --error <message>
 #    or: status --warning <message>
@@ -19,27 +19,28 @@ function status() {
   local reset=$(tput sgr0);
 
   local prompt="$(basename ${0})";
-  local prefix="";
+
+  local prefix="${ltgray}=>";
 
   case "$1" in
     --info)
       prefix="${ltgray}💡";
-      ;;
-    --header)
-      prefix="${ltgray}=>";
+      shift;
       ;;
     --success)
       prefix="${deep_green}✅";
+      shift;
       ;;
     --error)
       prefix="${deep_red}❌";
+      shift;
       ;;
     --warning)
-      prefix="${yellow}⚠️";
+      prefix="${yellow}⚠️ ";
+      shift;
       ;;
   esac
 
-  shift;
   local msg="$1";
 
   printf "${prompt}: ${prefix} %s${reset}\n" "${msg}";

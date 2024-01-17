@@ -100,7 +100,7 @@ if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
   echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
   status --success "Shell switched Homebrew Bash";
 else
-  status --header "/opt/homebrew/bin/bash already in /etc/shells";
+  status "/opt/homebrew/bin/bash already in /etc/shells";
 fi;
 
 # List of directories.
