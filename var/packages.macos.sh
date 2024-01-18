@@ -5,6 +5,7 @@ declare -a BREW_LIST=(
   coreutils # /opt/homebrew/opt/coreutils
   findutils # /opt/homebrew/opt/findutils # PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
   git
+  git-open
   gnu-sed # /opt/homebrew/opt/gnu-sed # PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
   grep
   moreutils # /opt/homebrew/opt/moreutils

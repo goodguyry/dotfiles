@@ -13,7 +13,25 @@ source "${dotfiles_dir}/lib/package-installers";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
 
-install-homebrew;
+# Packages to install.
+source var/packages.macos.sh;
+
+# Check for Homebrew.
+if ! [ -z "$(type -P brew)" ]; then
+  status 'Installing Homebrew...';
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+  brew doctor;
+
+  [[ $? ]] \
+    && status --success 'Homebrew is ready.' \
+    || status --error 'There was a problem installing Homebrew.';
+else
+  status --info 'Homebrew is already installed.';
+fi;
+
+status 'Updating Homebrew...';
+brew update;
 
 # Font tools.
 brew tap bramstein/webfonttools;
@@ -22,13 +40,77 @@ brew tap homebrew/cask-versions;
 # Fonts.
 brew tap homebrew/cask-fonts;
 
-install-git;
+# Install brews.
+[ ${#BREW_LIST[@]} -gt 0 ] && __brew_install "${BREW_LIST[@]}";
+
+# Change to bash version installed from Homebrew.
+if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
+  echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
+  status --info "Shell switched Homebrew Bash";
+else
+  status "/opt/homebrew/bin/bash already in /etc/shells";
+fi;
+
+# List of directories.
+declare -a DIRECTORIES=(
+  .vim/backups
+  .vim/colors
+  .vim/swaps
+);
+
+# Create directories.
+for DIRECTORY in ${DIRECTORIES[*]}; do
+  mkdirs "${HOME}/${DIRECTORY}";
+done;
+
+# Download the Solarized Vim theme.
+if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
+  status 'Solarized Vim theme already installed.';
+else
+  # status 'Downloading Solarized Vim theme...';
+  # Extract colors/solarized.vim into .vim (Linux-friendly).
+  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+
+  [[ $? ]] \
+    && status --success 'Solarized Vim theme installed' \
+    || status --error 'There was a problem installing the Solarized Vim theme.';
+fi;
+
+# Install Git if it's not already installed.
+if ! [ -z "$(type -P git)" ]; then
+  status 'Installing and configuring Git...';
+  brew install git;
+
+  [[ $? != 0 ]] && status --error 'There was a problem installing Git.';
+else
+  # It should be, since it's in $BREW_LIST, but we check anyhow.
+  status --info 'Git is already installed.';
+fi
+
+# Additional Git setup.
+gitcore="$(brew --prefix git)/share/git-core";
+
+# Adds prepare-commit-msg to global hooks.
+mkdirs "${gitcore}/templates/hooks";
+set_file 'etc/prepare-commit-msg' "${gitcore}/templates/hooks/prepare-commit-msg";
+
+set_file "home/gitignore" "${HOME}/.gitignore";
+
+# Set up word highlighting.
+git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
+[ -s "${git_dh}" ] && ln -sf "${git_dh}" "${HOME}/.bin/diff-highlight";
+
+# Add git config settings.
+source gitconfig;
+
+status --success 'Git is installed and configured';
 
 # Install and/or update NVM.
 nvm_loc="${HOME}/.nvm";
 
 if [[ ! -d "${nvm_loc}" ]]; then
-  status --info 'Installing NVM...';
+  status 'Installing NVM...';
   git clone https://github.com/creationix/nvm.git "${nvm_loc}";
 fi;
 
@@ -38,7 +120,7 @@ cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd -;
 # Source nvm.
 source "${nvm_loc}/nvm.sh";
 
-status --info 'Installing NPM and Node LTS and stable...';
+status 'Installing NPM latest and Node LTS and stable...';
 
 # Install/update NPM.
 npm install -g npm@latest;
@@ -47,13 +129,16 @@ npm install -g npm@latest;
 nvm install --lts;
 nvm install stable;
 
+# Install global packages.
+__npm_install browser-sync;
+
 [[ $? ]] \
   && status --success 'NVM, NPM & Node are ready.' \
   || status --error 'There was a problem installing NVM, NPM or Node.';
 
 # Install and configure RVM.
 if [ ! "$(type -P rvm)" ]; then
-  status --info 'Installing RVM...';
+  status 'Installing RVM...';
   \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
 fi;
 
@@ -83,48 +168,9 @@ rvm use "${ruby_version}" --default;
 
 rvm cleanup all;
 
+# Install gems.
+__gem_install jekyll octopress-autoprefixer rouge sass;
+
 [[ $? ]] \
   && status --success "RVM and Ruby are ready." \
   || status --error 'There was a problem installing RVM or Ruby.';
-
-# Packages to install.
-source var/packages.macos.sh;
-
-# Install from package managers.
-[ ${#BREW_LIST[@]} -gt 0 ] && __brew_install "${BREW_LIST[@]}";
-__npm_install browser-sync git-open;
-__gem_install jekyll octopress-autoprefixer rouge sass;
-
-# Change to bash version installed from Homebrew.
-if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
-  echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
-  status --success "Shell switched Homebrew Bash";
-else
-  status "/opt/homebrew/bin/bash already in /etc/shells";
-fi;
-
-# List of directories.
-declare -a DIRECTORIES=(
-  .vim/backups
-  .vim/colors
-  .vim/swaps
-);
-
-# Create directories.
-for DIRECTORY in ${DIRECTORIES[*]}; do
-  mkdirs "${HOME}/${DIRECTORY}";
-done;
-
-# Download the Solarized Vim theme.
-if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
-  status --info 'Solarized Vim theme already installed.';
-else
-  # status --info 'Downloading Solarized Vim theme...';
-  # Extract colors/solarized.vim into .vim (Linux-friendly).
-  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
-
-  [[ $? ]] \
-    && status --success 'Solarized Vim theme installed' \
-    || status --error 'There was a problem installing the Solarized Vim theme.';
-fi;

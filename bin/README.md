@@ -10,6 +10,8 @@
 - [Bash 5](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [gist](https://github.com/defunkt/gist)
+- [git](https://git-scm.com/)
+- [git-open](https://github.com/paulirish/git-open)
 - [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
 - [GNU Findutils](http://www.gnu.org/software/findutils/)
 - [GNU grep](https://www.gnu.org/software/grep/)
@@ -108,7 +110,6 @@
 - [NVM](https://github.com/creationix/nvm)
   - [Node (Latest)](https://nodejs.org/en/)
 - [Browsersync](http://www.browsersync.io/)
-- [git-open](https://github.com/paulirish/git-open)
 
 ### Mac App Store purchases
 
