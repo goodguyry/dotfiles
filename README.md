@@ -19,7 +19,7 @@ open x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles
 
 ## Download
 
-#### Using Git
+### Using Git
 
 Clone the repository wherever convenient by ```cd```ing into the desired directory and running the following:
 
@@ -27,7 +27,7 @@ Clone the repository wherever convenient by ```cd```ing into the desired directo
 git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
 ```
 
-#### Git-free
+### Git-free
 
 Download the files with the following:
 
@@ -49,39 +49,30 @@ The `setup` script will install and run `dotfiles`. After initial setup, the `do
 
 \** The home directory is always synced, regardless of subcommand \**
 
-**packages** - Installs CLI packages (non-cask brews).
+**install**
 
-**apps** - Installs GUI applications (cask brews).
-
-**run prefs** - Sets system-wide macOS preference defaults.
-
-Combine subcommands as such, with the `run` subcommand placed last:
+Available options:
+* `packages` - Installs Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
+* `apps` - Installs Homebrew casks and App Store apps
 
 ```shell
-dotfiles packages run prefs
+dotfiles install packages
 ```
 
-### Local configuration
+**run**
+
+Available options:
+* `preferences` - Sets system-wide macOS preferences. **Read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file**.
+
+```shell
+dotfiles run preferences
+```
+
+## Local overrides
 
 **Filename:** `~/.dotfiles.local`
 
 Used to add extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
-
-### macOS defaults
-
-The setup process will prompt to apply the masOS defaults. They can also be applied independently from the dotfiles directory:
-
-```shell
-./scripts/macos
-```
-
-Many of these configuration options are likely outdated. Take time to read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file.
-
-## Acknowledgements
-
-[Necolas Gallagher](http://github.com/necolas/dotfiles)
-
-[Mathias Bynens](http://github.com/mathiasbynens/dotfiles)
 
 ---
 
