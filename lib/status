@@ -19,8 +19,8 @@ function status() {
   local reset=$(tput sgr0);
 
   local prompt="$(basename ${0})";
-
   local prefix="${ltgray}=>";
+  local goodbye=false;
 
   case "$1" in
     --info)
@@ -33,6 +33,7 @@ function status() {
       ;;
     --error)
       prefix="${deep_red}❌";
+      goodbye=true;
       shift;
       ;;
     --warning)
@@ -43,5 +44,10 @@ function status() {
 
   local msg="$1";
 
-  printf "${prompt}: ${prefix} %s${reset}\n" "${msg}";
+  printf "${prefix} ${prompt}: %s${reset}\n" "${msg}";
+
+  if $goodbye; then
+    printf "${prefix} ${prompt}: Exiting...${reset}\n";
+    exit 1;
+  fi
 }
