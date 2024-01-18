@@ -41,7 +41,7 @@ brew tap homebrew/cask-versions;
 brew tap homebrew/cask-fonts;
 
 # Install brews.
-[ ${#BREW_LIST[@]} -gt 0 ] && __brew_install "${BREW_LIST[@]}";
+[ ${#BREW_LIST[@]} -gt 0 ] && installbrews "${BREW_LIST[@]}";
 
 # Change to bash version installed from Homebrew.
 if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
@@ -129,12 +129,25 @@ npm install -g npm@latest;
 nvm install --lts;
 nvm install stable;
 
-# Install global packages.
-__npm_install browser-sync;
+# Install Node package(s).
+status 'Installing Node packages...';
+
+# Install global packages for LTS.
+nvm use --lts;
+npm install browser-sync --global --quiet;
+npm list -g --depth 0;
+
+# Also install stable with the same packages.
+nvm use stable;
+npm install browser-sync --global --quiet;
+npm list -g --depth 0;
+
+# Be sure to switch back to the LTS version.
+nvm use --lts;
 
 [[ $? ]] \
   && status --success 'NVM, NPM & Node are ready.' \
-  || status --error 'There was a problem installing NVM, NPM or Node.';
+  || status --error 'There was a problem with NPM/Node.';
 
 # Install and configure RVM.
 if [ ! "$(type -P rvm)" ]; then
@@ -168,8 +181,21 @@ rvm use "${ruby_version}" --default;
 
 rvm cleanup all;
 
-# Install gems.
-__gem_install jekyll octopress-autoprefixer rouge sass;
+status 'Installing Gems...';
+declare -a gems=(jekyll octopress-autoprefixer rouge sass);
+gem install "${gems[@]}" --no-document;
+
+gem cleanup;
+
+[[ $? ]] \
+  && status --success 'Ruby Gems are ready.' \
+  || status --error 'There was a problem installing Gems.';
+
+# Install Vagrant plugins
+vagrant plugin install vagrant-ghost;
+
+# Add Dreambox
+# vagrant box add goodguyry/dreambox --provider virtualbox;
 
 [[ $? ]] \
   && status --success "RVM and Ruby are ready." \

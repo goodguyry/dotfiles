@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+#
+# This is free software with ABSOLUTELY NO WARRANTY.
+#
+# Install a list of brew packages if they're not already installed.
+
+# Source setup file.
+source "${dotfiles_dir}/lib/status";
+
+function installbrews() {
+  test "$1" = --cask && { cask=$1; shift; }
+
+  for BREW in "${@}"; do
+    if $(brew list ${BREW} &> /dev/null); then
+      status --info "${BREW} already installed.";
+    else
+      brew install "${BREW}" "${cask}";
+    fi;
+  done;
+
+  [[ $? ]] \
+    && status --success 'Brew packages ready.' \
+    || status --error 'There was a problem installing Brew packages.';
+}

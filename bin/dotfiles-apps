@@ -14,9 +14,18 @@ source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
 
 # Homebrew is required.
-! [ -z "$(type -P brew)" ] && install-homebrew;
+! [ -z "$(type -P brew)" ] && status --error 'Homebrew is required';
 
 # Install apps.
 source var/packages.macos.sh;
-[ ${#BREW_CASK_LIST[@]} -gt 0 ] && __brew_install --cask "${BREW_CASK_LIST[@]}";
-[ ${#MAS_APPS_LIST[@]} -gt 0 ] && __mas_install "${MAS_APPS_LIST[@]}";
+[ ${#BREW_CASK_LIST[@]} -gt 0 ] && installbrews --cask "${BREW_CASK_LIST[@]}";
+
+if [ ${#MAS_APPS_LIST[@]} -gt 0 ]; then
+  for APP in "${MAS_APPS_LIST[@]}"; do
+    mas install "${APP}";
+  done;
+
+  [[ $? ]] \
+    && status --success 'App Store apps ready.' \
+    || status --error 'There was a problem installing App Store apps.';
+fi
