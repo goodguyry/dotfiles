@@ -51,32 +51,6 @@ else
   status "'/opt/homebrew/bin/bash' is already in /etc/shells";
 fi;
 
-# List of directories.
-declare -a DIRECTORIES=(
-  .vim/backups
-  .vim/colors
-  .vim/swaps
-);
-
-# Create directories.
-for DIRECTORY in ${DIRECTORIES[*]}; do
-  mkdirs "${HOME}/${DIRECTORY}";
-done;
-
-# Download the Solarized Vim theme.
-if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
-  status 'Solarized Vim theme already installed.';
-else
-  # status 'Downloading Solarized Vim theme...';
-  # Extract colors/solarized.vim into .vim (Linux-friendly).
-  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
-    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
-
-  [[ $? ]] \
-    && status --success 'Solarized Vim theme is installed' \
-    || status --error 'There was a problem installing the Solarized Vim theme.';
-fi;
-
 # Install Git if it's not already installed.
 if ! [ -z "$(type -P git)" ]; then
   status 'Installing and configuring Git...';
@@ -105,6 +79,32 @@ git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
 source gitconfig;
 
 status --success 'Git is installed and configured';
+
+# List of directories.
+declare -a DIRECTORIES=(
+  .vim/backups
+  .vim/colors
+  .vim/swaps
+);
+
+# Create directories.
+for DIRECTORY in ${DIRECTORIES[*]}; do
+  mkdirs "${HOME}/${DIRECTORY}";
+done;
+
+# Download the Solarized Vim theme.
+if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
+  status 'Solarized Vim theme already installed.';
+else
+  # status 'Downloading Solarized Vim theme...';
+  # Extract colors/solarized.vim into .vim (Linux-friendly).
+  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+
+  [[ $? ]] \
+    && status --success 'Solarized Vim theme is installed' \
+    || status --error 'There was a problem installing the Solarized Vim theme.';
+fi;
 
 # Install and/or update NVM.
 nvm_loc="${HOME}/.nvm";
