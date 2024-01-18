@@ -26,6 +26,6 @@ if [ ${#MAS_APPS_LIST[@]} -gt 0 ]; then
   done;
 
   [[ $? ]] \
-    && status --success 'App Store apps ready.' \
+    && status --success 'App Store apps are ready.' \
     || status --error 'There was a problem installing App Store apps.';
 fi

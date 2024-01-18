@@ -46,9 +46,9 @@ brew tap homebrew/cask-fonts;
 # Change to bash version installed from Homebrew.
 if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
   echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
-  status --info "Shell switched Homebrew Bash";
+  status --info "Shell switched to Homebrew Bash";
 else
-  status "/opt/homebrew/bin/bash already in /etc/shells";
+  status "'/opt/homebrew/bin/bash' is already in /etc/shells";
 fi;
 
 # List of directories.
@@ -73,7 +73,7 @@ else
     tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
 
   [[ $? ]] \
-    && status --success 'Solarized Vim theme installed' \
+    && status --success 'Solarized Vim theme is installed' \
     || status --error 'There was a problem installing the Solarized Vim theme.';
 fi;
 

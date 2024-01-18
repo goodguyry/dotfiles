@@ -53,6 +53,7 @@ else
 fi
 
 # Link commands into PATH.
+mkdirs "${HOME}/.bin";
 for bin_file in home/bin/*; do
   [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
 done;

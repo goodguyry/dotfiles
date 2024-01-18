@@ -15,13 +15,13 @@ function installbrews() {
 
   for BREW in "${@}"; do
     if $(brew list ${BREW} &> /dev/null); then
-      status --info "${BREW} already installed.";
+      status --info "${BREW} is already installed.";
     else
       brew install "${BREW}" "${cask}";
     fi;
   done;
 
   [[ $? ]] \
-    && status --success 'Brew packages ready.' \
+    && status --success 'Brew packages are ready.' \
     || status --error 'There was a problem installing Brew packages.';
 }
