@@ -19,6 +19,11 @@ function status() {
   local reset=$(tput sgr0);
 
   local prompt="$(basename ${0})";
+  if [[ "${prompt}" =~ install|run ]]; then
+    # Strip `dotfiles` from subcommands, mostly to shorten the prompt.
+    prompt=$(echo "${prompt}" | sed 's/dotfiles-//g');
+  fi
+
   local prefix="${ltgray}=>";
   local goodbye=false;
 

@@ -71,13 +71,29 @@ fi;
 source "${HOME}/.bashrc";
 status --success "Done syncing files to ${HOME}";
 
-sub="${1}"; shift;
+sub=$1;
+arg=$2;
 [[ "" == "${sub}" ]] && exit 0;
+if [[ "" == "${arg}" ]]; then
+  case "${sub}" in
+    install)
+      status --error "'dotfiles ${sub}' requires an additional argument.";
+      ;;
+    run)
+      status --error "'dotfiles ${sub}' requires an additional argument.";
+      ;;
+  esac
+fi
 
-if [[ -x "${dotfiles_bin}/dotfiles-${sub}" ]]; then
-  "dotfiles-${sub}";
-  exit $?;
-else
-  printf '%s\n' "dotfiles: Unknown sub-command '${sub}'." >&2;
-  exit 1;
+# Handle subcommands.
+declare -a valid_subcommands=(install run);
+has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${sub}$");
+
+if [ $has_valid_subcommand -eq 1 ] && [[ "" != "${arg}" ]]; then
+  if [[ -x "${dotfiles_bin}/dotfiles-${sub}-${arg}" ]]; then
+    "dotfiles-${sub}-${arg}";
+  else
+    printf '%s\n' "dotfiles: Unknown sub-command '${sub} ${arg}'." >&2;
+    exit 1;
+  fi
 fi
