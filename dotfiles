@@ -5,7 +5,26 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage: dotfiles [packages|apps]
+# usage: dotfiles
+
+BOLD=$(tput bold);
+RESET=$(tput sgr0);
+USAGE="[install|run <script>]
+
+'dotfiles' installs and configures packages and apps.
+
+  ${BOLD}install${RESET}
+    packages            Installs Homebrew, CLI packages; NVM, Node, and NPM;
+                        RVM, Ruby and Gems
+
+    apps                Installs Homebrew casks and App Store apps
+
+  ${BOLD}run${RESET}
+    preferences         Sets system-wide macOS preferences.
+                        ${BOLD}Read through bin/dotfiles-run-preferences to know what
+                        settings and applications will be impacted before executing
+                        the file${RESET}.
+";
 
 export dotfiles_dir="${HOME}/.dotfiles";
 export dotfiles_bin="${HOME}/.dotfiles/bin";
@@ -17,6 +36,7 @@ export PATH="${PATH}:${dotfiles_bin}";
 source "${dotfiles_dir}/lib/mkdirs";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
+source "${HOME}/.functions/print-usage";
 
 # @todo Confirm.
 
@@ -77,9 +97,11 @@ arg=$2;
 if [[ "" == "${arg}" ]]; then
   case "${sub}" in
     install)
+      print_usage;
       status --error "'dotfiles ${sub}' requires an additional argument.";
       ;;
     run)
+      print_usage;
       status --error "'dotfiles ${sub}' requires an additional argument.";
       ;;
   esac
