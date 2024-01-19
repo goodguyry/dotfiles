@@ -9,7 +9,7 @@
 
 # Source setup files.
 source "${dotfiles_dir}/lib/mkdirs";
-source "${dotfiles_dir}/lib/package-installers";
+source "${dotfiles_dir}/lib/installbrews";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
 
