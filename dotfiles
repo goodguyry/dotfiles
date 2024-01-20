@@ -26,6 +26,7 @@ USAGE="[install|run <option>]
                         the file${RESET}.
 ";
 
+export DOTFILES_ROOT=$(dirname $(realpath "${BASH_SOURCE[0]}"));
 export dotfiles_dir="${HOME}/.dotfiles";
 export dotfiles_bin="${HOME}/.dotfiles/bin";
 
@@ -85,7 +86,7 @@ done;
 # Link function files.
 mkdirs "${HOME}/.functions";
 if [[ $? ]]; then
-  for function_file in home/functions/*; do
+  for function_file in ${DOTFILES_ROOT}/home/functions/*; do
     [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
   done;
 else
@@ -94,12 +95,12 @@ fi
 
 # Link commands into PATH.
 mkdirs "${HOME}/.bin";
-for bin_file in home/bin/*; do
+for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
   [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
 done;
 
 # Always copy editorconfig (can't remember why).
-rsync -avz --quiet 'home/editorconfig' "${HOME}/.editorconfig";
+rsync -avz --quiet "${DOTFILES_ROOT}/home/editorconfig" "${HOME}/.editorconfig";
 
 # Create dotfiles.local if not present.
 if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
