@@ -63,6 +63,7 @@ dotfiles install packages
 
 Available options:
 * `preferences` - Sets system-wide macOS preferences. **Read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file**.
+* `gitconfig` - Sets up the global .gitconfig file. This is automatically run during git setup, but can be run independently.
 
 ```shell
 dotfiles run preferences
