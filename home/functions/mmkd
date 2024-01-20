@@ -5,11 +5,13 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# Create a directory if it doesn't already exist.
-function mkdirs() {
-  for dir in $(realpath "${@}"); do
-    if [[ ! -d "${dir}" ]]; then
-      mkdir -pv "${dir}";
-    fi;
-  done
+# Maybe make dir - Create a directory if it doesn't already exist.
+function mmkd() {
+  dir="${@}";
+  if [[ ! -d "${dir}" ]]; then
+    mkdir -pv "${dir}";
+    return $?;
+  fi;
+
+  return 1;
 }

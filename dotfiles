@@ -43,7 +43,6 @@ export dotfiles_bin="${HOME}/.dotfiles/bin";
 export PATH="${PATH}:${dotfiles_bin}";
 
 # Source setup files.
-source "${dotfiles_dir}/lib/mkdirs";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
 source "${HOME}/.functions/print-usage";
@@ -92,8 +91,13 @@ for home_file in "${home_files[@]}"; do
   [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename $home_file)";
 done;
 
+if [[ "function" == "$(type -t mmkd)" ]]; then
+  mmkd "${HOME}/.functions";
+else
+  [[ ! -d "${HOME}/.functions" ]] && mkdir -pv "${HOME}/.functions";
+fi
+
 # Link function files.
-mkdirs "${HOME}/.functions";
 if [[ $? ]]; then
   for function_file in ${DOTFILES_ROOT}/home/functions/*; do
     [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
@@ -102,8 +106,13 @@ else
   status --error "Could not create ${HOME}/.functions"
 fi
 
+if [[ "function" == "$(type -t mmkd)" ]]; then
+  mmkd "${HOME}/.bin";
+else
+  [[ ! -d "${HOME}/.bin" ]] && mkdir -pv "${HOME}/.bin";
+fi
+
 # Link commands into PATH.
-mkdirs "${HOME}/.bin";
 for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
   [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
 done;

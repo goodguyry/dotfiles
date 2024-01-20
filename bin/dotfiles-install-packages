@@ -8,7 +8,6 @@
 # usage: dotfiles install packages
 
 # Source setup files.
-source "${dotfiles_dir}/lib/mkdirs";
 source "${dotfiles_dir}/lib/installbrews";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
@@ -66,7 +65,7 @@ fi
 gitcore="$(brew --prefix git)/share/git-core";
 
 # Adds prepare-commit-msg to global hooks.
-mkdirs "${gitcore}/templates/hooks";
+mmkd "${gitcore}/templates/hooks";
 set_file 'etc/prepare-commit-msg' "${gitcore}/templates/hooks/prepare-commit-msg";
 
 set_file "home/gitignore" "${HOME}/.gitignore";
@@ -89,7 +88,7 @@ declare -a DIRECTORIES=(
 
 # Create directories.
 for DIRECTORY in ${DIRECTORIES[*]}; do
-  mkdirs "${HOME}/${DIRECTORY}";
+  mmkd "${HOME}/${DIRECTORY}";
 done;
 
 # Download the Solarized Vim theme.
