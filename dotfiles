@@ -30,6 +30,9 @@ Subcommands and available options:
                         ${BOLD}Read through bin/dotfiles-run-preferences to know what
                         settings and applications will be impacted before executing
                         the file${RESET}.
+
+    gitconfig           Sets up the global .gitconfig file. This is automatically run
+                        during git setup, but can be run independently.
 ";
 
 export DOTFILES_ROOT=$(dirname $(realpath "${BASH_SOURCE[0]}"));
