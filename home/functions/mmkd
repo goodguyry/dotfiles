@@ -9,7 +9,7 @@
 function mmkd() {
   dir="${@}";
   if [[ ! -d "${dir}" ]]; then
-    mkdir -pv "${dir}";
+    mkdir -p "${dir}";
     return $?;
   fi;
 
