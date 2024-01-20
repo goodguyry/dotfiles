@@ -9,7 +9,7 @@
 
 BOLD=$(tput bold);
 RESET=$(tput sgr0);
-USAGE="[install|run <script>]
+USAGE="[install|run <option>]
 
 'dotfiles' installs and configures packages and apps.
 
@@ -37,6 +37,26 @@ source "${dotfiles_dir}/lib/mkdirs";
 source "${dotfiles_dir}/lib/setfile";
 source "${dotfiles_dir}/lib/status";
 source "${HOME}/.functions/print-usage";
+
+subcommand=$1;
+option=$2;
+
+# Handle subcommands.
+declare -a valid_subcommands=(install run);
+has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${subcommand}$");
+
+if test $# -eq 1 || [[ ! $has_valid_subcommand ]]; then
+  print_usage;
+
+  case "${subcommand}" in
+    install|run)
+      status --error "'dotfiles ${subcommand}' requires an additional argument.";
+      ;;
+    *)
+      status --error "Unknown subcommand: '${subcommand}'.";
+      ;;
+  esac
+fi
 
 # @todo Confirm.
 
@@ -91,31 +111,12 @@ fi;
 source "${HOME}/.bashrc";
 status --success "Done syncing files to ${HOME}";
 
-sub=$1;
-arg=$2;
-[[ "" == "${sub}" ]] && exit 0;
-if [[ "" == "${arg}" ]]; then
-  case "${sub}" in
-    install)
-      print_usage;
-      status --error "'dotfiles ${sub}' requires an additional argument.";
-      ;;
-    run)
-      print_usage;
-      status --error "'dotfiles ${sub}' requires an additional argument.";
-      ;;
-  esac
-fi
+[[ "" == "${option}" ]] && exit 0;
 
-# Handle subcommands.
-declare -a valid_subcommands=(install run);
-has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${sub}$");
-
-if [ $has_valid_subcommand -eq 1 ] && [[ "" != "${arg}" ]]; then
-  if [[ -x "${dotfiles_bin}/dotfiles-${sub}-${arg}" ]]; then
-    "dotfiles-${sub}-${arg}";
-  else
-    printf '%s\n' "dotfiles: Unknown sub-command '${sub} ${arg}'." >&2;
-    exit 1;
-  fi
+if [[ -x "${dotfiles_bin}/dotfiles-${subcommand}-${option}" ]]; then
+  "dotfiles-${subcommand}-${option}";
+else
+  printf '%s\n' "dotfiles: Unknown sub-command '${subcommand} ${option}'." >&2;
+  print_usage;
+  exit 1;
 fi
