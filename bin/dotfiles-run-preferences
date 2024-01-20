@@ -9,6 +9,12 @@
 #
 # Set Application, User and System-wide preferences for macOS.
 
+# Force calling via `dotfiles`.
+if [[ -z "${DOTFILES_ROOT}" ]]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
 # Source setup files.
 source "${DOTFILES_ROOT}/lib/status";
 
