@@ -7,29 +7,33 @@
 #
 # usage: dotfiles
 
-BOLD=$(tput bold);
-RESET=$(tput sgr0);
-USAGE="[install|run <option>]
+bold=$(tput bold);
+reset=$(tput sgr0);
+dashless=$(basename -- "$0" | sed -e 's/-/ /');
+USAGE="
+   or: ${dashless} install <option>
+   or: ${dashless} run <option>
 
-'dotfiles' installs and configures packages and apps.
+'dotfiles' with no subcommand synlinks shell configuration files, functions, and
+executables to the user home directory.
 
 ---
 
 Subcommands and available options:
 
-  ${BOLD}install${RESET}
+  ${bold}install${reset}
 
     packages            Installs Homebrew, CLI packages; NVM, Node, and NPM;
                         RVM, Ruby and Gems
 
     apps                Installs Homebrew casks and App Store apps
 
-  ${BOLD}run${RESET}
+  ${bold}run${reset}
 
     preferences         Sets system-wide macOS preferences.
-                        ${BOLD}Read through bin/dotfiles-run-preferences to know what
+                        ${bold}Read through bin/dotfiles-run-preferences to know what
                         settings and applications will be impacted before executing
-                        the file${RESET}.
+                        the file${reset}.
 
     gitconfig           Sets up the global .gitconfig file. This is automatically run
                         during git setup, but can be run independently.
