@@ -13,13 +13,19 @@ USAGE="[install|run <option>]
 
 'dotfiles' installs and configures packages and apps.
 
+---
+
+Subcommands and available options:
+
   ${BOLD}install${RESET}
+
     packages            Installs Homebrew, CLI packages; NVM, Node, and NPM;
                         RVM, Ruby and Gems
 
     apps                Installs Homebrew casks and App Store apps
 
   ${BOLD}run${RESET}
+
     preferences         Sets system-wide macOS preferences.
                         ${BOLD}Read through bin/dotfiles-run-preferences to know what
                         settings and applications will be impacted before executing

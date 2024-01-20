@@ -5,13 +5,12 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage: macos
+# usage: dotfiles run preferences
 #
 # Set Application, User and System-wide preferences for macOS.
 
-# Source utils.
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/var/helpers.sh";
+# Source setup files.
+source "${dotfiles_dir}/lib/status";
 
 # Ask for the administrator password upfront.
 sudo -v;
@@ -22,7 +21,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 COMPUTERNAME="$(sudo systemsetup -getcomputername)";
 # Present computer name and ask if it should be changed.
 printf "\n";
-log_warning "Current ${COMPUTERNAME}";
+status --warning "Current ${COMPUTERNAME}";
 printf "Would you like to change it? [y/N] ";
 read CONTINUE;
 printf "\n";
@@ -333,7 +332,7 @@ defaults write -g NSScrollViewRubberbanding -bool false;
 LOGINMESSAGE="$(sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)";
 # Present current login message and ask if it should be changed.
 printf "\n";
-log_warning "Login message: '${LOGINMESSAGE}'";
+status --warning "Login message: '${LOGINMESSAGE}'";
 printf 'Would you like to change it? [y/N] ';
 read CHANGE;
 printf "\n";
@@ -457,7 +456,7 @@ defaults write com.apple.appstore ShowDebugMenu -bool true;
 
 echo -e "\a\a\a";
 
-log_success 'macOS settings updated! Note that some of these changes require a logout/restart to take effect.';
+status --success 'macOS settings updated! Note that some of these changes require a logout/restart to take effect.';
 
 for APP in 'Dock' 'Finder' 'SystemUIServer' ; do
   killall "${APP}" > /dev/null 2>&1

@@ -5,7 +5,7 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage: dotfiles apps
+# usage: dotfiles install apps
 
 # Source setup files.
 source "${dotfiles_dir}/lib/mkdirs";

@@ -5,13 +5,12 @@
 #
 # This is free software with ABSOLUTELY NO WARRANTY.
 #
-# usage: gitconfig
+# usage: dotfiles run gitconfig
 #
 # Set up Git configuration settings and aliases.
 
-# Source utils.
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/var/helpers.sh";
+# Source setup files.
+source "${dotfiles_dir}/lib/status";
 
 # Collect Git author info.
 function collect_git_info() {
@@ -32,7 +31,7 @@ function collect_git_info() {
       echo "Email: ${EMAIL}";
       printf "\n";
 
-      log_warning 'Confirm the Git information above is correct.';
+      status --warning 'Confirm the Git information above is correct.';
 
       # Prompt for confirmation.
       printf 'Is this correct? [Y/n] ';
@@ -59,7 +58,7 @@ else
   echo "Email: ${EMAIL}";
   printf '\n';
 
-  log_warning 'Confirm the Git information above is correct.';
+  status --warning 'Confirm the Git information above is correct.';
 
   # Seek confirmation that the Git information above is correct.
   printf 'Is this correct? [Y/n] ';
@@ -85,7 +84,7 @@ function git_config_add() {
   fi;
 }
 
-log_info 'Adding gitconfig options...';
+status --info 'Adding gitconfig options...';
 
 # Aliases
 
@@ -268,9 +267,9 @@ git_config_add user.name "${NAME}";
 git_config_add user.email "${EMAIL}";
 
 [[ $? ]] \
-  && log_success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
-  || log_error 'There was a problem configuring Git.';
+  && status --success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
+  || status --error 'There was a problem configuring Git.';
 
-# log_header "${REPLACED} config options replaced."
-# log_header "${ADDED} config options added."
+# status --header "${REPLACED} config options replaced."
+# status --header "${ADDED} config options added."
 printf "\n";
