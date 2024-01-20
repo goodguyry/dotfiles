@@ -10,7 +10,7 @@
 # Set up Git configuration settings and aliases.
 
 # Source setup files.
-source "${dotfiles_dir}/lib/status";
+source "${DOTFILES_ROOT}/lib/status";
 
 # Collect Git author info.
 function collect_git_info() {

@@ -40,16 +40,14 @@ Subcommands and available options:
 ";
 
 export DOTFILES_ROOT=$(dirname $(realpath "${BASH_SOURCE[0]}"));
-export dotfiles_dir="${HOME}/.dotfiles";
-export dotfiles_bin="${HOME}/.dotfiles/bin";
 
-# @todo Protect PATH.
-export PATH="${PATH}:${dotfiles_bin}";
+export PATH="${PATH}:${DOTFILES_ROOT}/bin";
 
 # Source setup files.
-source "${dotfiles_dir}/lib/setfile";
-source "${dotfiles_dir}/lib/status";
-source "${HOME}/.functions/print-usage";
+source "${DOTFILES_ROOT}/lib/setfile";
+source "${DOTFILES_ROOT}/lib/status";
+source "${DOTFILES_ROOT}/home/functions/print-usage";
+source "${DOTFILES_ROOT}/home/functions/mmkd";
 
 subcommand=$1;
 option=$2;
@@ -95,13 +93,8 @@ for home_file in "${home_files[@]}"; do
   [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename $home_file)";
 done;
 
-if [[ "function" == "$(type -t mmkd)" ]]; then
-  mmkd "${HOME}/.functions";
-else
-  [[ ! -d "${HOME}/.functions" ]] && mkdir -pv "${HOME}/.functions";
-fi
-
 # Link function files.
+mmkd "${HOME}/.functions";
 if [[ $? ]]; then
   for function_file in ${DOTFILES_ROOT}/home/functions/*; do
     [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
@@ -110,13 +103,8 @@ else
   status --error "Could not create ${HOME}/.functions"
 fi
 
-if [[ "function" == "$(type -t mmkd)" ]]; then
-  mmkd "${HOME}/.bin";
-else
-  [[ ! -d "${HOME}/.bin" ]] && mkdir -pv "${HOME}/.bin";
-fi
-
 # Link commands into PATH.
+mmkd "${HOME}/.bin";
 for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
   [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
 done;
@@ -136,7 +124,7 @@ status --success "Done syncing files to ${HOME}";
 
 [[ "" == "${option}" ]] && exit 0;
 
-if [[ -x "${dotfiles_bin}/dotfiles-${subcommand}-${option}" ]]; then
+if [[ -x "${DOTFILES_ROOT}/bin/dotfiles-${subcommand}-${option}" ]]; then
   "dotfiles-${subcommand}-${option}";
 else
   printf '%s\n' "dotfiles: Unknown sub-command '${subcommand} ${option}'." >&2;

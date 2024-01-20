@@ -10,7 +10,7 @@
 # Set Application, User and System-wide preferences for macOS.
 
 # Source setup files.
-source "${dotfiles_dir}/lib/status";
+source "${DOTFILES_ROOT}/lib/status";
 
 # Ask for the administrator password upfront.
 sudo -v;

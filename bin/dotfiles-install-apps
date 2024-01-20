@@ -8,9 +8,9 @@
 # usage: dotfiles install apps
 
 # Source setup files.
-source "${dotfiles_dir}/lib/installbrews";
-source "${dotfiles_dir}/lib/setfile";
-source "${dotfiles_dir}/lib/status";
+source "${DOTFILES_ROOT}/lib/installbrews";
+source "${DOTFILES_ROOT}/lib/setfile";
+source "${DOTFILES_ROOT}/lib/status";
 
 # Homebrew is required.
 ! [ -z "$(type -P brew)" ] && status --error 'Homebrew is required';
