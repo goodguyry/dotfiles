@@ -30,3 +30,38 @@ fi
 # NPM completions.
 # @todo This is not compatible with npm workspaces.
 source <(npm completion);
+
+# Adds subcommand completion for `dotfiles`.
+function __dotfiles_completion {
+  local subcommand="install run";
+  local install_opts="packages apps";
+  local run_opts="preferences gitconfig";
+  local cur=${COMP_WORDS[COMP_CWORD]};
+  local prev="${COMP_WORDS[COMP_CWORD-1]}";
+
+  COMPREPLY=();
+
+  case ${COMP_CWORD} in
+    1)
+      # First word is always a subcommand.
+      COMPREPLY=( $(compgen -W "${subcommand}" -- ${cur}) )
+      ;;
+    2)
+      # Second word is an option for the subcommand.
+      case "${prev}" in
+        install)
+          COMPREPLY=( $(compgen -W "${install_opts}" -- ${cur}) )
+          ;;
+        run)
+          COMPREPLY=( $(compgen -W "${run_opts}" -- ${cur}) )
+          ;;
+      esac
+      ;;
+    *)
+      # Do nothing.
+      ;;
+  esac
+  return 0;
+}
+
+complete -F __dotfiles_completion dotfiles;
