@@ -1,6 +1,6 @@
 # GoodGuyRy's dotfiles
 
-Dev-related [packages](scripts/) and shell configuration. Very exciting.
+Dev-related packages and shell configuration. Very exciting.
 
 
 ## Prerequisites
@@ -39,13 +39,15 @@ Then ```cd``` into the downloaded directory.
 
 ## Setup
 
-The `setup` script will install and run `dotfiles`. After initial setup, the `dotfiles` command is available globally.
+The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` command is available globally.
 
 ```shell
 ./setup.sh
 ```
 
 ## The `dotfiles` command
+
+Running `dotfiles` on its own will symlink the project home directoy as hidden dotfiles within the user home directory. The following subcommands are available to install packages, apps, configure system settings and git.
 
 \** The home directory is always synced, regardless of subcommand \**
 
@@ -56,6 +58,7 @@ Available options:
 * `apps` - Installs Homebrew casks and App Store apps
 
 ```shell
+# E.g.,
 dotfiles install packages
 ```
 
@@ -66,6 +69,7 @@ Available options:
 * `gitconfig` - Sets up the global .gitconfig file. This is automatically run during git setup, but can be run independently.
 
 ```shell
+# E.g.,
 dotfiles run preferences
 ```
 
