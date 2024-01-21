@@ -4,9 +4,11 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: targz <file>
 #
-# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression.
+# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip`.
+# ------------------------------------------------------------------------------
 
 tmpfile="${@%/}.tar";
 tar -cvf "${tmpfile}" --exclude='.DS_Store' "${@}" || return 1;

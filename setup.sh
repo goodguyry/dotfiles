@@ -4,9 +4,11 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: ./setup.sh
 #
 # Adds the dotfiles command.
+# ------------------------------------------------------------------------------
 
 # Source setup files.
 source "./home/functions/mmkd";

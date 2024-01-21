@@ -4,9 +4,11 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: dotfiles run preferences
 #
 # Set Application, User and System-wide preferences for macOS.
+# ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
 if [[ -z "${DOTFILES_ROOT}" ]]; then

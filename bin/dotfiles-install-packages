@@ -4,9 +4,11 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: dotfiles install packages
 #
 # Installs Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
+# ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
 if [[ -z "${DOTFILES_ROOT}" ]]; then

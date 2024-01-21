@@ -3,9 +3,11 @@
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
-# Prefix commit messages with the Jira ticket ID found in
-# the current branch name, if any.
+
+# ------------------------------------------------------------------------------
+# Prefix commit messages with the Jira ticket ID found in the current branch
+# name, if any.
+# ------------------------------------------------------------------------------
 
 # COMMIT_MSG_FILE=$1 # Unused.
 COMMIT_SOURCE=$2

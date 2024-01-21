@@ -4,10 +4,12 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: cdf
 #
 # Change working directory to the top-most Finder window location.
 # http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
+# ------------------------------------------------------------------------------
 
 function cdf() { # short for `cdfinder`
   if [ "$(type -P osascript)" ]; then
@@ -15,34 +17,42 @@ function cdf() { # short for `cdfinder`
   fi
 }
 
+# ------------------------------------------------------------------------------
 # usage: mkd <directory-name>
 #
 # Create a new directory and enter it.
+# ------------------------------------------------------------------------------
 
 function mkd() {
   mkdir -p "${@}" && cd "${@}";
 }
 
+# ------------------------------------------------------------------------------
 # usage: hide <file> [file...]
 #
 # Hide individual file(s).
+# ------------------------------------------------------------------------------
 
 function hide() {
   chflags hidden "${@}";
 }
 
+# ------------------------------------------------------------------------------
 # usage: unhide <file> [file...]
 #
 # Unhide individual file(s).
+# ------------------------------------------------------------------------------
 
 function unhide() {
   chflags nohidden "${@}";
 }
 
+# ------------------------------------------------------------------------------
 # usage: cleanup [file-name]
 #
 # Recursively delete files that match a certain pattern.
 # (by default delete all `.DS_Store` files).
+# ------------------------------------------------------------------------------
 
 function cleanup() {
   local Q="${1:-*.DS_Store}";
@@ -57,12 +67,14 @@ if [ $? -eq 0 ]; then
   }
 fi;
 
+# ------------------------------------------------------------------------------
 # usage: tre
 #
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
+# ------------------------------------------------------------------------------
 
 function tre() {
   tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
