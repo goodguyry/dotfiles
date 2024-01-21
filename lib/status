@@ -2,14 +2,15 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
 # usage: status <message>
 #    or: status --info <message>
 #    or: status --success <message>
 #    or: status --error <message>
 #    or: status --warning <message>
+#
+# Prints a color- and emoji-coded status message.
 
 function status() {
   local deep_green=$(tput setaf 112);

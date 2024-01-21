@@ -2,13 +2,13 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
 
 # usage: cdf
 #
 # Change working directory to the top-most Finder window location.
 # http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
+
 function cdf() { # short for `cdfinder`
   if [ "$(type -P osascript)" ]; then
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
@@ -18,6 +18,7 @@ function cdf() { # short for `cdfinder`
 # usage: mkd <directory-name>
 #
 # Create a new directory and enter it.
+
 function mkd() {
   mkdir -p "${@}" && cd "${@}";
 }
@@ -25,6 +26,7 @@ function mkd() {
 # usage: hide <file> [file...]
 #
 # Hide individual file(s).
+
 function hide() {
   chflags hidden "${@}";
 }
@@ -32,6 +34,7 @@ function hide() {
 # usage: unhide <file> [file...]
 #
 # Unhide individual file(s).
+
 function unhide() {
   chflags nohidden "${@}";
 }
@@ -40,7 +43,8 @@ function unhide() {
 #
 # Recursively delete files that match a certain pattern.
 # (by default delete all `.DS_Store` files).
-cleanup() {
+
+function cleanup() {
   local Q="${1:-*.DS_Store}";
   find . -type f -name "${Q}" -ls -delete;
 }
@@ -60,6 +64,7 @@ fi;
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
+
 function tre() {
   tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }

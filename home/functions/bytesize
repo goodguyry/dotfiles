@@ -2,19 +2,18 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
 
 # usage: bytesize [-n] <file>
 #
 # bytesize is a small formatting wrapper around `wc` for
 # printing the filesize in bytes for the given file.
+
 function bytesize() {
   units="bytes";
   useage="\
 Copyright (c) 2024 Ryan Domingue and contributors
 Report bugs at: https://github.com/goodguyry/dotfiles/issues
-
 This is free software with ABSOLUTELY NO WARRANTY.
 
 usage: bytesize [-n] <file>

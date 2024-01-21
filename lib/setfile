@@ -2,14 +2,15 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
-# Symlink a file into place.
-function setfile() {
-  local SRC=$(realpath "${1}");
-  local DEST="${2}";
 
-  # Create the symlink, forcing a replacement if necessary.
-  ln -fs "${SRC}" "${DEST}";
+# usage: setfile <target> <link-name>
+#
+# Symlink a file, forcing a replacement if necessary.
+
+function setfile() {
+  local target=$(realpath "${1}");
+  local link_name="${2}";
+
+  ln -fs "${target}" "${link_name}";
 }

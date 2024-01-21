@@ -2,10 +2,11 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
 # usage: dotfiles install apps
+#
+# Installs Homebrew casks and App Store apps
 
 # Force calling via `dotfiles`.
 if [[ -z "${DOTFILES_ROOT}" ]]; then

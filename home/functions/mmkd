@@ -2,10 +2,12 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
+
+# usage: mmkd <directory-path>
 #
 # Maybe make dir - Create a directory if it doesn't already exist.
+
 function mmkd() {
   dir="${@}";
   if [[ ! -d "${dir}" ]]; then

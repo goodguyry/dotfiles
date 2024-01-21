@@ -2,18 +2,17 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
 # usage: git prune-merged [--dry-run]
-#
-# Prune merged branches.
 #
 # Available options:
 #    --dry-run    Dry run
 #
 # Optional: Configure additional branches to skip in your gitconfig.
 # > git config --global prune-merged.skip "master staging vip-develop vip-master";
+#
+# Prune merged branches.
 
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;

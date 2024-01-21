@@ -2,15 +2,14 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
 # usage: git check [branch {'main'}] [branch {HEAD}]
-#
-# Prints the number of commits the second branch is ahead/behind of first branch.
 #
 # Optional: Customize the main branch in your gitconfig.
 # > git config git-compare.main "production"
+#
+# Prints the number of commits the second branch is ahead/behind of first branch.
 
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;
