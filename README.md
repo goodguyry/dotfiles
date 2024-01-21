@@ -47,9 +47,7 @@ The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` 
 
 ## The `dotfiles` command
 
-Running `dotfiles` on its own will symlink the project home directoy as hidden dotfiles within the user home directory. The following subcommands are available to install packages, apps, configure system settings and git.
-
-\** The home directory is always synced, regardless of subcommand \**
+Running `dotfiles` sets up shell configuration files. These symilnks are updated any time dotfiles is run, **with or without a subcommand**.
 
 **install**
 
