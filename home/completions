@@ -28,7 +28,7 @@ if [ -z "$(type -P git)" ]; then
 fi
 
 # NPM completions.
-# @todo This is not compatible with npm workspaces.
+# This is not compatible with npm workspaces.
 source <(npm completion);
 
 # Adds subcommand completion for `dotfiles`.

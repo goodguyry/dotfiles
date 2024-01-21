@@ -70,10 +70,6 @@ if test $# -eq 1 || [[ ! $has_valid_subcommand ]]; then
   esac
 fi
 
-# @todo Confirm.
-
-# @todo Print script details.
-
 status "Symlinking files to ${HOME}";
 
 declare -a home_files=(
