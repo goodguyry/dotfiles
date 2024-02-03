@@ -47,13 +47,23 @@ The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` 
 
 ## The `dotfiles` command
 
-By default, running `dotfiles` symlinks shell configuration files to the home directory.
+Print usage information.
 
-| Flag        | Description                                       |
-|-------------|---------------------------------------------------|
-| `--prefix`  | Prints the dotfiles dorectory path.               |
+```shell
+dotfiles --help
+```
+
+Print the dotfiles directory path.
+
+```shell
+dotfiles --prefix
+```
 
 ### Subcommands
+
+**sync**
+
+Syncs shell configuration files to the home directory.
 
 **install**
 
