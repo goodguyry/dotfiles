@@ -73,7 +73,7 @@ git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
 [ -s "${git_dh}" ] && ln -sf "${git_dh}" "${HOME}/.bin/diff-highlight";
 
 # Add git config settings.
-dotfiles run gitconfig;
+dotfiles --no-sync run gitconfig;
 
 status --success 'Git is installed and configured';
 

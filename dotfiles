@@ -14,13 +14,15 @@ bold=$(tput bold);
 reset=$(tput sgr0);
 dashless=$(basename -- "$0" | sed -e 's/-/ /');
 USAGE="
-   or: ${dashless} install <option>
-   or: ${dashless} run <option>
+   or: ${dashless} [--no-sync] install <option>
+   or: ${dashless} [--no-sync] run <option>
 
 'dotfiles' with no subcommand synlinks shell configuration files, functions, and
 executables to the user home directory.
 
 ---
+
+  --no-sync             Skip syncing dotfiles with the home directory.
 
 Subcommands and available options:
 
@@ -52,6 +54,9 @@ source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/home/functions/print-usage";
 source "${DOTFILES_ROOT}/home/functions/mmkd";
 
+sync=true;
+test "$1" = --no-sync && { sync=false; shift; }
+
 subcommand=$1;
 option=$2;
 
@@ -72,54 +77,58 @@ if test $# -eq 1 || [[ ! $has_valid_subcommand ]]; then
   esac
 fi
 
-status "Symlinking files to ${HOME}";
+if $sync; then
+  status "Symlinking files to ${HOME}";
 
-declare -a home_files=(
-  'home/aliases'
-  'home/bash_config'
-  'home/bashrc'
-  'home/completions'
-  'home/hushlogin'
-  'home/inputrc'
-  'home/paths'
-  'home/profile'
-  'home/prompt'
-  'home/vimrc'
-);
+  declare -a home_files=(
+    'home/aliases'
+    'home/bash_config'
+    'home/bashrc'
+    'home/completions'
+    'home/hushlogin'
+    'home/inputrc'
+    'home/paths'
+    'home/profile'
+    'home/prompt'
+    'home/vimrc'
+  );
 
-# Link home dotfiles files.
-for home_file in "${home_files[@]}"; do
-  [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename $home_file)";
-done;
-
-# Link function files.
-mmkd "${HOME}/.functions";
-if [[ $? ]]; then
-  for function_file in ${DOTFILES_ROOT}/home/functions/*; do
-    [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
+  # Link home dotfiles files.
+  for home_file in "${home_files[@]}"; do
+    [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename $home_file)";
   done;
+
+  # Link function files.
+  mmkd "${HOME}/.functions";
+  if [[ $? ]]; then
+    for function_file in ${DOTFILES_ROOT}/home/functions/*; do
+      [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
+    done;
+  else
+    status --error "Could not create ${HOME}/.functions"
+  fi
+
+  # Link commands into PATH.
+  mmkd "${HOME}/.bin";
+  for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
+    [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
+  done;
+
+  # Always copy editorconfig (can't remember why).
+  rsync -avz --quiet "${DOTFILES_ROOT}/home/editorconfig" "${HOME}/.editorconfig";
+
+  # Create dotfiles.local if not present.
+  if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
+    status "Creating ${HOME}/.dotfiles.local";
+    printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
+  fi;
+
+  # Source bashrc to make sure the environment is set before moving on.
+  source "${HOME}/.bashrc";
+  status --success "Done syncing files to ${HOME}";
 else
-  status --error "Could not create ${HOME}/.functions"
+  status "Skipped syncing files to ${HOME}";
 fi
-
-# Link commands into PATH.
-mmkd "${HOME}/.bin";
-for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
-  [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
-done;
-
-# Always copy editorconfig (can't remember why).
-rsync -avz --quiet "${DOTFILES_ROOT}/home/editorconfig" "${HOME}/.editorconfig";
-
-# Create dotfiles.local if not present.
-if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
-  status "Creating ${HOME}/.dotfiles.local";
-  printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
-fi;
-
-# Source bashrc to make sure the environment is set before moving on.
-source "${HOME}/.bashrc";
-status --success "Done syncing files to ${HOME}";
 
 [[ "" == "${option}" ]] && exit 0;
 
