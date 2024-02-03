@@ -1,15 +1,12 @@
-# Scripts
+# Packages
 
-- `gitconfig`: Set up Git configuration settings and aliases.
-- `macos`: Set Application, User and System-wide preferences for macOS.
-
-## Packages:
-
-### [Homebrew](http://brew.sh)
+## Homebrew
 
 - [Bash 5](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [gist](https://github.com/defunkt/gist)
+- [git](https://git-scm.com/)
+- [git-open](https://github.com/paulirish/git-open)
 - [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
 - [GNU Findutils](http://www.gnu.org/software/findutils/)
 - [GNU grep](https://www.gnu.org/software/grep/)
@@ -23,20 +20,22 @@
 - [Packer](https://www.packer.io/)
 - [pigz](https://zlib.net/pigz/)
 - [rsync](https://rsync.samba.org/)
+- [sass](https://sass-lang.com/)
+- [shellcheck](https://www.shellcheck.net/)
 - [sfnt2woff-zopfli](https://github.com/bramstein/sfnt2woff-zopfli)
 - [sfnt2woff](https://github.com/bramstein/sfnt2woff)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
 - [woff2](https://github.com/google/woff2)
 
-#### Homebrew Taps
+### Homebrew Taps
 
 - [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
 - [Homebrew Cask/fonts](https://github.com/caskroom/homebrew-fonts)
 - [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
 - [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
 
-#### Casks (native applications)
+### Casks (native applications)
 
 - [1Password](https://1password.com/)
 - [Alfred 3](https://www.alfredapp.com/)
@@ -63,7 +62,7 @@
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
 - [Transmit](https://panic.com/transmit/)
 
-#### QuickLook plugins
+### QuickLook plugins
 
 - [QLColorCode](https://code.google.com/p/qlcolorcode/)
 - [qlImageSize](https://github.com/Nyx0uf/qlImageSize)
@@ -72,7 +71,7 @@
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
 - [WebP](https://github.com/dchest/webp-quicklook)
 
-#### Fonts
+### Fonts
 
 - Hack
 - Inconsolata
@@ -94,7 +93,7 @@
 - Source Sans Pro
 - Source Serif Pro
 
-### RVM
+## RVM
 
 - [RVM](https://rvm.io)
   - [Ruby (2.3.0)](https://www.ruby-lang.org/en/)
@@ -103,14 +102,13 @@
 - [Rouge](http://rouge.jneen.net/)
 - [Sass](http://sass-lang.com/)
 
-### NVM
+## NVM
 
 - [NVM](https://github.com/creationix/nvm)
   - [Node (Latest)](https://nodejs.org/en/)
 - [Browsersync](http://www.browsersync.io/)
-- [git-open](https://github.com/paulirish/git-open)
 
-### Mac App Store purchases
+## Mac App Store purchases
 
 - [Bear](http://www.bear-writer.com)
 - [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)

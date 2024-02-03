@@ -1,16 +1,18 @@
 #!/bin/bash
+# shellcheck disable=SC1091,SC2034
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
+# ------------------------------------------------------------------------------
 # usage: git check [branch {'main'}] [branch {HEAD}]
-#
-# Prints the number of commits the second branch is ahead/behind of first branch.
 #
 # Optional: Customize the main branch in your gitconfig.
 # > git config git-compare.main "production"
+#
+# Prints the number of commits the second branch is ahead/behind of first branch.
+# ------------------------------------------------------------------------------
 
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;
@@ -59,15 +61,15 @@ if ! git show-ref --quiet "refs/heads/${compare}"; then
 fi
 
 # run git rev-list and capture numbers returned.
-result="$(git rev-list --left-right --count ${base}...${compare})";
+result="$(git rev-list --left-right --count "${base}"..."${compare}")";
 
-numbers=(${result});
+numbers=("${result}");
 
 # print numbers in a pretty message.
-if [ ${numbers[0]} -gt 0 ]; then
+if [ "${numbers[0]}" -gt 0 ]; then
   echo -e "${yellow}- ${compare} is ${numbers[0]} commits behind ${base}${reset}";
 fi
 
-if [ ${numbers[1]} -gt 0 ]; then
+if [ "${numbers[1]}" -gt 0 ]; then
   echo -e "${deep_green}+ ${compare} is ${numbers[1]} commits ahead of ${base}${reset}";
 fi;

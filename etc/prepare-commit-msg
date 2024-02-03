@@ -2,11 +2,12 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
-# Prefix commit messages with the Jira ticket ID found in
-# the current branch name, if any.
+
+# ------------------------------------------------------------------------------
+# Prefix commit messages with the Jira ticket ID found in the current branch
+# name, if any.
+# ------------------------------------------------------------------------------
 
 # COMMIT_MSG_FILE=$1 # Unused.
 COMMIT_SOURCE=$2
@@ -32,6 +33,6 @@ BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAM
 if [[ "${BRANCH_NAME}" =~ ([A-Z0-9]+-[0-9]+) ]]; then
   # Verify branch name
   if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-    sed -i.bak -e "1s/^/${BASH_REMATCH[1]} /" $1;
+    sed -i.bak -e "1s/^/${BASH_REMATCH[1]} /" "${1}";
   fi;
 fi;

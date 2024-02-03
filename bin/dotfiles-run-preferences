@@ -1,17 +1,24 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
-# usage: macos
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles run preferences
 #
 # Set Application, User and System-wide preferences for macOS.
+# ------------------------------------------------------------------------------
 
-# Source utils.
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/var/helpers.sh";
+# Force calling via `dotfiles`.
+if [[ -z "${DOTFILES_ROOT}" ]]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Source setup files.
+source "${DOTFILES_ROOT}/lib/status";
 
 # Ask for the administrator password upfront.
 sudo -v;
@@ -22,15 +29,15 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 COMPUTERNAME="$(sudo systemsetup -getcomputername)";
 # Present computer name and ask if it should be changed.
 printf "\n";
-log_warning "Current ${COMPUTERNAME}";
+status --warning "Current ${COMPUTERNAME}";
 printf "Would you like to change it? [y/N] ";
-read CONTINUE;
+read -r CONTINUE;
 printf "\n";
 
 # Set computer name (as done via System Preferences → Sharing).
 if [[ "${CONTINUE}" =~ ^[Yy]$ || "${CONTINUE}" != '' ]]; then
   printf "Computer name: -> ";
-  read CNAME;
+  read -r CNAME;
   sudo scutil --set COMPUTERNAME "${CNAME}";
   sudo scutil --set HostName "${CNAME}";
   sudo scutil --set LocalHostName "${CNAME}";
@@ -226,8 +233,8 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true;
 defaults write com.apple.terminal StringEncodings -array 4;
 
 # Use my theme by default in Terminal.app.
-if [[ -r "${DOTFILES_DIRECTORY}/etc/GoodGuyRy.terminal" ]]; then
-  open "${DOTFILES_DIRECTORY}/etc/GoodGuyRy.terminal";
+if [[ -r "${DOTFILES_ROOT}/etc/GoodGuyRy.terminal" ]]; then
+  open "${DOTFILES_ROOT}/etc/GoodGuyRy.terminal";
   sleep 2; # Wait a bit to make sure the theme is loaded.
   defaults write com.apple.terminal 'Default Window Settings' -string 'GoodGuyRy';
   defaults write com.apple.terminal 'Startup Window Settings' -string 'GoodGuyRy';
@@ -248,7 +255,7 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 
 # Enable tap to click and dragging without DragLock for builtin and Bluetooth trackpads.
-for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
+for TRACKPAD_PLIST in "${TRACKPAD_PLISTS[@]}"; do
   defaults write "${TRACKPAD_PLIST}" Clicking -bool true;
   defaults write "${TRACKPAD_PLIST}" DragLock -bool false;
   defaults write "${TRACKPAD_PLIST}" Dragging -bool true;
@@ -259,7 +266,7 @@ defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true;
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1;
 
 # Set up swipe gestures for builtin and Bluetooth trackpads.
-for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
+for TRACKPAD_PLIST in "${TRACKPAD_PLISTS[@]}"; do
   defaults write "${TRACKPAD_PLIST}" HIDScrollZoomModifierMask -int 0;
   defaults write "${TRACKPAD_PLIST}" TrackpadCornerSecondaryClick -int 0;
   defaults write "${TRACKPAD_PLIST}" TrackpadFiveFingerPinchGesture -int 2;
@@ -333,15 +340,15 @@ defaults write -g NSScrollViewRubberbanding -bool false;
 LOGINMESSAGE="$(sudo defaults read /Library/Preferences/com.apple.loginwindow LoginwindowText)";
 # Present current login message and ask if it should be changed.
 printf "\n";
-log_warning "Login message: '${LOGINMESSAGE}'";
+status --warning "Login message: '${LOGINMESSAGE}'";
 printf 'Would you like to change it? [y/N] ';
-read CHANGE;
+read -r CHANGE;
 printf "\n";
 
 if [[ "${CHANGE}" =~ ^[Yy]$ || "${CHANGE}" != '' ]]; then
   # Read the input and set the message.
   printf 'Login message: -> ';
-  read NEWLOGINMESSAGE;
+  read -r NEWLOGINMESSAGE;
   sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "${NEWLOGINMESSAGE}";
 fi
 
@@ -355,22 +362,22 @@ defaults write NSGlobalDomain AppleMeasurementUnits -string 'Inches';
 defaults write NSGlobalDomain AppleMetricUnits -bool false;
 
 # Set the timezone; see `systemsetup -listtimezones` for other values.
-sudo systemsetup -settimezone 'America/Los_Angeles' > /dev/null;
+sudo systemsetup -settimezone 'America/Los_Angeles' 2>/dev/null 1>&2;
 
 # Set amount of idle time until computer, display and hard disk sleep to <minutes>.
-sudo systemsetup -setsleep 15 > /dev/null;
+sudo systemsetup -setsleep 15 2>/dev/null 1>&2;
 
 # Set amount of idle time until computer sleeps to <minutes>.
-sudo systemsetup -setcomputersleep 10 > /dev/null;
+sudo systemsetup -setcomputersleep 10 2>/dev/null 1>&2;
 
 # Set amount of idle time until display sleeps to <minutes>.
-sudo systemsetup -setdisplaysleep 3 > /dev/null;
+sudo systemsetup -setdisplaysleep 3 2>/dev/null 1>&2;
 
 # Set amount of idle time until hard disk sleeps to <minutes>.
-sudo systemsetup -setharddisksleep 15 > /dev/null;
+sudo systemsetup -setharddisksleep 15 2>/dev/null 1>&2;
 
 # Set wake on network access to either <on> or <off>.
-sudo systemsetup -setwakeonnetworkaccess on > /dev/null;
+sudo systemsetup -setwakeonnetworkaccess on 2>/dev/null 1>&2;
 
 # Create the Screenshots directory if it doesn't exist.
 # SystemUIServer won't create it for us.
@@ -457,7 +464,7 @@ defaults write com.apple.appstore ShowDebugMenu -bool true;
 
 echo -e "\a\a\a";
 
-log_success 'macOS settings updated! Note that some of these changes require a logout/restart to take effect.';
+status --success 'macOS settings updated! Note that some of these changes require a logout/restart to take effect.';
 
 for APP in 'Dock' 'Finder' 'SystemUIServer' ; do
   killall "${APP}" > /dev/null 2>&1

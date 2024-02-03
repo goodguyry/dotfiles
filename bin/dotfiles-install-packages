@@ -1,0 +1,213 @@
+#!/bin/bash
+# shellcheck disable=SC1091
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles install packages
+#
+# Installs Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
+# ------------------------------------------------------------------------------
+
+# Force calling via `dotfiles`.
+if [[ -z "${DOTFILES_ROOT}" ]]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Source setup files.
+source "${DOTFILES_ROOT}/lib/installbrews";
+source "${DOTFILES_ROOT}/lib/setfile";
+source "${DOTFILES_ROOT}/lib/status";
+source "${DOTFILES_ROOT}/lib/mmkd";
+
+# Packages to install.
+source "${DOTFILES_ROOT}/etc/packages.macos.sh";
+
+# Check for Homebrew.
+if [ -z "$(type -P brew)" ]; then
+  status 'Installing Homebrew...';
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+  brew doctor;
+
+  if [[ $? ]]; then
+    status --success 'Homebrew is ready.';
+  else
+    status --error 'There was a problem installing Homebrew.';
+  fi
+else
+  status --info 'Homebrew is already installed.';
+fi;
+
+status 'Updating Homebrew...';
+brew update;
+
+# Font tools.
+brew tap bramstein/webfonttools;
+# Alternate versions.
+brew tap homebrew/cask-versions;
+# Fonts.
+brew tap homebrew/cask-fonts;
+
+# Install brews.
+[ ${#BREW_LIST[@]} -gt 0 ] && installbrews "${BREW_LIST[@]}";
+
+# Change to bash version installed from Homebrew.
+if grep -q "/opt/homebrew/bin/bash" /etc/shells; then
+  status "'/opt/homebrew/bin/bash' is already in /etc/shells";
+else
+  echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
+  status --info "Shell switched to Homebrew Bash";
+fi;
+
+# Begin Git setup.
+gitcore="$(brew --prefix git)/share/git-core";
+
+# Adds prepare-commit-msg to global hooks.
+mmkd "${gitcore}/templates/hooks";
+setfile "${DOTFILES_ROOT}/etc/prepare-commit-msg" "${gitcore}/templates/hooks/prepare-commit-msg";
+
+setfile "${DOTFILES_ROOT}/home/gitignore" "${HOME}/.gitignore";
+
+# Set up word highlighting.
+git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
+[ -s "${git_dh}" ] && ln -sf "${git_dh}" "${HOME}/.bin/diff-highlight";
+
+# Add git config settings.
+dotfiles --no-sync run gitconfig;
+
+status --success 'Git is installed and configured';
+
+# List of directories.
+declare -a DIRECTORIES=(
+  .vim/backups
+  .vim/colors
+  .vim/swaps
+);
+
+# Create directories.
+for DIRECTORY in "${DIRECTORIES[@]}"; do
+  mmkd "${HOME}/${DIRECTORY}";
+done;
+
+# Download the Solarized Vim theme.
+if [[ -f "${HOME}/.vim/colors/solarized.vim" ]]; then
+  status 'Solarized Vim theme already installed.';
+else
+  # status 'Downloading Solarized Vim theme...';
+  # Extract colors/solarized.vim into .vim (Linux-friendly).
+  curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
+    tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
+
+  if [[ $? ]]; then
+    status --success 'Solarized Vim theme is installed';
+  else
+    status --error 'There was a problem installing the Solarized Vim theme.';
+  fi
+fi;
+
+# Install and/or update NVM.
+nvm_loc="${HOME}/.nvm";
+
+if [[ ! -d "${nvm_loc}" ]]; then
+  status 'Installing NVM...';
+  git clone https://github.com/creationix/nvm.git "${nvm_loc}";
+fi;
+
+# Make sure NVM is up-to-date.
+cd "${nvm_loc}" && git checkout "$(git describe --abbrev=0 --tags)";
+cd - &>/dev/null || exit;
+
+# Source nvm.
+source "${nvm_loc}/nvm.sh";
+
+status 'Installing last 2 LTS versions...';
+
+# Install previous and current LTS.
+nvm install lts/hydrogen;
+nvm install --lts;
+
+# Install Node package(s).
+status 'Installing Node packages...';
+
+# Install global packages for LTS.
+nvm use --lts;
+npm install browser-sync --global --quiet;
+npm list -g --depth 0;
+
+# Also install stable with the same packages.
+nvm use stable;
+npm install browser-sync --global --quiet;
+npm list -g --depth 0;
+
+# Be sure to switch back to the LTS version.
+nvm use --lts;
+
+if [[ $? ]]; then
+  status --success 'NVM, NPM & Node are ready.';
+else
+  status --error 'There was a problem with NPM/Node.';
+fi
+
+# Install and configure RVM.
+if [ ! "$(type -P rvm)" ]; then
+  status 'Installing RVM...';
+  \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles --autolibs=enable;
+fi;
+
+[[ ! -r "${HOME}/.rvmrc" ]] && touch "${HOME}/.rvmrc";
+
+# Enable auto-updating.
+grep -q 'rvm_autoupdate_flag' ~/.rvmrc \
+  && echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
+# Quiet RVM complaints about its position in PATH.
+grep -q 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc \
+  && echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
+
+status 'Installing RVM, Ruby, and Gems...';
+
+# Set Ruby version.
+ruby_version='2.7.1';
+
+# Source rvm.
+rvm_loc=${rvm_path:="${HOME}/.rvm"};
+source "${rvm_loc}/scripts/rvm";
+
+# Update PATH before installing Gems so they end up where intended.
+gem_root=${GEM_HOME:="${HOME}/.rvm/gems/ruby-${ruby_version}"};
+export PATH=${gem_root}/bin:${gem_root}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
+
+# Install Ruby.
+rvm install "ruby-${ruby_version}" --with-out-ext=fiddle --with-openssl-dir="$(brew --prefix openssl@1.1)";
+# rvm install 3.2.2 -C --with-openssl-dir=$(brew --prefix openssl);
+
+rvm use "${ruby_version}" --default;
+
+rvm cleanup all;
+
+status 'Installing Gems...';
+declare -a gems=(jekyll octopress-autoprefixer rouge);
+gem install "${gems[@]}" --no-document;
+
+gem cleanup;
+
+if [[ $? ]]; then
+  status --success 'Ruby Gems are ready.';
+else
+  status --error 'There was a problem installing Gems.';
+fi
+
+# Install Vagrant plugins
+vagrant plugin install vagrant-ghost;
+
+# Add Dreambox
+# vagrant box add goodguyry/dreambox --provider virtualbox;
+
+if [[ $? ]]; then
+  status --success "RVM and Ruby are ready.";
+else
+  status --error 'There was a problem installing RVM or Ruby.';
+fi

@@ -1,19 +1,21 @@
 #!/bin/bash
+# shellcheck disable=SC1091,SC2034
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
+
+# ------------------------------------------------------------------------------
 # usage: git prune-merged [--dry-run]
-#
-# Prune merged branches.
 #
 # Available options:
 #    --dry-run    Dry run
 #
 # Optional: Configure additional branches to skip in your gitconfig.
-# > git config --global prune-merged.skip "master staging vip-develop vip-master";
+# > git config --global prune-merged.skip "master staging";
+#
+# Prune merged branches.
+# ------------------------------------------------------------------------------
 
 SUBDIRECTORY_OK=1;
 OPTIONS_SPEC=;
@@ -61,7 +63,7 @@ declare -a branches_to_skip=(
 
 # Merge any additional branches from the config.
 config_no_prune=$(git config prune-merged.skip);
-branches_to_skip+=(${config_no_prune[@]});
+branches_to_skip+=("${config_no_prune[@]}");
 
 branches=$(git branch --merged | grep -v "\\*");
 for branch in $branches; do

@@ -1,17 +1,24 @@
 #!/bin/bash
+# shellcheck disable=SC1091,SC2016
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
-#
-# usage: gitconfig
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles run gitconfig
 #
 # Set up Git configuration settings and aliases.
+# ------------------------------------------------------------------------------
 
-# Source utils.
-DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )";
-source "${DOTFILES_DIRECTORY}/var/helpers.sh";
+# Force calling via `dotfiles`.
+if [[ -z "${DOTFILES_ROOT}" ]]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Source setup files.
+source "${DOTFILES_ROOT}/lib/status";
 
 # Collect Git author info.
 function collect_git_info() {
@@ -21,9 +28,9 @@ function collect_git_info() {
 
     # Prompt for Git user name and email.
     printf 'Your Git author name: -> ';
-    read NAME;
+    read -r NAME;
     printf 'Your Git author email: -> ';
-    read EMAIL;
+    read -r EMAIL;
 
     if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation.
@@ -32,11 +39,11 @@ function collect_git_info() {
       echo "Email: ${EMAIL}";
       printf "\n";
 
-      log_warning 'Confirm the Git information above is correct.';
+      status --warning 'Confirm the Git information above is correct.';
 
       # Prompt for confirmation.
       printf 'Is this correct? [Y/n] ';
-      read GIT_AUTHOR;
+      read -r GIT_AUTHOR;
       printf '\n';
 
       if [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
@@ -59,11 +66,11 @@ else
   echo "Email: ${EMAIL}";
   printf '\n';
 
-  log_warning 'Confirm the Git information above is correct.';
+  status --warning 'Confirm the Git information above is correct.';
 
   # Seek confirmation that the Git information above is correct.
   printf 'Is this correct? [Y/n] ';
-  read GIT_AUTHOR;
+  read -r GIT_AUTHOR;
   printf '\n';
 
   if ! [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
@@ -85,7 +92,7 @@ function git_config_add() {
   fi;
 }
 
-log_info 'Adding gitconfig options...';
+status --info 'Adding gitconfig options...';
 
 # Aliases
 
@@ -206,7 +213,7 @@ git_config_add core.autocrlf 'input';
 git_config_add core.bare false;
 git_config_add core.editor 'vim';
 # Use custom '.gitignore'.
-git_config_add core.excludesfile '~/.gitignore';
+git_config_add core.excludesfile "${HOME}/.gitignore";
 git_config_add core.filemode true;
 git_config_add core.ignorecase true;
 git_config_add core.logallrefupdates true;
@@ -267,10 +274,8 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 git_config_add user.name "${NAME}";
 git_config_add user.email "${EMAIL}";
 
-[[ $? ]] \
-  && log_success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
-  || log_error 'There was a problem configuring Git.';
-
-# log_header "${REPLACED} config options replaced."
-# log_header "${ADDED} config options added."
-printf "\n";
+if [[ $? ]]; then
+  status --success "${REPLACED} gitconfig options replaced; ${ADDED} added.";
+else
+  status --error 'There was a problem configuring Git.';
+fi

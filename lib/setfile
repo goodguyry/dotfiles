@@ -5,14 +5,16 @@
 # This is free software with ABSOLUTELY NO WARRANTY.
 
 # ------------------------------------------------------------------------------
-# usage: gzcompare <file>
+# usage: setfile <target> <link-name>
 #
-# Compare the original and gzipped sizes for the given file.
+# Symlink a file, forcing a replacement if necessary.
 # ------------------------------------------------------------------------------
 
-origsize=$(wc -c < "${1}");
-gzipsize=$(gzip -c "${1}" | wc -c);
-ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l);
+function setfile() {
+  local target;
+  local link_name="${2}";
 
-printf "orig: %d bytes\n" "${origsize}";
-printf "gzip: %d bytes (%2.2f%%)\n" "${gzipsize}" "${ratio}";
+  target=$(realpath "${1}");
+
+  ln -fs "${target}" "${link_name}";
+}

@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1090,SC1091
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards.
 [[ -e "${HOME}/.ssh/config" ]] && complete -o 'default' -o 'nospace' -W "$(grep '^Host' ~/.ssh/config | grep -v "[?*]" | cut -d ' ' -f2 | tr ' ' '\n')" scp sftp ssh;
@@ -13,18 +14,63 @@ complete -o 'nospace' -W 'Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # Any completion scripts in /usr/local/etc/bash_completion.d will continue to be sourced as well.
 if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]]; then
   source "$(brew --prefix)/share/bash-completion/bash_completion";
+fi
 
+if [ -z "$(type -P git)" ]; then
   # Completion for git-compare.
   _git_compare() {
-    local dwim_opt="$(__git_checkout_default_dwim_mode)";
-    __git_complete_refs $dwim_opt --mode="refs";
+    local dwim_opt
+
+    dwim_opt="$(__git_checkout_default_dwim_mode)";
+    __git_complete_refs "${dwim_opt}" --mode="refs";
   }
   __git_complete compare _git_compare;
 
   # Set up completion for the `g` alias.
   __git_complete g git;
-fi;
+fi
 
 # NPM completions.
-# @todo This is not compatible with npm workspaces.
+# This is not compatible with npm workspaces.
 source <(npm completion);
+
+# Adds subcommand completion for `dotfiles`.
+function __dotfiles_completion {
+  local subcommand;
+  local install_opts;
+  local run_opts;
+  local cur;
+  local prev;
+
+  subcommand="install run";
+  install_opts="packages apps";
+  run_opts="preferences gitconfig";
+  cur=${COMP_WORDS[COMP_CWORD]};
+  prev="${COMP_WORDS[COMP_CWORD-1]}";
+
+  COMPREPLY=();
+
+  case ${COMP_CWORD} in
+    1)
+      # First word is always a subcommand.
+      mapfile -t COMPREPLY < <(compgen -W "${subcommand}" -- "${cur}");
+      ;;
+    2)
+      # Second word is an option for the subcommand.
+      case "${prev}" in
+        install)
+          mapfile -t COMPREPLY < <(compgen -W "${install_opts}" -- "${cur}");
+          ;;
+        run)
+          mapfile -t COMPREPLY < <(compgen -W "${run_opts}" -- "${cur}");
+          ;;
+      esac
+      ;;
+    *)
+      # Do nothing.
+      ;;
+  esac
+  return 0;
+}
+
+complete -F __dotfiles_completion dotfiles;

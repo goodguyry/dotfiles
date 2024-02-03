@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: print_usage
+#
+# Print usage information.
+# ------------------------------------------------------------------------------
+
+function print_usage() {
+  dashless=$(basename -- "$0" | sed -e 's/-/ /');
+  template="\
+Copyright (c) 2024 Ryan Domingue and contributors
+Report bugs at: https://github.com/goodguyry/dotfiles/issues
+This is free software with ABSOLUTELY NO WARRANTY.";
+
+  printf "
+%s
+
+usage: %s %s
+" "${template}" "${dashless}" "${USAGE}";
+}

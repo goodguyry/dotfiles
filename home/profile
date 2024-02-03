@@ -35,9 +35,9 @@ done;
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
 GIT_COMMITTER_EMAIL="$(git config user.email)";
+export GIT_COMMITTER_NAME;
+export GIT_COMMITTER_EMAIL;
 
 # Current Node version.
 NVM_CURRENT="$(nvm current | sed 's/v//')";
-
-test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv);
-# eval $($(brew --prefix)/bin/brew shellenv)
+export NVM_CURRENT;

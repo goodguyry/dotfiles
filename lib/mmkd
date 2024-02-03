@@ -5,14 +5,17 @@
 # This is free software with ABSOLUTELY NO WARRANTY.
 
 # ------------------------------------------------------------------------------
-# usage: gzcompare <file>
+# usage: mmkd <directory-path>
 #
-# Compare the original and gzipped sizes for the given file.
+# Maybe make dir - Create a directory if it doesn't already exist.
 # ------------------------------------------------------------------------------
 
-origsize=$(wc -c < "${1}");
-gzipsize=$(gzip -c "${1}" | wc -c);
-ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l);
+function mmkd() {
+  dir="${*}";
+  if [[ ! -d "${dir}" ]]; then
+    mkdir -p "${dir}";
+    return $?;
+  fi;
 
-printf "orig: %d bytes\n" "${origsize}";
-printf "gzip: %d bytes (%2.2f%%)\n" "${gzipsize}" "${ratio}";
+  return 1;
+}

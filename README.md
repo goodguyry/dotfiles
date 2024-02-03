@@ -1,6 +1,6 @@
 # GoodGuyRy's dotfiles
 
-Dev-related [packages](scripts/) and shell configuration. Very exciting.
+Dev-related packages and shell configuration. Very exciting.
 
 
 ## Prerequisites
@@ -17,11 +17,9 @@ Allow full-disk access for Terminal
 open x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles
 ```
 
-
 ## Download
 
-
-#### Using Git
+### Using Git
 
 Clone the repository wherever convenient by ```cd```ing into the desired directory and running the following:
 
@@ -29,8 +27,7 @@ Clone the repository wherever convenient by ```cd```ing into the desired directo
 git clone https://github.com/goodguyry/dotfiles.git && cd dotfiles
 ```
 
-
-#### Git-free
+### Git-free
 
 Download the files with the following:
 
@@ -40,51 +37,52 @@ curl -#L https://github.com/goodguyry/dotfiles/tarball/master | tar -xzv --exclu
 
 Then ```cd``` into the downloaded directory.
 
+## Setup
 
-## Install
+The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` command is available globally.
 
 ```shell
-./init
+./setup.sh
 ```
 
+## The `dotfiles` command
 
-The following options are available when running the init file:
+By default, running `dotfiles` symlinks shell configuration files to the home directory.
 
-| Option          | Description                                |
-|-----------------|--------------------------------------------|
-| `--help`        | Print this help text                       |
-| `--copy`        | Copy the files in place instead of linking |
-| `--no-sync`     | Suppress syncing with GitHub               |
-| `--no-packages` | Suppress package installations and updates |
-| `--no-settings` | Suppress configuring OS settings           |
+| Flag        | Description                                       |
+|-------------|---------------------------------------------------|
+| `--prefix`  | Prints the dotfiles dorectory path.               |
+| `--no-sync` | Suppreses symlinking files to the home directory. |
 
-**Notes:**
-- `editorconfig` is always copied.
+### Subcommands
 
+**install**
 
-### Local configuration
+Available options:
+* `packages` - Installs Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
+* `apps` - Installs Homebrew casks and App Store apps
+
+```shell
+# E.g.,
+dotfiles install packages
+```
+
+**run**
+
+Available options:
+* `preferences` - Sets system-wide macOS preferences. **Read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file**.
+* `gitconfig` - Sets up the global .gitconfig file. This is automatically run during git setup, but can be run independently.
+
+```shell
+# E.g.,
+dotfiles run preferences
+```
+
+## Local overrides
 
 **Filename:** `~/.dotfiles.local`
 
 Used to add extraneous functionality (aliases, functions, prompts, etc.) without committing that information to the repo.
-
-
-### macOS defaults
-
-The setup process will prompt to apply the masOS defaults. They can also be applied independently from the dotfiles directory:
-
-```shell
-./scripts/macos
-```
-
-Many of these configuration options are likely outdated. Take time to read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file.
-
-
-## Acknowledgements
-
-[Necolas Gallagher](http://github.com/necolas/dotfiles)
-
-[Mathias Bynens](http://github.com/mathiasbynens/dotfiles)
 
 ---
 

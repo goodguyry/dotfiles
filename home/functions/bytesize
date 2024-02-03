@@ -2,19 +2,20 @@
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
-#
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# ------------------------------------------------------------------------------
 # usage: bytesize [-n] <file>
 #
-# bytesize is a small formatting wrapper around `wc` for
-# printing the filesize in bytes for the given file.
+# bytesize is a small formatting wrapper around `wc` for printing the filesize
+# in bytes for the given file.
+# ------------------------------------------------------------------------------
+
 function bytesize() {
   units="bytes";
   useage="\
 Copyright (c) 2024 Ryan Domingue and contributors
 Report bugs at: https://github.com/goodguyry/dotfiles/issues
-
 This is free software with ABSOLUTELY NO WARRANTY.
 
 usage: bytesize [-n] <file>
@@ -33,10 +34,8 @@ printing the filesize in bytes for the given file.
     return;
   fi
 
-  bytes=$(wc -c < "${1}");
-
-  if [[ $? -eq 0 ]]; then
-    printf "%d %s\n" ${bytes} ${units};
+  if bytes=$(wc -c < "${1}"); then
+    printf "%d %s\n" "${bytes}" "${units}";
     return;
   fi
 
@@ -78,7 +77,7 @@ printing the filesize in kilobytes for the given file.
     kbytes=$(echo "${bytes} / 1024" | bc -l);
 
     if [[ $? ]]; then
-      printf "%2.2f %s\n" ${kbytes} ${units};
+      printf "%2.2f %s\n" "${kbytes}" "${units}";
       return;
     fi
   fi
