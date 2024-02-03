@@ -59,18 +59,7 @@ else
   status "'/opt/homebrew/bin/bash' is already in /etc/shells";
 fi;
 
-# Install Git if it's not already installed.
-if ! [ -z "$(type -P git)" ]; then
-  status 'Installing and configuring Git...';
-  brew install git;
-
-  [[ $? != 0 ]] && status --error 'There was a problem installing Git.';
-else
-  # It should be, since it's in $BREW_LIST, but we check anyhow.
-  status --info 'Git is already installed.';
-fi
-
-# Additional Git setup.
+# Begin Git setup.
 gitcore="$(brew --prefix git)/share/git-core";
 
 # Adds prepare-commit-msg to global hooks.
