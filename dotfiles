@@ -148,7 +148,8 @@ else
   exit 1;
 fi
 
-[[ $? ]] && status --success 'Done. Restarting the shell to apply changes...';
-printf "\n";
+if $sync; then
+  [[ $? ]] && status --success 'Done. Restarting the shell to apply changes...';
 
-exec $SHELL -l;
+  exec $SHELL -l;
+fi
