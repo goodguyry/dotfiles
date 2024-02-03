@@ -180,7 +180,7 @@ rvm use "${ruby_version}" --default;
 rvm cleanup all;
 
 status 'Installing Gems...';
-declare -a gems=(jekyll octopress-autoprefixer rouge sass);
+declare -a gems=(jekyll octopress-autoprefixer rouge);
 gem install "${gems[@]}" --no-document;
 
 gem cleanup;

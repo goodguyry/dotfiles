@@ -11,6 +11,7 @@ declare -a BREW_LIST=(
   moreutils
   openssh
   rsync
+  sass/sass/sass
   vim
   wget
 
