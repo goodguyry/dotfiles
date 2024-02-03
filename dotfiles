@@ -14,6 +14,7 @@ bold=$(tput bold);
 reset=$(tput sgr0);
 dashless=$(basename -- "$0" | sed -e 's/-/ /');
 USAGE="
+   or: ${dashless} --prefix
    or: ${dashless} [--no-sync] install <option>
    or: ${dashless} [--no-sync] run <option>
 
@@ -22,7 +23,9 @@ executables to the user home directory.
 
 ---
 
-  --no-sync             Skip syncing dotfiles with the home directory.
+  --prefix              Prints the dotfiles directory and exit.
+
+  --no-sync             Skips syncing dotfiles with the home directory.
 
 Subcommands and available options:
 
@@ -53,6 +56,11 @@ source "${DOTFILES_ROOT}/lib/setfile";
 source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/lib/mmkd";
 source "${DOTFILES_ROOT}/home/functions/print-usage";
+
+if test "$1" = --prefix; then
+  echo "${DOTFILES_ROOT}";
+  exit 0;
+fi
 
 sync=true;
 test "$1" = --no-sync && { sync=false; shift; }
