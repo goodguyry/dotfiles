@@ -2,13 +2,13 @@
 
 declare -a BREW_LIST=(
   # Missing or outdated utils.
-  coreutils # /opt/homebrew/opt/coreutils
-  findutils # /opt/homebrew/opt/findutils # PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+  coreutils
+  findutils
   git
   git-open
-  gnu-sed # /opt/homebrew/opt/gnu-sed # PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  gnu-sed
   grep
-  moreutils # /opt/homebrew/opt/moreutils
+  moreutils
   openssh
   rsync
   vim
@@ -28,7 +28,6 @@ declare -a BREW_LIST=(
   libdvdcss
   mas
   mysql
-  packer
   pigz
   svn
   tree
@@ -62,7 +61,6 @@ declare -a CASK_APPS=(
   protonvpn
   rar
   safari-technology-preview
-  sequel-pro
   sip
   sublime-merge
   sublime-text
@@ -128,6 +126,8 @@ declare -a MAS_APPS_LIST=(
   407963104
   # Reeder
   1529448980
+  # Sequel Ace
+  1518036000
   # SnippetsLab
   1006087419
   # The Unarchiver
