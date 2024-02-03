@@ -52,7 +52,6 @@ By default, running `dotfiles` symlinks shell configuration files to the home di
 | Flag        | Description                                       |
 |-------------|---------------------------------------------------|
 | `--prefix`  | Prints the dotfiles dorectory path.               |
-| `--no-sync` | Suppreses symlinking files to the home directory. |
 
 ### Subcommands
 

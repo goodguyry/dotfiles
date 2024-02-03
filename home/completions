@@ -42,7 +42,7 @@ function __dotfiles_completion {
   local cur;
   local prev;
 
-  subcommand="install run";
+  subcommand="install run sync";
   install_opts="packages apps";
   run_opts="preferences gitconfig";
   cur=${COMP_WORDS[COMP_CWORD]};
