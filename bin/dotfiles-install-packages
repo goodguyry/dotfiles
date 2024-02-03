@@ -20,6 +20,7 @@ fi
 source "${DOTFILES_ROOT}/lib/installbrews";
 source "${DOTFILES_ROOT}/lib/setfile";
 source "${DOTFILES_ROOT}/lib/status";
+source "${DOTFILES_ROOT}/lib/mmkd";
 
 # Packages to install.
 source var/packages.macos.sh;

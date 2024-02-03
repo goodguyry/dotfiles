@@ -51,8 +51,8 @@ export PATH="${PATH}:${DOTFILES_ROOT}/bin";
 # Source setup files.
 source "${DOTFILES_ROOT}/lib/setfile";
 source "${DOTFILES_ROOT}/lib/status";
+source "${DOTFILES_ROOT}/lib/mmkd";
 source "${DOTFILES_ROOT}/home/functions/print-usage";
-source "${DOTFILES_ROOT}/home/functions/mmkd";
 
 sync=true;
 test "$1" = --no-sync && { sync=false; shift; }
