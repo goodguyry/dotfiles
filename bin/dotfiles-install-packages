@@ -162,8 +162,10 @@ fi;
 [[ -z "$(grep 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc)" ]] && \
   echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
 
+status 'Installing RVM, Ruby, and Gems...';
+
 # Set Ruby version.
-ruby_version='3.3.0';
+ruby_version='2.7.1';
 
 # Source rvm.
 rvm_loc=${rvm_path:="${HOME}/.rvm"};
@@ -174,7 +176,9 @@ gem_root=${GEM_HOME:="${HOME}/.rvm/gems/ruby-${ruby_version}"};
 export PATH=${gem_root}/bin:${gem_root}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
 
 # Install Ruby.
-rvm install "ruby-${ruby_version}" --with-out-ext=fiddle;
+rvm install "ruby-${ruby_version}" --with-out-ext=fiddle --with-openssl-dir=$(brew --prefix openssl@1.1);
+# rvm install 3.2.2 -C --with-openssl-dir=$(brew --prefix openssl);
+
 rvm use "${ruby_version}" --default;
 
 rvm cleanup all;
