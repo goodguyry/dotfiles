@@ -23,10 +23,10 @@ source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/lib/mmkd";
 
 # Packages to install.
-source var/packages.macos.sh;
+source "${DOTFILES_ROOT}/etc/packages.macos.sh";
 
 # Check for Homebrew.
-if ! [ -z "$(type -P brew)" ]; then
+if [ -z "$(type -P brew)" ]; then
   status 'Installing Homebrew...';
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -113,7 +113,7 @@ if [[ ! -d "${nvm_loc}" ]]; then
 fi;
 
 # Make sure NVM is up-to-date.
-cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd -;
+cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd - &>/dev/null;
 
 # Source nvm.
 source "${nvm_loc}/nvm.sh";

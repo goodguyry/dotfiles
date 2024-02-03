@@ -15,11 +15,11 @@ source "${DOTFILES_ROOT}/lib/status";
 function installbrews() {
   test "$1" = --cask && { cask=$1; shift; }
 
-  for BREW in "${@}"; do
-    if $(brew list ${BREW} &> /dev/null); then
-      status --info "${BREW} is already installed.";
+  for brew in "${@}"; do
+    if $(brew list ${brew} &> /dev/null); then
+      status --info "${brew} is already installed.";
     else
-      brew install "${BREW}" "${cask}";
+      brew install $brew $cask;
     fi;
   done;
 
