@@ -118,14 +118,11 @@ cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd - &>/dev/nu
 # Source nvm.
 source "${nvm_loc}/nvm.sh";
 
-status 'Installing NPM latest and Node LTS and stable...';
+status 'Installing last 2 LTS versions...';
 
-# Install/update NPM.
-npm install -g npm@latest;
-
-# Install LTS and stable versions of Node.
+# Install previous and current LTS.
+nvm install lts/hydrogen;
 nvm install --lts;
-nvm install stable;
 
 # Install Node package(s).
 status 'Installing Node packages...';
