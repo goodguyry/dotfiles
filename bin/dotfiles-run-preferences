@@ -362,22 +362,22 @@ defaults write NSGlobalDomain AppleMeasurementUnits -string 'Inches';
 defaults write NSGlobalDomain AppleMetricUnits -bool false;
 
 # Set the timezone; see `systemsetup -listtimezones` for other values.
-sudo systemsetup -settimezone 'America/Los_Angeles' > /dev/null;
+sudo systemsetup -settimezone 'America/Los_Angeles' 2>/dev/null 1>&2;
 
 # Set amount of idle time until computer, display and hard disk sleep to <minutes>.
-sudo systemsetup -setsleep 15 > /dev/null;
+sudo systemsetup -setsleep 15 2>/dev/null 1>&2;
 
 # Set amount of idle time until computer sleeps to <minutes>.
-sudo systemsetup -setcomputersleep 10 > /dev/null;
+sudo systemsetup -setcomputersleep 10 2>/dev/null 1>&2;
 
 # Set amount of idle time until display sleeps to <minutes>.
-sudo systemsetup -setdisplaysleep 3 > /dev/null;
+sudo systemsetup -setdisplaysleep 3 2>/dev/null 1>&2;
 
 # Set amount of idle time until hard disk sleeps to <minutes>.
-sudo systemsetup -setharddisksleep 15 > /dev/null;
+sudo systemsetup -setharddisksleep 15 2>/dev/null 1>&2;
 
 # Set wake on network access to either <on> or <off>.
-sudo systemsetup -setwakeonnetworkaccess on > /dev/null;
+sudo systemsetup -setwakeonnetworkaccess on 2>/dev/null 1>&2;
 
 # Create the Screenshots directory if it doesn't exist.
 # SystemUIServer won't create it for us.
