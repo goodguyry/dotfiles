@@ -29,7 +29,7 @@ executables to the user home directory.
 
 Subcommands and available options:
 
-  ${bold}sync${reset}   Sets up shell configuration files.
+  ${bold}sync${reset}                  Sets up shell configuration files.
 
   ${bold}install${reset}
 
