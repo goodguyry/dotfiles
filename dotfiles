@@ -14,7 +14,7 @@
 bold=$(tput bold);
 reset=$(tput sgr0);
 dashless=$(basename -- "$0" | sed -e 's/-/ /');
-USAGE="
+USAGE="[-h | --help]
    or: ${dashless} --prefix
    or: ${dashless} sync
    or: ${dashless} install <option>
@@ -24,6 +24,8 @@ USAGE="
 executables to the user home directory.
 
 ---
+
+  -h,--help             Print usage information.
 
   --prefix              Prints the dotfiles directory and exit.
 
@@ -59,6 +61,13 @@ source "${DOTFILES_ROOT}/lib/setfile";
 source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/lib/mmkd";
 source "${DOTFILES_ROOT}/home/functions/print-usage";
+
+case "$1" in
+  -h|--help)
+    print_usage;
+    exit 0;
+    ;;
+esac
 
 if test "$1" = --prefix; then
   echo "${DOTFILES_ROOT}";
