@@ -14,28 +14,31 @@
 bold=$(tput bold);
 reset=$(tput sgr0);
 dashless=$(basename -- "$0" | sed -e 's/-/ /');
-USAGE="
+USAGE="[-h | --help]
    or: ${dashless} --prefix
-   or: ${dashless} [--no-sync] install <option>
-   or: ${dashless} [--no-sync] run <option>
+   or: ${dashless} sync
+   or: ${dashless} install <option>
+   or: ${dashless} run <option>
 
 'dotfiles' with no subcommand synlinks shell configuration files, functions, and
 executables to the user home directory.
 
 ---
 
+  -h,--help             Print usage information.
+
   --prefix              Prints the dotfiles directory and exit.
 
-  --no-sync             Skips syncing dotfiles with the home directory.
-
 Subcommands and available options:
+
+  ${bold}sync${reset}                  Sets up shell configuration files.
 
   ${bold}install${reset}
 
     packages            Installs Homebrew, CLI packages; NVM, Node, and NPM;
-                        RVM, Ruby and Gems
+                        RVM, Ruby and Gems.
 
-    apps                Installs Homebrew casks and App Store apps
+    apps                Installs Homebrew casks and App Store apps.
 
   ${bold}run${reset}
 
@@ -59,99 +62,49 @@ source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/lib/mmkd";
 source "${DOTFILES_ROOT}/home/functions/print-usage";
 
+case "$1" in
+  -h|--help)
+    print_usage;
+    exit 0;
+    ;;
+esac
+
 if test "$1" = --prefix; then
   echo "${DOTFILES_ROOT}";
   exit 0;
 fi
 
-sync=true;
-test "$1" = --no-sync && { sync=false; shift; }
-
 subcommand=$1;
 option=$2;
 
 # Handle subcommands.
-declare -a valid_subcommands=(install run);
+declare -a valid_subcommands=(sync install run);
 has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${subcommand}$");
 
-if test $# -eq 1 || [[ ! $has_valid_subcommand ]]; then
+# Catch unknown subcommands.
+if test $has_valid_subcommand = 0; then
   print_usage;
+  status --error "Unknown subcommand: '${subcommand}'.";
+fi
 
+# Catch missing subcommand option.
+if test $# -eq 1; then
   case "${subcommand}" in
     install|run)
+      print_usage;
       status --error "'dotfiles ${subcommand}' requires an additional argument.";
-      ;;
-    *)
-      status --error "Unknown subcommand: '${subcommand}'.";
       ;;
   esac
 fi
 
-if $sync; then
-  status "Symlinking files to ${HOME}";
-
-  declare -a home_files=(
-    'home/aliases'
-    'home/bash_config'
-    'home/bashrc'
-    'home/completions'
-    'home/hushlogin'
-    'home/inputrc'
-    'home/paths'
-    'home/profile'
-    'home/prompt'
-    'home/vimrc'
-  );
-
-  # Link home dotfiles files.
-  for home_file in "${home_files[@]}"; do
-    [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename "${home_file}")";
-  done;
-
-  # Link function files.
-  mmkd "${HOME}/.functions";
-  if [[ $? ]]; then
-    for function_file in "${DOTFILES_ROOT}"/home/functions/*; do
-      [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename "${function_file}")";
-    done;
-  else
-    status --error "Could not create ${HOME}/.functions"
-  fi
-
-  # Link commands into PATH.
-  mmkd "${HOME}/.bin";
-  for bin_file in "${DOTFILES_ROOT}"/home/bin/*; do
-    [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename "${bin_file}")";
-  done;
-
-  # Always copy editorconfig (can't remember why).
-  rsync -avz --quiet "${DOTFILES_ROOT}/home/editorconfig" "${HOME}/.editorconfig";
-
-  # Create dotfiles.local if not present.
-  if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
-    status "Creating ${HOME}/.dotfiles.local";
-    printf '#!/bin/bash\n\n' >> "${HOME}/.dotfiles.local";
-  fi;
-
-  # Source bashrc to make sure the environment is set before moving on.
-  source "${HOME}/.bashrc";
-  status --success "Done syncing files to ${HOME}";
-else
-  status "Skipped syncing files to ${HOME}";
+command_suffix="${subcommand}-${option}";
+if [[ "" == "${option}" ]]; then
+  command_suffix="${subcommand}";
 fi
 
-[[ "" == "${option}" ]] && exit 0;
-
-if [[ -x "${DOTFILES_ROOT}/bin/dotfiles-${subcommand}-${option}" ]]; then
-  "dotfiles-${subcommand}-${option}";
+if [[ -x "${DOTFILES_ROOT}/bin/dotfiles-${command_suffix}" ]]; then
+  "dotfiles-${command_suffix}";
 else
-  printf '%s\n' "dotfiles: Unknown sub-command '${subcommand} ${option}'." >&2;
   print_usage;
-  exit 1;
-fi
-
-if $sync; then
-  [[ $? ]] && status --success 'Done. Restarting the shell to apply changes...';
-
-  exec $SHELL -l;
+  status --error "Unknown sub-command '${command_suffix/-/ }'.";
 fi
