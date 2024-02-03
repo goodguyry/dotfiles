@@ -75,9 +75,9 @@ gitcore="$(brew --prefix git)/share/git-core";
 
 # Adds prepare-commit-msg to global hooks.
 mmkd "${gitcore}/templates/hooks";
-set_file 'etc/prepare-commit-msg' "${gitcore}/templates/hooks/prepare-commit-msg";
+setfile "${DOTFILES_ROOT}/etc/prepare-commit-msg" "${gitcore}/templates/hooks/prepare-commit-msg";
 
-set_file "home/gitignore" "${HOME}/.gitignore";
+setfile "${DOTFILES_ROOT}/home/gitignore" "${HOME}/.gitignore";
 
 # Set up word highlighting.
 git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
