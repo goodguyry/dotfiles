@@ -12,6 +12,7 @@ declare -a BREW_LIST=(
   openssh
   rsync
   sass/sass/sass
+  shellcheck
   vim
   wget
 

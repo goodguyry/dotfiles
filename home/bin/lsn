@@ -22,8 +22,8 @@ node_bin_v="$($node_bin -v)";
 node_current="$(node -v)";
 
 # Nothing to link.
-if [[ "$(trim_version_to_major $node_bin_v)" == "$(trim_version_to_major $node_current)" ]]; then
-  echo "$(trim_version_to_major $node_bin_v)" and "$(trim_version_to_major $node_current) are the same.";
+if [[ "$(trim_version_to_major "${node_bin_v}")" == "$(trim_version_to_major "${node_current}")" ]]; then
+  echo "$(trim_version_to_major "${node_bin_v}")" and "$(trim_version_to_major "${node_current}") are the same.";
   exit;
 fi
 

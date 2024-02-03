@@ -35,6 +35,9 @@ done;
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
 GIT_COMMITTER_EMAIL="$(git config user.email)";
+export GIT_COMMITTER_NAME;
+export GIT_COMMITTER_EMAIL;
 
 # Current Node version.
 NVM_CURRENT="$(nvm current | sed 's/v//')";
+export NVM_CURRENT;

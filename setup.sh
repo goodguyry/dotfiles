@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues

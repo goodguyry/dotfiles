@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -30,13 +31,13 @@ COMPUTERNAME="$(sudo systemsetup -getcomputername)";
 printf "\n";
 status --warning "Current ${COMPUTERNAME}";
 printf "Would you like to change it? [y/N] ";
-read CONTINUE;
+read -r CONTINUE;
 printf "\n";
 
 # Set computer name (as done via System Preferences → Sharing).
 if [[ "${CONTINUE}" =~ ^[Yy]$ || "${CONTINUE}" != '' ]]; then
   printf "Computer name: -> ";
-  read CNAME;
+  read -r CNAME;
   sudo scutil --set COMPUTERNAME "${CNAME}";
   sudo scutil --set HostName "${CNAME}";
   sudo scutil --set LocalHostName "${CNAME}";
@@ -254,7 +255,7 @@ defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 2;
 
 # Enable tap to click and dragging without DragLock for builtin and Bluetooth trackpads.
-for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
+for TRACKPAD_PLIST in "${TRACKPAD_PLISTS[@]}"; do
   defaults write "${TRACKPAD_PLIST}" Clicking -bool true;
   defaults write "${TRACKPAD_PLIST}" DragLock -bool false;
   defaults write "${TRACKPAD_PLIST}" Dragging -bool true;
@@ -265,7 +266,7 @@ defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true;
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1;
 
 # Set up swipe gestures for builtin and Bluetooth trackpads.
-for TRACKPAD_PLIST in ${TRACKPAD_PLISTS[*]}; do
+for TRACKPAD_PLIST in "${TRACKPAD_PLISTS[@]}"; do
   defaults write "${TRACKPAD_PLIST}" HIDScrollZoomModifierMask -int 0;
   defaults write "${TRACKPAD_PLIST}" TrackpadCornerSecondaryClick -int 0;
   defaults write "${TRACKPAD_PLIST}" TrackpadFiveFingerPinchGesture -int 2;
@@ -341,13 +342,13 @@ LOGINMESSAGE="$(sudo defaults read /Library/Preferences/com.apple.loginwindow Lo
 printf "\n";
 status --warning "Login message: '${LOGINMESSAGE}'";
 printf 'Would you like to change it? [y/N] ';
-read CHANGE;
+read -r CHANGE;
 printf "\n";
 
 if [[ "${CHANGE}" =~ ^[Yy]$ || "${CHANGE}" != '' ]]; then
   # Read the input and set the message.
   printf 'Login message: -> ';
-  read NEWLOGINMESSAGE;
+  read -r NEWLOGINMESSAGE;
   sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "${NEWLOGINMESSAGE}";
 fi
 

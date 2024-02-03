@@ -20,6 +20,8 @@
 - [Packer](https://www.packer.io/)
 - [pigz](https://zlib.net/pigz/)
 - [rsync](https://rsync.samba.org/)
+- [sass](https://sass-lang.com/)
+- [shellcheck](https://www.shellcheck.net/)
 - [sfnt2woff-zopfli](https://github.com/bramstein/sfnt2woff-zopfli)
 - [sfnt2woff](https://github.com/bramstein/sfnt2woff)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)

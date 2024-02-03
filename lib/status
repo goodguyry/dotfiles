@@ -15,20 +15,31 @@
 # ------------------------------------------------------------------------------
 
 function status() {
-  local deep_green=$(tput setaf 112);
-  local deep_red=$(tput setaf 196);
-  local ltgray=$(tput setaf 188);
-  local yellow=$(tput setaf 222);
-  local reset=$(tput sgr0);
+  local deep_green;
+  local deep_red;
+  local ltgray;
+  local yellow;
 
-  local prompt="$(basename ${0})";
-  if [[ "${prompt}" =~ install|run ]]; then
+  local subcommand
+  local prompt
+  local prefix;
+  local goodbye;
+  local msg;
+
+  deep_green=$(tput setaf 112);
+  deep_red=$(tput setaf 196);
+  ltgray=$(tput setaf 188);
+  yellow=$(tput setaf 222);
+
+  subcommand="$(basename "${0}")";
+
+  if [[ "${subcommand}" =~ install|run ]]; then
     # Strip `dotfiles` from subcommands, mostly to shorten the prompt.
-    prompt=$(echo "${prompt}" | sed 's/dotfiles-//g');
+    subcommand="${subcommand//dotfiles-/}";
   fi
 
-  local prefix="${ltgray}=>";
-  local goodbye=false;
+  prefix="${ltgray}=>";
+  goodbye=false;
 
   case "$1" in
     --info)
@@ -50,12 +61,13 @@ function status() {
       ;;
   esac
 
-  local msg="$1";
+  prompt="${prefix} ${subcommand}";
+  msg="$1";
 
-  printf "${prefix} ${prompt}: %s${reset}\n" "${msg}";
+  printf "%s: %s$(tput sgr0)\n" "${prompt}" "${msg}";
 
   if $goodbye; then
-    printf "${prefix} ${prompt}: Exiting...${reset}\n";
+    printf "%s: Exiting...$(tput sgr0)\n" "${prompt}";
     exit 1;
   fi
 }

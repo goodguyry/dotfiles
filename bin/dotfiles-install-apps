@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -23,7 +24,7 @@ source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/etc/packages.macos.sh";
 
 # Homebrew is required.
-! [ -z "$(type -P brew)" ] && status --error 'Homebrew is required';
+[ -n "$(type -P brew)" ] && status --error 'Homebrew is required';
 
 # Install Homebrew casks.
 [ ${#BREW_CASK_LIST[@]} -gt 0 ] && installbrews --cask "${BREW_CASK_LIST[@]}";
@@ -33,7 +34,9 @@ if [ ${#MAS_APPS_LIST[@]} -gt 0 ]; then
     mas install "${APP}";
   done;
 
-  [[ $? ]] \
-    && status --success 'App Store apps are ready.' \
-    || status --error 'There was a problem installing App Store apps.';
+  if [[ $? ]]; then
+    status --success 'App Store apps are ready.';
+  else
+    status --error 'There was a problem installing App Store apps.';
+  fi
 fi

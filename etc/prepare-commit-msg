@@ -33,6 +33,6 @@ BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAM
 if [[ "${BRANCH_NAME}" =~ ([A-Z0-9]+-[0-9]+) ]]; then
   # Verify branch name
   if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-    sed -i.bak -e "1s/^/${BASH_REMATCH[1]} /" $1;
+    sed -i.bak -e "1s/^/${BASH_REMATCH[1]} /" "${1}";
   fi;
 fi;

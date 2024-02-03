@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -47,7 +48,8 @@ Subcommands and available options:
                         during git setup, but can be run independently.
 ";
 
-export DOTFILES_ROOT=$(dirname $(realpath "${BASH_SOURCE[0]}"));
+DOTFILES_ROOT=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
+export DOTFILES_ROOT;
 
 export PATH="${PATH}:${DOTFILES_ROOT}/bin";
 
@@ -103,14 +105,14 @@ if $sync; then
 
   # Link home dotfiles files.
   for home_file in "${home_files[@]}"; do
-    [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename $home_file)";
+    [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename "${home_file}")";
   done;
 
   # Link function files.
   mmkd "${HOME}/.functions";
   if [[ $? ]]; then
-    for function_file in ${DOTFILES_ROOT}/home/functions/*; do
-      [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename $function_file)";
+    for function_file in "${DOTFILES_ROOT}"/home/functions/*; do
+      [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename "${function_file}")";
     done;
   else
     status --error "Could not create ${HOME}/.functions"
@@ -118,8 +120,8 @@ if $sync; then
 
   # Link commands into PATH.
   mmkd "${HOME}/.bin";
-  for bin_file in ${DOTFILES_ROOT}/home/bin/*; do
-    [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename $bin_file)";
+  for bin_file in "${DOTFILES_ROOT}"/home/bin/*; do
+    [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename "${bin_file}")";
   done;
 
   # Always copy editorconfig (can't remember why).

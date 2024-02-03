@@ -14,15 +14,19 @@
 function p() {
   if [[ ${#} -lt 1 ]]; then
     # No arguments; change to $HOME/Projects.
-    cd "${HOME}/Projects";
+    cd "${HOME}/Projects" || return;
     return;
   fi
 
+  local name;
+  local project;
+  local sublime_project;
+
   # We passed a project name...
-  local name="${@}";
+  name="${*}";
 
   # Locate the first matching project directory.
-  local project=$(find \
+  project=$(find \
     ~/Projects \
     ~/Projects/sites \
     -maxdepth 2 \
@@ -34,20 +38,20 @@ function p() {
   # Change to the project root
   if [[ -n "${project}" ]]; then
     echo "Switching to ${project}...";
-    cd "${project}";
+    cd "${project}" || return;
   else
-    echo "\'${name}\' not found.";
+    printf "\'%s\' not found." "${name}";
     return;
   fi
 
   # Ask before opening.
   printf '\n';
   printf "Open this project in your editor(s)? [Y/n]";
-  read continue;
+  read -r continue;
 
   # Conditionally set the dotfiles in place.
   if [[ "${continue}" != 'n' ]]; then
-    local sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${name}.sublime-project");
+    sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${name}.sublime-project");
 
     if [[ -n "${sublime_project}" ]]; then
       # Open the project root in the editor
@@ -65,11 +69,14 @@ function p() {
 # Set up directory completion for sublime project directories.
 # Used in conjunction with the p() function.
 function _project_completion {
-  local CUR=${COMP_WORDS[COMP_CWORD]};
+  local cur;
+  local PROJECTS;
+
+  cur=${COMP_WORDS[COMP_CWORD]};
 
   # Find all subilme-project files, which are kept within their project directory.
   # Keep the filename without the directory path.
-  local PROJECTS=$(find \
+  PROJECTS=$(find \
     ~/Projects \
     ~/Projects/sites \
     -maxdepth 2 \
@@ -79,10 +86,11 @@ function _project_completion {
     -print0 | xargs -0 basename -s .sublime-project);
 
   # Concatenate the lists, separated by spaces.
-  for DIR in "${PROJECTS} ${FORCED_PROJECTS}"; do
+  for DIR in $PROJECTS; do
     COMPLETE_LIST+="${DIR} ";
   done;
 
-  COMPREPLY=( $(compgen -W "${COMPLETE_LIST}" -- ${CUR}) );
+  COMPREPLY=()
+  mapfile -t COMPREPLY < <(compgen -W "${COMPLETE_LIST}" -- "${cur}");
 }
 complete -F _project_completion p;

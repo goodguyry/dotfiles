@@ -10,7 +10,7 @@
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip`.
 # ------------------------------------------------------------------------------
 
-tmpfile="${@%/}.tar";
+tmpfile="${*%/}.tar";
 tar -cvf "${tmpfile}" --exclude='.DS_Store' "${@}" || return 1;
 
 size=$(

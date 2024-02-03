@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -32,9 +33,11 @@ if [ -z "$(type -P brew)" ]; then
 
   brew doctor;
 
-  [[ $? ]] \
-    && status --success 'Homebrew is ready.' \
-    || status --error 'There was a problem installing Homebrew.';
+  if [[ $? ]]; then
+    status --success 'Homebrew is ready.';
+  else
+    status --error 'There was a problem installing Homebrew.';
+  fi
 else
   status --info 'Homebrew is already installed.';
 fi;
@@ -53,11 +56,11 @@ brew tap homebrew/cask-fonts;
 [ ${#BREW_LIST[@]} -gt 0 ] && installbrews "${BREW_LIST[@]}";
 
 # Change to bash version installed from Homebrew.
-if [[ ! $(grep "/opt/homebrew/bin/bash" /etc/shells) ]]; then
+if grep -q "/opt/homebrew/bin/bash" /etc/shells; then
+  status "'/opt/homebrew/bin/bash' is already in /etc/shells";
+else
   echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
   status --info "Shell switched to Homebrew Bash";
-else
-  status "'/opt/homebrew/bin/bash' is already in /etc/shells";
 fi;
 
 # Begin Git setup.
@@ -86,7 +89,7 @@ declare -a DIRECTORIES=(
 );
 
 # Create directories.
-for DIRECTORY in ${DIRECTORIES[*]}; do
+for DIRECTORY in "${DIRECTORIES[@]}"; do
   mmkd "${HOME}/${DIRECTORY}";
 done;
 
@@ -99,9 +102,11 @@ else
   curl -#L https://github.com/altercation/vim-colors-solarized/tarball/master | \
     tar -xzv -C "${HOME}/.vim" --strip-components 1 --include='**/solarized.vim';
 
-  [[ $? ]] \
-    && status --success 'Solarized Vim theme is installed' \
-    || status --error 'There was a problem installing the Solarized Vim theme.';
+  if [[ $? ]]; then
+    status --success 'Solarized Vim theme is installed';
+  else
+    status --error 'There was a problem installing the Solarized Vim theme.';
+  fi
 fi;
 
 # Install and/or update NVM.
@@ -113,7 +118,8 @@ if [[ ! -d "${nvm_loc}" ]]; then
 fi;
 
 # Make sure NVM is up-to-date.
-cd "${nvm_loc}" && git checkout `git describe --abbrev=0 --tags`; cd - &>/dev/null;
+cd "${nvm_loc}" && git checkout "$(git describe --abbrev=0 --tags)";
+cd - &>/dev/null || exit;
 
 # Source nvm.
 source "${nvm_loc}/nvm.sh";
@@ -140,9 +146,11 @@ npm list -g --depth 0;
 # Be sure to switch back to the LTS version.
 nvm use --lts;
 
-[[ $? ]] \
-  && status --success 'NVM, NPM & Node are ready.' \
-  || status --error 'There was a problem with NPM/Node.';
+if [[ $? ]]; then
+  status --success 'NVM, NPM & Node are ready.';
+else
+  status --error 'There was a problem with NPM/Node.';
+fi
 
 # Install and configure RVM.
 if [ ! "$(type -P rvm)" ]; then
@@ -153,11 +161,11 @@ fi;
 [[ ! -r "${HOME}/.rvmrc" ]] && touch "${HOME}/.rvmrc";
 
 # Enable auto-updating.
-[[ -z "$(grep 'rvm_autoupdate_flag' ~/.rvmrc)" ]] && \
-  echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
+grep -q 'rvm_autoupdate_flag' ~/.rvmrc \
+  && echo rvm_autoupdate_flag=2 >> "${HOME}/.rvmrc";
 # Quiet RVM complaints about its position in PATH.
-[[ -z "$(grep 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc)" ]] && \
-  echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
+grep -q 'rvm_silence_path_mismatch_check_flag' ~/.rvmrc \
+  && echo rvm_silence_path_mismatch_check_flag=1 >> "${HOME}/.rvmrc";
 
 status 'Installing RVM, Ruby, and Gems...';
 
@@ -173,7 +181,7 @@ gem_root=${GEM_HOME:="${HOME}/.rvm/gems/ruby-${ruby_version}"};
 export PATH=${gem_root}/bin:${gem_root}@global/bin:${MY_RUBY_HOME}/bin:${PATH};
 
 # Install Ruby.
-rvm install "ruby-${ruby_version}" --with-out-ext=fiddle --with-openssl-dir=$(brew --prefix openssl@1.1);
+rvm install "ruby-${ruby_version}" --with-out-ext=fiddle --with-openssl-dir="$(brew --prefix openssl@1.1)";
 # rvm install 3.2.2 -C --with-openssl-dir=$(brew --prefix openssl);
 
 rvm use "${ruby_version}" --default;
@@ -186,9 +194,11 @@ gem install "${gems[@]}" --no-document;
 
 gem cleanup;
 
-[[ $? ]] \
-  && status --success 'Ruby Gems are ready.' \
-  || status --error 'There was a problem installing Gems.';
+if [[ $? ]]; then
+  status --success 'Ruby Gems are ready.';
+else
+  status --error 'There was a problem installing Gems.';
+fi
 
 # Install Vagrant plugins
 vagrant plugin install vagrant-ghost;
@@ -196,6 +206,8 @@ vagrant plugin install vagrant-ghost;
 # Add Dreambox
 # vagrant box add goodguyry/dreambox --provider virtualbox;
 
-[[ $? ]] \
-  && status --success "RVM and Ruby are ready." \
-  || status --error 'There was a problem installing RVM or Ruby.';
+if [[ $? ]]; then
+  status --success "RVM and Ruby are ready.";
+else
+  status --error 'There was a problem installing RVM or Ruby.';
+fi

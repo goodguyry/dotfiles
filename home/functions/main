@@ -13,7 +13,7 @@
 
 function cdf() { # short for `cdfinder`
   if [ "$(type -P osascript)" ]; then
-    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || return;
   fi
 }
 
@@ -24,7 +24,7 @@ function cdf() { # short for `cdfinder`
 # ------------------------------------------------------------------------------
 
 function mkd() {
-  mkdir -p "${@}" && cd "${@}";
+  mkdir -p "${@}" && cd "${@}" || return;
 }
 
 # ------------------------------------------------------------------------------
@@ -60,8 +60,7 @@ function cleanup() {
 }
 
 # Use Git’s colored diff when available.
-hash git &>/dev/null;
-if [ $? -eq 0 ]; then
+if hash git &>/dev/null; then
   function diff() {
     git diff --no-index --color-words "${@}";
   }

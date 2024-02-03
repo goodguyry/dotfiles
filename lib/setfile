@@ -11,8 +11,10 @@
 # ------------------------------------------------------------------------------
 
 function setfile() {
-  local target=$(realpath "${1}");
+  local target;
   local link_name="${2}";
+
+  target=$(realpath "${1}");
 
   ln -fs "${target}" "${link_name}";
 }

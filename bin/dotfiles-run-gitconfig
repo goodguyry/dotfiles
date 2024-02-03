@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091,SC2016
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -27,9 +28,9 @@ function collect_git_info() {
 
     # Prompt for Git user name and email.
     printf 'Your Git author name: -> ';
-    read NAME;
+    read -r NAME;
     printf 'Your Git author email: -> ';
-    read EMAIL;
+    read -r EMAIL;
 
     if [[ "${NAME}" != '' && "${EMAIL}" != '' ]] ; then
       # Print Git author info for confirmation.
@@ -42,7 +43,7 @@ function collect_git_info() {
 
       # Prompt for confirmation.
       printf 'Is this correct? [Y/n] ';
-      read GIT_AUTHOR;
+      read -r GIT_AUTHOR;
       printf '\n';
 
       if [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
@@ -69,7 +70,7 @@ else
 
   # Seek confirmation that the Git information above is correct.
   printf 'Is this correct? [Y/n] ';
-  read GIT_AUTHOR;
+  read -r GIT_AUTHOR;
   printf '\n';
 
   if ! [[ "${GIT_AUTHOR}" =~ ^[Yy]$ || "${GIT_AUTHOR}" == '' ]]; then
@@ -212,7 +213,7 @@ git_config_add core.autocrlf 'input';
 git_config_add core.bare false;
 git_config_add core.editor 'vim';
 # Use custom '.gitignore'.
-git_config_add core.excludesfile '~/.gitignore';
+git_config_add core.excludesfile "${HOME}/.gitignore";
 git_config_add core.filemode true;
 git_config_add core.ignorecase true;
 git_config_add core.logallrefupdates true;
@@ -273,10 +274,8 @@ git_config_add url.git@github.com:.pushinsteadof 'github:';
 git_config_add user.name "${NAME}";
 git_config_add user.email "${EMAIL}";
 
-[[ $? ]] \
-  && status --success "${REPLACED} gitconfig options replaced; ${ADDED} added." \
-  || status --error 'There was a problem configuring Git.';
-
-# status --header "${REPLACED} config options replaced."
-# status --header "${ADDED} config options added."
-printf "\n";
+if [[ $? ]]; then
+  status --success "${REPLACED} gitconfig options replaced; ${ADDED} added.";
+else
+  status --error 'There was a problem configuring Git.';
+fi

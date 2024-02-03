@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -16,14 +17,16 @@ function installbrews() {
   test "$1" = --cask && { cask=$1; shift; }
 
   for brew in "${@}"; do
-    if $(brew list ${brew} &> /dev/null); then
+    if brew list "${brew}" &> /dev/null; then
       status --info "${brew} is already installed.";
     else
-      brew install $brew $cask;
+      brew install "${brew}" "${cask}";
     fi;
   done;
 
-  [[ $? ]] \
-    && status --success 'Brew packages are ready.' \
-    || status --error 'There was a problem installing Brew packages.';
+  if [[ $? ]]; then
+    status --success 'Brew packages are ready.';
+  else
+    status --error 'There was a problem installing Brew packages.';
+  fi
 }
