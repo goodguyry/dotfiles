@@ -14,6 +14,8 @@
 bold=$(tput bold);
 reset=$(tput sgr0);
 dashless=$(basename -- "$0" | sed -e 's/-/ /');
+
+# shellcheck disable=SC2034
 USAGE="[-h | --help]
    or: ${dashless} --prefix
    or: ${dashless} sync
@@ -82,7 +84,7 @@ declare -a valid_subcommands=(sync install run);
 has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${subcommand}$");
 
 # Catch unknown subcommands.
-if test $has_valid_subcommand = 0; then
+if test "$has_valid_subcommand" = 0; then
   print_usage;
   status --error "Unknown subcommand: '${subcommand}'.";
 fi
@@ -102,8 +104,8 @@ if [[ "" == "${option}" ]]; then
   command_suffix="${subcommand}";
 fi
 
-if [[ -x "${DOTFILES_ROOT}/bin/dotfiles-${command_suffix}" ]]; then
-  "dotfiles-${command_suffix}";
+if [[ -x "${HOME}/.dotfiles/dotfiles-${command_suffix}" ]]; then
+  "${HOME}/.dotfiles/dotfiles-${command_suffix}";
 else
   print_usage;
   status --error "Unknown sub-command '${command_suffix/-/ }'.";
