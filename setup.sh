@@ -12,6 +12,22 @@
 # ------------------------------------------------------------------------------
 
 DOTFILES_ROOT=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
+cd "${DOTFILES_ROOT}" || exit 1;
+
+# Initialize the git repository if necessary.
+if [ -n "$(type -P git)" ]; then
+  if ! git rev-parse --is-inside-work-tree &> /dev/null; then
+    git init;
+    git remote add origin https://github.com/goodguyry/dotfiles;
+    git fetch origin master;
+    # Reset the index and working tree to the fetched HEAD.
+    git reset --hard FETCH_HEAD;
+    # Remove any untracked files.
+    git clean -fd;
+    # Pull down the latest changes.
+    git pull --rebase origin master;
+  fi;
+fi;
 
 # Source setup files.
 source "${DOTFILES_ROOT}/lib/mmkd";
