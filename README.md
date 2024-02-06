@@ -63,7 +63,8 @@ dotfiles --prefix
 
 **sync**
 
-Syncs shell configuration files to the home directory.
+Available options:
+* `home` - Syncs shell configuration files to the home directory.
 
 **install**
 

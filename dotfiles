@@ -18,7 +18,7 @@ dashless=$(basename -- "$0" | sed -e 's/-/ /');
 # shellcheck disable=SC2034
 USAGE="[-h | --help]
    or: ${dashless} --prefix
-   or: ${dashless} sync
+   or: ${dashless} sync <option>
    or: ${dashless} install <option>
    or: ${dashless} run <option>
 
@@ -33,7 +33,9 @@ executables to the user home directory.
 
 Subcommands and available options:
 
-  ${bold}sync${reset}                  Sets up shell configuration files.
+  ${bold}sync${reset}
+
+    home                Sets up shell configuration files.
 
   ${bold}install${reset}
 
@@ -91,12 +93,8 @@ fi
 
 # Catch missing subcommand option.
 if test $# -eq 1; then
-  case "${subcommand}" in
-    install|run)
-      print_usage;
-      status --error "'dotfiles ${subcommand}' requires an additional argument.";
-      ;;
-  esac
+  print_usage;
+  status --error "'dotfiles ${subcommand}' requires an additional argument.";
 fi
 
 command_suffix="${subcommand}-${option}";
