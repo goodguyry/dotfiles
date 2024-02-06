@@ -11,11 +11,13 @@
 # Adds the dotfiles command.
 # ------------------------------------------------------------------------------
 
+DOTFILES_ROOT=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
+
 # Source setup files.
-source "./home/functions/mmkd";
-source "./lib/status";
+source "${DOTFILES_ROOT}/lib/mmkd";
+source "${DOTFILES_ROOT}/lib/status";
 
 mmkd "${HOME}/.bin" && status "Created '${HOME}/.bin'";
-ln -sf "$(realpath dotfiles)" "${HOME}/.bin/dotfiles";
+ln -sf "${DOTFILES_ROOT}/dotfiles" "${HOME}/.bin/dotfiles";
 
 [ -n "$(type -P dotfiles)" ] && status --success "Done. Type 'dotfiles' to continue.";
