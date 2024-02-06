@@ -45,6 +45,7 @@ function __dotfiles_completion {
   subcommand="install run sync";
   install_opts="packages apps";
   run_opts="preferences gitconfig";
+  sync_opts="home sublime";
   cur=${COMP_WORDS[COMP_CWORD]};
   prev="${COMP_WORDS[COMP_CWORD-1]}";
 
@@ -58,6 +59,9 @@ function __dotfiles_completion {
     2)
       # Second word is an option for the subcommand.
       case "${prev}" in
+        sync)
+          mapfile -t COMPREPLY < <(compgen -W "${sync_opts}" -- "${cur}");
+          ;;
         install)
           mapfile -t COMPREPLY < <(compgen -W "${install_opts}" -- "${cur}");
           ;;

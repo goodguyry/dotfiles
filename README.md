@@ -42,7 +42,7 @@ Then ```cd``` into the downloaded directory.
 The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` command is available globally.
 
 ```shell
-./setup.sh
+./setup
 ```
 
 ## The `dotfiles` command
@@ -61,30 +61,40 @@ dotfiles --prefix
 
 ### Subcommands
 
-**sync**
+#### sync
 
-Syncs shell configuration files to the home directory.
-
-**install**
-
-Available options:
-* `packages` - Installs Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
-* `apps` - Installs Homebrew casks and App Store apps
+Sync shell configuration files to the home directory.
 
 ```shell
-# E.g.,
+dotfiles sync home
+```
+
+#### install
+
+Install Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
+
+```shell
 dotfiles install packages
 ```
 
-**run**
-
-Available options:
-* `preferences` - Sets system-wide macOS preferences. **Read through the [macos file](scripts/macos) to know what settings and applications will be impacted before executing the file**.
-* `gitconfig` - Sets up the global .gitconfig file. This is automatically run during git setup, but can be run independently.
+Install Homebrew casks and App Store apps
 
 ```shell
-# E.g.,
+dotfiles install apps
+```
+
+#### run
+
+Set system-wide macOS preferences. **Read through the [preferences script](bin/dotfiles-run-preferences) to know what settings and applications will be impacted before executing the file**.
+
+```shell
 dotfiles run preferences
+```
+
+Set up the global .gitconfig file. This is automatically run during `dotfiles install packages`, but can be run independently.
+
+```shell
+dotfiles run gitconfig
 ```
 
 ## Local overrides
