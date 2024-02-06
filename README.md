@@ -42,7 +42,7 @@ Then ```cd``` into the downloaded directory.
 The `setup` script will install `dotfiles`. After initial setup, the `dotfiles` command is available globally.
 
 ```shell
-./setup.sh
+./setup
 ```
 
 ## The `dotfiles` command
