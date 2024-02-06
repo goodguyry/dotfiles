@@ -102,8 +102,8 @@ if [[ "" == "${option}" ]]; then
   command_suffix="${subcommand}";
 fi
 
-if [[ -x "${DOTFILES_ROOT}/bin/dotfiles-${command_suffix}" ]]; then
-  "dotfiles-${command_suffix}";
+if [[ -x "${HOME}/.dotfiles/dotfiles-${command_suffix}" ]]; then
+  "${HOME}/.dotfiles/dotfiles-${command_suffix}";
 else
   print_usage;
   status --error "Unknown sub-command '${command_suffix/-/ }'.";
