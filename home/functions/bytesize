@@ -7,6 +7,9 @@
 # ------------------------------------------------------------------------------
 # usage: bytesize [-n] <file>
 #
+# Available options:
+#    -n    Print only the number
+#
 # bytesize is a small formatting wrapper around `wc` for printing the filesize
 # in bytes for the given file.
 # ------------------------------------------------------------------------------
@@ -43,10 +46,16 @@ printing the filesize in bytes for the given file.
   return;
 }
 
+# ------------------------------------------------------------------------------
 # usage: kbytesize [-n] <file>
+#
+# Available options:
+#    -n    Print only the number
 #
 # kbytesize is a small formatting wrapper around `wc` for
 # printing the filesize in kilobytes for the given file.
+# ------------------------------------------------------------------------------
+
 function kbytesize() {
   units="kilobytes";
   useage="\
