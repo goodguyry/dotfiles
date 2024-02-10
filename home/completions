@@ -45,7 +45,7 @@ function __dotfiles_completion {
   subcommand="install run sync";
   install_opts="packages apps";
   run_opts="preferences gitconfig";
-  sync_opts="home sublime";
+  sync_opts="home sublime work";
   cur=${COMP_WORDS[COMP_CWORD]};
   prev="${COMP_WORDS[COMP_CWORD-1]}";
 
