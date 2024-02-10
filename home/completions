@@ -16,7 +16,7 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 fi
 
-if [ -z "$(type -P git)" ]; then
+if [[ $(type -P git) ]]; then
   # Completion for git-compare.
   _git_compare() {
     local dwim_opt
