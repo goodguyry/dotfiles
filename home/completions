@@ -16,19 +16,17 @@ if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_c
   source "$(brew --prefix)/share/bash-completion/bash_completion";
 fi
 
-if [[ $(type -P git) ]]; then
-  # Completion for git-compare.
-  _git_compare() {
-    local dwim_opt
+# Set up completion for the `g` alias.
+__git_complete g __git_main;
 
-    dwim_opt="$(__git_checkout_default_dwim_mode)";
-    __git_complete_refs "${dwim_opt}" --mode="refs";
-  }
-  __git_complete compare _git_compare;
+# Completion for git-compare.
+_git_compare() {
+  local dwim_opt
 
-  # Set up completion for the `g` alias.
-  __git_complete g git;
-fi
+  dwim_opt="$(__git_checkout_default_dwim_mode)";
+  __git_complete_refs "${dwim_opt}" --mode="refs";
+}
+__git_complete compare _git_compare;
 
 # NPM completions.
 # This is not compatible with npm workspaces.
