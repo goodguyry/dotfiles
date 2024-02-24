@@ -65,7 +65,7 @@ declare -a branches_to_skip=(
 config_no_prune=$(git config prune-merged.skip);
 branches_to_skip+=("${config_no_prune[@]}");
 
-branches=$(git branch --merged | grep -v "\\*");
+branches=$(git branch -vv  | grep -v "\\*" | grep ': gone]' | awk '{print $1}');
 for branch in $branches; do
   branch_no_ws="$(echo -e "${branch}" | tr -d '[:space:]')"; # Trim whitespace.
   branch_excluded=$(printf "%s\n" "${branches_to_skip[@]}" | grep -c "^$branch_no_ws$");
