@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: status <message>
+#    or: status --info <message>
+#    or: status --success <message>
+#    or: status --error <message>
+#    or: status --warning <message>
+#
+# Prints a color- and emoji-coded status message.
+# ------------------------------------------------------------------------------
+
+function status() {
+  local deep_green;
+  local deep_red;
+  local ltgray;
+  local yellow;
+
+  local subcommand
+  local prompt
+  local prefix;
+  local goodbye;
+  local msg;
+
+  deep_green=$(tput setaf 112);
+  deep_red=$(tput setaf 196);
+  ltgray=$(tput setaf 188);
+  yellow=$(tput setaf 222);
+
+  subcommand="$(basename "${0}")";
+
+  if [[ "${subcommand}" =~ install|run ]]; then
+    # Strip `dotfiles` from subcommands, mostly to shorten the prompt.
+    subcommand="${subcommand//dotfiles-/}";
+  fi
+
+  prefix="${ltgray}=>";
+  goodbye=false;
+
+  case "$1" in
+    --info)
+      prefix="${ltgray}💡";
+      shift;
+      ;;
+    --success)
+      prefix="${deep_green}✅";
+      shift;
+      ;;
+    --error)
+      prefix="${deep_red}❌";
+      goodbye=true;
+      shift;
+      ;;
+    --warning)
+      prefix="${yellow}⚠️ ";
+      shift;
+      ;;
+  esac
+
+  prompt="${prefix} ${subcommand}";
+  msg="$1";
+
+  printf "%s: %s$(tput sgr0)\n" "${prompt}" "${msg}";
+
+  if $goodbye; then
+    printf "%s: Exiting...$(tput sgr0)\n" "${prompt}";
+    exit 1;
+  fi
+}

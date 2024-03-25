@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: setfile <target> <link-name>
+#
+# Symlink a file, forcing a replacement if necessary.
+# ------------------------------------------------------------------------------
+
+function setfile() {
+  local target;
+  local link_name="${2}";
+
+  target=$(realpath "${1}");
+
+  ln -fs "${target}" "${link_name}";
+}

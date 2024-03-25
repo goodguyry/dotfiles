@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: lsn
+#
+# Symlink the current node version for system-wide access.
+# ------------------------------------------------------------------------------
+
+# Trim "vMM.mm.pp" to "vMM";
+function trim_version_to_major {
+  echo "${1}" | cut -d . -f 1;
+}
+
+node_bin=/usr/local/bin/node;
+
+# Get the current versions.
+node_bin_v="$($node_bin -v)";
+node_current="$(node -v)";
+
+# Nothing to link.
+if [[ "$(trim_version_to_major "${node_bin_v}")" == "$(trim_version_to_major "${node_current}")" ]]; then
+  echo "$(trim_version_to_major "${node_bin_v}")" and "$(trim_version_to_major "${node_current}") are the same.";
+  exit;
+fi
+
+# Unlink system node.
+echo "Unlinking ${node_bin_v}";
+unlink $node_bin;
+
+# Link newly current version.
+echo "Linking ${node_current}"
+sudo ln -s "$(which node)" $node_bin;
