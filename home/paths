@@ -6,8 +6,18 @@ PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin";
 # $HOME/.nvm/versions/node/{version}/bin
 PATH="${PATH}:${NVM_BIN}";
 
-# Add RVM to PATH for scripting.
-PATH="${PATH}:${HOME}/.rvm/bin";
+if [[ $(brew --prefix ruby) ]]; then
+  RUBY_BIN="$(brew --prefix ruby)/bin";
+
+  if [ -d "${RUBY_BIN}" ]; then
+    export PATH="${RUBY_BIN}":$PATH;
+
+    if [ "$(type -P gem)" ]; then
+      GEM_DIR="$(gem environment gemdir)/bin";
+      export PATH="${GEM_DIR}":$PATH;
+    fi
+  fi
+fi
 
 # Home bin
 PATH="${PATH}:${HOME}/.bin";
