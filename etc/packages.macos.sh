@@ -11,6 +11,7 @@ declare -a BREW_LIST=(
   moreutils
   openssh
   rsync
+  ruby
   sass/sass/sass
   shellcheck
   vim
