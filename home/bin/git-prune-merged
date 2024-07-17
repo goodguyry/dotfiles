@@ -74,7 +74,7 @@ for branch in $branches; do
     if (( dryrun )); then
       echo "* ${branch_no_ws}";
     else
-      git branch -d "${branch_no_ws}";
+      git branch -D "${branch_no_ws}";
     fi
   fi
 done;
