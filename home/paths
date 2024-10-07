@@ -2,6 +2,7 @@
 
 # Brew paths
 PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin";
+PATH="/opt/homebrew/opt/python/libexec/bin:$PATH";
 
 # $HOME/.nvm/versions/node/{version}/bin
 PATH="${PATH}:${NVM_BIN}";
