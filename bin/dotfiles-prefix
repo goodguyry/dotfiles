@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
-if [[ -z "${DOTFILES_ROOT}" ]]; then
+if test ! $root_command; then
   printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ --/g') [project]";
   exit 1;
 fi

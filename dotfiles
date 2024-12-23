@@ -55,7 +55,8 @@ Subcommands and available options:
                         during git setup, but can be run independently.
 ";
 
-
+# Signal to subcommands that they were called correctly.
+export root_command=true;
 
 # Convenience helper for the `--prefix` option.
 function getprefix() {
@@ -69,7 +70,6 @@ function getprefix() {
 }
 
 DOTFILES_ROOT=$(getprefix dotfiles);
-export DOTFILES_ROOT;
 export PATH="${PATH}:${DOTFILES_ROOT}/bin";
 
 # Source setup files.
