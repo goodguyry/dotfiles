@@ -40,10 +40,11 @@ function __dotfiles_completion {
   local cur;
   local prev;
 
-  subcommand="install run sync";
+  subcommand="install run sync --prefix";
   install_opts="packages apps";
   run_opts="preferences gitconfig";
   sync_opts="home sublime work";
+  prefix_opts="home sublime work";
   cur=${COMP_WORDS[COMP_CWORD]};
   prev="${COMP_WORDS[COMP_CWORD-1]}";
 
@@ -65,6 +66,9 @@ function __dotfiles_completion {
           ;;
         run)
           mapfile -t COMPREPLY < <(compgen -W "${run_opts}" -- "${cur}");
+          ;;
+        --prefix)
+          mapfile -t COMPREPLY < <(compgen -W "${prefix_opts}" -- "${cur}");
           ;;
       esac
       ;;

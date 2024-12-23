@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles --prefix [project]
+#
+# Prints the full path to the given project. If no project is passed, the main
+# dotfiles repo path is printed.
+# ------------------------------------------------------------------------------
+
+# Force calling via `dotfiles`.
+if [[ -z "${DOTFILES_ROOT}" ]]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ --/g') [project]";
+  exit 1;
+fi
+
+project="${1}: ";
+if [[ ${#} -lt 1 ]] || [[ -z "${1}" ]]; then
+  # No arguments; default to the main dotfiles repo.
+  project="dotfiles: ";
+fi
+
+prefix_file="${HOME}/.dotfiles/.prefix";
+
+if [[ -r "${prefix_file}" ]]; then
+  prefix=$(grep -F "${project}" "${prefix_file}");
+
+  if [[ -n "${prefix}" ]]; then
+    echo "${prefix#$project}";
+  fi
+fi

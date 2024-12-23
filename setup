@@ -33,6 +33,7 @@ fi;
 source "${DOTFILES_ROOT}/lib/mmkd";
 source "${DOTFILES_ROOT}/lib/status";
 source "${DOTFILES_ROOT}/lib/setfile";
+source "${DOTFILES_ROOT}/lib/setprefix";
 
 mmkd "${HOME}/.bin" && status "Created '${HOME}/.bin'";
 ln -sf "${DOTFILES_ROOT}/dotfiles" "${HOME}/.bin/dotfiles";
@@ -45,5 +46,7 @@ if [[ $? ]]; then
 else
   status --error "Could not create ${HOME}/.dotfiles";
 fi
+
+setprefix dotfiles "${DOTFILES_ROOT}";
 
 [ -n "$(type -P dotfiles)" ] && status --success "Done. Type 'dotfiles' to continue.";

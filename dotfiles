@@ -29,7 +29,7 @@ executables to the user home directory.
 
   -h,--help             Print usage information.
 
-  --prefix              Prints the dotfiles directory and exit.
+  --prefix              Print the dotfiles directory and exit.
 
 Subcommands and available options:
 
@@ -55,9 +55,21 @@ Subcommands and available options:
                         during git setup, but can be run independently.
 ";
 
-DOTFILES_ROOT=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
-export DOTFILES_ROOT;
 
+
+# Convenience helper for the `--prefix` option.
+function getprefix() {
+  if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
+    prefix=$("${HOME}/.dotfiles/dotfiles-prefix" "${1}");
+
+    if [[ $? ]]; then
+      echo "${prefix}";
+    fi
+  fi
+}
+
+DOTFILES_ROOT=$(getprefix dotfiles);
+export DOTFILES_ROOT;
 export PATH="${PATH}:${DOTFILES_ROOT}/bin";
 
 # Source setup files.
@@ -73,8 +85,9 @@ case "$1" in
     ;;
 esac
 
+# Print the dotfiles project prefix.
 if test "$1" = --prefix; then
-  echo "${DOTFILES_ROOT}";
+  getprefix "${2}";
   exit 0;
 fi
 
