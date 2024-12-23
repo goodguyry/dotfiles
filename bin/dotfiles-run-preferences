@@ -17,8 +17,11 @@ if test ! $root_command; then
   exit 1;
 fi
 
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
 # Source setup files.
-source "${DOTFILES_ROOT}/lib/status";
+source "${dotfiles_root}/lib/status";
 
 # Ask for the administrator password upfront.
 sudo -v;
@@ -233,8 +236,8 @@ defaults write com.apple.Terminal OptionClickToMoveCursor -bool true;
 defaults write com.apple.terminal StringEncodings -array 4;
 
 # Use my theme by default in Terminal.app.
-if [[ -r "${DOTFILES_ROOT}/etc/GoodGuyRy.terminal" ]]; then
-  open "${DOTFILES_ROOT}/etc/GoodGuyRy.terminal";
+if [[ -r "${dotfiles_root}/etc/GoodGuyRy.terminal" ]]; then
+  open "${dotfiles_root}/etc/GoodGuyRy.terminal";
   sleep 2; # Wait a bit to make sure the theme is loaded.
   defaults write com.apple.terminal 'Default Window Settings' -string 'GoodGuyRy';
   defaults write com.apple.terminal 'Startup Window Settings' -string 'GoodGuyRy';

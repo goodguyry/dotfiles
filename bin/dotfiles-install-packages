@@ -17,14 +17,17 @@ if test ! $root_command; then
   exit 1;
 fi
 
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
 # Source setup files.
-source "${DOTFILES_ROOT}/lib/installbrews";
-source "${DOTFILES_ROOT}/lib/setfile";
-source "${DOTFILES_ROOT}/lib/status";
-source "${DOTFILES_ROOT}/lib/mmkd";
+source "${dotfiles_root}/lib/installbrews";
+source "${dotfiles_root}/lib/setfile";
+source "${dotfiles_root}/lib/status";
+source "${dotfiles_root}/lib/mmkd";
 
 # Packages to install.
-source "${DOTFILES_ROOT}/etc/packages.macos.sh";
+source "${dotfiles_root}/etc/packages.macos.sh";
 
 # Check for Homebrew.
 if [ -z "$(type -P brew)" ]; then
@@ -71,9 +74,9 @@ gitcore="$(brew --prefix git)/share/git-core";
 
 # Adds prepare-commit-msg to global hooks.
 mmkd "${gitcore}/templates/hooks";
-setfile "${DOTFILES_ROOT}/etc/prepare-commit-msg" "${gitcore}/templates/hooks/prepare-commit-msg";
+setfile "${dotfiles_root}/etc/prepare-commit-msg" "${gitcore}/templates/hooks/prepare-commit-msg";
 
-setfile "${DOTFILES_ROOT}/home/gitignore" "${HOME}/.gitignore";
+setfile "${dotfiles_root}/home/gitignore" "${HOME}/.gitignore";
 
 # Set up word highlighting.
 git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";

@@ -11,8 +11,8 @@
 # Adds the dotfiles command.
 # ------------------------------------------------------------------------------
 
-DOTFILES_ROOT=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
-cd "${DOTFILES_ROOT}" || exit 1;
+dotfiles_root=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
+cd "${dotfiles_root}" || exit 1;
 
 # Initialize the git repository if necessary.
 if [ -n "$(type -P git)" ]; then
@@ -30,23 +30,23 @@ if [ -n "$(type -P git)" ]; then
 fi;
 
 # Source setup files.
-source "${DOTFILES_ROOT}/lib/mmkd";
-source "${DOTFILES_ROOT}/lib/status";
-source "${DOTFILES_ROOT}/lib/setfile";
-source "${DOTFILES_ROOT}/lib/setprefix";
+source "${dotfiles_root}/lib/mmkd";
+source "${dotfiles_root}/lib/status";
+source "${dotfiles_root}/lib/setfile";
+source "${dotfiles_root}/lib/setprefix";
 
 mmkd "${HOME}/.bin" && status "Created '${HOME}/.bin'";
-ln -sf "${DOTFILES_ROOT}/dotfiles" "${HOME}/.bin/dotfiles";
+ln -sf "${dotfiles_root}/dotfiles" "${HOME}/.bin/dotfiles";
 
 mmkd "${HOME}/.dotfiles";
 if [[ $? ]]; then
-  for subcommand_file in "${DOTFILES_ROOT}"/bin/*; do
+  for subcommand_file in "${dotfiles_root}"/bin/*; do
     [[ -f "${subcommand_file}" ]] && setfile "${subcommand_file}" "${HOME}/.dotfiles/$(basename "${subcommand_file}")";
   done;
 else
   status --error "Could not create ${HOME}/.dotfiles";
 fi
 
-setprefix dotfiles "${DOTFILES_ROOT}";
+setprefix dotfiles "${dotfiles_root}";
 
 [ -n "$(type -P dotfiles)" ] && status --success "Done. Type 'dotfiles' to continue.";

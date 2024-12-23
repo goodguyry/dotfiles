@@ -17,11 +17,14 @@ if test ! $root_command; then
   exit 1;
 fi
 
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
 # Source setup files.
-source "${DOTFILES_ROOT}/lib/installbrews";
-source "${DOTFILES_ROOT}/lib/setfile";
-source "${DOTFILES_ROOT}/lib/status";
-source "${DOTFILES_ROOT}/etc/packages.macos.sh";
+source "${dotfiles_root}/lib/installbrews";
+source "${dotfiles_root}/lib/setfile";
+source "${dotfiles_root}/lib/status";
+source "${dotfiles_root}/etc/packages.macos.sh";
 
 # Homebrew is required.
 [ -n "$(type -P brew)" ] && status --error 'Homebrew is required';
