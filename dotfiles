@@ -69,14 +69,14 @@ function getprefix() {
   fi
 }
 
-DOTFILES_ROOT=$(getprefix dotfiles);
-export PATH="${PATH}:${DOTFILES_ROOT}/bin";
+dotfiles_root=$(getprefix dotfiles);
+export PATH="${PATH}:${dotfiles_root}/bin";
 
 # Source setup files.
-source "${DOTFILES_ROOT}/lib/setfile";
-source "${DOTFILES_ROOT}/lib/status";
-source "${DOTFILES_ROOT}/lib/mmkd";
-source "${DOTFILES_ROOT}/home/functions/print-usage";
+source "${dotfiles_root}/lib/setfile";
+source "${dotfiles_root}/lib/status";
+source "${dotfiles_root}/lib/mmkd";
+source "${dotfiles_root}/home/functions/print-usage";
 
 case "$1" in
   -h|--help)
