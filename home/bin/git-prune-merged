@@ -49,7 +49,7 @@ while [ $# -gt 0 ]; do
 done;
 
 # Prune remote branches.
-git remotes prune origin;
+git remote -v prune origin;
 
 declare -a branches_to_skip=(
   develop
