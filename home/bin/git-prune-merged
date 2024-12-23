@@ -12,7 +12,7 @@
 #    --dry-run    Dry run
 #
 # Optional: Configure additional branches to skip in your gitconfig.
-# > git config --global prune-merged.skip "master staging";
+# > git config --global prune-merged.skip \"master preprod production qa updates\"
 #
 # Prune merged branches.
 # ------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ USAGE="[--dry-run]
 Prune merged branches.
 
 Optional: Configure additional branches to skip in your gitconfig.
-> git config --global prune-merged.skip \"master staging vip-develop vip-master\"
+> git config --global prune-merged.skip \"master preprod production qa updates\"
 ";
 
 # Uses git-sh-setup.
@@ -51,13 +51,7 @@ done;
 # Prune remote branches.
 git remote -v prune origin;
 
-declare -a branches_to_skip=(
-  develop
-  main
-  preprod
-  production
-  qa
-);
+declare -a branches_to_skip=(main develop);
 
 (( dryrun )) && echo -e "\nDry run:";
 
