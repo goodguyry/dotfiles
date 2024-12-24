@@ -56,7 +56,7 @@ Subcommands and available options:
 ";
 
 # Signal to subcommands that they were called correctly.
-export root_command=true;
+export ROOT_COMMAND=true;
 
 # Convenience helper for the `--prefix` option.
 function getprefix() {

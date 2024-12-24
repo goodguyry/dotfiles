@@ -24,7 +24,7 @@ function setprefix() {
     touch "${prefix_file}";
   fi
 
-  if [[ -z "$(grep -F "${project}: " "${prefix_file}")" ]]; then
+  if ! grep -Fq "${project}: " "${prefix_file}"; then
     echo "${project}: ${project_path}" >> "${prefix_file}";
   fi
 }

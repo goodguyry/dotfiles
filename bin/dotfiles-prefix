@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
-if test ! $root_command; then
+if test ! "${ROOT_COMMAND}" == true; then
   printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ --/g') [project]";
   exit 1;
 fi
@@ -29,6 +29,6 @@ if [[ -r "${prefix_file}" ]]; then
   prefix=$(grep -F "${project}" "${prefix_file}");
 
   if [[ -n "${prefix}" ]]; then
-    echo "${prefix#$project}";
+    echo "${prefix#"${project}"}";
   fi
 fi

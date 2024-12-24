@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -12,7 +11,7 @@
 # ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
-if test ! $root_command; then
+if test ! "${ROOT_COMMAND}" == true; then
   printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
   exit 1;
 fi
@@ -128,6 +127,7 @@ cd "${nvm_loc}" && git checkout "$(git describe --abbrev=0 --tags)";
 cd - &>/dev/null || exit;
 
 # Source nvm.
+# shellcheck source=/dev/null
 source "${nvm_loc}/nvm.sh";
 
 status 'Installing last 2 LTS versions...';

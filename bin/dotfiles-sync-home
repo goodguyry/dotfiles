@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck disable=SC1091
 #
 # Copyright (c) 2024 Ryan Domingue and contributors
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
@@ -12,7 +11,7 @@
 # ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
-if test ! $root_command; then
+if test ! "${ROOT_COMMAND}" == true; then
   printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
   exit 1;
 fi
@@ -72,6 +71,7 @@ if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
 fi;
 
 # Source bashrc to make sure the environment is set before moving on.
+# shellcheck source=/dev/null
 source "${HOME}/.bashrc";
 status --success "Done syncing files to ${HOME}";
 
