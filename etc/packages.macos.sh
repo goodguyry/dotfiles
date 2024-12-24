@@ -112,8 +112,12 @@ BREW_CASK_LIST=("${CASK_APPS[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
 
 # Mac App Store apps.
 declare -a MAS_APPS_LIST=(
+  # 1Password for Safari
+  1569813296
   # Bear
   1091189122
+  # Craft
+  1487937127
   # Better Rename 9
   414209656
   # Duo
@@ -129,6 +133,8 @@ declare -a MAS_APPS_LIST=(
   # Pixelmator
   407963104
   # Reeder
+  1529448980
+  # Reeder Classic
   1529448980
   # Sequel Ace
   1518036000
