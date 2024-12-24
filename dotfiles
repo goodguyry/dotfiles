@@ -58,18 +58,7 @@ Subcommands and available options:
 # Signal to subcommands that they were called correctly.
 export ROOT_COMMAND=true;
 
-# Convenience helper for the `--prefix` option.
-function getprefix() {
-  if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
-    prefix=$(source "${HOME}/.dotfiles/dotfiles-prefix" "${1}");
-
-    if [[ $? ]]; then
-      echo "${prefix}";
-    fi
-  fi
-}
-
-dotfiles_root=$(getprefix dotfiles);
+dotfiles_root=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
 export PATH="${PATH}:${dotfiles_root}/bin";
 
 # Source setup files.
@@ -78,21 +67,28 @@ source "${dotfiles_root}/lib/status";
 source "${dotfiles_root}/lib/mmkd";
 source "${dotfiles_root}/home/functions/print-usage";
 
-case "$1" in
-  -h|--help)
-    print_usage;
-    exit 0;
-    ;;
-esac
+# Test for options.
+while [ $# -gt 0 ]; do
+  case "$1" in
+    sync|install|run) subcommand=$1; option=$2; ;;
+    --prefix) subcommand="prefix"; option=$2; ;;
+    -h|--help)
+      print_usage;
+      exit 0;
+      ;;
+  esac
 
-# Print the dotfiles project prefix.
-if test "$1" = --prefix; then
-  getprefix "${2}";
+  shift;
+done;
+
+if [[ "prefix" == "${subcommand}" ]]; then
+  if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
+    # shellcheck disable=SC1090
+    source "${HOME}/.dotfiles/dotfiles-prefix" "${option:-dotfiles}";
+  fi
+
   exit 0;
 fi
-
-subcommand=$1;
-option=$2;
 
 # Handle subcommands.
 declare -a valid_subcommands=(sync install run);
