@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------------------
 
 # Force calling via `dotfiles`.
-if test ! "${ROOT_COMMAND}" == true; then
+if test "${ROOT_COMMAND}" != true; then
   printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
   exit 1;
 fi

@@ -53,6 +53,7 @@ Subcommands and available options:
 ";
 
 # Signal to subcommands that they were called correctly.
+# @todo I'm not certain this is doing what I want...
 export ROOT_COMMAND=true;
 
 dotfiles_root=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
@@ -115,3 +116,5 @@ else
   print_usage;
   status --error "Unknown sub-command '${command_suffix/-/ }'.";
 fi
+
+unset ROOT_COMMAND;
