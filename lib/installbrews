@@ -11,8 +11,6 @@
 # Install a list of brew packages if they're not already installed.
 # ------------------------------------------------------------------------------
 
-source "$(dotfiles --prefix)/lib/status";
-
 function installbrews() {
   test "$1" = --cask && { cask=$1; shift; }
 

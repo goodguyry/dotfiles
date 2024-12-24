@@ -31,9 +31,9 @@ fi;
 
 # Source setup files.
 source "${dotfiles_root}/lib/mmkd";
-source "${dotfiles_root}/lib/status";
 source "${dotfiles_root}/lib/setfile";
 source "${dotfiles_root}/lib/setprefix";
+source "${dotfiles_root}/lib/status";
 
 mmkd "${HOME}/.bin" && status "Created '${HOME}/.bin'";
 ln -sf "${dotfiles_root}/dotfiles" "${HOME}/.bin/dotfiles";

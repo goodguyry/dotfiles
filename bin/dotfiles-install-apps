@@ -20,8 +20,8 @@ fi
 dotfiles_root=$(dotfiles --prefix);
 
 # Source setup files.
-source "${dotfiles_root}/lib/installbrews";
 source "${dotfiles_root}/etc/packages.macos.sh";
+source "${dotfiles_root}/lib/installbrews";
 
 # Homebrew is required.
 [ -n "$(type -P brew)" ] && status --error 'Homebrew is required';
