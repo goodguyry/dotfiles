@@ -22,9 +22,6 @@ USAGE="[-h | --help]
    or: ${dashless} install <option>
    or: ${dashless} run <option>
 
-'dotfiles' with no subcommand synlinks shell configuration files, functions, and
-executables to the user home directory.
-
 ---
 
   -h,--help             Print usage information.
