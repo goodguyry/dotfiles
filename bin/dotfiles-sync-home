@@ -19,12 +19,6 @@ fi
 # Capture the dotfiles directory.
 dotfiles_root=$(dotfiles --prefix);
 
-# Source setup files.
-source "${dotfiles_root}/lib/installbrews";
-source "${dotfiles_root}/lib/setfile";
-source "${dotfiles_root}/lib/status";
-source "${dotfiles_root}/lib/mmkd";
-
 status "Symlinking files to ${HOME}";
 
 declare -a home_files=(

@@ -17,9 +17,6 @@ if test ! "${ROOT_COMMAND}" == true; then
   exit 1;
 fi
 
-# Source setup files.
-source "$(dotfiles --prefix)/lib/status";
-
 # Collect Git author info.
 function collect_git_info() {
   # Track status; ends while loop when incremented.

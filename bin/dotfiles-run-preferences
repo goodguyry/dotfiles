@@ -19,9 +19,6 @@ fi
 # Capture the dotfiles directory.
 dotfiles_root=$(dotfiles --prefix);
 
-# Source setup files.
-source "${dotfiles_root}/lib/status";
-
 # Ask for the administrator password upfront.
 sudo -v;
 # Keep-alive: update existing `sudo` time stamp until `macos` has finished.

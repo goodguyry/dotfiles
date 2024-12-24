@@ -21,8 +21,6 @@ dotfiles_root=$(dotfiles --prefix);
 
 # Source setup files.
 source "${dotfiles_root}/lib/installbrews";
-source "${dotfiles_root}/lib/setfile";
-source "${dotfiles_root}/lib/status";
 source "${dotfiles_root}/etc/packages.macos.sh";
 
 # Homebrew is required.

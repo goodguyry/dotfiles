@@ -61,7 +61,7 @@ export ROOT_COMMAND=true;
 # Convenience helper for the `--prefix` option.
 function getprefix() {
   if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
-    prefix=$("${HOME}/.dotfiles/dotfiles-prefix" "${1}");
+    prefix=$(source "${HOME}/.dotfiles/dotfiles-prefix" "${1}");
 
     if [[ $? ]]; then
       echo "${prefix}";
@@ -116,7 +116,8 @@ if [[ "" == "${option}" ]]; then
 fi
 
 if [[ -x "${HOME}/.dotfiles/dotfiles-${command_suffix}" ]]; then
-  "${HOME}/.dotfiles/dotfiles-${command_suffix}";
+  # shellcheck disable=SC1090
+  source "${HOME}/.dotfiles/dotfiles-${command_suffix}";
 else
   print_usage;
   status --error "Unknown sub-command '${command_suffix/-/ }'.";
