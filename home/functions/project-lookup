@@ -46,11 +46,11 @@ function p() {
 
   # Ask before opening.
   printf '\n';
-  printf "Open this project in your editor(s)? [Y/n]";
+  printf "Open this project in your editor(s)? [y/N]";
   read -r continue;
 
   # Conditionally set the dotfiles in place.
-  if [[ "${continue}" != 'n' ]]; then
+  if [[ "${continue}" == 'y' ]]; then
     sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${name}.sublime-project");
 
     if [[ -n "${sublime_project}" ]]; then
