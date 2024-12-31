@@ -51,11 +51,11 @@ function p() {
 
   # Conditionally set the dotfiles in place.
   if [[ "${continue}" == 'y' ]]; then
-    sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${name}.sublime-project");
+    sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${project}.sublime-project");
 
     if [[ -n "${sublime_project}" ]]; then
       # Open the project root in the editor
-      [[ "$(type -P subl)" ]] && subl --project "${name}";
+      [[ "$(type -P subl)" ]] && subl --project "${project}";
 
       # Open the project in the git client
       # This got annoying. I never close projects in Merge. Maybe I should start?
