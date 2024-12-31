@@ -78,3 +78,16 @@ fi;
 function tre() {
   tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+# ------------------------------------------------------------------------------
+# usage: qrdiscogs <url>
+#
+# Creates a QR code from a Discogs URL and outputs as a PNG file in the current
+# directory.
+# ------------------------------------------------------------------------------
+function qrdiscogs() {
+  url="${1}";
+  filename=$(echo "${url##*/}.png" | tr '[:upper:]' '[:lower:]');
+
+  qrencode -o "${filename}" "${url}"
+}
