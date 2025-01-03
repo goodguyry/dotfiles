@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: p [project-name]
+#
+# `cd` to the Projects directory. If a project is given and found, cd to it and
+# open the project in Sublime Text.
+# ------------------------------------------------------------------------------
+
+function p() {
+  if [[ ${#} -lt 1 ]]; then
+    # No arguments; change to $HOME/Projects.
+    cd "${HOME}/Projects" || return;
+    return;
+  fi
+
+  local name;
+  local project;
+  local sublime_project;
+
+  # We passed a project name...
+  name="${*}";
+
+  # Locate the first matching project directory.
+  project=$(find \
+    ~/Projects \
+    ~/Projects/sites \
+    -maxdepth 2 \
+    -mindepth 2 \
+    -type f \
+    -iname "${name}.sublime-project" \
+    -exec dirname {} \; -quit);
+
+  # Change to the project root
+  if [[ -n "${project}" ]]; then
+    echo "Switching to ${project}...";
+    cd "${project}" || return;
+  else
+    printf "\'%s\' not found." "${name}";
+    return;
+  fi
+
+  # Ask before opening.
+  printf '\n';
+  printf "Open this project in your editor(s)? [y/N]";
+  read -r continue;
+
+  # Conditionally set the dotfiles in place.
+  if [[ "${continue}" == 'y' ]]; then
+    sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${project}.sublime-project");
+
+    if [[ -n "${sublime_project}" ]]; then
+      # Open the project root in the editor
+      [[ "$(type -P subl)" ]] && subl --project "${project}";
+
+      # Open the project in the git client
+      # This got annoying. I never close projects in Merge. Maybe I should start?
+      # [[ "$(type -P smerge)" ]] && smerge .;
+    else
+      [[ "$(type -P subl)" ]] && subl .;
+    fi
+  fi
+}
+
+# Set up directory completion for sublime project directories.
+# Used in conjunction with the p() function.
+function _project_completion {
+  local cur;
+  local PROJECTS;
+
+  cur=${COMP_WORDS[COMP_CWORD]};
+
+  # Find all subilme-project files, which are kept within their project directory.
+  # Keep the filename without the directory path.
+  PROJECTS=$(find \
+    ~/Projects \
+    ~/Projects/sites \
+    -maxdepth 2 \
+    -mindepth 2 \
+    -type f \
+    -iname '*.sublime-project' \
+    -print0 | xargs -0 basename -s .sublime-project);
+
+  # Concatenate the lists, separated by spaces.
+  for DIR in $PROJECTS; do
+    COMPLETE_LIST+="${DIR} ";
+  done;
+
+  COMPREPLY=()
+  mapfile -t COMPREPLY < <(compgen -W "${COMPLETE_LIST}" -- "${cur}");
+}
+complete -F _project_completion p;

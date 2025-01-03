@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles install apps
+#
+# Installs Homebrew casks and App Store apps
+# ------------------------------------------------------------------------------
+
+# Force calling via `dotfiles`.
+if [ "${BASH_SOURCE[0]}" -ef "${0}" ]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
+# Source setup files.
+source "${dotfiles_root}/etc/packages.macos.sh";
+source "${dotfiles_root}/lib/installbrews";
+
+# Homebrew is required.
+[ -n "$(type -P brew)" ] && status --error 'Homebrew is required';
+
+# Install Homebrew casks.
+[ ${#BREW_CASK_LIST[@]} -gt 0 ] && installbrews --cask "${BREW_CASK_LIST[@]}";
+
+if [ ${#MAS_APPS_LIST[@]} -gt 0 ]; then
+  for APP in "${MAS_APPS_LIST[@]}"; do
+    mas install "${APP}";
+  done;
+
+  if [[ $? ]]; then
+    status --success 'App Store apps are ready.';
+  else
+    status --error 'There was a problem installing App Store apps.';
+  fi
+fi

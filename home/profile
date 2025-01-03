@@ -2,18 +2,18 @@
 
 export INPUTRC="${HOME}/.inputrc";
 
+export NVM_DIR="${HOME}/.nvm"
+[ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
+[ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
+
 # Load the shell dotfiles, and then some:
 # Shamelessly stolen from @wilto
 declare -a FILES=(
-  "${HOME}/.nvm/nvm.sh" # Load NVM.
-  "${HOME}/.completions" # Autocompletion scripts.
   "${HOME}/.prompt" # Custom bash prompt.
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.
-  "${HOME}/.functions" # Functions.
   "${HOME}/.paths" # Path modifications.
-  "${HOME}/.dotfiles.local" # Local and private settings not under version control (e.g. git name/email, package lists).
-  "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*.
+  "${HOME}/.completions" # Autocompletion scripts.
 );
 
 # If these files are readable, source them.
@@ -23,16 +23,20 @@ done;
 
 unset FILES;
 
-export NVM_DIR="${HOME}/.nvm"
-[ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
-[ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
+# Source functions files.
+for function_file in "${HOME}/.functions/"*; do
+  [[ -r "${function_file}" ]] && source "${function_file}";
+done;
+
+# Local and private settings not under version control (e.g. git name/email, package lists).
+[[ -r "${HOME}/.dotfiles.local" ]] && source "${HOME}/.dotfiles.local";
 
 # Environment variables.
 GIT_COMMITTER_NAME="$(git config user.name)";
 GIT_COMMITTER_EMAIL="$(git config user.email)";
+export GIT_COMMITTER_NAME;
+export GIT_COMMITTER_EMAIL;
 
 # Current Node version.
 NVM_CURRENT="$(nvm current | sed 's/v//')";
-
-test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv);
-# eval $($(brew --prefix)/bin/brew shellenv)
+export NVM_CURRENT;

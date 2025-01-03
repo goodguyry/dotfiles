@@ -75,6 +75,9 @@ alias update='brew update; brew upgrade; brew cleanup; \
   rvm cleanup all; \
   sudo gem update --system; sudo gem update; sudo gem cleanup';
 
+# Update caniuse-lite/browserlist
+alias caniupdate='npx update-browserslist-db@latest';
+
 # List globally-installed npm packages.
 alias npmg='npm list -g --depth 0';
 

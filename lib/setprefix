@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: setprefix <project-name> <directory-path>
+#
+# Add the project path to the dotfiles `.prefix` file.
+# ------------------------------------------------------------------------------
+
+function setprefix() {
+  if [[ ${#} -lt 2 ]]; then
+    echo "usage: setprefix <project-name> <directory-path>";
+    return 1;
+  fi
+
+  project="${1}";
+  project_path="${2}";
+  prefix_file="${HOME}/.dotfiles/.prefix";
+
+  if [[ ! -r "${prefix_file}" ]]; then
+    touch "${prefix_file}";
+  fi
+
+  if ! grep -Fq "${project}: " "${prefix_file}"; then
+    echo "${project}: ${project_path}" >> "${prefix_file}";
+  fi
+}

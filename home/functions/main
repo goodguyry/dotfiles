@@ -1,0 +1,93 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: cdf
+#
+# Change working directory to the top-most Finder window location.
+# http://helpx.adobe.com/photoshop/kb/unit-type-conversion-error-applescript.html
+# ------------------------------------------------------------------------------
+
+function cdf() { # short for `cdfinder`
+  if [ "$(type -P osascript)" ]; then
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || return;
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# usage: mkd <directory-name>
+#
+# Create a new directory and enter it.
+# ------------------------------------------------------------------------------
+
+function mkd() {
+  mkdir -p "${@}" && cd "${@}" || return;
+}
+
+# ------------------------------------------------------------------------------
+# usage: hide <file> [file...]
+#
+# Hide individual file(s).
+# ------------------------------------------------------------------------------
+
+function hide() {
+  chflags hidden "${@}";
+}
+
+# ------------------------------------------------------------------------------
+# usage: unhide <file> [file...]
+#
+# Unhide individual file(s).
+# ------------------------------------------------------------------------------
+
+function unhide() {
+  chflags nohidden "${@}";
+}
+
+# ------------------------------------------------------------------------------
+# usage: cleanup [file-name]
+#
+# Recursively delete files that match a certain pattern.
+# (by default delete all `.DS_Store` files).
+# ------------------------------------------------------------------------------
+
+function cleanup() {
+  local Q="${1:-*.DS_Store}";
+  find . -type f -name "${Q}" -ls -delete;
+}
+
+# Use Git’s colored diff when available.
+if hash git &>/dev/null; then
+  function diff() {
+    git diff --no-index --color-words "${@}";
+  }
+fi;
+
+# ------------------------------------------------------------------------------
+# usage: tre
+#
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+# ------------------------------------------------------------------------------
+
+function tre() {
+  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+# ------------------------------------------------------------------------------
+# usage: qrdiscogs <url>
+#
+# Creates a QR code from a Discogs URL and outputs as a PNG file in the current
+# directory.
+# ------------------------------------------------------------------------------
+function qrdiscogs() {
+  url="${1}";
+  filename=$(echo "${url##*/}.png" | tr '[:upper:]' '[:lower:]');
+
+  qrencode -o "${filename}" "${url}"
+}

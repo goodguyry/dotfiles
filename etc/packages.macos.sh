@@ -1,20 +1,26 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 
 declare -a BREW_LIST=(
   # Missing or outdated utils.
   coreutils
-  moreutils
-  'findutils --with-default-names'
-  'gnu-sed --with-default-names'
-  'wget --enable-iri'
-  'vim --with-override-system-vi'
+  findutils
+  git
+  git-open
+  gnu-sed
   grep
+  moreutils
   openssh
   rsync
+  ruby
+  sass/sass/sass
+  shellcheck
+  vim
+  wget
 
   # Install newer Bash.
   bash
-  bash-completion2
+  bash-completion@2
 
   # Font tools.
   sfnt2woff
@@ -26,63 +32,48 @@ declare -a BREW_LIST=(
   libdvdcss
   mas
   mysql
-  packer
   pigz
+  svn
   tree
   zlib
 );
 
 declare -a CASK_APPS=(
-  1Password
+  1password
   alfred
   appcleaner
-  atext
   betterzip
-  brave
-  caffeine
   chronosync
   clamxav
   cleanshot
-  clipy
   coconutbattery
   daisydisk
-  dropbox
-  firefox-developer-edition
+  espanso
   firefox
+  firefox-developer-edition
   gitify
-  google-chrome-canary
   google-chrome
+  google-chrome-canary
   handbrake
-  macmediakeyforwarder
+  hazel
   imageoptim
-  macdown
-  muzzle
+  macmediakeyforwarder
   notion
   onyx
-  opera-beta
-  opera-developer
-  opera-mobile-emulator
-  opera
+  parallels
   pixelsnap
+  protonvpn
   rar
   safari-technology-preview
-  sequel-pro
-  sketch
+  sip
   sublime-merge
   sublime-text
   suspicious-package
-  torbrowser
-  transmission
+  tor-browser
   transmit
   vagrant
-  virtualbox
   vlc
-  zeplin
-);
-
-declare -a SETTINGS_PANES=(
-  web-sharing
-  hazel
+  zoom
 );
 
 declare -a QL_PLUGINS=(
@@ -108,7 +99,7 @@ declare -a FONTS=(
   font-pt-mono
   font-pt-sans
   font-pt-serif
-  font-roboto-condensed
+  font-roboto
   font-roboto-mono
   font-roboto-slab
   font-source-code-pro
@@ -117,22 +108,42 @@ declare -a FONTS=(
 );
 
 # Merge brew cask arrays.
-BREW_CASK_LIST=("${CASK_APPS[@]}" "${SETTINGS_PANES[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
+BREW_CASK_LIST=("${CASK_APPS[@]}" "${QL_PLUGINS[@]}" "${FONTS[@]}");
 
 # Mac App Store apps.
 declare -a MAS_APPS_LIST=(
-  1091189122 # Bear
-  414209656  # Better Rename 9
-  420212497  # Byword
-  777886035  # Duo
-  530458789  # Frank DeLoupe
-  409203825  # Numbers
-  409201541  # Pages
-  407963104  # Pixelmator
-  880001334  # Reeder
-  803453959  # Slack
-  1006087419 # SnippetsLab
-  425424353  # The Unarchiver
-  904280696  # Things
-  557168941  # Tweetbot
+  # 1Password for Safari
+  1569813296
+  # Bear
+  1091189122
+  # Craft
+  1487937127
+  # Better Rename 9
+  414209656
+  # Duo
+  777886035
+  # GarageBand
+  682658836
+  # Mela
+  1568924476
+  # Numbers
+  409203825
+  # Pages
+  409201541
+  # Pixelmator
+  407963104
+  # Reeder
+  1529448980
+  # Reeder Classic
+  1529448980
+  # Sequel Ace
+  1518036000
+  # SnippetsLab
+  1006087419
+  # The Unarchiver
+  425424353
+  # Things
+  904280696
+  # Xcode
+  497799835
 );

@@ -1,20 +1,12 @@
-# Scripts
+# Packages
 
-- `gitconfig`: Set up Git configuration settings and aliases.
-- `macos`: Set Application, User and System-wide preferences for macOS.
-- `brews`: Install Homebrew and Homebrew packages, native applications, and fonts.
-- `rvm`: Install RVM, Ruby, and Gems.
-- `nvm`: Install NVM, Node, and packages from NPM.
-- `appstore`: Install Mac App Store purchases.
-- `sublime`: Install Sublime Text and Sublime Merge packages and settings.
+## Homebrew
 
-## Packages:
-
-### [Homebrew](http://brew.sh)
-
-- [Bash 4](http://www.gnu.org/software/bash/)
+- [Bash 5](http://www.gnu.org/software/bash/)
 - [Bash Completion 2](https://bash-completion.alioth.debian.org/)
 - [gist](https://github.com/defunkt/gist)
+- [git](https://git-scm.com/)
+- [git-open](https://github.com/paulirish/git-open)
 - [GNU Coreutils](http://www.gnu.org/software/coreutils/coreutils.html)
 - [GNU Findutils](http://www.gnu.org/software/findutils/)
 - [GNU grep](https://www.gnu.org/software/grep/)
@@ -28,68 +20,49 @@
 - [Packer](https://www.packer.io/)
 - [pigz](https://zlib.net/pigz/)
 - [rsync](https://rsync.samba.org/)
+- [sass](https://sass-lang.com/)
+- [shellcheck](https://www.shellcheck.net/)
 - [sfnt2woff-zopfli](https://github.com/bramstein/sfnt2woff-zopfli)
 - [sfnt2woff](https://github.com/bramstein/sfnt2woff)
 - [Tree](http://mama.indstate.edu/users/ice/tree/)
 - [Vim](https://vim.sourceforge.io/)
 - [woff2](https://github.com/google/woff2)
 
-#### Homebrew Taps
+### Homebrew Taps
 
 - [Homebrew Cask](https://github.com/caskroom/homebrew-cask)
 - [Homebrew Cask/fonts](https://github.com/caskroom/homebrew-fonts)
 - [Homebrew Cask/versions](https://github.com/caskroom/homebrew-versions)
 - [Web Font Tools](https://github.com/bramstein/homebrew-webfonttools)
 
-#### Casks (native applications)
+### Casks (native applications)
 
 - [1Password](https://1password.com/)
 - [Alfred 3](https://www.alfredapp.com/)
 - [AppCleaner](https://freemacsoft.net/appcleaner/)
-- [aText](https://www.trankynam.com/atext/)
 - [BetterZip](https://macitbetter.com/)
-- [Brave](https://brave.com/)
-- [Caffeine](http://lightheadsw.com/caffeine/)
 - [ChronoSync](http://www.econtechnologies.com/chronosync/overview.html)
 - [ClamXav](https://www.clamxav.com/)
-- [Clipy](https://clipy-app.com/)
 - [Coconut Battery](http://www.coconut-flavour.com/coconutbattery/)
-- [Dropbox](http://www.dropbox.com)
 - [Firefox](https://www.mozilla.org/en-US/firefox/products/)
 - [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
-- [Gitify](http://gitify.io/)
 - [Google Chrome](http://www.google.com/chrome/)
 - [Google Chrome Canary](https://www.google.com/chrome/browser/canary.html)
 - [Handbrake](http://handbrake.fr)
+- [Hazel](https://www.noodlesoft.com/)
 - [High Sierra Media Key Enabler](http://milgra.com/high-sierra-media-key-enabler.html)
 - [ImageOptim](https://imageoptim.com/)
-- [MacDown](http://macdown.uranusjr.com/)
-- [Muzzle](https://muzzleapp.com/)
 - [Onyx](http://www.titanium.free.fr/onyx.html)
-- [Opera](http://www.opera.com/)
-- [Opera Beta](http://www.opera.com/computer/beta)
-- [Opera Developer](http://www.opera.com/developer)
-- [Opera Mobile Emulator](http://www.opera.com/developer/mobile-emulator)
 - [RAR](http://www.rarlab.com/)
 - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
 - [SequelPro](http://www.sequelpro.com/)
-- [Sketch](https://www.sketchapp.com)
 - [Sublime Merge](https://www.sublimemerge.com/)
 - [Sublime Text 3](http://www.sublimetext.com/3)
 - [Suspicious Package](http://www.mothersruin.com/software/SuspiciousPackage/)
 - [Tor Browser](https://www.torproject.org/projects/torbrowser.html.en)
-- [Transmission](http://www.transmissionbt.com/)
 - [Transmit](https://panic.com/transmit/)
-- [Vagrant](https://www.vagrantup.com/)
-- [VirtualBox](https://www.virtualbox.org/)
-- [VLC](http://www.videolan.org/vlc/index.html)
 
-#### System Preferences panes
-
-- [Web Sharing](https://clickontyler.com/web-sharing/)
-- [Hazel](https://www.noodlesoft.com/)
-
-#### QuickLook plugins
+### QuickLook plugins
 
 - [QLColorCode](https://code.google.com/p/qlcolorcode/)
 - [qlImageSize](https://github.com/Nyx0uf/qlImageSize)
@@ -98,7 +71,7 @@
 - [QuickLookCSV](https://github.com/p2/quicklook-csv)
 - [WebP](https://github.com/dchest/webp-quicklook)
 
-#### Fonts
+### Fonts
 
 - Hack
 - Inconsolata
@@ -113,14 +86,14 @@
 - PT Mono
 - PT Sans
 - PT Serif
-- Roboto Condensed
+- Roboto
 - Roboto Mono
 - Roboto Slab
 - Source Code Pro
 - Source Sans Pro
 - Source Serif Pro
 
-### RVM
+## RVM
 
 - [RVM](https://rvm.io)
   - [Ruby (2.3.0)](https://www.ruby-lang.org/en/)
@@ -129,58 +102,24 @@
 - [Rouge](http://rouge.jneen.net/)
 - [Sass](http://sass-lang.com/)
 
-### NVM
+## NVM
 
 - [NVM](https://github.com/creationix/nvm)
   - [Node (Latest)](https://nodejs.org/en/)
 - [Browsersync](http://www.browsersync.io/)
-- [git-open](https://github.com/paulirish/git-open)
 
-### Mac App Store purchases
+## Mac App Store purchases
 
 - [Bear](http://www.bear-writer.com)
 - [Better Rename 9](https://itunes.apple.com/us/app/2do/id414209656)
-- [Byword](https://itunes.apple.com/us/app/2do/id420212497)
-- [Duo](https://itunes.apple.com/us/app/2do/id777886035)
-- [Frank DeLoupe](https://itunes.apple.com/us/app/2do/id530458789)
-- [GIPHY Capture](https://itunes.apple.com/us/app/giphy-capture-the-gif-maker/id668208984)
+- [Duo](https://charliedeets.com/duo/)
+- [GarageBand](https://www.apple.com/mac/garageband/)
+- [Mela](https://mela.recipes/)
 - [Numbers](https://www.apple.com/numbers/)
 - [Pages](https://www.apple.com/pages/)
 - [Pixelmator](http://www.pixelmator.com/mac/)
 - [Reeder](https://itunes.apple.com/us/app/2do/id880001334)
-- [Slack](https://itunes.apple.com/us/app/2do/id803453959)
 - [SnippetsLab](https://itunes.apple.com/us/app/2do/id1006087419)
 - [The Unarchiver](https://itunes.apple.com/us/app/2do/id425424353)
 - [Things](https://itunes.apple.com/us/app/things-3/id904280696)
-- [Tweetbot](https://itunes.apple.com/us/app/2do/id557168941)
-
-### Sublime Text 3 packages
-
-- [Package Control](https://packagecontrol.io/installation) (Manual install)
-- [AlignTab](https://github.com/randy3k/AlignTab)
-- [Ayu](https://github.com/dempfi/ayu)
-- [Babel Sublime](https://github.com/babel/babel-sublime)
-- [ColorHighlighter](https://github.com/Monnoroch/ColorHighlighter)
-- [CSS3](https://github.com/y0ssar1an/CSS3)
-- [DocBlockr](https://github.com/spadgos/sublime-jsdocs)
-- [EditorConfig](https://github.com/sindresorhus/editorconfig-sublime)
-- [ESLint Formatter](https://github.com/TheSavior/ESLint-Formatter)
-- [FileDiffs](https://github.com/colinta/SublimeFileDiffs)
-- [Git](https://github.com/kemayo/sublime-text-git)
-- [GitGutter](https://github.com/jisaacks/GitGutter)
-- [Handlebars](https://github.com/daaain/Handlebars)
-- [JavaScript Completions](https://github.com/pichillilorenzo/JavaScript-Completions)
-- [Liquid Syntax](https://github.com/siteleaf/liquid-syntax-mode)
-- [Markdown Highlighting](https://github.com/braver/MarkdownHighlighting)
-- [Markdown Preview](https://github.com/facelessuser/MarkdownPreview) (Manual install)
-- [Materialize](https://github.com/saadq/Materialize)
-- [SassSolution](https://github.com/ahmedam55/SassSolution)
-- [SCSS](https://github.com/MarioRicalde/SCSS.tmbundle)
-- [SideBar Enhancements](https://github.com/titoBouzout/SideBarEnhancements)
-- [Sublime Github](https://github.com/bgreenlee/sublime-github)
-- [Sublime Terminal](https://github.com/wbond/sublime_terminal)
-- [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter3)
-- [SublimeLinter ESLint](https://github.com/SublimeLinter/SublimeLinter-eslint)
-- [SublimeLinter PHPCS](https://github.com/SublimeLinter/SublimeLinter-phpcs)
-- [Syntax Highlighting for PostCSS](https://github.com/hudochenkov/Syntax-highlighting-for-PostCSS)
-- [Syntax Highlighting For Sass](https://github.com/P233/Syntax-highlighting-for-Sass)
+- [Xcode](https://developer.apple.com/xcode/)
