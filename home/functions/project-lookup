@@ -32,7 +32,7 @@ function p() {
     -maxdepth 2 \
     -mindepth 2 \
     -type f \
-    -iname "${name}.sublime-project" \
+    -iname "${name}.code-workspace" \
     -exec dirname {} \; -quit);
 
   # Change to the project root
@@ -49,19 +49,15 @@ function p() {
   printf "Open this project in your editor(s)? [y/N]";
   read -r continue;
 
-  # Conditionally set the dotfiles in place.
+  # Find the workspace file and open it.
   if [[ "${continue}" == 'y' ]]; then
-    sublime_project=$(find . -maxdepth 1 -mindepth 1 -type f -name "${project}.sublime-project");
+    workspace=$(find . -maxdepth 1 -mindepth 1 -type f -name "${project}.code-workspace");
 
-    if [[ -n "${sublime_project}" ]]; then
+    if [[ -n "${workspace}" ]]; then
       # Open the project root in the editor
-      [[ "$(type -P subl)" ]] && subl --project "${project}";
-
-      # Open the project in the git client
-      # This got annoying. I never close projects in Merge. Maybe I should start?
-      # [[ "$(type -P smerge)" ]] && smerge .;
+      [[ "$(type -P cursor)" ]] && cursor "${workspace}";
     else
-      [[ "$(type -P subl)" ]] && subl .;
+      [[ "$(type -P cursor)" ]] && cursor .;
     fi
   fi
 }
@@ -82,8 +78,8 @@ function _project_completion {
     -maxdepth 2 \
     -mindepth 2 \
     -type f \
-    -iname '*.sublime-project' \
-    -print0 | xargs -0 basename -s .sublime-project);
+    -iname '*.code-workspace' \
+    -print0 | xargs -0 basename -s .code-workspace);
 
   # Concatenate the lists, separated by spaces.
   for DIR in $PROJECTS; do
