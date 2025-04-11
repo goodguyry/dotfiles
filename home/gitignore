@@ -38,6 +38,7 @@ vendor
 ######################
 *.sass-cache
 *.sublime-*
+*.code-workspace
 .project
 .settings
 .vagrant
