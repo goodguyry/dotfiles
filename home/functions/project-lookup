@@ -11,6 +11,9 @@
 # open the project in Sublime Text.
 # ------------------------------------------------------------------------------
 
+# Editor CLI commands: subl, code, cursor, pstorm, wstorm
+# Git Client CLI commands: smerge, gittower
+
 function p() {
   if [[ ${#} -lt 1 ]]; then
     # No arguments; change to $HOME/Projects.
@@ -36,12 +39,11 @@ function p() {
     -exec dirname {} \; -quit);
 
   # Change to the project root
-  if [[ -n "${project}" ]]; then
+  if test `pwd` != "${project}"; then
     echo "Switching to ${project}...";
     cd "${project}" || return;
   else
-    printf "\'%s\' not found." "${name}";
-    return;
+    echo "Already at ${project}...";
   fi
 
   # Ask before opening.
