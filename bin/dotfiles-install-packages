@@ -176,3 +176,5 @@ if [[ $? ]]; then
 else
   status --error 'There was a problem installing RVM or Ruby.';
 fi
+
+dotfiles set path;

@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
+source "${dotfiles_root}/lib/status";
+
+# Write a line to the given file if the line isn't already in the file.
+function write_new_line() {
+  local path="${1}";
+  local file="${2}";
+
+  if [ ! -f "${file}" ]; then
+    touch "${file}";
+  fi
+
+
+  if ! grep -q ""${path}"" "${file}"; then
+    echo "${path}"|sudo tee -a "${file}" > /dev/null;
+
+    if [[ $? ]]; then
+      status --success "Path added to ${file}: ${path}";
+    else
+      status --error "Error adding ${file}: ${path}";
+    fi
+  fi;
+}
+
+# Add a path to the specified paths.d/* file.
+function add_path() {
+  local path="${1}";
+  local file="${2}";
+
+  write_new_line "${path}" "etc/paths.d/${file}";
+}
+
+# Add a path to the specified manpaths.d/* file.
+function add_manpath() {
+  local path="${1}";
+  local file="${2}";
+
+  write_new_line "${path}" "etc/manpaths.d/${file}";
+}

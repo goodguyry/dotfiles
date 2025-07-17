@@ -12,7 +12,6 @@ declare -a FILES=(
   "${HOME}/.prompt" # Custom bash prompt.
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.
-  "${HOME}/.paths" # Path modifications.
   "${HOME}/.completions" # Autocompletion scripts.
 );
 

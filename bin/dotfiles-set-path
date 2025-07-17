@@ -1,0 +1,140 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles run path
+#
+# Set and update the shell PATH and MANPATH variables.
+# ------------------------------------------------------------------------------
+
+# Force calling via `dotfiles`.
+if [ "${BASH_SOURCE[0]}" -ef "${0}" ]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
+source "${dotfiles_root}/lib/path";
+source "${dotfiles_root}/lib/status";
+
+# Ask for the administrator password upfront.
+sudo -v;
+
+# Reset work path to default.
+if [ "$(type -t prefer)" ]; then
+  prefer gtf;
+fi
+
+# 00-dotfiles
+declare -a dotfiles_path_parts=(
+  /Users/goodguyry/.bin
+);
+
+for index in ${!dotfiles_path_parts[*]}; do
+  [ -d "${dotfiles_path_parts[$index]}" ] && add_path "${dotfiles_path_parts[$index]}" 00-dotfiles;
+done;
+
+# 100-misc
+declare -a misc_path_parts=(
+  /usr/local/mysql/bin
+);
+
+for index in ${!misc_path_parts[*]}; do
+  [ -d "${misc_path_parts[$index]}" ] && add_path "${misc_path_parts[$index]}" 100-misc;
+done;
+
+if [ "$(type -P brew)" ]; then
+  declare -a homebrew_path_parts=(
+    /opt/homebrew/bin
+    /opt/homebrew/sbin
+  );
+
+  declare -a homebrew_manpath_parts=();
+
+  RUBY="$(brew --prefix ruby)";
+
+  if [[ -d "${RUBY}" ]]; then
+    RUBY_BIN="${RUBY}/bin";
+
+    homebrew_path_parts+=("${RUBY_BIN}");
+
+    if [ "$(type -P gem)" ]; then
+      homebrew_path_parts+=("$(gem environment gemdir)/bin");
+    fi
+  fi
+
+  if [ -d /opt/homebrew/opt/python/libexec/bin ]; then
+    homebrew_path_parts+=(/opt/homebrew/opt/python/libexec/bin);
+  fi
+
+  FINDUTILS="$(brew --prefix findutils)";
+
+  if [[ -d "${FINDUTILS}" ]]; then
+    homebrew_path_parts+=("${FINDUTILS}/libexec/gnubin");
+    homebrew_manpath_parts+=("${FINDUTILS}/libexec/gnuman");
+  fi;
+
+  COREUTILS="$(brew --prefix coreutils)";
+
+  if [[ -d "${COREUTILS}" ]]; then
+    homebrew_path_parts+=("${COREUTILS}/libexec/gnubin");
+    homebrew_manpath_parts+=("${COREUTILS}/libexec/gnuman");
+  fi;
+
+  GNU_SED="$(brew --prefix gnu-sed)";
+
+  if [[ -d "${GNU_SED}" ]]; then
+    homebrew_path_parts+=("${GNU_SED}/libexec/gnubin");
+    homebrew_manpath_parts+=("${GNU_SED}/libexec/gnuman");
+  fi;
+
+  # Add missing path values.
+  for index in ${!homebrew_path_parts[*]}; do
+    add_path "${homebrew_path_parts[$index]}" 10-homebrew;
+  done;
+
+  if [ "${#homebrew_manpath_parts[@]}" -gt "0" ]; then
+    # Add missing manpath values.
+    for index in ${!homebrew_manpath_parts[*]}; do
+      add_manpath "${homebrew_manpath_parts[$index]}" 10-homebrew;
+    done;
+  else
+    # Delete any existing file when there are no manpaths.
+    rm etc/paths.d/10-homebrew;
+  fi
+fi;
+
+
+# ============= Always copy path files.
+
+for paths_file in "${dotfiles_root}"/etc/paths.d/*; do
+  if [[ -f "${paths_file}" ]]; then
+    sudo rsync -avz --quiet "${paths_file}" "/etc/paths.d/$(basename "${paths_file}")";
+  fi
+done;
+
+if [[ $? ]]; then
+  status --success 'Path files set.'
+else
+  status --error 'Error setting path files.'
+fi
+
+for manpaths_file in "${dotfiles_root}"/etc/manpaths.d/*; do
+  if [[ -f "${manpaths_file}" ]]; then
+    sudo rsync -avz --quiet "${manpaths_file}" "/etc/manpaths.d/$(basename "${manpaths_file}")";
+  fi
+done;
+
+if [[ $? ]]; then
+  status --success 'Manpath files set.'
+else
+  status --error 'Error setting manpath files.'
+fi
+
+# Reload the shell, resetting environment variables.
+exec env -i HOME=$HOME $SHELL -l;

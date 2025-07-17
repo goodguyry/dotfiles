@@ -28,7 +28,6 @@ declare -a home_files=(
   'home/completions'
   'home/hushlogin'
   'home/inputrc'
-  'home/paths'
   'home/profile'
   'home/prompt'
   'home/vimrc'

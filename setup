@@ -49,4 +49,17 @@ fi
 
 setprefix dotfiles "${dotfiles_root}";
 
-[ -n "$(type -P dotfiles)" ] && status --success "Done. Type 'dotfiles' to continue.";
+if [ -n "$(type -P dotfiles)" ]; then
+  status --success "Done. Type 'dotfiles' to continue.";
+
+  status "Setting up PATH";
+  dotfiles set path;
+
+  if [[ $? ]]; then
+    status --success "Done. Type 'dotfiles' to continue.";
+    exec env -i HOME=$HOME $SHELL -l;
+  else
+    status --error "'dotfiles' is not a command.";
+  fi
+fi
+
