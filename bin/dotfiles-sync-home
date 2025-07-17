@@ -25,7 +25,6 @@ declare -a home_files=(
   'home/aliases'
   'home/bash_config'
   'home/bashrc'
-  'home/completions'
   'home/hushlogin'
   'home/inputrc'
   'home/profile'
@@ -46,6 +45,16 @@ if [[ $? ]]; then
   done;
 else
   status --error "Could not create ${HOME}/.functions"
+fi
+
+# Link completion files.
+mmkd "${HOME}/.completions.d";
+if [[ $? ]]; then
+  for completion_file in "${dotfiles_root}"/home/completions.d/*; do
+    [[ -f "${completion_file}" ]] && setfile "${completion_file}" "${HOME}/.completions.d/$(basename "${completion_file}")";
+  done;
+else
+  status --error "Could not create ${HOME}/.completions.d"
 fi
 
 # Link commands into PATH.

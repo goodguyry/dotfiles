@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Set up completion for the `g` alias.
+__git_complete g __git_main;
+
+# Completion for git-compare.
+_git_compare() {
+  local dwim_opt
+
+  dwim_opt="$(__git_checkout_default_dwim_mode)";
+  __git_complete_refs "${dwim_opt}" --mode="refs";
+}
+__git_complete compare _git_compare;

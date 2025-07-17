@@ -1,0 +1,11 @@
+#!/bin/bash
+# shellcheck disable=SC1091
+
+# If possible, add tab completion for many more commands.
+# Homebrew's own bash completion script has been linked into /usr/local/share/bash-completion/completions
+# bash-completion will automatically source it when you invoke `brew`.
+
+# Any completion scripts in /usr/local/etc/bash_completion.d will continue to be sourced as well.
+if [[ $(type -P brew) ]] && [[ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]]; then
+  source "$(brew --prefix)/share/bash-completion/bash_completion";
+fi

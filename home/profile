@@ -12,7 +12,6 @@ declare -a FILES=(
   "${HOME}/.prompt" # Custom bash prompt.
   "${HOME}/.bash_config" # Configuration.
   "${HOME}/.aliases" # Aliases.
-  "${HOME}/.completions" # Autocompletion scripts.
 );
 
 # If these files are readable, source them.
@@ -25,6 +24,11 @@ unset FILES;
 # Source functions files.
 for function_file in "${HOME}/.functions/"*; do
   [[ -r "${function_file}" ]] && source "${function_file}";
+done;
+
+# Source completion files.
+for completion_file in "${HOME}/.completions.d/"*; do
+  [[ -r "${completion_file}" ]] && source "${completion_file}";
 done;
 
 # Local and private settings not under version control (e.g. git name/email, package lists).

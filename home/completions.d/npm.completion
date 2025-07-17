@@ -1,0 +1,6 @@
+#!/bin/bash
+# shellcheck disable=SC1090
+
+# NPM completions.
+# This is not compatible with npm workspaces.
+source <(npm completion);
