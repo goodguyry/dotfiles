@@ -79,4 +79,5 @@ status --success "Done syncing files to ${HOME}";
 
 [[ $? ]] && status --success 'Done. Restarting the shell to apply changes...';
 
-exec $SHELL -l;
+# Reload the shell, resetting environment variables.
+exec env -i HOME=$HOME $SHELL -l;

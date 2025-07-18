@@ -137,4 +137,5 @@ else
 fi
 
 # Reload the shell, resetting environment variables.
+# @todo Only reload if this command is called directly.
 exec env -i HOME=$HOME $SHELL -l;
