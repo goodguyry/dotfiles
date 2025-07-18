@@ -7,7 +7,7 @@
 # Capture the dotfiles directory.
 dotfiles_root=$(dotfiles --prefix);
 
-source "${dotfiles_root}/lib/status";
+source "${HOME}/.dotfiles/lib/status";
 
 # Write a line to the given file if the line isn't already in the file.
 function write_new_line() {

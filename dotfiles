@@ -61,9 +61,9 @@ export PATH="${PATH}:${dotfiles_root}/bin";
 
 # Source setup files.
 source "${dotfiles_root}/home/functions/print-usage";
-source "${dotfiles_root}/lib/mmkd";
-source "${dotfiles_root}/lib/setfile";
-source "${dotfiles_root}/lib/status";
+source "${HOME}/.dotfiles/lib/mmkd";
+source "${HOME}/.dotfiles/lib/setfile";
+source "${HOME}/.dotfiles/lib/status";
 
 # Test for options.
 while [ $# -gt 0 ]; do

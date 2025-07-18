@@ -19,8 +19,8 @@ fi
 # Capture the dotfiles directory.
 dotfiles_root=$(dotfiles --prefix);
 
-source "${dotfiles_root}/lib/path";
-source "${dotfiles_root}/lib/status";
+source "${HOME}/.dotfiles/lib/path";
+source "${HOME}/.dotfiles/lib/status";
 
 # Ask for the administrator password upfront.
 sudo -v;
