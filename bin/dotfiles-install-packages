@@ -128,7 +128,7 @@ source "${nvm_loc}/nvm.sh";
 status 'Installing last 2 LTS versions...';
 
 # Install previous and current LTS.
-nvm install lts/hydrogen;
+nvm install lts/jod;
 nvm install --lts;
 
 # Install Node package(s).
