@@ -19,7 +19,7 @@ fi
 # Capture the dotfiles directory.
 dotfiles_root=$(dotfiles --prefix);
 
-source "${HOME}/.dotfiles/lib/path";
+source "${HOME}/.dotfiles/lib/add_path";
 source "${HOME}/.dotfiles/lib/status";
 
 # Ask for the administrator password upfront.
