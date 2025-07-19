@@ -20,27 +20,13 @@ fi
 dotfiles_root=$(dotfiles --prefix);
 
 # Source setup files.
+source "${HOME}/.dotfiles/lib/dohomebrew";
 source "${HOME}/.dotfiles/lib/installbrews";
 source "${dotfiles_root}/etc/packages.macos.sh";
 
-# Check for Homebrew.
-if [ -z "$(type -P brew)" ]; then
-  status 'Installing Homebrew...';
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-  brew doctor;
-
-  if [[ $? ]]; then
-    status --success 'Homebrew is ready.';
-  else
-    status --error 'There was a problem installing Homebrew.';
-  fi
-else
-  status --info 'Homebrew is already installed.';
-fi;
-
-status 'Updating Homebrew...';
-brew update;
+# Homebrew is required.
+status 'Checking for Homebrew';
+dohomebrew;
 
 # Font tools.
 brew tap bramstein/webfonttools;
