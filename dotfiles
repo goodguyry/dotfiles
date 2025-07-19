@@ -80,9 +80,9 @@ while [ $# -gt 0 ]; do
 done;
 
 if [[ "prefix" == "${subcommand}" ]]; then
-  if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
+  if [[ -x "${HOME}/.dotfiles/dotfiles-${subcommand}" ]]; then
     # shellcheck disable=SC1090
-    source "${HOME}/.dotfiles/dotfiles-prefix" "${option:-dotfiles}";
+    source "${HOME}/.dotfiles/dotfiles-${subcommand}" "${option:-dotfiles}";
   fi
 
   exit 0;
