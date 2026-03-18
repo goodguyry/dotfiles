@@ -66,6 +66,11 @@ done;
 # Always copy editorconfig (can't remember why).
 rsync -avz --quiet "${dotfiles_root}/home/editorconfig" "${HOME}/.editorconfig";
 
+# Link env files.
+for env_file in "${dotfiles_root}/home/".env.*; do
+  setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
+done;
+
 # Create dotfiles.local if not present.
 if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
   status "Creating ${HOME}/.dotfiles.local";
