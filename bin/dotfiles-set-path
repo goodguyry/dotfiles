@@ -32,7 +32,7 @@ fi
 
 # 00-dotfiles
 declare -a dotfiles_path_parts=(
-  /Users/goodguyry/.bin
+  "${HOME}/.bin"
 );
 
 for index in ${!dotfiles_path_parts[*]}; do
