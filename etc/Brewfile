@@ -1,0 +1,293 @@
+tap "bramstein/webfonttools"
+tap "espanso/espanso"
+tap "pantheon-systems/external"
+tap "shivammathur/php"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
+# New file format for still image compression
+brew "jpeg-xl"
+# Codec library for encoding and decoding AV1 video streams
+brew "aom"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Programmable completion for Bash 4.2+
+brew "bash-completion@2"
+# Core application library for C
+brew "glib"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
+# Library for encoding and decoding .avif files
+brew "libavif"
+# Graphics library to dynamically manipulate images
+brew "gd"
+# NaCl networking and cryptography library
+brew "libsodium"
+# Dependency Manager for PHP
+brew "composer"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Lightweight DNS forwarder and DHCP server
+brew "dnsmasq"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# GitHub command-line tool
+brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Command-line utility for uploading Gists
+brew "gist"
+# Distributed revision control system
+brew "git"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# Task is a task runner/build tool that aims to be simpler and easier to use
+brew "go-task"
+# GNU grep, egrep and fgrep
+brew "grep"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
+# C/C++ seam carving library
+brew "liblqr"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# DNS library written in C
+brew "ldns"
+# Access DVDs as block devices without the decryption
+brew "libdvdcss"
+# Provides library functionality for FIDO U2F & FIDO 2.0, including USB
+brew "libfido2"
+# X.509 and CMS library
+brew "libksba"
+# YAML Parser
+brew "libyaml"
+# Utility to list open files
+brew "lsof"
+# Mac App Store command-line interface
+brew "mas"
+# Collection of tools that nobody wrote when UNIX was young
+brew "moreutils"
+# Open source relational database management system
+brew "mysql"
+# Utility for managing network connections
+brew "netcat"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Manage multiple Node.js versions
+brew "nvm"
+# OpenBSD freely-licensed SSH connectivity tools
+brew "openssh"
+# Tool for creating identical machine images for multiple platforms
+brew "packer"
+# Highly capable, feature-rich programming language
+brew "perl"
+# General-purpose scripting language
+brew "php@8.1"
+# General-purpose scripting language
+brew "php@8.2"
+# General-purpose scripting language
+brew "php@8.3", link: true
+# Parallel gzip
+brew "pigz"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Monitor data's progress through a pipe
+brew "pv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
+# Utility that provides fast incremental file transfer
+brew "rsync"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Version control system designed to be a better CVS
+brew "subversion"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Internet file retriever
+brew "wget"
+# Utilities to create and convert Web Open Font File (WOFF) files
+brew "woff2"
+# Command-line interface for WordPress
+brew "wp-cli"
+# Convert existing TrueType/OpenType fonts to WOFF format
+brew "bramstein/webfonttools/sfnt2woff"
+# WOFF utilities with Zopfli compression
+brew "bramstein/webfonttools/sfnt2woff-zopfli"
+# Terminus is Pantheon's Command-line Interface (CLI)
+brew "pantheon-systems/external/terminus"
+# General-purpose scripting language
+brew "shivammathur/php/php@7.4"
+# General-purpose scripting language
+brew "shivammathur/php/php@8.0"
+# Password manager that keeps all passwords secure behind one password
+cask "1password", args: { appdir: "/Applications" }
+# Application launcher and productivity software
+cask "alfred"
+# Application uninstaller
+cask "appcleaner"
+# Tool to replace abbreviations while typing
+cask "atext"
+# Menu bar icon organiser
+cask "bartender"
+# Utility to create and modify archives
+cask "betterzip"
+# Web browser focusing on privacy
+cask "brave-browser"
+# Utility that prevents the system from going to sleep
+cask "caffeine"
+# Synchronisation and backup tool
+cask "chronosync"
+# Anti-virus and malware scanner
+cask "clamxav"
+# Screen capturing tool
+cask "cleanshot"
+# Tool to show live information about the batteries in various devices
+cask "coconutbattery"
+# Disk space visualiser
+cask "daisydisk"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Client for the Dropbox cloud storage service
+cask "dropbox"
+# Cross-platform Text Expander written in Rust
+cask "espanso"
+# Web browser
+cask "firefox", args: { appdir: "/Applications" }
+# Web browser
+cask "firefox@developer-edition"
+cask "font-hack"
+cask "font-inconsolata"
+cask "font-lato"
+cask "font-merriweather"
+cask "font-merriweather-sans"
+cask "font-nunito"
+cask "font-open-sans"
+cask "font-open-sans-condensed"
+cask "font-open-sans-hebrew"
+cask "font-open-sans-hebrew-condensed"
+cask "font-pt-mono"
+cask "font-pt-sans"
+cask "font-pt-serif"
+cask "font-roboto"
+cask "font-roboto-mono"
+cask "font-roboto-slab"
+cask "font-source-code-pro"
+cask "font-source-sans-pro"
+cask "font-source-serif-pro"
+# GitHub notifications on your menu bar
+cask "gitify"
+# Web browser
+cask "google-chrome", args: { appdir: "/Applications" }
+# Web browser
+cask "google-chrome@canary"
+# Open-source video transcoder
+cask "handbrake-app"
+# Automated organisation
+cask "hazel"
+# Tool to optimise images to a smaller size
+cask "imageoptim"
+# Media key forwarder for iTunes and Spotify
+cask "macmediakeyforwarder"
+# Silence embarrassing notifications while screensharing
+cask "muzzle"
+# App to write, plan, collaborate, and get organised
+cask "notion"
+# Verify system files structure, run miscellaneous maintenance and more
+cask "onyx"
+# Web browser
+cask "opera"
+# Web browser
+cask "opera@beta"
+# Web browser
+cask "opera@developer"
+# Desktop virtualization software
+cask "parallels", args: { appdir: "/Applications" }
+# Screen measuring tool
+cask "pixelsnap"
+# VPN client focusing on security
+cask "protonvpn"
+# Display image info and preview unsupported formats in QuickLook
+cask "qlimagesize"
+# Archive manager for data compression and backups
+cask "rar"
+# Modified browser that helps in responsive web development
+cask "responsively"
+# Web browser
+cask "safari-technology-preview"
+# MySQL/MariaDB database management platform
+cask "sequel-pro", args: { appdir: "/Applications" }
+# Collect, organise & share colours
+cask "sip-app"
+# Digital design and prototyping platform
+cask "sketch"
+# Team communication and collaboration software
+cask "slack", args: { appdir: "/Applications" }
+# Git client
+cask "sublime-merge"
+# Text editor for code, markup and prose
+cask "sublime-text", args: { appdir: "/Applications" }
+# Application for inspecting installer packages
+cask "suspicious-package"
+# Web browser focusing on security
+cask "tor-browser"
+# Open-source BitTorrent client
+cask "transmission"
+# File transfer application
+cask "transmit"
+# Development environment
+cask "vagrant"
+# Open-source code editor
+cask "visual-studio-code", args: { appdir: "/Applications" }
+# Multimedia player
+cask "vlc"
+# Gecko based web browser
+cask "zen"
+# Share, organise and collaborate on designs
+cask "zeplin"
+# Video communication and virtual meeting platform
+cask "zoom"
+mas "1Password for Safari", id: 1569813296
+mas "Bear", id: 1091189122
+mas "Better Rename 9", id: 414209656
+mas "Byword", id: 420212497
+mas "Craft", id: 1487937127
+mas "Drafts", id: 1435957248
+mas "Duo", id: 777886035
+mas "Flow", id: 1423210932
+mas "GarageBand", id: 682658836
+mas "Keynote", id: 409183694
+mas "Mela", id: 1568924476
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Pixelmator", id: 407963104
+mas "Reeder", id: 1529448980
+mas "Sequel Ace", id: 1518036000
+mas "Slack", id: 803453959
+mas "SnippetsLab", id: 1006087419
+mas "The Unarchiver", id: 425424353
+mas "Things", id: 904280696
+mas "Xcode", id: 497799835
+vscode "anthropic.claude-code"
+vscode "bmewburn.vscode-intelephense-client"
+vscode "christian-kohler.path-intellisense"
+vscode "dbaeumer.vscode-eslint"
+vscode "editorconfig.editorconfig"
+vscode "giovdk21.vscode-sublime-merge"
+vscode "gruntfuggly.todo-tree"
+vscode "janjoerke.align-by-regex"
+vscode "johnbillion.vscode-wordpress-hooks"
+vscode "ms-vscode.makefile-tools"
+vscode "ms-vscode.sublime-keybindings"
+vscode "sanderronde.phpstan-vscode"
+vscode "stylelint.vscode-stylelint"
+vscode "teabyii.ayu"
+vscode "valeryanm.vscode-phpsab"
