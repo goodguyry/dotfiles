@@ -35,6 +35,7 @@ declare -a BREW_LIST=(
   pigz
   svn
   tree
+  wp-cli
   zlib
 );
 
