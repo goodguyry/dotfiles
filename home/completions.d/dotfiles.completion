@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Adds subcommand completion for `dotfiles`.
+__dotfiles_completion() {
+  local cur;
+  local prev;
+
+  cur=${COMP_WORDS[COMP_CWORD]};
+  prev="${COMP_WORDS[COMP_CWORD-1]}";
+
+  COMPREPLY=();
+
+  case ${COMP_CWORD} in
+    1)
+      # First word is always a subcommand.
+      mapfile -t COMPREPLY < <(compgen -W "install run set sync --prefix" -- "${cur}");
+      ;;
+    2)
+      # Second word is an option for the subcommand.
+      case "${prev}" in
+        sync)
+          mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
+          ;;
+        install)
+          mapfile -t COMPREPLY < <(compgen -W "packages apps" -- "${cur}");
+          ;;
+        run)
+          # @todo Move `run` commands to `set`.
+          mapfile -t COMPREPLY < <(compgen -W "preferences gitconfig" -- "${cur}");
+          ;;
+        set)
+          mapfile -t COMPREPLY < <(compgen -W "path" -- "${cur}");
+          ;;
+        --prefix)
+          mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
+          ;;
+      esac
+      ;;
+    *)
+      # Do nothing.
+      ;;
+  esac
+  return 0;
+}
+
+complete -F __dotfiles_completion dotfiles;

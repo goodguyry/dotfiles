@@ -6,6 +6,7 @@
 
 # ------------------------------------------------------------------------------
 # usage: setfile <target> <link-name>
+# @todo Support a -c flag for copyings w/ rsync.
 #
 # Symlink a file, forcing a replacement if necessary.
 # ------------------------------------------------------------------------------
@@ -13,6 +14,10 @@
 function setfile() {
   local target;
   local link_name="${2}";
+
+  # if $copy
+  # rsync -avz --quiet "${target}" "${link_name}";
+  # else
 
   target=$(realpath "${1}");
 

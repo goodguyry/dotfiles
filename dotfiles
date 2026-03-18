@@ -50,6 +50,10 @@ Subcommands and available options:
 
     gitconfig           Sets up the global .gitconfig file. This is automatically run
                         during git setup, but can be run independently.
+
+  ${bold}set${reset}
+
+    path                Sets up the PATH and MANPATH variables.
 ";
 
 dotfiles_root=$(dirname "$(realpath "${BASH_SOURCE[0]}")");
@@ -57,14 +61,14 @@ export PATH="${PATH}:${dotfiles_root}/bin";
 
 # Source setup files.
 source "${dotfiles_root}/home/functions/print-usage";
-source "${dotfiles_root}/lib/mmkd";
-source "${dotfiles_root}/lib/setfile";
-source "${dotfiles_root}/lib/status";
+source "${HOME}/.dotfiles/lib/mmkd";
+source "${HOME}/.dotfiles/lib/setfile";
+source "${HOME}/.dotfiles/lib/status";
 
 # Test for options.
 while [ $# -gt 0 ]; do
   case "$1" in
-    sync|install|run) subcommand=$1; option=$2; ;;
+    sync|install|run|set) subcommand=$1; option=$2; ;;
     --prefix) subcommand="prefix"; option=$2; ;;
     -h|--help)
       print_usage;
@@ -76,16 +80,16 @@ while [ $# -gt 0 ]; do
 done;
 
 if [[ "prefix" == "${subcommand}" ]]; then
-  if [[ -x "${HOME}/.dotfiles/dotfiles-prefix" ]]; then
+  if [[ -x "${HOME}/.dotfiles/dotfiles-${subcommand}" ]]; then
     # shellcheck disable=SC1090
-    source "${HOME}/.dotfiles/dotfiles-prefix" "${option:-dotfiles}";
+    source "${HOME}/.dotfiles/dotfiles-${subcommand}" "${option:-dotfiles}";
   fi
 
   exit 0;
 fi
 
 # Handle subcommands.
-declare -a valid_subcommands=(sync install run);
+declare -a valid_subcommands=(sync install run set);
 has_valid_subcommand=$(printf "%s\n" "${valid_subcommands[@]}" | grep -c "^${subcommand}$");
 
 # Catch unknown subcommands.

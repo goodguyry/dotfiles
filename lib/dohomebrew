@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: mmkd <directory-path>
+#
+# Maybe make dir - Create a directory if it doesn't already exist.
+# ------------------------------------------------------------------------------
+
+# Install Homebrew if not already installed.
+function dohomebrew() {
+  if [ -z "$(type -P brew)" ]; then
+    status 'Installing Homebrew...';
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+    brew doctor;
+
+    if [[ $? ]]; then
+      status --success 'Homebrew is ready.';
+    else
+      status --error 'There was a problem installing Homebrew.';
+    fi
+  else
+    status --info 'Homebrew is already installed.';
+  fi;
+
+  status 'Updating Homebrew...';
+  brew update;
+}

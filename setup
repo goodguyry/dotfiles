@@ -40,6 +40,7 @@ ln -sf "${dotfiles_root}/dotfiles" "${HOME}/.bin/dotfiles";
 
 mmkd "${HOME}/.dotfiles";
 if [[ $? ]]; then
+  # Sync subcommands into place.
   for subcommand_file in "${dotfiles_root}"/bin/*; do
     [[ -f "${subcommand_file}" ]] && setfile "${subcommand_file}" "${HOME}/.dotfiles/$(basename "${subcommand_file}")";
   done;
@@ -47,6 +48,29 @@ else
   status --error "Could not create ${HOME}/.dotfiles";
 fi
 
+mmkd "${HOME}/.dotfiles/lib";
+if [[ $? ]]; then
+  # Sync lib files to ~/.dotfiles/lib/
+  for lib_file in "${dotfiles_root}"/lib/*; do
+    [[ -f "${lib_file}" ]] && setfile "${lib_file}" "${HOME}/.dotfiles/lib/$(basename "${lib_file}")";
+  done;
+else
+  status --error "Could not create ${HOME}/.dotfiles";
+fi
+
 setprefix dotfiles "${dotfiles_root}";
 
-[ -n "$(type -P dotfiles)" ] && status --success "Done. Type 'dotfiles' to continue.";
+if [ -n "$(type -P dotfiles)" ]; then
+  status --success "Done. Type 'dotfiles' to continue.";
+
+  status "Setting up PATH";
+  dotfiles set path;
+
+  if [[ $? ]]; then
+    status --success "Done. Type 'dotfiles' to continue.";
+    exec env -i HOME=$HOME $SHELL -l;
+  else
+    status --error "'dotfiles' is not a command.";
+  fi
+fi
+

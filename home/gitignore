@@ -43,6 +43,8 @@ vendor
 .settings
 .vagrant
 .vscode
+.claude
+memory
 
 # OS generated files #
 ######################

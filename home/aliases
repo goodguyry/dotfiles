@@ -19,6 +19,7 @@ alias v='vagrant';
 alias o='open';
 alias oo='open .';
 alias list="ls -l";
+alias rm="printf 'Do not use rm! Use \`trash\` instead.\n'";
 
 # Normalize `open` across Linux and macOS.
 if [ ! $(uname -s) = 'Darwin' ]; then
@@ -29,7 +30,7 @@ fi
 alias sudo='sudo ';
 
 # Reload the shell (i.e. invoke as a login shell).
-alias reload='clear && exec $SHELL -l';
+alias reload='clear && exec env -i HOME=$HOME $SHELL -l';
 
 # Formatting
 

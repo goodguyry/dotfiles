@@ -1,0 +1,6 @@
+# 2-digit prefix
+manpaths.d/[0-9][0-9]-*
+paths.d/[0-9][0-9]-*
+# 3-digit prefix
+manpaths.d/[0-9][0-9][0-9]-*
+paths.d/[0-9][0-9][0-9]-*
