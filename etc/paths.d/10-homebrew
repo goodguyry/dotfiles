@@ -1,8 +1,0 @@
-/opt/homebrew/bin
-/opt/homebrew/sbin
-/opt/homebrew/opt/ruby/bin
-/Library/Ruby/Gems/2.6.0/bin
-/opt/homebrew/opt/python/libexec/bin
-/opt/homebrew/opt/findutils/libexec/gnubin
-/opt/homebrew/opt/coreutils/libexec/gnubin
-/opt/homebrew/opt/gnu-sed/libexec/gnubin
