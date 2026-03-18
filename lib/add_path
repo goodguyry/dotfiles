@@ -34,14 +34,20 @@ function write_new_line() {
 function add_path() {
   local path="${1}";
   local file="${2}";
+  local prefix="${3}";
 
-  write_new_line "${path}" "etc/paths.d/${file}";
+  file_path=$(dotfiles --prefix "${prefix}");
+
+  write_new_line "${path}" "${file_path}/etc/paths.d/${file}";
 }
 
 # Add a path to the specified manpaths.d/* file.
 function add_manpath() {
   local path="${1}";
   local file="${2}";
+  local prefix="${3}";
 
-  write_new_line "${path}" "etc/manpaths.d/${file}";
+  file_path=$(dotfiles --prefix "${prefix}");
+
+  write_new_line "${path}" "${file_path}/etc/manpaths.d/${file}";
 }
