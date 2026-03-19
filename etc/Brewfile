@@ -1,9 +1,8 @@
-tap "bramstein/webfonttools"
+tap "bramstein/webfonttools" # @todo Move to work.
 tap "espanso/espanso"
-tap "pantheon-systems/external"
-tap "shivammathur/php"
+tap "pantheon-systems/external" # @todo Move to work.
 # Image format providing lossless and lossy compression for web images
-brew "webp"
+brew "webp" # @todo Move to work.
 # New file format for still image compression
 brew "jpeg-xl"
 # Codec library for encoding and decoding AV1 video streams
@@ -25,7 +24,7 @@ brew "gd"
 # NaCl networking and cryptography library
 brew "libsodium"
 # Dependency Manager for PHP
-brew "composer"
+brew "composer" # @todo Move to work.
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # Lightweight DNS forwarder and DHCP server
@@ -53,7 +52,7 @@ brew "liblqr"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
-brew "jq"
+brew "jq" # @todo Move to work.
 # DNS library written in C
 brew "ldns"
 # Access DVDs as block devices without the decryption
@@ -84,11 +83,9 @@ brew "openssh"
 brew "packer"
 # Highly capable, feature-rich programming language
 brew "perl"
-# General-purpose scripting language
-brew "php@8.1"
-# General-purpose scripting language
-brew "php@8.2"
-# General-purpose scripting language
+# PHP: General-purpose scripting language
+brew "php@8.4"
+# PHP: General-purpose scripting language
 brew "php@8.3", link: true
 # Parallel gzip
 brew "pigz"
@@ -97,17 +94,13 @@ brew "pkgconf"
 # Monitor data's progress through a pipe
 brew "pv"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.11"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
+brew "python@3.12"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Version control system designed to be a better CVS
-brew "subversion"
+brew "subversion" # @todo Remove.
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Vi 'workalike' with many additional features
@@ -115,19 +108,15 @@ brew "vim"
 # Internet file retriever
 brew "wget"
 # Utilities to create and convert Web Open Font File (WOFF) files
-brew "woff2"
+brew "woff2" # @todo Move to work.
 # Command-line interface for WordPress
-brew "wp-cli"
+brew "wp-cli" # @todo Move to work.
 # Convert existing TrueType/OpenType fonts to WOFF format
-brew "bramstein/webfonttools/sfnt2woff"
+brew "bramstein/webfonttools/sfnt2woff" # @todo Move to work.
 # WOFF utilities with Zopfli compression
-brew "bramstein/webfonttools/sfnt2woff-zopfli"
+brew "bramstein/webfonttools/sfnt2woff-zopfli" # @todo Move to work.
 # Terminus is Pantheon's Command-line Interface (CLI)
-brew "pantheon-systems/external/terminus"
-# General-purpose scripting language
-brew "shivammathur/php/php@7.4"
-# General-purpose scripting language
-brew "shivammathur/php/php@8.0"
+brew "pantheon-systems/external/terminus" # @todo Move to work.
 # Password manager that keeps all passwords secure behind one password
 cask "1password", args: { appdir: "/Applications" }
 # Application launcher and productivity software
@@ -135,9 +124,9 @@ cask "alfred"
 # Application uninstaller
 cask "appcleaner"
 # Tool to replace abbreviations while typing
-cask "atext"
+cask "atext" # @todo Remove.
 # Menu bar icon organiser
-cask "bartender"
+cask "bartender" # @todo Remove.
 # Utility to create and modify archives
 cask "betterzip"
 # Web browser focusing on privacy
@@ -155,9 +144,9 @@ cask "coconutbattery"
 # Disk space visualiser
 cask "daisydisk"
 # App to build and share containerised applications and microservices
-cask "docker-desktop"
+cask "docker-desktop" # @todo Move to work.
 # Client for the Dropbox cloud storage service
-cask "dropbox"
+cask "dropbox" # @todo Remove.
 # Cross-platform Text Expander written in Rust
 cask "espanso"
 # Web browser
@@ -192,25 +181,25 @@ cask "google-chrome@canary"
 # Open-source video transcoder
 cask "handbrake-app"
 # Automated organisation
-cask "hazel"
+cask "hazel" # @todo Remove.
 # Tool to optimise images to a smaller size
 cask "imageoptim"
 # Media key forwarder for iTunes and Spotify
 cask "macmediakeyforwarder"
 # Silence embarrassing notifications while screensharing
-cask "muzzle"
+cask "muzzle" # @todo Remove.
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Verify system files structure, run miscellaneous maintenance and more
 cask "onyx"
 # Web browser
-cask "opera"
+cask "opera" # @todo Move to work.
 # Web browser
-cask "opera@beta"
+cask "opera@beta" # @todo Remove.
 # Web browser
-cask "opera@developer"
+cask "opera@developer" # @todo Move to work.
 # Desktop virtualization software
-cask "parallels", args: { appdir: "/Applications" }
+cask "parallels", args: { appdir: "/Applications" } # @todo Remove.
 # Screen measuring tool
 cask "pixelsnap"
 # VPN client focusing on security
@@ -224,9 +213,9 @@ cask "responsively"
 # Web browser
 cask "safari-technology-preview"
 # MySQL/MariaDB database management platform
-cask "sequel-pro", args: { appdir: "/Applications" }
+cask "sequel-pro", args: { appdir: "/Applications" } # @todo Remove.
 # Collect, organise & share colours
-cask "sip-app"
+cask "sip-app" # @todo Remove.
 # Digital design and prototyping platform
 cask "sketch"
 # Team communication and collaboration software
@@ -252,16 +241,16 @@ cask "vlc"
 # Gecko based web browser
 cask "zen"
 # Share, organise and collaborate on designs
-cask "zeplin"
+cask "zeplin" # @todo Remove.
 # Video communication and virtual meeting platform
 cask "zoom"
 mas "1Password for Safari", id: 1569813296
 mas "Bear", id: 1091189122
 mas "Better Rename 9", id: 414209656
-mas "Byword", id: 420212497
+mas "Byword", id: 420212497 # @todo Remove.
 mas "Craft", id: 1487937127
 mas "Drafts", id: 1435957248
-mas "Duo", id: 777886035
+mas "Duo", id: 777886035 # @todo Remove.
 mas "Flow", id: 1423210932
 mas "GarageBand", id: 682658836
 mas "Keynote", id: 409183694
@@ -270,8 +259,8 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pixelmator", id: 407963104
 mas "Reeder", id: 1529448980
-mas "Sequel Ace", id: 1518036000
-mas "Slack", id: 803453959
+mas "Sequel Ace", id: 1518036000 # @todo Move to work.
+mas "Slack", id: 803453959 # @todo Move to work.
 mas "SnippetsLab", id: 1006087419
 mas "The Unarchiver", id: 425424353
 mas "Things", id: 904280696
@@ -284,10 +273,10 @@ vscode "editorconfig.editorconfig"
 vscode "giovdk21.vscode-sublime-merge"
 vscode "gruntfuggly.todo-tree"
 vscode "janjoerke.align-by-regex"
-vscode "johnbillion.vscode-wordpress-hooks"
+vscode "johnbillion.vscode-wordpress-hooks" # @todo Move to work.
 vscode "ms-vscode.makefile-tools"
 vscode "ms-vscode.sublime-keybindings"
-vscode "sanderronde.phpstan-vscode"
+vscode "sanderronde.phpstan-vscode" # @todo Move to work.
 vscode "stylelint.vscode-stylelint"
 vscode "teabyii.ayu"
 vscode "valeryanm.vscode-phpsab"
