@@ -17,12 +17,13 @@ __dotfiles_completion() {
       ;;
     2)
       # Second word is an option for the subcommand.
+      # @todo Update this to search for files.
       case "${prev}" in
         sync)
           mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
           ;;
         install)
-          mapfile -t COMPREPLY < <(compgen -W "packages apps vscode" -- "${cur}");
+          mapfile -t COMPREPLY < <(compgen -W "packages apps vscode work-apps" -- "${cur}");
           ;;
         run)
           # @todo Move `run` commands to `set`.
