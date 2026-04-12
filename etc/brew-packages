@@ -1,0 +1,114 @@
+# Codec library for encoding and decoding AV1 video streams
+brew "aom"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Programmable completion for Bash 4.2+
+brew "bash-completion@2"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Lightweight DNS forwarder and DHCP server
+brew "dnsmasq"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
+# Graphics library to dynamically manipulate images
+brew "gd"
+# GitHub command-line tool
+brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Command-line utility for uploading Gists
+brew "gist"
+# Distributed revision control system
+brew "git"
+# Core application library for C
+brew "glib"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# New file format for still image compression
+brew "jpeg-xl"
+# DNS library written in C
+brew "ldns"
+# Library for encoding and decoding .avif files
+brew "libavif"
+# Access DVDs as block devices without the decryption
+brew "libdvdcss"
+# Provides library functionality for FIDO U2F & FIDO 2.0, including USB
+brew "libfido2"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
+# X.509 and CMS library
+brew "libksba"
+# C/C++ seam carving library
+brew "liblqr"
+# NaCl networking and cryptography library
+brew "libsodium"
+# YAML Parser
+brew "libyaml"
+# Utility to list open files
+brew "lsof"
+# Mac App Store command-line interface
+brew "mas"
+# Deep clean and optimize your Mac
+brew "mole"
+# Collection of tools that nobody wrote when UNIX was young
+brew "moreutils"
+# Open source relational database management system
+brew "mysql"
+# Utility for managing network connections
+brew "netcat"
+# OpenBSD freely-licensed SSH connectivity tools
+brew "openssh"
+# Tool for creating identical machine images for multiple platforms
+brew "packer"
+# Highly capable, feature-rich programming language
+brew "perl"
+# PHP: General-purpose scripting language
+brew "php@8.3", link: true
+# PHP: General-purpose scripting language
+brew "php@8.4"
+# Parallel gzip
+brew "pigz"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Monitor data's progress through a pipe
+brew "pv"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Utility that provides fast incremental file transfer
+brew "rsync"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Internet file retriever
+brew "wget"
+
+cask "font-hack"
+cask "font-inconsolata"
+cask "font-lato"
+cask "font-merriweather-sans"
+cask "font-merriweather"
+cask "font-nunito"
+cask "font-open-sans-condensed"
+cask "font-open-sans-hebrew-condensed"
+cask "font-open-sans-hebrew"
+cask "font-open-sans"
+cask "font-pt-mono"
+cask "font-pt-sans"
+cask "font-pt-serif"
+cask "font-roboto-mono"
+cask "font-roboto-slab"
+cask "font-roboto"
+cask "font-source-code-pro"
+cask "font-source-sans-pro"
+cask "font-source-serif-pro"

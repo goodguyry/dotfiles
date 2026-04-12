@@ -1,0 +1,18 @@
+# Open-source code editor
+cask "visual-studio-code", args: { appdir: "/Applications" }
+
+vscode "anthropic.claude-code"
+vscode "bmewburn.vscode-intelephense-client"
+vscode "chouzz.vscode-better-align"
+vscode "christian-kohler.path-intellisense"
+vscode "dbaeumer.vscode-eslint"
+vscode "editorconfig.editorconfig"
+vscode "giovdk21.vscode-sublime-merge"
+vscode "gruntfuggly.todo-tree"
+vscode "janjoerke.align-by-regex"
+vscode "ms-vscode.makefile-tools"
+vscode "ms-vscode.sublime-keybindings"
+vscode "sanderronde.phpstan-vscode"
+vscode "stylelint.vscode-stylelint"
+vscode "teabyii.ayu"
+vscode "valeryanm.vscode-phpsab"

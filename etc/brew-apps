@@ -1,0 +1,96 @@
+# Tap that.
+tap "espanso/espanso"
+tap "bysiber/cleardisk"
+
+# Password manager that keeps all passwords secure behind one password
+cask "1password", args: { appdir: "/Applications" }
+# Application launcher and productivity software
+cask "alfred"
+# Application uninstaller
+cask "appcleaner"
+# Utility to create and modify archives
+cask "betterzip"
+# Web browser focusing on privacy
+cask "brave-browser"
+# Utility that prevents the system from going to sleep
+cask "caffeine"
+# Synchronisation and backup tool
+cask "chronosync"
+# Anti-virus and malware scanner
+cask "clamxav"
+# Screen capturing tool
+cask "cleanshot"
+# Tool to show live information about the batteries in various devices
+cask "coconutbattery"
+# Disk space visualiser
+cask "daisydisk"
+# Cross-platform Text Expander written in Rust
+cask "espanso"
+# Web browser
+cask "firefox", args: { appdir: "/Applications" }
+# Web browser
+cask "firefox@developer-edition"
+# GitHub notifications on your menu bar
+cask "gitify"
+# Web browser
+cask "google-chrome", args: { appdir: "/Applications" }
+# Web browser
+cask "google-chrome@canary"
+# Open-source video transcoder
+cask "handbrake-app"
+# Tool to optimise images to a smaller size
+cask "imageoptim"
+# Media key forwarder for iTunes and Spotify
+cask "macmediakeyforwarder"
+# App to write, plan, collaborate, and get organised
+cask "notion"
+# Verify system files structure, run miscellaneous maintenance and more
+cask "onyx"
+# Screen measuring tool
+cask "pixelsnap"
+# VPN client focusing on security
+cask "protonvpn"
+# Display image info and preview unsupported formats in QuickLook
+cask "qlimagesize"
+# Archive manager for data compression and backups
+cask "rar"
+# Web browser
+cask "safari-technology-preview"
+# Digital design and prototyping platform
+cask "sketch"
+# Git client
+cask "sublime-merge"
+# Text editor for code, markup and prose
+cask "sublime-text", args: { appdir: "/Applications" }
+# Application for inspecting installer packages
+cask "suspicious-package"
+# Web browser focusing on security
+cask "tor-browser"
+# File transfer application
+cask "transmit"
+# Development environment
+cask "vagrant"
+# Multimedia player
+cask "vlc"
+# Gecko based web browser
+cask "zen"
+# Video communication and virtual meeting platform
+cask "zoom"
+
+mas "1Password for Safari", id: 1569813296
+mas "Bear", id: 1091189122
+mas "Better Rename 9", id: 414209656
+mas "Craft", id: 1487937127
+mas "Drafts", id: 1435957248
+mas "Flow", id: 1423210932
+mas "GarageBand", id: 682658836
+mas "Keynote", id: 409183694
+mas "Mela", id: 1568924476
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Reeder", id: 1529448980 # "Reeder Classic"
+mas "Sequel Ace", id: 1518036000
+mas "SnippetsLab", id: 1006087419
+mas "The Unarchiver", id: 425424353
+mas "Things", id: 904280696
+mas "Xcode", id: 497799835

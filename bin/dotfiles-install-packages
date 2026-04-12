@@ -21,29 +21,20 @@ dotfiles_root=$(dotfiles --prefix);
 
 # Source setup files.
 source "${HOME}/.dotfiles/lib/dohomebrew";
-source "${HOME}/.dotfiles/lib/installbrews";
-source "${dotfiles_root}/etc/packages.macos.sh";
 
 # Homebrew is required.
 status 'Checking for Homebrew';
 dohomebrew;
 
-# Font tools.
-brew tap bramstein/webfonttools;
-# Alternate versions.
-brew tap homebrew/cask-versions;
-# Fonts.
-brew tap homebrew/cask-fonts;
-
-# Install brews.
-[ ${#BREW_LIST[@]} -gt 0 ] && installbrews "${BREW_LIST[@]}";
+# Install cli packages.
+brew bundle install --file ./etc/brew-packages;
 
 status "Pinning packages versions...";
 brew pin ruby;
 
 # Change to bash version installed from Homebrew.
 if grep -q "/opt/homebrew/bin/bash" /etc/shells; then
-  status "'/opt/homebrew/bin/bash' is already in /etc/shells";
+  status "Already using Homebrew Bash";
 else
   echo /opt/homebrew/bin/bash|sudo tee -a /etc/shells && chsh -s /opt/homebrew/bin/bash;
   status --info "Shell switched to Homebrew Bash";
@@ -59,6 +50,7 @@ setfile "${dotfiles_root}/etc/prepare-commit-msg" "${gitcore}/templates/hooks/pr
 setfile "${dotfiles_root}/home/gitignore" "${HOME}/.gitignore";
 
 # Set up word highlighting.
+# @todo What's the deal with diff-highlight?
 git_dh="${gitcore}/contrib/diff-highlight/diff-highlight";
 [ -s "${git_dh}" ] && ln -sf "${git_dh}" "${HOME}/.bin/diff-highlight";
 
@@ -111,27 +103,17 @@ cd - &>/dev/null || exit;
 # shellcheck source=/dev/null
 source "${nvm_loc}/nvm.sh";
 
-status 'Installing last 2 LTS versions...';
-
-# Install previous and current LTS.
-nvm install lts/jod;
-nvm install --lts;
-
 # Install Node package(s).
-status 'Installing Node packages...';
+status 'Installing Node LTS versions and packages...';
 
-# Install global packages for LTS.
-nvm use --lts;
-npm install browser-sync --global --quiet;
+# Install global packages for Active LTS.
+nvm install lts/krypton; # v24.14.0 - Active LTS
+npm install browser-sync git-open --global --quiet;
 npm list -g --depth 0;
 
-# Also install stable with the same packages.
-nvm use stable;
-npm install browser-sync --global --quiet;
+# Also install the same packages for Maintenance LTS.
+nvm install lts/jod --reinstall-packages-from=lts/krypton; # v22.22.1 - Maintenance LTS (04/2027)
 npm list -g --depth 0;
-
-# Be sure to switch back to the LTS version.
-nvm use --lts;
 
 if [[ $? ]]; then
   status --success 'NVM, NPM & Node are ready.';
@@ -140,7 +122,7 @@ else
 fi
 
 status 'Installing Gems...';
-declare -a gems=(jekyll octopress-autoprefixer rouge);
+declare -a gems=(octopress-autoprefixer rouge);
 gem install "${gems[@]}" --no-document;
 
 gem cleanup;
@@ -153,6 +135,7 @@ fi
 
 # Install Vagrant plugins
 vagrant plugin install vagrant-ghost;
+vagrant plugin install vagrant-vmware-desktop;
 
 # Add Dreambox
 # vagrant box add goodguyry/dreambox --provider virtualbox;

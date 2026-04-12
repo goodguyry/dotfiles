@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# Copyright (c) 2024 Ryan Domingue and contributors
+# Report bugs at: https://github.com/goodguyry/dotfiles/issues
+# This is free software with ABSOLUTELY NO WARRANTY.
+
+# ------------------------------------------------------------------------------
+# usage: dotfiles install vscode
+#
+# Installs VS Code & extensions.
+# ------------------------------------------------------------------------------
+
+# Force calling via `dotfiles`.
+if [ "${BASH_SOURCE[0]}" -ef "${0}" ]; then
+  printf 'usage: %s\n' "$(basename -- "$0" | sed -e 's/-/ /g')";
+  exit 1;
+fi
+
+# Source setup files.
+source "${HOME}/.dotfiles/lib/dohomebrew";
+
+# Homebrew is required.
+status 'Checking for Homebrew';
+dohomebrew;
+
+# Install vscode packages.
+brew bundle install --file ./etc/brew-vscode;

@@ -83,6 +83,12 @@ Install Homebrew casks and App Store apps
 dotfiles install apps
 ```
 
+Install VS Code & extensions
+
+```shell
+dotfiles install vscode
+```
+
 #### run
 
 Set system-wide macOS preferences. **Read through the [preferences script](bin/dotfiles-run-preferences) to know what settings and applications will be impacted before executing the file**.

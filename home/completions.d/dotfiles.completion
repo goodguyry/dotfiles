@@ -22,7 +22,7 @@ __dotfiles_completion() {
           mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
           ;;
         install)
-          mapfile -t COMPREPLY < <(compgen -W "packages apps" -- "${cur}");
+          mapfile -t COMPREPLY < <(compgen -W "packages apps vscode" -- "${cur}");
           ;;
         run)
           # @todo Move `run` commands to `set`.
