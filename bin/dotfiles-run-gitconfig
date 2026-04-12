@@ -92,6 +92,7 @@ function git_config_add() {
 status --info 'Adding gitconfig options...';
 
 # Aliases
+# @todo Figure out the problem with `diff-highlight`.
 
 # Amend the currently staged files to the latest commit.
 git_config_add alias.amend 'commit --amend --reuse-message=HEAD';
@@ -108,8 +109,8 @@ git_config_add alias.co checkout;
 # Credit an author on the latest commit.
 git_config_add alias.credit '!f() { git commit --amend --author "${1} <${2}>" -C HEAD; }; f';
 # Show the diff between the latest commit and the current state.
-git_config_add alias.d \
-  '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
+# git_config_add alias.d \
+#   '!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat --color | diff-highlight | less -r';
 # Print the status of each branch.
 git_config_add alias.dashboard '!git branch -vv';
 # `git db $branch` shows a histogram of the diff between the current branch and `$branch`.
@@ -119,7 +120,7 @@ git_config_add alias.di '!d() { git diff --patch-with-stat HEAD~${1}; }; git dif
 # Remove branches that have already been merged with master.
 git_config_add alias.dm '!git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d';
 # diff staged file(s).
-git_config_add alias.ds '!clear; git diff --patch-with-stat --staged --color | diff-highlight | less -r';
+# git_config_add alias.ds '!clear; git diff --patch-with-stat --staged --color | diff-highlight | less -r';
 # Custom graph log (append any tree-ish).
 git_config_add alias.graph 'log --pretty --date-order --graph';
 # Custom graph log for all branches.
@@ -181,10 +182,10 @@ git_config_add color.branch.plain 'normal';
 git_config_add color.branch.remote 'yellow';
 git_config_add color.branch.upstream 'yellow';
 # Diff highlight http://theunixtoolbox.com/git-diff-highlight/
-git_config_add color.diff-highlight.newhighlight 'green bold 22';
-git_config_add color.diff-highlight.newnormal green;
-git_config_add color.diff-highlight.oldhighlight 'red bold 52';
-git_config_add color.diff-highlight.oldnormal 'red';
+# git_config_add color.diff-highlight.newhighlight 'green bold 22';
+# git_config_add color.diff-highlight.newnormal green;
+# git_config_add color.diff-highlight.oldhighlight 'red bold 52';
+# git_config_add color.diff-highlight.oldnormal 'red';
 # Diff
 git_config_add color.diff.commit 'yellow';
 git_config_add color.diff.frag 'cyan';
@@ -215,7 +216,7 @@ git_config_add core.filemode true;
 git_config_add core.ignorecase true;
 git_config_add core.logallrefupdates true;
 # http://theunixtoolbox.com/git-diff-highlight/
-git_config_add core.pager 'diff-highlight | less -r';
+# git_config_add core.pager 'diff-highlight | less -r';
 # git_config_add core.pager '`brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less';
 git_config_add core.precomposeunicode true;
 git_config_add core.repositoryformatversion 0;
