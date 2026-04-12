@@ -4,6 +4,16 @@
 __dotfiles_completion() {
   local cur;
   local prev;
+  local subcommands;
+
+  # Get all symlinked command files.
+  subcommands=$(find \
+    ~/.dotfiles/ \
+    -maxdepth 1 \
+    -mindepth 1 \
+    -type l \
+    -iname 'dotfiles-*' \
+    -print0 | xargs -0 basename);
 
   cur=${COMP_WORDS[COMP_CWORD]};
   prev="${COMP_WORDS[COMP_CWORD-1]}";
@@ -17,25 +27,15 @@ __dotfiles_completion() {
       ;;
     2)
       # Second word is an option for the subcommand.
-      # @todo Update this to search for files.
-      case "${prev}" in
-        sync)
-          mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
-          ;;
-        install)
-          mapfile -t COMPREPLY < <(compgen -W "packages apps vscode work-apps" -- "${cur}");
-          ;;
-        run)
-          # @todo Move `run` commands to `set`.
-          mapfile -t COMPREPLY < <(compgen -W "preferences gitconfig" -- "${cur}");
-          ;;
-        set)
-          mapfile -t COMPREPLY < <(compgen -W "path" -- "${cur}");
-          ;;
-        --prefix)
-          mapfile -t COMPREPLY < <(compgen -W "home sublime work" -- "${cur}");
-          ;;
-      esac
+      # @todo Move `run` commands to `set`.
+      local COMPLETE_LIST="";
+      for SUBCOMMAND in ${subcommands}; do
+        if [[ "${SUBCOMMAND}" == "dotfiles-${prev}-${cur}"* ]]; then
+          COMPLETE_LIST+="${SUBCOMMAND#dotfiles-${prev}-} ";
+        fi
+      done;
+
+      mapfile -t COMPREPLY < <(compgen -W "${COMPLETE_LIST}" -- "${cur}");
       ;;
     *)
       # Do nothing.
