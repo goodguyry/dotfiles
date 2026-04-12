@@ -69,6 +69,14 @@ Sync shell configuration files to the home directory.
 dotfiles sync home
 ```
 
+#### set
+
+Set the environment PATH.
+
+```shell
+dotfiles sync path
+```
+
 #### install
 
 Install Homebrew, CLI packages; NVM, Node, and NPM; RVM, Ruby and Gems
