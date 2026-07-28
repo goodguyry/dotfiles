@@ -44,6 +44,8 @@ vendor
 .vagrant
 .vscode
 .claude
+# .claude/*
+# */**/.claude/*
 memory
 
 # OS generated files #
@@ -59,3 +61,4 @@ Thumbs.db
 # Misc #
 ######################
 _site
+.patches
