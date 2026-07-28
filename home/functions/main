@@ -91,3 +91,8 @@ function qrdiscogs() {
 
   qrencode -o "${filename}" "${url}"
 }
+
+# Update node and bring global packages from the current (previous) version.
+function nvm-install() {
+  nvm install $1 --reinstall-packages-from=$(nvm current | sed "s/v//")
+}
