@@ -33,6 +33,7 @@ fi
 # 00-dotfiles
 declare -a dotfiles_path_parts=(
   "${HOME}/.bin"
+  "${HOME}/.local/bin"
 );
 
 for index in ${!dotfiles_path_parts[*]}; do
