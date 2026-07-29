@@ -118,7 +118,7 @@ fi;
 # ============= Always copy path files.
 
 for paths_file in "${dotfiles_root}"/etc/paths.d/*; do
-  if [[ -f "${paths_file}" ]]; then
+  if [ -f "${paths_file}" ] && [ -s "${paths_file}" ]; then
     sudo rsync -avz --quiet "${paths_file}" "/etc/paths.d/$(basename "${paths_file}")";
   fi
 done;
@@ -130,7 +130,7 @@ else
 fi
 
 for manpaths_file in "${dotfiles_root}"/etc/manpaths.d/*; do
-  if [[ -f "${manpaths_file}" ]]; then
+  if [ -f "${manpaths_file}" ] && [ -s "${manpaths_file}" ]; then
     sudo rsync -avz --quiet "${manpaths_file}" "/etc/manpaths.d/$(basename "${manpaths_file}")";
   fi
 done;
