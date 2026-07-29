@@ -9,45 +9,28 @@ dotfiles_root=$(dotfiles --prefix);
 
 source "${HOME}/.dotfiles/lib/status";
 
-# Write a line to the given file if the line isn't already in the file.
-function write_new_line() {
-  local path="${1}";
-  local file="${2}";
-
-  if [ ! -f "${file}" ]; then
-    touch "${file}";
-  fi
-
-
-  if ! grep -q ""${path}"" "${file}"; then
-    echo "${path}"|sudo tee -a "${file}" > /dev/null;
-
-    if [[ $? ]]; then
-      status --success "Path added to ${file}: ${path}";
-    else
-      status --error "Error adding ${file}: ${path}";
-    fi
-  fi;
-}
-
 # Add a path to the specified paths.d/* file.
 function add_path() {
-  local path="${1}";
+  local segment="${1}";
   local file="${2}";
   local prefix="${3}";
 
-  file_path=$(dotfiles --prefix "${prefix}");
+  dotfiles_path=$(dotfiles --prefix "${prefix}");
+  path_file="${dotfiles_path}/${file}";
 
-  write_new_line "${path}" "${file_path}/etc/paths.d/${file}";
-}
+  # Path files are gitignored.
+  if [[ ! -f "${path_file}" ]]; then
+    touch "${path_file}";
+  fi
 
-# Add a path to the specified manpaths.d/* file.
-function add_manpath() {
-  local path="${1}";
-  local file="${2}";
-  local prefix="${3}";
+  # write_new_line "${segment}" "${path_file}";
+  if ! grep -q ""${path}"" "${path_file}"; then
+    echo "${segment}"|sudo tee -a "${path_file}" > /dev/null;
 
-  file_path=$(dotfiles --prefix "${prefix}");
-
-  write_new_line "${path}" "${file_path}/etc/manpaths.d/${file}";
+    if [[ $? ]]; then
+      status --success "Path added to ${file}: ${segment}";
+    else
+      status --error "Error adding ${file}: ${segment}";
+    fi
+  fi;
 }

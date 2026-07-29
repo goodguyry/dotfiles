@@ -36,7 +36,9 @@ declare -a dotfiles_path_parts=(
 );
 
 for index in ${!dotfiles_path_parts[*]}; do
-  [ -d "${dotfiles_path_parts[$index]}" ] && add_path "${dotfiles_path_parts[$index]}" 00-dotfiles;
+  if [ -d "${dotfiles_path_parts[$index]}" ]; then
+    add_path "${dotfiles_path_parts[$index]}" etc/paths.d/00-dotfiles;
+  fi
 done;
 
 # 100-misc
@@ -45,7 +47,9 @@ declare -a misc_path_parts=(
 );
 
 for index in ${!misc_path_parts[*]}; do
-  [ -d "${misc_path_parts[$index]}" ] && add_path "${misc_path_parts[$index]}" 100-misc;
+  if [ -d "${misc_path_parts[$index]}" ]; then
+    add_path "${misc_path_parts[$index]}" etc/paths.d/100-misc;
+  fi
 done;
 
 if [ "$(type -P brew)" ]; then
@@ -95,17 +99,18 @@ if [ "$(type -P brew)" ]; then
 
   # Add missing path values.
   for index in ${!homebrew_path_parts[*]}; do
-    add_path "${homebrew_path_parts[$index]}" 10-homebrew;
+    if [ -d "${homebrew_path_parts[$index]}" ]; then
+      add_path "${homebrew_path_parts[$index]}" etc/paths.d/10-homebrew;
+    fi
   done;
 
   if [ "${#homebrew_manpath_parts[@]}" -gt "0" ]; then
     # Add missing manpath values.
     for index in ${!homebrew_manpath_parts[*]}; do
-      add_manpath "${homebrew_manpath_parts[$index]}" 10-homebrew;
+      if [ -d "${homebrew_manpath_parts[$index]}" ]; then
+        add_path "${homebrew_manpath_parts[$index]}" etc/manpaths.d/10-homebrew;
+      fi
     done;
-  else
-    # Delete any existing file when there are no manpaths.
-    rm etc/paths.d/10-homebrew;
   fi
 fi;
 
