@@ -34,7 +34,8 @@ declare -a home_files=(
 
 # Link home dotfiles files.
 for home_file in "${home_files[@]}"; do
-  [[ -f "${home_file}" ]] && setfile "${home_file}" "${HOME}/.$(basename "${home_file}")";
+  dotfile="${dotfiles_root}/${home_file}";
+  [[ -f "${dotfile}" ]] && setfile "${dotfile}" "${HOME}/.$(basename "${home_file}")";
 done;
 
 # Link function files.
@@ -68,7 +69,7 @@ rsync -avz --quiet "${dotfiles_root}/home/editorconfig" "${HOME}/.editorconfig";
 
 # Link env files.
 for env_file in "${dotfiles_root}/home/".env.*; do
-  setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
+  [[ -f "${env_file}" ]] && setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
 done;
 
 # Create dotfiles.local if not present.

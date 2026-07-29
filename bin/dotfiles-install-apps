@@ -16,6 +16,9 @@ if [ "${BASH_SOURCE[0]}" -ef "${0}" ]; then
   exit 1;
 fi
 
+# Capture the dotfiles directory.
+dotfiles_root=$(dotfiles --prefix);
+
 # Source setup files.
 source "${HOME}/.dotfiles/lib/dohomebrew";
 
@@ -24,4 +27,4 @@ status 'Checking for Homebrew';
 dohomebrew;
 
 # Install apps.
-brew bundle install --file ./etc/brew-apps;
+brew bundle install --file "${dotfiles_root}/etc/brew-apps";

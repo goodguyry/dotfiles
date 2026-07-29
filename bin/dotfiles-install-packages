@@ -27,7 +27,7 @@ status 'Checking for Homebrew';
 dohomebrew;
 
 # Install cli packages.
-brew bundle install --file ./etc/brew-packages;
+brew bundle install --file "${dotfiles_root}/etc/brew-packages";
 
 status "Pinning packages versions...";
 brew pin ruby;
