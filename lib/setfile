@@ -12,14 +12,16 @@
 # ------------------------------------------------------------------------------
 
 function setfile() {
-  local target;
+  local target="${1}";
   local link_name="${2}";
 
   # if $copy
   # rsync -avz --quiet "${target}" "${link_name}";
   # else
 
-  target=$(realpath "${1}");
-
-  ln -fs "${target}" "${link_name}";
+  if [ -f "${target}" ]; then
+    ln -fs "${target}" "${link_name}";
+  else
+    status --warning "No such file: ${1}";
+  fi
 }

@@ -35,14 +35,14 @@ declare -a home_files=(
 # Link home dotfiles files.
 for home_file in "${home_files[@]}"; do
   dotfile="${dotfiles_root}/${home_file}";
-  [[ -f "${dotfile}" ]] && setfile "${dotfile}" "${HOME}/.$(basename "${home_file}")";
+  setfile "${dotfile}" "${HOME}/.$(basename "${home_file}")";
 done;
 
 # Link function files.
 mmkd "${HOME}/.functions";
 if [[ $? ]]; then
   for function_file in "${dotfiles_root}"/home/functions/*; do
-    [[ -f "${function_file}" ]] && setfile "${function_file}" "${HOME}/.functions/$(basename "${function_file}")";
+    setfile "${function_file}" "${HOME}/.functions/$(basename "${function_file}")";
   done;
 else
   status --error "Could not create ${HOME}/.functions"
@@ -52,7 +52,7 @@ fi
 mmkd "${HOME}/.completions.d";
 if [[ $? ]]; then
   for completion_file in "${dotfiles_root}"/home/completions.d/*; do
-    [[ -f "${completion_file}" ]] && setfile "${completion_file}" "${HOME}/.completions.d/$(basename "${completion_file}")";
+    setfile "${completion_file}" "${HOME}/.completions.d/$(basename "${completion_file}")";
   done;
 else
   status --error "Could not create ${HOME}/.completions.d"
@@ -61,7 +61,7 @@ fi
 # Link commands into PATH.
 mmkd "${HOME}/.bin";
 for bin_file in "${dotfiles_root}"/home/bin/*; do
-  [[ -f "${bin_file}" ]] && setfile "${bin_file}" "${HOME}/.bin/$(basename "${bin_file}")";
+  setfile "${bin_file}" "${HOME}/.bin/$(basename "${bin_file}")";
 done;
 
 # Always copy editorconfig (can't remember why).
@@ -69,7 +69,7 @@ rsync -avz --quiet "${dotfiles_root}/home/editorconfig" "${HOME}/.editorconfig";
 
 # Link env files.
 for env_file in "${dotfiles_root}/home/".env.*; do
-  [[ -f "${env_file}" ]] && setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
+  setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
 done;
 
 # Create dotfiles.local if not present.
