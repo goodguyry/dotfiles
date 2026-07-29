@@ -68,9 +68,13 @@ done;
 rsync -avz --quiet "${dotfiles_root}/home/editorconfig" "${HOME}/.editorconfig";
 
 # Link env files.
-for env_file in "${dotfiles_root}/home/".env.*; do
-  setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
-done;
+if ls "${dotfiles_root}/home/".env.* &> /dev/null; then
+  for env_file in "${dotfiles_root}/home/".env.*; do
+    setfile "${env_file}" "${HOME}/$(basename "${env_file}")";
+  done;
+else
+  status --warning "No .env files to sync.";
+fi
 
 # Create dotfiles.local if not present.
 if [[ ! -r "${HOME}/.dotfiles.local" ]]; then
