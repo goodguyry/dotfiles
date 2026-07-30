@@ -37,9 +37,9 @@ printf "\n";
 if [[ "${CONTINUE}" =~ ^[Yy]$ || "${CONTINUE}" != '' ]]; then
   printf "Computer name: -> ";
   read -r CNAME;
-  sudo scutil --set COMPUTERNAME "${CNAME}";
+  sudo scutil --set ComputerName "${CNAME}";
   sudo scutil --set HostName "${CNAME}";
-  sudo scutil --set LocalHostName "${CNAME}";
+  sudo scutil --set LocalHostName "${CNAME// /-}";
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${CNAME}";
   echo "${CNAME} set.";
 fi
