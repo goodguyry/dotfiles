@@ -26,6 +26,9 @@ source "${HOME}/.dotfiles/lib/dohomebrew";
 status 'Checking for Homebrew';
 dohomebrew;
 
+# Trusted taps.
+brew trust hashicorp/tap;
+
 # Install cli packages.
 brew bundle install --file "${dotfiles_root}/etc/brew-packages";
 
