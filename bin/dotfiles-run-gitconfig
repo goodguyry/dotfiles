@@ -158,7 +158,7 @@ git_config_add alias.stats '!l() { git log --stat -${1} --pretty=oneline --abbre
 # Show verbose output about tags.
 git_config_add alias.tags 'tag -l';
 # Print the tracking branch, if any.
-git_config_add alias.tracking "!git for-each-ref --format='%(upstream:short)' \"$(git symbolic-ref -q HEAD)\"";
+git_config_add alias.tracking "!git rev-parse --abbrev-ref @{u}";
 # `git unstage [file]` Unstages a file or the entire index.
 git_config_add alias.unstage 'reset HEAD --';
 # Show the user email for the current repository.
