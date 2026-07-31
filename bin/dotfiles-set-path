@@ -54,11 +54,8 @@ for index in ${!misc_path_parts[*]}; do
 done;
 
 if [ "$(type -P brew)" ]; then
-  declare -a homebrew_path_parts=(
-    /opt/homebrew/bin
-    /opt/homebrew/sbin
-  );
-
+  # Homebrew bins are added via home/.pathrc
+  declare -a homebrew_path_parts=();
   declare -a homebrew_manpath_parts=();
 
   RUBY="$(brew --prefix ruby)";

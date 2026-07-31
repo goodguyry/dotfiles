@@ -27,6 +27,7 @@ declare -a home_files=(
   'home/bashrc'
   'home/hushlogin'
   'home/inputrc'
+  'home/pathrc'
   'home/profile'
   'home/prompt'
   'home/vimrc'
