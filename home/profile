@@ -47,3 +47,6 @@ export GIT_COMMITTER_EMAIL;
 # Current Node version.
 NVM_CURRENT="$(nvm current | sed 's/v//')";
 export NVM_CURRENT;
+
+NVM_SYMLINK_CURRENT=true
+export NVM_SYMLINK_CURRENT;
