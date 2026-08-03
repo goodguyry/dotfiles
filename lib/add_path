@@ -23,8 +23,7 @@ function add_path() {
     touch "${path_file}";
   fi
 
-  # write_new_line "${segment}" "${path_file}";
-  if ! grep -q ""${path}"" "${path_file}"; then
+  if ! grep -q ""${segment}"" "${path_file}"; then
     echo "${segment}"|sudo tee -a "${path_file}" > /dev/null;
 
     if [[ $? ]]; then
