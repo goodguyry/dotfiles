@@ -43,9 +43,8 @@ vendor
 .settings
 .vagrant
 .vscode
-.claude
-# .claude/*
-# */**/.claude/*
+.claude/*
+*/**/.claude/*
 memory
 
 # OS generated files #
