@@ -393,6 +393,9 @@ defaults write com.apple.screencapture type -string 'png';
 # Remove shadows from screenshots.
 defaults write com.apple.screencapture disable-shadow -bool true;
 
+# Hide preview thumbnail.
+defaults write com.apple.screencapture show-thumbnail -bool false;
+
 # Automatically quit printer app once the print jobs complete.
 defaults write com.apple.print.PrintingPrefs 'Quit When Finished' -bool true;
 
