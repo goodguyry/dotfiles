@@ -4,6 +4,8 @@
 # Report bugs at: https://github.com/goodguyry/dotfiles/issues
 # This is free software with ABSOLUTELY NO WARRANTY.
 
+# @todo This should be in the editor (sublime-dotfiles) repo.
+
 # ------------------------------------------------------------------------------
 # usage: dotfiles install vscode
 #

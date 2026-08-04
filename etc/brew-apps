@@ -1,6 +1,5 @@
 # Tap that.
 tap "espanso/espanso"
-tap "bysiber/cleardisk"
 
 # Password manager that keeps all passwords secure behind one password
 cask "1password", args: { appdir: "/Applications" }
@@ -18,6 +17,8 @@ cask "caffeine"
 cask "chronosync"
 # Anti-virus and malware scanner
 cask "clamxav"
+# Anthropic's official Claude AI desktop app
+cask "claude"
 # Screen capturing tool
 cask "cleanshot"
 # Tool to show live information about the batteries in various devices
@@ -50,10 +51,8 @@ cask "onyx"
 cask "pixelsnap"
 # VPN client focusing on security
 cask "protonvpn"
-# Display image info and preview unsupported formats in QuickLook
-cask "qlimagesize"
-# Archive manager for data compression and backups
-cask "rar"
+# All-in-one bookmark manager
+cask "raindropio"
 # Web browser
 cask "safari-technology-preview"
 # Digital design and prototyping platform
