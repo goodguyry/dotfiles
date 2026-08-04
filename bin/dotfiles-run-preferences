@@ -370,7 +370,7 @@ sudo systemsetup -setsleep 15 2>/dev/null 1>&2;
 sudo systemsetup -setcomputersleep 10 2>/dev/null 1>&2;
 
 # Set amount of idle time until display sleeps to <minutes>.
-sudo systemsetup -setdisplaysleep 3 2>/dev/null 1>&2;
+sudo systemsetup -setdisplaysleep 5 2>/dev/null 1>&2;
 
 # Set amount of idle time until hard disk sleeps to <minutes>.
 sudo systemsetup -setharddisksleep 15 2>/dev/null 1>&2;
