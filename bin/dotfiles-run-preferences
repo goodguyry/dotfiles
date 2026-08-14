@@ -146,6 +146,17 @@ defaults write NSGlobalDomain com.apple.springing.delay -float 0;
 # Avoid creating .DS_Store files on network volumes.
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true;
 
+# @todo Try `plutil` instead
+
+# @todo Add comparable Finder list view settings.
+
+# @todo Incorporate current Finder settings
+# /usr/libexec/PlistBuddy -c 'Print :StandardViewSettings:IconViewSettings' "${HOME}/Library/Preferences/com.apple.finder.plist"
+
+# /usr/libexec/PlistBuddy -c 'Set ":DesktopViewSettings:IconViewSettings:gridSpacing" 40.000000' "${HOME}/Library/Preferences/com.apple.finder.plist";
+
+# @todo Abstract these lines.
+
 # Show item info near icons on the desktop and in other icon views.
 /usr/libexec/PlistBuddy -c 'Set :DesktopViewSettings:IconViewSettings:showItemInfo true' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
@@ -173,17 +184,17 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true;
 # Increase grid spacing for icons on the desktop and in other icon views.
 /usr/libexec/PlistBuddy -c 'Set :DesktopViewSettings:IconViewSettings:gridSpacing 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
-/usr/libexec/PlistBuddy -c 'Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 50' \
+/usr/libexec/PlistBuddy -c 'Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
-/usr/libexec/PlistBuddy -c 'Set :StandardViewSettings:IconViewSettings:gridSpacing 50' \
+/usr/libexec/PlistBuddy -c 'Set :StandardViewSettings:IconViewSettings:gridSpacing 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
 
 # Increase the size of icons on the desktop and in other icon views.
 /usr/libexec/PlistBuddy -c 'Set :DesktopViewSettings:IconViewSettings:iconSize 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
-/usr/libexec/PlistBuddy -c 'Set :FK_StandardViewSettings:IconViewSettings:iconSize 60' \
+/usr/libexec/PlistBuddy -c 'Set :FK_StandardViewSettings:IconViewSettings:iconSize 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
-/usr/libexec/PlistBuddy -c 'Set :StandardViewSettings:IconViewSettings:iconSize 60' \
+/usr/libexec/PlistBuddy -c 'Set :StandardViewSettings:IconViewSettings:iconSize 40' \
   "${HOME}/Library/Preferences/com.apple.finder.plist";
 
 # Use icon view in all Finder windows by default.
