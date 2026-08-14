@@ -78,15 +78,11 @@ cask "zoom"
 
 mas "1Password for Safari", id: 1569813296
 mas "Bear", id: 1091189122
-mas "Better Rename 9", id: 414209656
 mas "Craft", id: 1487937127
 mas "Drafts", id: 1435957248
 mas "Flow", id: 1423210932
 mas "GarageBand", id: 682658836
-mas "Keynote", id: 409183694
 mas "Mela", id: 1568924476
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
 mas "Reeder", id: 1529448980 # "Reeder Classic"
 mas "Sequel Ace", id: 1518036000
 mas "SnippetsLab", id: 1006087419
